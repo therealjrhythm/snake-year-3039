@@ -1,0 +1,22 @@
+{
+  "build": "0.1.0-neon-spire",
+  "date": "2026-09-05",
+  "status": "PARTIAL - full district playthrough not established",
+  "method": "A temporary test navigator read the live Simulation state and supplied ordinary x/y steer actions at 60 Hz. It did not teleport, edit the running world, grant resources, disable collisions, or manipulate quotas. Initial runs ended before boss entry. The navigator was removed after this bounded audit; these observations are not counted as acceptance-test passes.",
+  "input": "automated analog desired-heading values through GameInput; not physical keyboard or controller evidence",
+  "profile": "Standard",
+  "navigation": "A grid route and short-horizon steering evaluator pursued ordinary cores. A second pass retained targets and used greater body clearance. This simple driver can make strategic routing mistakes and does not prove that a route is impossible.",
+  "firstPass": [
+    { "seed": 3039, "activeSeconds": 29.58, "wave": 1, "ordinaryCores": 10, "status": "dead", "cause": "Critical crash: your own body" },
+    { "seed": 76113, "activeSeconds": 46.97, "wave": 2, "ordinaryCores": 16, "status": "dead", "cause": "Critical crash: your own body" },
+    { "seed": 20260905, "activeSeconds": 42.33, "wave": 2, "ordinaryCores": 14, "status": "dead", "cause": "Critical crash: your own body" }
+  ],
+  "secondPass": [
+    { "seed": 3039, "activeSeconds": 45.53, "wave": 2, "ordinaryCores": 14, "status": "dead", "cause": "Critical crash: solid emitter post" },
+    { "seed": 76113, "activeSeconds": 33.18, "wave": 2, "ordinaryCores": 13, "status": "dead", "cause": "Critical crash: your own body" },
+    { "seed": 20260905, "activeSeconds": 11.05, "wave": 1, "ordinaryCores": 4, "status": "dead", "cause": "Critical crash: your own body" }
+  ],
+  "established": ["Energy collection, growth, fatal self-collision and ordinary wave transitions operated under unmodified simulation inputs.", "The two passes reached up to wave 2 and 16 ordinary cores."],
+  "notEstablished": ["A complete three-wave and Warden playthrough using only ordinary controls.", "A normal-play deliberate Hunter body-block.", "Physical Xbox compatibility, owner review, or a new-player usability test."],
+  "separateEvidence": "The deterministic simulation suite verifies three-wave totals, actual rival-body collision, boss rules and extraction with deliberately arranged test fixtures. Those fixture tests do not substitute for a full normal-play clear."
+}

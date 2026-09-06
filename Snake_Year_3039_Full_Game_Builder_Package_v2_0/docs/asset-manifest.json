@@ -1,0 +1,65 @@
+{
+  "project": "Snake: Year 3039",
+  "documentVersion": "2.0",
+  "supersedes": "1.0 release boundaries",
+  "scope": "Full single-player launch specification, not an MVP",
+  "referenceApproval": "Approved visual direction in the current conversation",
+  "note": "Only two flattened references are included. Production models, music, textures, UI and fonts are not included.",
+  "assets": [
+    {
+      "file": "references/start-settings-approved.png",
+      "originalConversationFilename": "neon_snake_year_3039_settings.png",
+      "purpose": "Title and settings art direction",
+      "width": 1672,
+      "height": 941,
+      "sha256": "482d3ce5734782b1ed4782be2f43950db162e5b62dc554813472ddb5b083ff7d",
+      "productionReady3DAsset": false
+    },
+    {
+      "file": "references/gameplay-approved.png",
+      "originalConversationFilename": "cyberpunk_snake_neon_spire_hud.png",
+      "purpose": "Gameplay art direction; raised camera in implementation",
+      "width": 1672,
+      "height": 941,
+      "sha256": "b837f2a2596d3b7031a110301f524072aef53b8bbd8fb6b503bd805a6a533e55",
+      "productionReady3DAsset": false
+    }
+  ],
+  "requiredProductionGroups": [
+    {
+      "id": "player",
+      "status": "TO PRODUCE",
+      "includes": "head, segment, tail, materials, six liveries, six trails"
+    },
+    {
+      "id": "world",
+      "status": "TO PRODUCE",
+      "includes": "five district layouts/kits, skyline, obstacles, exits, emitters"
+    },
+    {
+      "id": "enemies",
+      "status": "TO PRODUCE",
+      "includes": "three regular drone archetypes, two regular rival identities"
+    },
+    {
+      "id": "bosses",
+      "status": "TO PRODUCE",
+      "includes": "Warden, Switchblade Twins, Crucible Engine, Null Choir, Custodian"
+    },
+    {
+      "id": "objects",
+      "status": "TO PRODUCE",
+      "includes": "core, eight pickups, boss relays, projectiles, warning markers"
+    },
+    {
+      "id": "interface",
+      "status": "TO PRODUCE",
+      "includes": "title, icons, glyphs, complete menus/HUD/map/Workshop/records"
+    },
+    {
+      "id": "audio",
+      "status": "TO PRODUCE OR LICENSE",
+      "includes": "title, five district music families/arrangements, ending, ambience and sound events"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "build": "0.1.0",
+  "date": "2026-09-06T03:14:40.435Z",
+  "method": "Playwright, installed Chrome, headless; Browser plugin absent",
+  "browser": "152.0.7977.77",
+  "checks": [
+    "Title, fonts and WebGL scene load",
+    "Settings opens and Escape closes its modal",
+    "Keyboard start, countdown, forward motion and first core growth",
+    "Pause freezes HUD and gameplay resources",
+    "Save & Exit persists an exact active snapshot",
+    "Suspend survives reload unchanged",
+    "Focus loss freezes a resume countdown",
+    "All four HUD groups stay inside 1280×720 at 150% scale",
+    "Real movement into the arena wall produces named critical crash",
+    "Terminal result records once and clears the suspend",
+    "Retry restores the district entry checkpoint",
+    "Local Records displays the real saved result",
+    "Narrow title remains contained (touch gameplay is outside target)",
+    "Explicit Warden fixture restores and renders real relays, nodes and HUD",
+    "No uncaught browser or console errors across these flows"
+  ],
+  "errors": [],
+  "limitations": [
+    "Warden screenshot uses an explicit snapshot fixture, not a full playthrough.",
+    "Controller hardware, subjective audio and five-district launch acceptance are not established."
+  ]
+}
