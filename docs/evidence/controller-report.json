@@ -1,0 +1,28 @@
+{
+  "date": "2026-09-06T04:00:45.297130+00:00",
+  "method": "Results recorded from scripts/verify-controller.mjs; isolated installed Chrome with a mocked standard Xbox mapping.",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "width": 375,
+      "height": 1020
+    }
+  ],
+  "checks": [
+    "Controller-only title, Settings, tabs, slider, briefing, difficulty, start, pause, back, Save & Exit and guide flows passed",
+    "Graphics quality and Rules profile: A opens visible listbox, D-pad selects, A confirms; B cancels the quality list without closing Settings or changing its value",
+    "Held A across popup open does not accidentally confirm",
+    "DOM focus refusal retains controller cursor and activation",
+    "Left-stick navigation and pointer-to-gamepad visible focus pass"
+  ],
+  "errors": [],
+  "ownerFeedback": "Owner confirmed other menus work with their Xbox controller after the initial focus fix. They reported both dropdowns still failed to open; the final custom-list revision addresses that behavior and awaits owner recheck.",
+  "limitations": [
+    "Mocked controller tests are not complete physical Xbox qualification.",
+    "CUA inspection confirmed both new option lists render in the actual narrow preview using pointer input.",
+    "No normal full-district playthrough is claimed."
+  ]
+}

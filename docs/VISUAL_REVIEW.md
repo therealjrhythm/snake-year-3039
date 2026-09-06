@@ -1,6 +1,6 @@
 # Visual review — first playable checkpoint
 
-Status: **development review; owner review pending**. No fidelity score, pixel-parity claim or milestone acceptance is recorded. The running scene has improved, but it does not yet match the approved references' material and environmental richness.
+Status: **targeted owner feedback received; full reference acceptance pending**. No fidelity score, pixel-parity claim or milestone acceptance is recorded. The owner says the graphics and sound effects are good and the controls are smooth, while enemies are hard to see. Preserve this visual direction and prioritize hostile readability. The earlier reference-gap inventory below remains context for later polish, not a request to redesign the liked scene.
 
 Reviewed actual 1672 × 941 evidence: [title](evidence/title-1672.png), [ordinary gameplay](evidence/gameplay-1672.png), [settings](evidence/settings-1672.png), and [Warden fixture](evidence/warden-fixture-1672.png). Baselines: [approved Start & Settings](../Snake_Year_3039_Full_Game_Builder_Package_v2_0/docs/references/start-settings-approved.png) and [approved gameplay](../Snake_Year_3039_Full_Game_Builder_Package_v2_0/docs/references/gameplay-approved.png). Build/content: 0.1.0 / 0.1.0-neon-spire; browser metadata: [browser-report.json](evidence/browser-report.json). Evidence paths are refreshed by the browser verification script. Warden was restored from an explicit snapshot fixture, not reached through a complete normal run.
 
@@ -19,3 +19,11 @@ The corrected captures show darker armor between brighter cyan seams, a larger f
 The elevated gameplay camera and compact HUD are intentional PRD adaptations. The low reference camera, oversized reference HUD and incidental branding are not literal implementation targets. Current rules, correct controls, objective truth and readable hazards take precedence over incidental reference labels.
 
 The inspected screenshots establish rendered states, not smooth motion, audio quality, fair encounters, deliberate human body-blocking, a normal Warden clear or physical controller support. The next visual gate requires a normal full Neon Spire playthrough with title/settings/waves/Hunter/Warden/extraction/results captures, Low/Medium comparisons, minimum-viewport scale review and owner assessment of the actual moving game. The remaining four districts must each meet that accepted benchmark.
+
+## Enemy readability feedback pass
+
+The focused renderer revision adds red hostile armor and top accents, pale mine spikes, a mine ring matching its 0.45-unit collision radius, bright 0.14-unit projectile cores and tapered light trails. Threat cues ignore decorative fog and remain visible with bloom disabled. Arming/spawn warnings are amber; disabled drones turn gray and display a pause glyph. At narrow widths, separate small glyphs identify threats without enlarging solid bodies. Player armor, scene lighting, city, camera and simulation are unchanged.
+
+Frozen renderer fixtures at 1672 × 941 Medium, Low with bloom off, and 375 × 844 Low were visually inspected: the Hunter silhouette and active drones/mines are visibly separated from the floor and cyan player. The fixture is an arranged enemy-state comparison, not evidence of a full wave or normal playthrough.
+
+Final focused captures and verification: [Medium desktop](evidence/enemies-medium-1672x941.png), [Low 1280 × 720](evidence/enemies-low-1280x720.png), [narrow Low](evidence/enemies-low-375x844.png), [report](evidence/enemy-visibility-report.json).

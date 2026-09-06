@@ -34,6 +34,11 @@ export class GameInputController {
   private padIndex: number | null = null;
   private menuDirection = '';
   private nextMenuMove = 0;
+  // Embedded previews can lose DOM focus while still delivering gamepad input.
+  // Keep a menu cursor of our own, and remember it when returning from a dialog.
+  private readonly menuSelections = new WeakMap<HTMLElement, HTMLElement>();
+  private markedControl: HTMLElement | null = null;
+  private lastMenuRoot: HTMLElement | null = null;
   private readonly onPause: (reason: string) => void;
 
   constructor(onPause: (reason: string) => void) {
@@ -43,12 +48,20 @@ export class GameInputController {
     window.addEventListener('blur', this.blur);
     document.addEventListener('visibilitychange', this.visibility);
     window.addEventListener('gamepaddisconnected', this.disconnect);
+    window.addEventListener('focusin', this.focusIn);
+    window.addEventListener('pointerdown', this.pointerDown);
   }
 
   setGameplay(active: boolean): void {
     if (active === this.gameplay) return;
     this.clear();
     this.gameplay = active;
+  }
+
+  focusMenu(): void {
+    const controls = this.menuControls();
+    const preferred = controls.find(control => control.hasAttribute('data-autofocus')) ?? controls[0];
+    if (preferred) this.selectControl(preferred);
   }
 
   clear(): void {
@@ -58,6 +71,7 @@ export class GameInputController {
     this.triggerActive = false;
     this.menuDirection = '';
     this.nextMenuMove = 0;
+    this.markSelection(null);
     const pad = this.getPad();
     if (pad) {
       pad.buttons.forEach((button, index) => {
@@ -71,6 +85,11 @@ export class GameInputController {
   poll(): GameInput {
     if (this.disposed) return emptyInput();
     const wasGameplay = this.gameplay;
+    if (!this.gameplay) {
+      const root = this.menuRoot();
+      if (root !== this.lastMenuRoot) { this.clear(); this.lastMenuRoot = root; }
+      this.selectedMenuControl();
+    }
     const pad = this.getPad();
     let padX = 0;
     let padY = 0;
@@ -108,6 +127,7 @@ export class GameInputController {
         padUse = edge(2);
         padSwap = edge(3);
       } else {
+        this.markSelection(this.device === 'gamepad' ? this.selectedMenuControl() : null);
         this.pollMenu(padX, padY);
         if (edge(0)) this.activateMenuControl();
         if (edge(4)) this.switchTab(-1);
@@ -150,6 +170,9 @@ export class GameInputController {
     window.removeEventListener('blur', this.blur);
     document.removeEventListener('visibilitychange', this.visibility);
     window.removeEventListener('gamepaddisconnected', this.disconnect);
+    window.removeEventListener('focusin', this.focusIn);
+    window.removeEventListener('pointerdown', this.pointerDown);
+    this.markSelection(null);
     this.keys.clear();
     this.suppressedKeys.clear();
   }
@@ -166,6 +189,11 @@ export class GameInputController {
 
   private pause(reason: string): void {
     this.clear();
+    const popup = this.menuRoot();
+    if (!this.gameplay && ['pause', 'back'].includes(reason) && popup?.hasAttribute('data-menu-popup')) {
+      popup.querySelector<HTMLElement>('[data-menu-back]')?.click();
+      return;
+    }
     this.onPause(reason);
   }
 
@@ -176,6 +204,7 @@ export class GameInputController {
     if (!event.repeat && !this.keys.has(event.code)) this.suppressedKeys.delete(event.code);
     this.keys.add(event.code);
     this.device = 'keyboard';
+    this.markSelection(null);
     if (event.code === 'Escape') {
       event.preventDefault();
       if (!event.repeat && !this.suppressedKeys.has(event.code)) this.pause(this.gameplay ? 'pause' : 'back');
@@ -216,8 +245,54 @@ export class GameInputController {
     else this.clear();
   };
 
+  private focusIn = (event: FocusEvent): void => {
+    const control = event.target;
+    const root = this.menuRoot();
+    if (root && control instanceof HTMLElement && this.menuControls().includes(control)) {
+      this.menuSelections.set(root, control);
+      this.markSelection(this.device === 'gamepad' ? control : null);
+    }
+  };
+
+  private pointerDown = (): void => {
+    this.device = 'keyboard';
+    this.markSelection(null);
+  };
+
+  private markSelection(control: HTMLElement | null): void {
+    if (control === this.markedControl) return;
+    this.markedControl?.removeAttribute('data-gamepad-focus');
+    this.markedControl = control;
+    control?.setAttribute('data-gamepad-focus', 'true');
+  }
+
+  private selectControl(control: HTMLElement): void {
+    const root = this.menuRoot();
+    if (!root) return;
+    this.menuSelections.set(root, control);
+    control.focus({ preventScroll: true });
+    this.markSelection(this.device === 'gamepad' ? control : null);
+    control.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+
+  private selectedMenuControl(): HTMLElement | null {
+    const root = this.menuRoot();
+    if (!root) { this.markSelection(null); return null; }
+    const controls = this.menuControls();
+    const previous = this.menuSelections.get(root);
+    if (previous && controls.includes(previous)) return previous;
+    const active = document.activeElement;
+    const control = active instanceof HTMLElement && controls.includes(active) ? active
+      : controls.find(element => element.hasAttribute('data-autofocus'))
+        ?? controls.find(element => element.matches('[role="tab"][aria-selected="true"]')) ?? controls[0];
+    if (control) this.selectControl(control);
+    return control ?? null;
+  }
+
   private menuRoot(): HTMLElement | null {
-    const roots = Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"], [data-menu]')).filter(visible);
+    const roots = Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"], [data-menu], [data-menu-popup]')).filter(visible);
+    const popup = roots.filter(root => root.hasAttribute('data-menu-popup')).at(-1);
+    if (popup) return popup;
     const dialogs = roots.filter(root => root.getAttribute('role') === 'dialog');
     return (dialogs.length ? dialogs : roots).at(-1) ?? null;
   }
@@ -232,8 +307,24 @@ export class GameInputController {
   private moveMenu(x: number, y: number): void {
     const controls = this.menuControls();
     if (!controls.length) return;
-    const active = document.activeElement instanceof HTMLElement && controls.includes(document.activeElement) ? document.activeElement : null;
-    if (!active) { controls[0]?.focus(); return; }
+    const active = this.selectedMenuControl();
+    if (!active) return;
+    // Form rows can have very different widths. Navigate them in reading order
+    // so a narrow select is not skipped in favor of a wider slider below it.
+    const panel = active.closest('[role="tabpanel"]');
+    if (y && panel) {
+      const fields = controls.filter(control => panel.contains(control));
+      const next = fields[fields.indexOf(active) + Math.sign(y)];
+      if (next) { this.selectControl(next); return; }
+    }
+    if (y > 0 && active.closest('[role="tablist"]')) {
+      const firstField = controls.find(control => control.closest('[role="tabpanel"]'));
+      if (firstField) { this.selectControl(firstField); return; }
+    }
+    if (x && active.getAttribute('role') === 'combobox' && active.getAttribute('aria-expanded') === 'false') {
+      active.dispatchEvent(new CustomEvent('menu-adjust', { detail: { direction: Math.sign(x) } }));
+      return;
+    }
     if (x && active instanceof HTMLInputElement && (active.type === 'range' || active.type === 'number')) {
       try {
         const step = Number(active.step) > 0 ? Number(active.step) : 1;
@@ -270,15 +361,17 @@ export class GameInputController {
       return { control, along, score: along + across * 2.5 };
     }).filter(candidate => candidate.along > 4).sort((a, b) => a.score - b.score);
     const next = candidates[0]?.control;
-    if (next) { next.focus(); next.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
+    if (next) this.selectControl(next);
   }
 
   private activateMenuControl(): void {
-    const controls = this.menuControls();
-    const active = document.activeElement;
-    const control = active instanceof HTMLElement && controls.includes(active) ? active : controls[0];
-    control?.focus();
-    control?.click();
+    const control = this.selectedMenuControl();
+    if (!control) return;
+    this.selectControl(control);
+    // Native select popups do not accept polled controller input. Left/right
+    // adjusts these controls directly without leaving the game's menu system.
+    if (control instanceof HTMLSelectElement || control instanceof HTMLInputElement && control.type === 'range') return;
+    control.click();
   }
 
   private pollMenu(x: number, y: number): void {
@@ -299,7 +392,6 @@ export class GameInputController {
     if (!tabs.length) return;
     const current = Math.max(0, tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true'));
     const target = tabs[(current + direction + tabs.length) % tabs.length];
-    target?.focus();
-    target?.click();
+    if (target) { this.selectControl(target); target.click(); }
   }
 }

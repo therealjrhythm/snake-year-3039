@@ -101,6 +101,9 @@ try {
   await waitActive();
   await page.waitForTimeout(700);
   await screen('gameplay-1672');
+  // Stop the active run before installing the independent boss fixture. Otherwise
+  // a real terminal-record transaction can race and clear the fixture's suspend.
+  await page.reload();
   await page.evaluate(async () => {
     const { Simulation } = await import('/src/game/simulation.ts');
     const { saveRun } = await import('/src/game/persistence.ts');

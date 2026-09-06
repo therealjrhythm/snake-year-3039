@@ -71,16 +71,15 @@ try {
   const quality = page.getByRole('combobox', { name: 'Graphics quality' });
   await quality.focus();
   await tap(15);
-  await expect(quality).toHaveValue('medium');
+  await expect(quality).toContainText('Medium');
   assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('s39.settings.v1')).quality), 'medium');
   await tap(15);
-  await expect(quality).toHaveValue('high');
+  await expect(quality).toContainText('High');
   await tap(15);
-  await expect(quality).toHaveValue('high');
+  await expect(quality).toContainText('High');
   await quality.focus();
   await page.keyboard.press('m');
-  await page.keyboard.press('Enter');
-  await expect(quality).toHaveValue('medium');
+  await expect(quality).toContainText('Medium');
   await frames(4);
   await expect(page.locator('.title-bottom')).toContainText('KEYBOARD READY');
 
@@ -94,10 +93,10 @@ try {
   await difficulty.focus();
   await expect(difficulty).toBeFocused();
   await tap(15);
-  await expect(difficulty).toHaveValue('assisted');
+  await expect(difficulty).toContainText('Assisted');
   await expect(difficulty).toBeFocused();
   await tap(14);
-  await expect(difficulty).toHaveValue('standard');
+  await expect(difficulty).toContainText('Standard');
 
   const storage = await page.evaluate(async () => {
     const p = await import('/src/game/persistence.ts');

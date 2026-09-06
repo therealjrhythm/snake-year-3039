@@ -8,9 +8,11 @@ export function Modal({ title, subtitle, onClose, children, className = '' }: {
   useEffect(() => {
     const previous = document.activeElement as HTMLElement | null;
     const element = ref.current;
-    element?.querySelector<HTMLElement>('button, input, select')?.focus();
+    (element?.querySelector<HTMLElement>('[data-autofocus], [role="tab"][aria-selected="true"]')
+      ?? element?.querySelector<HTMLElement>('button, input, select'))?.focus();
     const trap = (event: KeyboardEvent) => {
       if (event.key !== 'Tab') return;
+      if (event.target instanceof HTMLElement && event.target.closest('[data-menu-popup]')) return;
       const controls = Array.from(element?.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select, [tabindex="0"]') ?? []).filter(el => el.offsetParent !== null);
       const first = controls[0], last = controls.at(-1);
       if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }

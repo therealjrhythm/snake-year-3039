@@ -27,9 +27,12 @@ To reproduce the browser checks with installed Chrome, start Vite on the verific
 npm run dev -- --port 3039
 node scripts/verify-game.mjs
 node scripts/verify-platform.mjs
+node scripts/verify-controller.mjs
+node scripts/verify-audio.mjs
+node scripts/verify-enemies.mjs
 ```
 
-Both scripts accept a different local URL as their first argument. The platform script uses a mocked standard gamepad in an isolated test browser context.
+Run these scripts sequentially. They accept a different local URL as their first argument. Controller/platform checks use mocked standard gamepads in isolated browser contexts; audio uses a real Web Audio graph and enemy captures use explicit frozen fixtures.
 
 ## Current implementation checkpoint
 
@@ -37,7 +40,7 @@ Version **0.1.0** implements a first playable foundation: a real Three.js arena 
 
 `npm run check` passed 36 tests and `npm run build` passed. The browser run passed 15 checks in headless Chrome 152.0.7977.77, including normal keyboard movement/first-core growth, pause, exact suspend/reload, focus-loss countdown pause, 150% HUD containment at 1280 × 720, named wall crash, once-only record/save clearing and checkpoint retry. Platform checks passed real React settings navigation, mocked gamepad edges and IndexedDB isolation. See the [browser report](docs/evidence/browser-report.json) and [feature matrix](docs/FEATURE_MATRIX.md) for coverage limits.
 
-**No complete district has been demonstrated through ordinary play.** The Warden screenshot loads an explicit snapshot fixture; it proves rendering/restoration, not that a player completed the preceding waves or boss. Normal steering audits reached 10, 16 and 14 cores on three seeds before self-collision. Physical Xbox, subjective audio, owner visual review and normal complete-district play remain outstanding. The [visual review](docs/VISUAL_REVIEW.md) records the remaining material gap from the approved references.
+**No complete district has been demonstrated through ordinary play.** The Warden screenshot loads an explicit snapshot fixture; it proves rendering/restoration, not that a player completed the preceding waves or boss. Normal steering audits reached 10, 16 and 14 cores on three seeds before self-collision. The owner likes the graphics, sound effects and smooth controls. Their requested Xbox-menu, enemy-readability and futuristic-music changes are implemented; revised-music listening feedback, physical Xbox confirmation and normal complete-district play remain outstanding. The [visual review](docs/VISUAL_REVIEW.md) records the remaining material gap from the approved references.
 
 The other four districts/finales, full-city progression/ending, Arcade, Endless, twelve Trials, six liveries, six trails, twelve achievements, Workshop, full settings/accessibility, transactional save/recovery/export/import, performance and hardware qualification remain required work. Defining their IDs does not make them playable.
 
@@ -52,6 +55,10 @@ The other four districts/finales, full-city progression/ending, Arcade, Endless,
 | Pause / back | Escape | Menu / B |
 | Confirm menu action | Enter; Space on a focused button | A |
 | Navigate menus | Tab / Shift+Tab and supported arrows | D-pad / left stick |
+| Open a choice list | Enter / Space | A |
+| Choose / cancel an option | Up/down, Enter / Escape | D-pad up/down, A / B |
+| Adjust a menu setting directly | Left / right arrows | D-pad left / right |
+| Switch settings tab | Tab then Enter | LB / RB |
 
 Movement is continuous. Direction input changes heading; releasing it preserves direction. Shields protect against hostile attacks; colliding with walls, your own body or a rival remains a critical crash. A rival head striking your trailing body is the core combat interaction. Physical Xbox testing is outstanding; the mapping table records the intended shared controls.
 
@@ -63,6 +70,7 @@ Movement is continuous. Direction input changes heading; releasing it preserves 
 | `src/App.tsx` | Application screen/state flow; creates and coordinates simulation, renderer, input, audio, settings and save/recovery UI |
 | `src/components/Hud.tsx` | Live objective, score, integrity, boost, tactical slots and encounter information |
 | `src/components/Modal.tsx` | Semantic modal presentation and focus handling |
+| `src/components/MenuSelect.tsx` | Visible keyboard/controller option lists, confirmation/cancellation and focus |
 | `src/components/Settings.tsx` | Initial Controls/Audio/Visuals/Accessibility settings and validated local settings defaults |
 | `src/style.css` | Title, HUD, menus, modals, settings, focus and responsive visual styles |
 | `src/game/types.ts` | Simulation/entity state, shared input types and full-release content contracts |

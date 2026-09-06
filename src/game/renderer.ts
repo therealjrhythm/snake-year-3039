@@ -40,9 +40,13 @@ class SerpentModel {
   flanks: THREE.InstancedMesh;
   ports: THREE.InstancedMesh;
   signature: THREE.MeshStandardMaterial;
+  private hostile: boolean;
   constructor(color: number, capacity = 128) {
-    const shell = metal(0x102030, 0.29), dark = metal(0x070d16, 0.39), edge = metal(0x34495c, 0.23);
-    this.signature = light(color, 1.1);
+    this.hostile = color === RED;
+    const shell = this.hostile ? new THREE.MeshStandardMaterial({ color: 0x782338, emissive: 0x871c36, emissiveIntensity: 0.32, metalness: 0.55, roughness: 0.36, fog: false }) : metal(0x102030, 0.29);
+    const dark = metal(0x070d16, 0.39), edge = this.hostile ? light(0xb44256, 0.35) : metal(0x34495c, 0.23);
+    this.signature = light(color, this.hostile ? 1.65 : 1.1);
+    if (this.hostile) { this.signature.fog = false; edge.fog = false; }
     const shellGeo = new THREE.CylinderGeometry(0.30, 0.30, 0.44, 8); shellGeo.rotateZ(Math.PI / 2);
     const seamGeo = new THREE.CylinderGeometry(0.276, 0.276, 0.50, 8); seamGeo.rotateZ(Math.PI / 2);
     this.armor = new THREE.InstancedMesh(shellGeo, shell, capacity);
@@ -86,7 +90,7 @@ class SerpentModel {
       dummy.position.set(p.x, 0.33, p.z); dummy.rotation.set(0, -angle, 0); dummy.scale.set(1, taper, taper); dummy.updateMatrix();
       this.armor.setMatrixAt(i, dummy.matrix); this.seams.setMatrixAt(i, dummy.matrix);
       dummy.position.y = 0.33 + 0.27 * taper; dummy.scale.set(0.30, 0.06, 0.20 * taper); dummy.updateMatrix(); this.plates.setMatrixAt(i, dummy.matrix);
-      dummy.position.y += 0.036; dummy.scale.set(0.09, 0.018, 0.075); dummy.updateMatrix(); this.highlights.setMatrixAt(i, dummy.matrix);
+      dummy.position.y += 0.036; dummy.scale.set(this.hostile ? 0.25 : 0.09, 0.018, this.hostile ? 0.10 : 0.075); dummy.updateMatrix(); this.highlights.setMatrixAt(i, dummy.matrix);
       for (let side = 0; side < 2; side++) {
         const sign = side === 0 ? -1 : 1;
         dummy.position.set(p.x - Math.sin(angle) * sign * 0.23 * taper, 0.40, p.z + Math.cos(angle) * sign * 0.23 * taper);
@@ -116,6 +120,12 @@ export class GameRenderer {
   private staticCyan = light(CYAN, 0.8);
   private staticPink = light(PINK, 0.8);
   private hostile = light(RED, 1.0);
+  // Hostile cues retain contrast at Low/bloom off and when a narrow view moves the camera back.
+  private threatSignal = new THREE.MeshBasicMaterial({ color: RED, toneMapped: false, fog: false });
+  private threatEdge = new THREE.MeshBasicMaterial({ color: 0xffd5df, toneMapped: false, fog: false });
+  private warningSignal = new THREE.MeshBasicMaterial({ color: 0xffbc79, toneMapped: false, fog: false });
+  private disabledSignal = new THREE.MeshBasicMaterial({ color: 0x8796a6, toneMapped: false, fog: false });
+  private threatShell = new THREE.MeshStandardMaterial({ color: 0x782338, emissive: 0x871c36, emissiveIntensity: 0.26, metalness: 0.5, roughness: 0.38, fog: false });
   private dark = metal();
   private silver = metal(0x607887);
   private lastObstacleKey = '';
@@ -135,6 +145,7 @@ export class GameRenderer {
     this.renderer.setClearColor(0x06111d);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 0.88;
+    this.hostile.fog = false;
     this.renderer.domElement.setAttribute('aria-label', 'Live 3D Neon Spire arena');
     this.renderer.domElement.addEventListener('webglcontextlost', (event) => { event.preventDefault(); onContextLoss(); });
     container.appendChild(this.renderer.domElement);
@@ -326,27 +337,49 @@ export class GameRenderer {
   }
   private mine() {
     const g = new THREE.Group();
-    const body = new THREE.Mesh(new THREE.IcosahedronGeometry(0.30, 1), this.dark); body.position.y = 0.35; g.add(body);
+    const body = new THREE.Mesh(new THREE.IcosahedronGeometry(0.30, 1), this.threatShell); body.position.y = 0.35; g.add(body);
     for (let i = 0; i < 8; i++) {
       const a = i * Math.PI / 4;
-      const spike = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.22, 4), this.silver); spike.position.set(Math.cos(a) * 0.34, 0.35, Math.sin(a) * 0.34); spike.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(Math.cos(a), 0, Math.sin(a))); g.add(spike);
+      const spike = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.22, 4), this.threatEdge); spike.position.set(Math.cos(a) * 0.34, 0.35, Math.sin(a) * 0.34); spike.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(Math.cos(a), 0, Math.sin(a))); g.add(spike);
     }
-    const core = new THREE.Mesh(sphere, this.hostile); core.scale.setScalar(0.13); core.position.y = 0.64; g.add(core);
-    const warning = ring(g, this.hostile, 0.48, 0.018, 0, 0.015); warning.rotation.x = -Math.PI / 2;
+    const core = new THREE.Mesh(sphere, this.threatSignal); core.scale.setScalar(0.13); core.position.y = 0.64; core.name = 'signal'; g.add(core);
+    const crown = ring(g, this.threatSignal, 0.22, 0.035, 0, 0.55); crown.rotation.x = -Math.PI / 2; crown.name = 'crown';
+    // This floor ring marks the actual 0.45-unit mine radius; arming never shrinks it.
+    const footprint = ring(g, this.threatSignal, 0.45, 0.028, 0, 0.018); footprint.rotation.x = -Math.PI / 2; footprint.name = 'footprint';
+    g.add(this.threatCue('×', '#ff7895', 'compact-cue'), this.threatCue('!', '#ffbc79', 'arming-cue'));
     return g;
   }
   private drone() {
     const g = new THREE.Group();
-    box(g, this.dark, 0, 0.73, 0, 0.76, 0.26, 0.53);
-    const eye = new THREE.Mesh(sphere, this.hostile); eye.position.set(0, 0.74, 0.29); eye.scale.set(0.18, 0.09, 0.07); g.add(eye);
-    for (const x of [-0.48, 0.48]) { box(g, this.silver, x, 0.69, 0, 0.35, 0.11, 0.24); const rotor = ring(g, this.staticPink, 0.19, 0.022, x, 0.78); rotor.rotation.x = -Math.PI / 2; }
+    box(g, this.threatShell, 0, 0.73, 0, 0.76, 0.26, 0.53).name = 'shell';
+    const eye = new THREE.Mesh(sphere, this.threatEdge); eye.position.set(0, 0.74, 0.29); eye.scale.set(0.18, 0.09, 0.07); g.add(eye);
+    for (const x of [-0.48, 0.48]) { box(g, this.silver, x, 0.69, 0, 0.35, 0.11, 0.24); const rotor = ring(g, this.threatSignal, 0.19, 0.04, x, 0.78); rotor.rotation.x = -Math.PI / 2; rotor.name = 'signal'; }
+    for (const x of [-0.25, 0.25]) box(g, this.threatSignal, x, 0.868, 0, 0.055, 0.014, 0.46).name = 'signal';
+    // Brackets are a holographic contact cue, not larger solid armor.
+    const bracket = new THREE.Group(); bracket.name = 'brackets';
+    for (const x of [-0.43, 0.43]) for (const z of [-0.27, 0.27]) {
+      box(bracket, this.threatSignal, x, 0.024, z, 0.035, 0.012, 0.18).name = 'signal';
+      box(bracket, this.threatSignal, x - Math.sign(x) * 0.055, 0.024, z + Math.sign(z) * 0.072, 0.14, 0.012, 0.035).name = 'signal';
+    }
+    g.add(bracket, this.threatCue('▼', '#ff7895', 'compact-cue'), this.threatCue('Ⅱ', '#b6c3cf', 'disabled-cue'));
     return g;
+  }
+  private threatCue(text: string, color: string, name: string) {
+    const cue = this.label(text, color); cue.name = name; cue.position.y = 1.35;
+    cue.material.fog = false; cue.material.toneMapped = false;
+    return cue;
+  }
+  private fitThreatCue(cue: THREE.Object3D, visible: boolean) {
+    cue.visible = visible;
+    // A small, separate marker stays readable in narrow previews without changing a collider's silhouette.
+    const pixelWorldSize = 14 * 2 * this.camera.position.length() * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2)) / this.height;
+    cue.scale.setScalar(Math.max(0.55, pixelWorldSize));
   }
   private emitter(length: number, axis: 'x' | 'z', boss: boolean) {
     const g = new THREE.Group(); g.userData.axis = axis;
     if (boss) for (const sign of [-1, 1]) { const mark = ring(g, this.hostile, 0.23, 0.025, sign * length / 2, 0.025); mark.rotation.x = -Math.PI / 2; }
     const beam = box(g, this.hostile, 0, 0.35, 0, length, 0.055, 0.055); beam.name = 'beam';
-    const floor = box(g, new THREE.MeshBasicMaterial({ color: RED, transparent: true, opacity: 0.16 }), 0, 0.018, 0, length, 0.01, 0.4); floor.name = 'warning';
+    const floor = box(g, new THREE.MeshBasicMaterial({ color: RED, transparent: true, opacity: 0.28, toneMapped: false, fog: false }), 0, 0.018, 0, length, 0.01, 0.4); floor.name = 'warning';
     if (axis === 'z') g.rotation.y = Math.PI / 2; return g;
   }
   render(state: WorldState | null, cinematic: boolean, now: number) {
@@ -384,12 +417,30 @@ export class GameRenderer {
       }
       this.syncObjects('core', state.cores, () => this.energy(CYAN), (g, e) => { g.rotation.y = t * 1.2 + e.x; g.position.y = Math.sin(t * 2 + e.x) * 0.06; });
       this.syncObjects('pickup', state.pickups, e => this.pickup(e.kind), (g, e) => { g.position.y = Math.sin(t * 1.5 + e.z) * 0.05; });
-      this.syncObjects('mine', state.mines, () => this.mine(), (g, e) => { g.scale.setScalar(e.armed ? 1 : 0.75); });
-      this.syncObjects('drone', state.drones, () => this.drone(), (g, e) => { g.position.y = Math.sin(t * 2.5 + e.x) * 0.08; g.rotation.y = e.target ? Math.atan2(e.target.x - e.x, e.target.z - e.z) : t * 0.2; g.visible = e.state !== 'warning'; g.scale.setScalar(e.disabled > 0 ? 0.82 : 1); });
-      this.syncObjects('drone-warning', state.drones.filter(d => String(d.state) === 'warning'), () => { const g = new THREE.Group(); const r = ring(g, light(0xffbc79, 0.7), 0.7, 0.03, 0, 0.02); r.rotation.x = -Math.PI / 2; const l = this.label('!', '#ffbc79'); l.position.y = 0.8; l.scale.setScalar(0.6); g.add(l); return g; });
+      this.syncObjects('mine', state.mines, () => this.mine(), (g, e) => {
+        for (const name of ['signal', 'crown', 'footprint']) (g.getObjectByName(name) as THREE.Mesh).material = e.armed ? this.threatSignal : this.warningSignal;
+        this.fitThreatCue(g.getObjectByName('compact-cue')!, this.width < 900 && e.armed);
+        this.fitThreatCue(g.getObjectByName('arming-cue')!, !e.armed);
+      });
+      this.syncObjects('drone', state.drones, () => this.drone(), (g, e) => {
+        g.position.y = e.disabled > 0 ? 0 : Math.sin(t * 2.5 + e.x) * 0.08;
+        g.rotation.y = e.target ? Math.atan2(e.target.x - e.x, e.target.z - e.z) : t * 0.2;
+        g.visible = e.state !== 'warning';
+        g.traverse(child => { if (child instanceof THREE.Mesh && child.name === 'signal') child.material = e.disabled > 0 ? this.disabledSignal : this.threatSignal; });
+        (g.getObjectByName('shell') as THREE.Mesh).material = e.disabled > 0 ? this.silver : this.threatShell;
+        this.fitThreatCue(g.getObjectByName('compact-cue')!, this.width < 900 && e.disabled <= 0);
+        this.fitThreatCue(g.getObjectByName('disabled-cue')!, e.disabled > 0);
+      });
+      this.syncObjects('drone-warning', state.drones.filter(d => String(d.state) === 'warning'), () => { const g = new THREE.Group(); const r = ring(g, this.warningSignal, 0.7, 0.035, 0, 0.02); r.rotation.x = -Math.PI / 2; g.add(this.threatCue('!', '#ffbc79', 'cue')); return g; }, g => this.fitThreatCue(g.getObjectByName('cue')!, true));
       this.syncObjects('lock', state.drones.filter(d => d.state === 'prepare' && d.target).map(d => ({ id: d.id, x: d.target!.x, z: d.target!.z })), () => { const g = new THREE.Group(); const r = ring(g, this.hostile, 0.54, 0.027, 0, 0.035); r.rotation.x = -Math.PI / 2; box(g, this.hostile, 0, 0.03, 0, 0.85, 0.018, 0.03); box(g, this.hostile, 0, 0.03, 0, 0.03, 0.018, 0.85); return g; });
       this.syncObjects('decoy', state.decoys, () => { const g = new THREE.Group(); const glow = ring(g, light(0x8957ff, 0.8), 0.65, 0.03, 0, 0.02); glow.rotation.x = -Math.PI / 2; const l = this.label('⋈', '#ac9dff'); l.position.y = 0.6; l.scale.setScalar(0.5); g.add(l); return g; });
-      this.syncObjects('projectile', state.projectiles, () => { const g = new THREE.Group(); const p = new THREE.Mesh(sphere, this.hostile); p.scale.setScalar(0.12); p.position.y = 0.34; g.add(p); return g; });
+      this.syncObjects('projectile', state.projectiles, () => {
+        const g = new THREE.Group(); const p = new THREE.Mesh(sphere, this.threatEdge); p.scale.setScalar(0.14); p.position.y = 0.34; g.add(p);
+        const corona = ring(g, this.threatSignal, 0.14, 0.025, 0, 0.34); corona.rotation.x = -Math.PI / 2;
+        // A tapered light streak points along the committed velocity; only the leading core is physical.
+        const trail = new THREE.Mesh(new THREE.ConeGeometry(0.065, 0.55, 5), new THREE.MeshBasicMaterial({ color: RED, transparent: true, opacity: 0.55, depthWrite: false, toneMapped: false, fog: false }));
+        trail.rotation.x = -Math.PI / 2; trail.position.set(0, 0.34, -0.36); g.add(trail); return g;
+      }, (g, e) => { g.rotation.y = Math.atan2(e.vx, e.vz); });
       this.syncObjects('gate', state.gates, e => this.emitter(e.length, e.axis, e.boss), (g, e) => { g.rotation.y = e.axis === 'z' ? Math.PI / 2 : 0; g.getObjectByName('beam')!.visible = e.state === 'active'; g.getObjectByName('warning')!.visible = e.state === 'warning' || e.state === 'active'; });
       const liveRivals = new Set(state.rivals.map(r => r.id));
       for (const [id, rival] of this.rivalModels) if (!liveRivals.has(id)) { this.scene.remove(rival.group); this.disposeObject(rival.group); this.rivalModels.delete(id); }
@@ -397,10 +448,11 @@ export class GameRenderer {
         let model = this.rivalModels.get(rival.id);
         if (!model) { model = new SerpentModel(RED, 24); this.scene.add(model.group); this.rivalModels.set(rival.id, model); }
         model.update(rival, rival.heading, rival.body);
-        model.signature.emissiveIntensity = rival.state === 'warning' ? 0.3 : 1.1;
+        model.signature.emissiveIntensity = rival.state === 'warning' ? 0.3 : 1.65;
         model.group.visible = rival.state !== 'warning';
       }
-      this.syncObjects('rival-warning', state.rivals.filter(r => r.state === 'warning'), () => { const g = new THREE.Group(); const label = this.label('»', '#ff8399'); label.scale.setScalar(0.7); label.position.y = 0.8; g.add(label); const r = ring(g, this.hostile, 0.8, 0.025, 0, 0.02); r.rotation.x = -Math.PI / 2; return g; });
+      this.syncObjects('rival-warning', state.rivals.filter(r => r.state === 'warning'), () => { const g = new THREE.Group(); g.add(this.threatCue('»', '#ffbc79', 'cue')); const r = ring(g, this.warningSignal, 0.8, 0.035, 0, 0.02); r.rotation.x = -Math.PI / 2; return g; }, g => this.fitThreatCue(g.getObjectByName('cue')!, true));
+      this.syncObjects('rival-cue', state.rivals.filter(r => r.state !== 'warning'), () => { const g = new THREE.Group(); g.add(this.threatCue('»', '#ff7895', 'cue')); return g; }, g => this.fitThreatCue(g.getObjectByName('cue')!, this.width < 900));
       this.sentinel.visible = state.boss !== null;
       this.gateDoor.visible = state.status !== 'extraction' && state.status !== 'complete';
       this.syncObjects('relay', state.boss?.relays ?? [], e => this.energy(0xffcf78, String(e.number)), g => { g.rotation.y = 0; });
@@ -417,7 +469,7 @@ export class GameRenderer {
     object.traverse(child => { if (child instanceof THREE.Mesh || child instanceof THREE.LineSegments || child instanceof THREE.Sprite) {
       if ('geometry' in child && child.geometry !== cube && child.geometry !== sphere) child.geometry.dispose();
       for (const mat of Array.isArray(child.material) ? child.material : [child.material]) {
-        if (![this.staticCyan, this.staticPink, this.hostile, this.dark, this.silver].includes(mat as THREE.MeshStandardMaterial)) {
+        if (![this.staticCyan, this.staticPink, this.hostile, this.dark, this.silver, this.threatSignal, this.threatEdge, this.warningSignal, this.disabledSignal, this.threatShell].includes(mat as THREE.MeshStandardMaterial)) {
           const maps = new Set<THREE.Texture>();
           for (const key of ['map', 'bumpMap', 'roughnessMap', 'normalMap'] as const) if (key in mat) { const texture = (mat as unknown as Record<string, unknown>)[key]; if (texture instanceof THREE.Texture) maps.add(texture); }
           maps.forEach(texture => texture.dispose()); mat.dispose();
@@ -427,6 +479,7 @@ export class GameRenderer {
   }
   dispose() {
     this.disposed = true; this.renderer.setAnimationLoop(null); this.disposeObject(this.scene); this.reflector.getRenderTarget().dispose();
+    for (const material of [this.staticCyan, this.staticPink, this.hostile, this.dark, this.silver, this.threatSignal, this.threatEdge, this.warningSignal, this.disabledSignal, this.threatShell]) material.dispose();
     this.environment.dispose(); this.sky?.dispose(); this.bloom.dispose(); this.composer.dispose(); this.renderer.dispose(); this.renderer.domElement.remove();
   }
 }

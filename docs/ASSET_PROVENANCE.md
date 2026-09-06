@@ -6,12 +6,12 @@
 - The generated skyline below is background scenery only. The reference PNGs are never used as a flattened playable arena or control surface.
 - Title and all interactive text/controls are HTML/CSS. Original procedural marks include the favicon and texture glyphs. Interface icons are Lucide (ISC license; distribution notice in `public/licenses/lucide-ISC.txt`).
 - Orbitron and Rajdhani fonts are bundled from pinned Fontsource packages, SIL Open Font License 1.1. Notices are in `public/licenses/orbitron-OFL.txt` and `public/licenses/rajdhani-OFL.txt`. Three.js and React use MIT licenses, copied under `public/licenses/`.
-- These are production-direction assets for the first playable build. Their current art quality has not received owner acceptance against the supplied reference images.
+- These are production-direction assets for the first playable build. The owner has given positive general graphics feedback; full acceptance against the supplied reference images remains open.
 
 ## Original procedural audio
 
-- `src/game/audio.ts` contains an original code-authored electronic score (oscillator bass, arpeggios and synthesized percussion) and event sounds for pickups, attacks, tactics, rivals and progression.
-- Created for this project; no sampled commercial recordings, imported tracks or outside audio assets. Title/play/boss intensity arrangements share the initial theme.
+- `src/game/audio.ts` contains an original code-authored electronic score (detuned filtered synth pads, syncopated bass/sub voices, metallic FM sequences, synthesized percussion and stereo delay) and event sounds for pickups, attacks, tactics, rivals and progression.
+- Created for this project; no sampled commercial recordings, imported tracks or outside audio assets. Title/play/boss arrangements share an eight-bar harmonic theme, with bar-aligned intensity changes. The owner-requested futuristic music revision preserves the existing event-effect recipes and effects bus.
 - District 2–5 music families, full ending score, sound mix and subjective audible review remain unfinished release work. Browser tests establish API/lifecycle behavior, not artistic approval.
 
 ## Neon Spire distant skyline

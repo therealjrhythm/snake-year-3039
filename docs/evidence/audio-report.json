@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "browser": "152.0.7977.77",
+  "render": {
+    "all": {
+      "rms": 0.02163432665652358,
+      "stereoRms": 0.008994276114137362,
+      "peak": 0.22421270608901978,
+      "nonFinite": 0
+    },
+    "title": {
+      "rms": 0.01832228150996888,
+      "stereoRms": 0.011641520793866609,
+      "peak": 0.16596005856990814,
+      "nonFinite": 0
+    },
+    "playing": {
+      "rms": 0.01895414304921565,
+      "stereoRms": 0.010154040242988958,
+      "peak": 0.17837144434452057,
+      "nonFinite": 0
+    },
+    "boss": {
+      "rms": 0.030650229720097552,
+      "stereoRms": 0.00917072627095075,
+      "peak": 0.204032301902771,
+      "nonFinite": 0
+    },
+    "muted": {
+      "rms": 0,
+      "stereoRms": 0,
+      "peak": 0,
+      "nonFinite": 0
+    },
+    "effectWhileMuted": {
+      "rms": 0.0346198500300012,
+      "stereoRms": 0,
+      "peak": 0.22421270608901978,
+      "nonFinite": 0
+    },
+    "paused": {
+      "rms": 0,
+      "stereoRms": 0,
+      "peak": 0,
+      "nonFinite": 0
+    },
+    "resumed": {
+      "rms": 0.03872331910626847,
+      "stereoRms": 0.010576957376727014,
+      "peak": 0.20040448009967804,
+      "nonFinite": 0
+    },
+    "arrangements": [
+      "title",
+      "playing",
+      "boss"
+    ],
+    "sourcesCreated": 243,
+    "sourcesEnded": 243,
+    "remainingMusicSources": 0
+  },
+  "lifecycle": {
+    "repeatedUnlockIsStable": true,
+    "pauseTime": 0.2773333333333333,
+    "voicesAfterPause": 0,
+    "voicesAfterResume": 2,
+    "timerAfterDispose": null,
+    "stateAfterDispose": "closed",
+    "disposedRemainsClosed": true
+  },
+  "limitation": "Native offline rendering and a live unlock/lifecycle check; not a subjective listening review or every device/browser."
+}

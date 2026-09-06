@@ -9,10 +9,14 @@ export class GameAudio {
   private music: GainNode | null = null;
   private effects: GainNode | null = null;
   private noise: AudioBuffer | null = null;
+  private musicSend: GainNode | null = null;
+  private musicNodes: AudioNode[] = [];
+  private musicSources = new Set<AudioScheduledSourceNode>();
   private timer: ReturnType<typeof setInterval> | null = null;
   private levels = { master: 0.65, music: 0.55, effects: 0.8 };
   private paused = false;
   private intensity: Intensity = 'title';
+  private arrangement: Intensity = 'title';
   private nextStep = 0;
   private step = 0;
   private disposed = false;
@@ -33,6 +37,7 @@ export class GameAudio {
         limiter.knee.value = 12;
         limiter.ratio.value = 8;
         this.music.connect(this.master);
+        this.createMusicSpace();
         this.effects.connect(this.master);
         this.master.connect(limiter);
         limiter.connect(context.destination);
@@ -58,6 +63,12 @@ export class GameAudio {
   setPaused(paused: boolean): void {
     if (this.paused === paused) return;
     this.paused = paused;
+    if (paused && this.context) {
+      // Fade the bus first, then stop musical voices. No synth loops survive a hidden tab.
+      for (const source of this.musicSources) {
+        try { source.stop(this.context.currentTime + 0.12); } catch { /* Already ended. */ }
+      }
+    }
     if (!paused && this.context) this.nextStep = this.context.currentTime + 0.035;
     this.applyLevels();
   }
@@ -116,6 +127,13 @@ export class GameAudio {
     this.disposed = true;
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
+    for (const source of this.musicSources) {
+      try { source.stop(); } catch { /* Already ended. */ }
+    }
+    this.musicSources.clear();
+    for (const node of this.musicNodes) node.disconnect();
+    this.musicNodes = [];
+    this.musicSend = null;
     void this.context?.close().catch(() => undefined);
     this.context = null;
     this.master = null;
@@ -139,30 +157,217 @@ export class GameAudio {
     const music = this.music;
     if (!context || !music || context.state !== 'running' || this.paused || this.disposed) return;
     if (this.nextStep < context.currentTime) this.nextStep = context.currentTime + 0.025;
-    const tempo = this.intensity === 'boss' ? 128 : this.intensity === 'playing' ? 110 : 92;
-    const stepLength = 60 / tempo / 4;
     try {
       for (let count = 0; this.nextStep < context.currentTime + 0.16 && count < 8; count++) {
         const t = this.nextStep;
         const beat = this.step % 16;
-        const bar = Math.floor(this.step / 16) % 4;
-        const root = [40, 36, 43, 38][bar] ?? 40;
-        const arp = [12, 19, 24, 26, 19, 15, 24, 19][this.step % 8] ?? 12;
-        if (beat % 2 === 0 || this.intensity === 'boss') this.tone(midi(root + arp), t, stepLength * 1.7, 0.105, 'triangle', music);
-        if (beat % 4 === 0) {
-          this.tone(midi(root), t, stepLength * 3.2, 0.2, 'sawtooth', music, undefined, 480);
-          this.tone(125, t, 0.15, 0.32, 'sine', music, 38);
-        }
-        if (beat === 4 || beat === 12) this.hiss(t, 0.11, 0.14, 1900, music);
-        if (beat % 2 === 1 && this.intensity !== 'title') this.hiss(t, 0.04, 0.055, 7200, music);
+        // Layer/tempo changes land on a bar boundary; waves do not restart the motif.
+        if (beat === 0) this.arrangement = this.intensity;
+        const boss = this.arrangement === 'boss';
+        const title = this.arrangement === 'title';
+        const stepLength = 60 / (boss ? 126 : 112) / 4;
+        const bar = Math.floor(this.step / 16) % 8;
+        const chord = Math.floor(bar / 2);
+        const root = [40, 36, 43, 38][chord]!;
+        const third = [15, 16, 16, 14][chord]!;
+
         if (beat === 0) {
-          [12, 19, 22].forEach(interval => this.tone(midi(root + interval), t, stepLength * 15, 0.035, 'sine', music));
+          this.synthPad(root, [12, third, 19, 26], t, stepLength * 16 + 0.3, title ? 0.037 : 0.024);
+        }
+        // Rounded, off-beat bass leaves room for the game's impact and pickup cues.
+        if (title ? beat === 0 || beat === 10 : [0, 3, 6, 8, 10, 14].includes(beat)) {
+          const octave = !title && beat === 14 ? 12 : 0;
+          this.synthBass(root + octave, t, stepLength * (title ? 4.5 : beat === 0 ? 2.3 : 1.45), boss ? 0.31 : 0.25, boss);
+        }
+        const pulse = title ? [2, 8, 14].includes(beat) : beat % 2 === 0 || boss && [7, 15].includes(beat);
+        if (pulse) {
+          const motif = [24, 31, 38, third + 24, 31, 26, 36, 31];
+          const note = root + motif[(Math.floor(beat / 2) + (bar % 2) * 3) % motif.length]!;
+          this.fmPulse(note, t, stepLength * (title ? 4 : 2.1), title ? 0.074 : 0.083, Math.sin(this.step * 0.73) * 0.5, boss);
+        }
+        if (!title) {
+          if (beat === 0 || beat === 8 || boss && [6, 10].includes(beat)) this.musicKick(t, boss ? 0.44 : 0.38);
+          if (beat === 4 || beat === 12) this.musicNoise(t, 0.16, 0.13, 1550, 'bandpass', 0);
+          if (beat % 2 === 1) this.musicNoise(t, beat === 11 ? 0.12 : 0.037, beat % 4 === 3 ? 0.037 : 0.023, 7500, 'highpass', beat % 4 === 3 ? 0.4 : -0.4);
+          if (boss && beat === 15) this.musicNoise(t + stepLength * 0.5, 0.03, 0.027, 9200, 'highpass', -0.3);
+        }
+        // A distant, filtered air sweep gives the eight-bar phrase a sense of scale.
+        if (bar % 4 === 3 && beat === 8) {
+          this.musicNoise(t, stepLength * 8, 0.028, 1800, 'bandpass', bar === 3 ? -0.6 : 0.6, true);
         }
         this.step++;
         this.nextStep += stepLength;
       }
     } catch { /* A suspended/disconnected audio device must not affect simulation. */ }
   };
+
+  /** Short stereo echoes are shared by musical voices only, never the effects bus. */
+  private createMusicSpace(): void {
+    const context = this.context;
+    if (!context || !this.music) return;
+    const send = context.createGain();
+    send.gain.value = 0.27;
+    const left = context.createDelay(1);
+    const right = context.createDelay(1);
+    left.delayTime.value = 60 / 112 * 0.75;
+    right.delayTime.value = 60 / 112 * 0.5;
+    const damping = context.createBiquadFilter();
+    damping.type = 'lowpass';
+    damping.frequency.value = 3200;
+    const feedback = context.createGain();
+    feedback.gain.value = 0.32;
+    const panLeft = context.createStereoPanner();
+    const panRight = context.createStereoPanner();
+    panLeft.pan.value = -0.68;
+    panRight.pan.value = 0.68;
+    send.connect(left);
+    left.connect(panLeft).connect(this.music);
+    left.connect(right);
+    right.connect(panRight).connect(this.music);
+    right.connect(damping).connect(feedback).connect(left);
+    this.musicSend = send;
+    this.musicNodes = [send, left, right, damping, feedback, panLeft, panRight];
+  }
+
+  private connectMusic(output: AudioNode, echo = false): void {
+    if (this.music) output.connect(this.music);
+    if (echo && this.musicSend) output.connect(this.musicSend);
+  }
+
+  /** Every voice owns a finite lifetime and disconnects its complete local graph. */
+  private playVoice(sources: AudioScheduledSourceNode[], nodes: AudioNode[], time: number, duration: number): void {
+    let remaining = sources.length;
+    for (const source of sources) {
+      this.musicSources.add(source);
+      source.onended = () => {
+        source.disconnect();
+        this.musicSources.delete(source);
+        if (--remaining === 0) for (const node of nodes) node.disconnect();
+      };
+      source.start(time);
+      source.stop(time + duration + 0.025);
+    }
+  }
+
+  private synthPad(root: number, intervals: number[], time: number, duration: number, volume: number): void {
+    const context = this.context;
+    if (!context) return;
+    intervals.forEach((interval, index) => {
+      const filter = context.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.Q.value = 0.65;
+      filter.frequency.setValueAtTime(480 + index * 100, time);
+      filter.frequency.linearRampToValueAtTime(1150 + index * 170, time + duration * 0.5);
+      filter.frequency.linearRampToValueAtTime(540, time + duration);
+      const envelope = context.createGain();
+      envelope.gain.setValueAtTime(0.0001, time);
+      envelope.gain.linearRampToValueAtTime(volume, time + 0.32);
+      envelope.gain.setValueAtTime(volume * 0.8, time + duration * 0.62);
+      envelope.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+      const pan = context.createStereoPanner();
+      pan.pan.value = index % 2 ? 0.58 : -0.58;
+      const oscillators = [-7, 7].map(detune => {
+        const oscillator = context.createOscillator();
+        oscillator.type = 'sawtooth';
+        oscillator.frequency.value = midi(root + interval);
+        oscillator.detune.value = detune;
+        oscillator.connect(filter);
+        return oscillator;
+      });
+      filter.connect(envelope).connect(pan);
+      this.connectMusic(pan, true);
+      this.playVoice(oscillators, [filter, envelope, pan], time, duration);
+    });
+  }
+
+  private synthBass(note: number, time: number, duration: number, volume: number, pressure: boolean): void {
+    const context = this.context;
+    if (!context) return;
+    const oscillator = context.createOscillator();
+    oscillator.type = 'sawtooth';
+    oscillator.frequency.value = midi(note);
+    const sub = context.createOscillator();
+    sub.type = 'sine';
+    sub.frequency.value = midi(note - 12);
+    const subGain = context.createGain();
+    subGain.gain.value = 0.44;
+    const filter = context.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.Q.value = 1.8;
+    filter.frequency.setValueAtTime(pressure ? 1700 : 950, time);
+    filter.frequency.exponentialRampToValueAtTime(130, time + duration);
+    const envelope = context.createGain();
+    envelope.gain.setValueAtTime(0.0001, time);
+    envelope.gain.exponentialRampToValueAtTime(volume, time + 0.012);
+    envelope.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+    oscillator.connect(filter).connect(envelope);
+    sub.connect(subGain).connect(envelope);
+    this.connectMusic(envelope);
+    this.playVoice([oscillator, sub], [filter, subGain, envelope], time, duration);
+  }
+
+  private fmPulse(note: number, time: number, duration: number, volume: number, position: number, pressure: boolean): void {
+    const context = this.context;
+    if (!context) return;
+    const frequency = midi(note);
+    const carrier = context.createOscillator();
+    const modulator = context.createOscillator();
+    const modulation = context.createGain();
+    carrier.type = 'sine';
+    carrier.frequency.value = frequency;
+    modulator.type = 'sine';
+    modulator.frequency.value = frequency * (pressure ? 3 : 2);
+    modulation.gain.setValueAtTime(frequency * (pressure ? 0.72 : 0.42), time);
+    modulation.gain.exponentialRampToValueAtTime(frequency * 0.015, time + duration);
+    modulator.connect(modulation).connect(carrier.frequency);
+    const envelope = context.createGain();
+    envelope.gain.setValueAtTime(0.0001, time);
+    envelope.gain.exponentialRampToValueAtTime(volume, time + 0.007);
+    envelope.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+    const pan = context.createStereoPanner();
+    pan.pan.value = position;
+    carrier.connect(envelope).connect(pan);
+    this.connectMusic(pan, true);
+    this.playVoice([carrier, modulator], [modulation, envelope, pan], time, duration);
+  }
+
+  private musicKick(time: number, volume: number): void {
+    const context = this.context;
+    if (!context) return;
+    const oscillator = context.createOscillator();
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(145, time);
+    oscillator.frequency.exponentialRampToValueAtTime(42, time + 0.16);
+    const envelope = context.createGain();
+    envelope.gain.setValueAtTime(0.0001, time);
+    envelope.gain.exponentialRampToValueAtTime(volume, time + 0.004);
+    envelope.gain.exponentialRampToValueAtTime(0.0001, time + 0.28);
+    oscillator.connect(envelope);
+    this.connectMusic(envelope);
+    this.playVoice([oscillator], [envelope], time, 0.28);
+  }
+
+  private musicNoise(time: number, duration: number, volume: number, cutoff: number, type: BiquadFilterType, position: number, sweep = false): void {
+    const context = this.context;
+    if (!context || !this.noise) return;
+    const source = context.createBufferSource();
+    source.buffer = this.noise;
+    source.loop = sweep;
+    const filter = context.createBiquadFilter();
+    filter.type = type;
+    filter.Q.value = sweep ? 2.4 : 0.8;
+    filter.frequency.setValueAtTime(cutoff, time);
+    if (sweep) filter.frequency.exponentialRampToValueAtTime(5300, time + duration);
+    const envelope = context.createGain();
+    envelope.gain.setValueAtTime(0.0001, time);
+    envelope.gain.exponentialRampToValueAtTime(volume, time + (sweep ? duration * 0.7 : 0.003));
+    envelope.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+    const pan = context.createStereoPanner();
+    pan.pan.value = position;
+    source.connect(filter).connect(envelope).connect(pan);
+    this.connectMusic(pan, sweep);
+    this.playVoice([source], [filter, envelope, pan], time, duration);
+  }
 
   private tone(frequency: number, time: number, duration: number, volume: number, waveform: OscillatorType, destination: AudioNode, endFrequency?: number, cutoff?: number): void {
     const context = this.context;
