@@ -4,11 +4,13 @@ export type LaunchMode = GameMode | 'arcade' | 'endless' | 'trial';
 export type DistrictId = 'D1' | 'D2' | 'D3' | 'D4' | 'D5';
 export type BossId = 'B1' | 'B2' | 'B3' | 'B4' | 'B5';
 export type EnemyKind = 'patrol' | 'interceptor' | 'mine-layer' | 'hunter' | 'ambush';
-export type PickupKind = 'overdrive' | 'shield' | 'surge' | 'emp' | 'magnet' | 'repair' | 'decoy' | 'splice';
+export type PickupKind = 'overdrive' | 'shield' | 'surge' | 'emp' | 'magnet' | 'repair' | 'decoy' | 'splice' | 'blaster' | 'capacitor' | 'scrubber' | 'chain-buffer';
+export type LayoutId = 'neon-spire-v1' | 'neon-spire-v2';
+export type LabKind = PickupKind | 'warden';
 export type GameStatus = 'playing' | 'transition' | 'boss-intro' | 'boss' | 'extraction' | 'dead' | 'complete';
 
 export interface Vec2 { x: number; z: number }
-export interface GameInput { x: number; y: number; boost: boolean; use: boolean; swap: boolean }
+export interface GameInput { x: number; y: number; boost: boolean; use: boolean; swap: boolean; fire?: boolean }
 export interface Positioned extends Vec2 { id: string }
 export interface Obstacle extends Vec2 { width: number; depth: number; kind?: 'machinery' | 'emitter' }
 export interface Snake extends Vec2 {
@@ -31,6 +33,7 @@ export interface Player extends Snake {
 export interface Pickup extends Positioned { kind: PickupKind; ttl: number }
 export interface Mine extends Positioned { armed: boolean; armTime: number }
 export interface Drone extends Positioned {
+  hp?: number;
   state: 'warning' | 'patrol' | 'prepare' | 'recover' | 'disabled';
   target?: Vec2;
   targetDecoy?: string;
@@ -49,6 +52,7 @@ export interface Rival extends Snake {
   speed: number;
 }
 export interface Projectile extends Positioned { vx: number; vz: number; ttl: number }
+export interface PlayerProjectile extends Projectile { range: number }
 export interface Gate extends Positioned {
   length: number;
   axis: 'x' | 'z';
@@ -69,14 +73,21 @@ export interface BossState {
   cycle: number;
   relayRetry: number;
   relayBlockedTime: number;
+  stage: 'collecting-relays' | 'charge-ready' | 'exposed' | 'defeated';
+  receptor: Vec2;
+  receptorHits: number;
+  relayFeedbackCooldown: number;
 }
 export interface PendingSpawn { id: string; kind: 'drone' | 'rival' | 'mine'; at: number; position: Vec2; heading?: number }
-export interface GameEvent { id: number; kind: string; text: string; time: number; pickup?: PickupKind; origin?: Vec2 }
+export const GAME_EVENT_KINDS = ['start', 'wave', 'transition', 'core', 'pickup', 'boost-empty', 'select', 'empty', 'emp', 'decoy', 'decoy-hit', 'mine-arm', 'gate-warning', 'lock', 'shot', 'rival-warning', 'rival', 'rival-crash', 'rival-defeated', 'boss-intro', 'boss', 'boss-warning', 'boss-recovery', 'relay', 'relay-wrong', 'charge-ready', 'boss-node', 'boss-defeated', 'complete', 'damage', 'shield-hit', 'crash', 'player-shot', 'weapon-empty', 'drone-hit', 'drone-destroyed', 'armor-hit', 'receptor-hit', 'scrubber', 'chain-buffer', 'power-expired', 'lab-ready'] as const;
+export type GameEventKind = typeof GAME_EVENT_KINDS[number];
+export interface GameEvent { id: number; kind: GameEventKind; text: string; time: number; pickup?: PickupKind; origin?: Vec2; target?: Vec2; relay?: number; amount?: number; targetId?: string }
 
 /** Everything needed to resume a run. Physical input state is deliberately excluded. */
 export interface SimulationState {
   version: 1;
   contentVersion: string;
+  layoutId: LayoutId;
   status: GameStatus;
   mode: GameMode;
   difficulty: Difficulty;
@@ -96,7 +107,11 @@ export interface SimulationState {
   comboTimer: number;
   selectedSlot: 0 | 1;
   slots: [boolean, boolean];
-  buffs: { overdrive: number; shield: number; surge: number; magnet: number };
+  buffs: { overdrive: number; shield: number; surge: number; magnet: number; scrubber: number; 'chain-buffer': number };
+  weapon: { ammo: number; cooldown: number; emptyCooldown: number };
+  playerProjectiles: PlayerProjectile[];
+  supply: { cursor: 0 | 1 | 2; pending: PickupKind[]; introduced: PickupKind[]; boostUsed: boolean; retry: number };
+  lab: LabKind | null;
   cores: Positioned[];
   pickups: Pickup[];
   mines: Mine[];

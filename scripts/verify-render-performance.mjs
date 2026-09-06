@@ -28,6 +28,7 @@ try {
     s.player.body = Array.from({ length: 44 }, (_, i) => ({ x: -7 * Math.sin((i + 1) * 0.55 / 7), z: 7 * Math.cos((i + 1) * 0.55 / 7) }));
     s.mines = [-10, 0, 10].map((x, i) => ({ id: `mine-${i}`, x, z: -6, armed: true, armTime: 0 }));
     s.drones = [-10, 10].map((x, i) => ({ id: `drone-${i}`, x, z: 4, state: 'patrol', disabled: 0, timer: 0, cooldown: 2, anchor: { x, z: 4 }, phase: i }));
+    s.playerProjectiles = Array.from({ length: 6 }, (_, i) => ({ id: `player-shot-${i}`, x: -10 + i * 3, z: 9, vx: 0, vz: -18, ttl: .4, range: 7 }));
     s.projectiles = Array.from({ length: 8 }, (_, i) => ({ id: `shot-${i}`, x: -7 + i * 2, z: -8, vx: 0, vz: 4, ttl: 5 }));
     const head = { x: 9, z: 0 }, body = Array.from({ length: 12 }, (_, i) => ({ x: 9 + (i + 1) * 0.5, z: Math.sin(i * 0.2) * 0.9 }));
     s.rivals = [{ id: 'hunter', ...head, heading: Math.PI, body, path: [head, ...body], length: 12, lastTurn: 1, state: 'hunting', warning: 0, desiredHeading: Math.PI, planning: 0, speed: 3.2 }];
@@ -96,7 +97,7 @@ try {
       for (let i = 0; i < 17; i++) sim.step(1 / 60, { x: 0, y: 0, boost: false, use: false, swap: false });
       const event = sim.state.events.find(item => item.kind === 'emp');
       if (!event?.origin) throw new Error('Real EMP event lacked its action origin');
-      sim.state.pickups = Object.keys(PICKUPS).map((kind, i) => ({ id: `display-${kind}`, kind, x: -11 + i % 4 * 7, z: i < 4 ? -7 : 7, ttl: 15 }));
+      sim.state.pickups = Object.keys(PICKUPS).map((kind, i) => ({ id: `display-${kind}`, kind, x: -13 + i % 4 * 8, z: -9 + Math.floor(i / 4) * 8, ttl: 15 }));
       const renderer = window.__renderFixture.renderer;
       renderer.resize(); renderer.setSettings({ quality: 'medium', bloom: 0.45, reducedMotion: false });
       const before = JSON.stringify(sim.state);
@@ -114,9 +115,9 @@ try {
     assert.equal(empEffect.radius, 4);
     assert.equal(empEffect.pauseFrozen, true);
     assert.equal(empEffect.simulationUnchanged, true);
-    assert.equal(empEffect.pickupCount, 8);
+    assert.equal(empEffect.pickupCount, 12);
     await page.screenshot({ path: path.join(outputDir, 'emp-and-pickups.png'), scale: 'css' });
-    checks.push('Real EMP action renders exact four-unit origin after movement; paused simulation freezes pulse; all eight canonical pickups rendered');
+    checks.push('Real EMP action renders exact four-unit origin after movement; paused simulation freezes pulse; all twelve canonical pickups rendered');
   }
   await page.evaluate(() => window.__renderFixture.renderer.dispose());
   assert.equal(await page.locator('#arena canvas').count(), 0);

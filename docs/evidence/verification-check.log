@@ -1,0 +1,12 @@
+
+> snake-year-3039@0.2.0 check
+> tsc -b && vitest run
+
+
+ RUN  v5.0.0 /Users/jeremiah_perry/Desktop/AI TOOLS/GAMES/Snake--Year 3039
+
+
+ Test Files  2 passed (2)
+      Tests  70 passed (70)
+   Start at  11:03:22
+   Duration  822ms (tests 75%, transform 21%, import 3%, worker 1%)

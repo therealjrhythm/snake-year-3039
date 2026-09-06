@@ -80,7 +80,7 @@ try {
 
   await loadFixture('automatic');
   await page.getByText('Half boost drain', { exact: true }).waitFor();
-  assert.match(await page.locator('.tactical-hint').innerText(), /EMP charges arrive in Wave 2/);
+  assert.match(await page.locator('.tactical-hint').innerText(), /EMP supply begins in Wave 2/);
   assert.match(await page.locator('.hud-resources .active-buffs').innerText(), /Overdrive[\s\S]*Half boost drain[\s\S]*[1-8]s/);
   await page.waitForTimeout(350);
   assert.match(await page.locator('.event-toast').innerText(), /OVERDRIVE/);
@@ -104,11 +104,13 @@ try {
   await page.getByRole('button', { name: 'PICKUPS & TACTICS', exact: true }).click();
   await page.getByRole('dialog', { name: 'HOW TO PLAY', exact: true }).waitFor();
   assert.equal(await page.getByRole('tab', { name: 'Pickups', exact: true }).getAttribute('aria-selected'), 'true');
-  assert.match(await page.getByRole('tabpanel', { name: 'Pickups', exact: true }).innerText(), /Automatic bonuses start as soon as you collect them/);
-  await page.getByRole('button', { name: 'Show the four Practice-only pickups', exact: true }).click();
-  for (const name of ['Magnet', 'Repair', 'Decoy', 'Tail Splice']) assert.equal(await page.getByRole('heading', { name, exact: true }).count(), 1);
+  assert.match(await page.getByRole('tabpanel', { name: 'Pickups', exact: true }).innerText(), /Automatic bonuses start on contact/);
+  for (const [category, names] of [['Movement & score', ['Overdrive', 'Score Surge', 'Magnet', 'Capacitor']], ['Protection', ['Shield', 'Repair', 'Bullet Scrubber', 'Chain Buffer']], ['Tactics & weapon', ['EMP Pulse', 'Decoy', 'Tail Splice', 'Pulse Blaster']]]) {
+    await page.getByRole('button', { name: category, exact: true }).click();
+    for (const name of names) assert.equal(await page.getByRole('heading', { name, exact: true }).count(), 1);
+  }
   await page.getByRole('tab', { name: 'Tactics', exact: true }).click();
-  assert.match(await page.getByRole('tabpanel', { name: 'Tactics', exact: true }).innerText(), /Introduced in Wave 2[\s\S]*Available in Practice/);
+  assert.match(await page.getByRole('tabpanel', { name: 'Tactics', exact: true }).innerText(), /From Wave 2[\s\S]*From six cores in Wave 2/);
   await capture('paused-tactics-guide');
   await page.waitForTimeout(350);
   await page.getByRole('button', { name: 'Back to paused run', exact: true }).click();
@@ -118,7 +120,7 @@ try {
   assert.equal(await page.locator('.hud').innerText(), hudBeforeGuide);
   const afterGuide = await saveAndRead();
   assert.deepEqual(afterGuide, automatic);
-  pass('Paused guide explains all eight pickups and actual tactical availability; closes to pause with exact frozen run');
+  pass('Paused guide explains all twelve pickups and actual tactical availability; closes to pause with exact frozen run');
 
   await loadFixture('emp');
   await page.locator('.tactic.ready').waitFor();

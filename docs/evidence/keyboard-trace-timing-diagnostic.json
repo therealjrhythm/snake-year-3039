@@ -1,0 +1,120 @@
+{
+  "changedInputOnly": "Deliver the frame 9702 keyboard direction one fixed step late; every other input and world rule unchanged",
+  "status": "dead",
+  "time": 162.93333333335514,
+  "cause": "Critical crash: your own body",
+  "position": {
+    "x": -6.858817168652057,
+    "z": -7.709966227900646
+  },
+  "browserFailure": {
+    "seed": 3039,
+    "time": 162.95000000002182,
+    "wave": 3,
+    "status": "dead",
+    "cores": 36,
+    "integrity": 3,
+    "score": 5900,
+    "rivalKills": 0,
+    "cause": "Critical crash: your own body",
+    "pauseRequested": null,
+    "bossNodes": 3,
+    "bossCharge": 0,
+    "position": {
+      "x": -6.609620933389472,
+      "z": -7.900362744385982
+    }
+  },
+  "near": [
+    {
+      "frame": 9699,
+      "heading": -1.0471975511965859,
+      "input": {
+        "x": 1,
+        "y": 0,
+        "boost": false,
+        "fire": false,
+        "use": false,
+        "swap": false
+      }
+    },
+    {
+      "frame": 9700,
+      "heading": -0.9773843811168135,
+      "input": {
+        "x": 1,
+        "y": 0,
+        "boost": false,
+        "fire": false,
+        "use": false,
+        "swap": false
+      }
+    },
+    {
+      "frame": 9701,
+      "heading": -0.9075712110370411,
+      "input": {
+        "x": 1,
+        "y": 0,
+        "boost": false,
+        "fire": false,
+        "use": false,
+        "swap": false
+      }
+    },
+    {
+      "frame": 9702,
+      "heading": -0.8377580409572687,
+      "input": {
+        "x": 1,
+        "y": 0,
+        "boost": false,
+        "fire": false,
+        "use": false,
+        "swap": false
+      }
+    },
+    {
+      "frame": 9703,
+      "heading": -0.7679448708774963,
+      "input": {
+        "x": -0.7071067811865475,
+        "y": 0.7071067811865475,
+        "boost": false,
+        "fire": false,
+        "use": false,
+        "swap": false
+      }
+    },
+    {
+      "frame": 9704,
+      "heading": -0.6981317007977239,
+      "input": {
+        "x": -0.7071067811865475,
+        "y": 0.7071067811865475,
+        "boost": false,
+        "fire": false,
+        "use": false,
+        "swap": false
+      }
+    }
+  ],
+  "diagnosticKind": "Synthetic input timing investigation; not a successful ordinary run.",
+  "preparedCheckpointTest": {
+    "fixture": true,
+    "source": "Fresh pure trace replayed to its earned Warden checkpoint; snapshot explicitly installed only for diagnosis",
+    "checkpoint": {
+      "time": 161.65000000002078,
+      "position": {
+        "x": -11.625220685481771,
+        "z": -9.183221082878989
+      },
+      "heading": -1.0471975511965859
+    },
+    "actualStatusAfter90Steps": "boss",
+    "initialKeysSuppressed": [],
+    "firstMismatchedFrame": 9732,
+    "errors": []
+  },
+  "limitation": "The failed full browser run did not record every supplied input. The prepared checkpoint independently observed one-step-late changes with no initial suppression; delaying the near-opposite turn in a pure replay reproduces the same early self-crash mechanism."
+}

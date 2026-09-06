@@ -37,6 +37,32 @@ try {
         requestAnimationFrame(resolve);
       });
     }), index);
+    const navigateTo = async label => {
+      // Plan only the D-pad route from rendered control geometry; no focus or
+      // application state is written. Every navigation step uses real pad polling.
+      const path = await page.evaluate(label => {
+        const root = [...document.querySelectorAll('[role="dialog"]')].at(-1);
+        const controls = [...root.querySelectorAll('button,input')].filter(el => !el.disabled && el.getClientRects().length);
+        const start = controls.findIndex(el => el.hasAttribute('data-gamepad-focus'));
+        const target = controls.findIndex(el => el.getAttribute('aria-label') === label || el.textContent.trim() === label);
+        const queue = [[start, []]], seen = new Set();
+        while (queue.length) {
+          const [current, path] = queue.shift(); if (current === target) return path;
+          if (seen.has(current)) continue; seen.add(current);
+          const from = controls[current].getBoundingClientRect();
+          for (const [button, x, y] of [[12, 0, -1], [13, 0, 1], [14, -1, 0], [15, 1, 0]]) {
+            if (x && controls[current].getAttribute('role') === 'combobox') continue;
+            const next = controls.map((el, index) => { const r = el.getBoundingClientRect(), dx = r.x + r.width / 2 - from.x - from.width / 2, dy = r.y + r.height / 2 - from.y - from.height / 2; return { index, along: dx * x + dy * y, score: dx * x + dy * y + Math.abs(dx * y - dy * x) * 2.5 }; }).filter(item => item.along > 4).sort((a, b) => a.score - b.score)[0];
+            if (next) queue.push([next.index, [...path, button]]);
+          }
+        }
+        throw new Error(`No controller route to ${label}`);
+      }, label);
+      for (const button of path) await tap(button);
+      await expect(page.locator('[data-gamepad-focus]')).toHaveCount(1);
+      assert.equal(await page.locator('[data-gamepad-focus]').evaluate(el => el.getAttribute('aria-label') ?? el.textContent.trim()), label);
+      await frames();
+    };
     const selected = async label => {
       await expect(page.locator('[data-gamepad-focus]')).toHaveCount(1);
       await expect(page.locator('[data-gamepad-focus]')).toHaveText(label);
@@ -120,6 +146,24 @@ try {
     await expect(page.getByRole('tabpanel', { name: 'Tactics', exact: true })).toContainText('Empty means no charge');
     await tap(1);
     await selected('PICKUPS & TACTICS');
+    await tap(13);
+    await selected('CUSTOMIZE SNAKE');
+    await tap(0);
+    await expect(page.getByRole('dialog', { name: 'Customize Snake', exact: true })).toBeVisible();
+    await frames();
+    await navigateTo('Gold glow'); await tap(0);
+    await expect(page.getByRole('button', { name: 'Gold glow', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await navigateTo('Rotate snake right'); await tap(0);
+    await navigateTo('Preview zoom'); await tap(0); await tap(13); await tap(0);
+    await expect(page.getByRole('combobox', { name: 'Preview zoom', exact: true })).toContainText('Head detail');
+    await navigateTo('Apply glow'); await tap(0);
+    await selected('CUSTOMIZE SNAKE');
+    assert.equal(await page.evaluate(async () => (await import('/src/game/appearance.ts')).readAppearance()), 'gold');
+    await tap(0); await frames();
+    await navigateTo('Restore Cyan'); await tap(0);
+    await tap(1); // Cancel must retain the applied Gold, including with lost focus.
+    assert.equal(await page.evaluate(async () => (await import('/src/game/appearance.ts')).readAppearance()), 'gold');
+    await selected('CUSTOMIZE SNAKE');
     await tap(13);
     await selected('RETURN TO TITLE');
     await tap(13);

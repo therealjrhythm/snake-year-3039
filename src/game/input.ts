@@ -1,8 +1,8 @@
 import type { GameInput } from './types';
 
-const emptyInput = (): GameInput => ({ x: 0, y: 0, boost: false, use: false, swap: false });
+const emptyInput = (): GameInput => ({ x: 0, y: 0, boost: false, use: false, swap: false, fire: false });
 const movementKeys = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight']);
-const actionKeys = new Set([...movementKeys, 'ShiftLeft', 'ShiftRight', 'Space', 'KeyE']);
+const actionKeys = new Set([...movementKeys, 'ShiftLeft', 'ShiftRight', 'Space', 'KeyE', 'KeyF']);
 
 function typingTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false;
@@ -27,6 +27,7 @@ export class GameInputController {
   private readonly suppressedKeys = new Set<string>();
   private readonly suppressedButtons = new Set<number>();
   private previousButtons: boolean[] = [];
+  private previousStickMagnitude = 0;
   private axesSuppressed = false;
   private triggerActive = false;
   private useQueued = false;
@@ -78,7 +79,8 @@ export class GameInputController {
         if (button.pressed || button.value > 0.15) this.suppressedButtons.add(index);
       });
       this.previousButtons = pad.buttons.map(button => button.pressed || button.value > 0.5);
-      this.axesSuppressed = Math.hypot(pad.axes[0] ?? 0, pad.axes[1] ?? 0) > this.deadZone;
+      this.previousStickMagnitude = Math.hypot(pad.axes[0] ?? 0, pad.axes[1] ?? 0);
+      this.axesSuppressed = this.previousStickMagnitude > this.deadZone;
     }
   }
 
@@ -87,7 +89,7 @@ export class GameInputController {
     const wasGameplay = this.gameplay;
     if (!this.gameplay) {
       const root = this.menuRoot();
-      if (root !== this.lastMenuRoot) { this.clear(); this.lastMenuRoot = root; }
+      if (root !== this.lastMenuRoot) { this.clearForMenuChange(); this.lastMenuRoot = root; }
       this.selectedMenuControl();
     }
     const pad = this.getPad();
@@ -95,6 +97,7 @@ export class GameInputController {
     let padY = 0;
     let padUse = false;
     let padSwap = false;
+    let padFire = false;
     if (pad) {
       const raw = pad.buttons.map(button => button.pressed || button.value > 0.5);
       for (const index of this.suppressedButtons) {
@@ -105,6 +108,7 @@ export class GameInputController {
       const stickX = pad.axes[0] ?? 0;
       const stickY = pad.axes[1] ?? 0;
       const magnitude = Math.hypot(stickX, stickY);
+      this.previousStickMagnitude = magnitude;
       if (magnitude <= this.deadZone) this.axesSuppressed = false;
       if (!this.axesSuppressed && magnitude > this.deadZone) {
         const strength = Math.min(1, (magnitude - this.deadZone) / (1 - this.deadZone));
@@ -126,6 +130,7 @@ export class GameInputController {
       if (this.gameplay) {
         padUse = edge(2);
         padSwap = edge(3);
+        padFire = down(0);
       } else {
         this.markSelection(this.device === 'gamepad' ? this.selectedMenuControl() : null);
         this.pollMenu(padX, padY);
@@ -137,6 +142,7 @@ export class GameInputController {
     } else {
       this.triggerActive = false;
       this.previousButtons = [];
+      this.previousStickMagnitude = 0;
       this.suppressedButtons.clear();
       this.axesSuppressed = false;
       this.menuDirection = '';
@@ -157,10 +163,30 @@ export class GameInputController {
       boost: held('ShiftLeft') || held('ShiftRight') || this.triggerActive,
       use: this.useQueued || padUse,
       swap: this.swapQueued || padSwap,
+      fire: held('KeyF') || padFire,
     };
     this.useQueued = false;
     this.swapQueued = false;
     return frame;
+  }
+
+  private clearForMenuChange(): void {
+    const previousButtons = this.previousButtons;
+    const previouslySuppressed = new Set(this.suppressedButtons);
+    const stickWasNeutral = this.previousStickMagnitude <= this.deadZone && !this.axesSuppressed;
+    this.clear();
+    // A pointer can replace the menu between polls, followed by a fresh pad
+    // press. Suppress only controls known to be held across that replacement;
+    // clear() at the transition itself still captures the confirming A/B press.
+    if (previousButtons.length) {
+      this.previousButtons.forEach((pressed, index) => {
+        if (pressed && !previousButtons[index] && !previouslySuppressed.has(index)) {
+          this.suppressedButtons.delete(index);
+          this.previousButtons[index] = false;
+        }
+      });
+      if (stickWasNeutral) this.axesSuppressed = false;
+    }
   }
 
   dispose(): void {

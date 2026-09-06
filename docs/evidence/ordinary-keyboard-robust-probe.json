@@ -1,0 +1,77 @@
+{
+  "seed": 3039,
+  "difficulty": "standard",
+  "inputMode": "eight-direction keyboard",
+  "steeringTurnMarginDegrees": 30,
+  "framesAdvanced": 23773,
+  "termination": "wall-time-budget",
+  "contentVersion": "0.2.0-neon-spire",
+  "freshCampaign": true,
+  "stateEdited": false,
+  "steering": "omniscient grid routing plus isolated exact-snapshot forecasts; only input frames affect the campaign",
+  "mode": "campaign",
+  "status": "playing",
+  "cause": null,
+  "time": 396.216666666635,
+  "wave": 3,
+  "cores": 24,
+  "integrity": 1,
+  "score": 3100,
+  "boss": null,
+  "eventCounts": {
+    "wave": 3,
+    "start": 1,
+    "core": 24,
+    "pickup": 9,
+    "mine-arm": 7,
+    "power-expired": 5,
+    "damage": 2,
+    "transition": 2,
+    "gate-warning": 16,
+    "lock": 24,
+    "shot": 24,
+    "player-shot": 6,
+    "drone-hit": 2,
+    "drone-destroyed": 2
+  },
+  "milestones": [
+    {
+      "time": 0,
+      "kind": "wave",
+      "text": "WAVE 1 / 3 \u00b7 Recover 12 energy cores."
+    },
+    {
+      "time": 262.1,
+      "kind": "damage",
+      "text": "INTEGRITY \u22121 \u00b7 armed mine."
+    },
+    {
+      "time": 296.92,
+      "kind": "transition",
+      "text": "Wave 1 complete \u00b7 Keep moving. Next signal in 3s."
+    },
+    {
+      "time": 299.92,
+      "kind": "wave",
+      "text": "WAVE 2 / 3 \u00b7 Recover 12 energy cores."
+    },
+    {
+      "time": 335.3,
+      "kind": "damage",
+      "text": "INTEGRITY \u22121 \u00b7 armed mine."
+    },
+    {
+      "time": 382.07,
+      "kind": "transition",
+      "text": "Wave 2 complete \u00b7 Keep moving. Next signal in 3s."
+    },
+    {
+      "time": 385.07,
+      "kind": "wave",
+      "text": "WAVE 3 / 3 \u00b7 Recover 12 energy cores \u00b7 HUNTER inbound."
+    }
+  ],
+  "trace": "3963 commands from the bounded test-only pilot; incomplete input trace retained only at /tmp/s39-ordinary-3039-standard-keyboard-robust.json",
+  "passed": false,
+  "limitation": "This single bounded robust-trace attempt did not finish. It is not evidence of an ordinary clear; no further generator or full-browser retry was run."
+}

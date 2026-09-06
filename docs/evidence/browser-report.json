@@ -1,6 +1,6 @@
 {
-  "build": "0.1.0",
-  "date": "2026-09-06T04:37:57.084Z",
+  "build": "0.2.0",
+  "date": "2026-09-06T17:21:06.653Z",
   "method": "Playwright, installed Chrome, headless; Browser plugin absent",
   "browser": "152.0.7977.77",
   "checks": [

@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-06T04:31:11.430Z",
+  "date": "2026-09-06T18:01:54.263Z",
   "baseline": false,
   "browser": "152.0.7977.77",
   "initial": {
@@ -14,14 +14,14 @@
   },
   "timings": {
     "renderCompletionMs": {
-      "median": 3.1999998092651367,
-      "p95": 4.099999904632568,
-      "max": 4.099999904632568
+      "median": 3,
+      "p95": 3.300000000745058,
+      "max": 3.300000000745058
     },
     "frameIntervalMs": {
       "median": 16.699999999999932,
-      "p95": 16.799999999999955,
-      "max": 16.799999999999955
+      "p95": 16.700000000000045,
+      "max": 16.700000000000045
     },
     "sampleCount": 20,
     "unchanged": true
@@ -144,12 +144,12 @@
     "radius": 4,
     "pauseFrozen": true,
     "simulationUnchanged": true,
-    "pickupCount": 8
+    "pickupCount": 12
   },
   "checks": [
     "Large/regular/narrow DPR2 dimensions recorded; simulation unchanged by timed rendering",
     "All quality budgets enforced; composer matches canvas; CSS size preserved; repeated resize is a no-op",
-    "Real EMP action renders exact four-unit origin after movement; paused simulation freezes pulse; all eight canonical pickups rendered",
+    "Real EMP action renders exact four-unit origin after movement; paused simulation freezes pulse; all twelve canonical pickups rendered",
     "Captured large Medium fixture and disposed renderer without browser errors"
   ],
   "errors": [],

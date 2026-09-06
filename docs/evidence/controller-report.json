@@ -1,29 +1,24 @@
 {
-  "date": "2026-09-06T04:37:01.930862+00:00",
-  "method": "Results recorded from scripts/verify-controller.mjs; isolated installed Chrome with a mocked standard Xbox mapping.",
-  "viewports": [
+  "date": "2026-09-06T17:40:44.847522+00:00",
+  "command": "node scripts/verify-controller.mjs",
+  "passed": true,
+  "results": [
     {
-      "width": 1440,
-      "height": 900
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "result": "PASS: controller-only title/settings/difficulty/pause/save, A hold suppression, tabs and selectors, focus-loss recovery, stick navigation, visible cursor",
+      "errors": []
     },
     {
-      "width": 375,
-      "height": 1020
+      "viewport": {
+        "width": 375,
+        "height": 1020
+      },
+      "result": "PASS: controller-only title/settings/difficulty/pause/save, A hold suppression, tabs and selectors, focus-loss recovery, stick navigation, visible cursor",
+      "errors": []
     }
   ],
-  "checks": [
-    "Controller-only title, Settings, tabs, slider, briefing, difficulty, start, pause, back, Save & Exit and guide flows passed",
-    "Graphics quality and Rules profile: A opens visible listbox, D-pad selects, A confirms; B cancels the quality list without closing Settings or changing its value",
-    "Held A across popup open does not accidentally confirm",
-    "DOM focus refusal retains controller cursor and activation",
-    "Left-stick navigation and pointer-to-gamepad visible focus pass",
-    "Paused Pickups & Tactics guide, Pickups-to-Tactics tab and B back preserve the paused menu and selection"
-  ],
-  "errors": [],
-  "ownerFeedback": "Owner confirmed other menus work with their Xbox controller after the initial focus fix. They reported both dropdowns still failed to open; the final custom-list revision addresses that behavior and awaits owner recheck.",
-  "limitations": [
-    "Mocked controller tests are not complete physical Xbox qualification.",
-    "CUA inspection confirmed both new option lists render in the actual narrow preview using pointer input.",
-    "No normal full-district playthrough is claimed."
-  ]
+  "expandedCoverage": "D-pad color/rotate/zoom/apply/restore/cancel from paused run; fresh press after pointer close; held A suppression; simulated standard mapping, not physical Xbox."
 }

@@ -1,6 +1,8 @@
 import type { AchievementDefinition, CosmeticDefinition, Difficulty, DistrictDefinition, PickupKind, ThreatRoster, TrialDefinition } from './types';
 
-export const CONTENT_VERSION = '0.1.0-neon-spire';
+export const CONTENT_VERSION = '0.2.0-neon-spire';
+export const LEGACY_CONTENT_VERSION = '0.1.0-neon-spire';
+export const BLASTER = { ammo: 12, interval: 0.25, speed: 18, range: 10, coneHalfAngle: Math.PI / 6, projectileCap: 6, radius: 0.12 } as const;
 export const FIXED_DT = 1 / 60;
 export const MOVEMENT = { baseSpeed: 4.5, boostSpeed: 6.3, turnRate: Math.PI * 4 / 3, spacing: 0.55, headRadius: 0.32, bodyRadius: 0.28, neckExclusion: 1.1, startingLength: 8, endlessCap: 80 } as const;
 export const RULES: Record<Difficulty, { integrity: number; clock: number; projectile: number; warning: number }> = {
@@ -12,7 +14,7 @@ export const RULES: Record<Difficulty, { integrity: number; clock: number; proje
 const roster = (patrol = 0, interceptor = 0, mineLayer = 0, hunter = 0, ambush = 0, mines = 0, gates = 0): ThreatRoster => ({ patrol, interceptor, mineLayer, hunter, ambush, mines, gates });
 /** The complete release inventory is authored here; only D1 is executable in this milestone. */
 export const DISTRICTS: DistrictDefinition[] = [
-  { id: 'D1', name: 'Neon Spire', width: 32, depth: 24, bossId: 'B1', bossName: 'Warden', implementation: 'representative', waves: [
+  { id: 'D1', name: 'Neon Spire', width: 36, depth: 26, bossId: 'B1', bossName: 'Warden', implementation: 'representative', waves: [
     { id: 'D1-W1', quota: 12, threats: roster(0, 0, 0, 0, 0, 2, 0) },
     { id: 'D1-W2', quota: 12, threats: roster(2, 0, 0, 0, 0, 3, 1) },
     { id: 'D1-W3', quota: 12, threats: roster(2, 0, 0, 1, 0, 3, 1) },
@@ -39,7 +41,7 @@ export const DISTRICTS: DistrictDefinition[] = [
   ] },
 ];
 
-export const PICKUPS: Record<PickupKind, { name: string; color: string; symbol: string; description: string; weight: number }> = {
+const PICKUP_BASE: Record<PickupKind, { name: string; color: string; symbol: string; description: string; weight: number }> = {
   overdrive: { name: 'Overdrive', color: '#32eda0', symbol: '»', description: '8s · half boost drain. Same top speed.', weight: 20 },
   shield: { name: 'Shield', color: '#40aaff', symbol: '◇', description: 'One attack absorbed · 12s. Crashes remain fatal.', weight: 20 },
   surge: { name: 'Score Surge', color: '#ea39f5', symbol: '2×', description: '15s · double core and rival points.', weight: 15 },
@@ -48,7 +50,31 @@ export const PICKUPS: Record<PickupKind, { name: string; color: string; symbol: 
   repair: { name: 'Repair', color: '#ffcb83', symbol: '+', description: 'Restore one integrity when damaged.', weight: 8 },
   decoy: { name: 'Decoy', color: '#c69aff', symbol: '⋈', description: 'Stored · leave a 4s holographic lure.', weight: 7 },
   splice: { name: 'Tail Splice', color: '#ffaf56', symbol: '−4', description: 'Retract four tail segments · minimum eight.', weight: 5 },
+  blaster: { name: 'Pulse Blaster', color: '#fff080', symbol: '⊕', description: '12 shots · hold Fire. Drones take two hits; rivals stay armored.', weight: 12 },
+  capacitor: { name: 'Capacitor', color: '#87ff58', symbol: '+35', description: 'Restore 35 boost energy. Top speed stays unchanged.', weight: 10 },
+  scrubber: { name: 'Bullet Scrubber', color: '#f1f8ff', symbol: '⊗', description: 'Armed for 8s · a shot within 2 units triggers one 3-unit bullet purge.', weight: 8 },
+  'chain-buffer': { name: 'Chain Buffer', color: '#ff78bc', symbol: '+3s', description: 'Armed for 10s · save one expiring combo with 3 extra seconds.', weight: 8 },
 };
+
+export interface PickupUnlock { wave: number; waveCores?: number; totalCores?: number; boostUsed?: boolean; combo?: number }
+const PICKUP_UNLOCKS: Record<PickupKind, PickupUnlock> = {
+  overdrive: { wave: 1 }, surge: { wave: 1 }, magnet: { wave: 1, totalCores: 4 }, shield: { wave: 2 }, emp: { wave: 2 }, repair: { wave: 2 },
+  decoy: { wave: 2, waveCores: 6 }, blaster: { wave: 2, waveCores: 8 }, splice: { wave: 3 }, capacitor: { wave: 1, boostUsed: true }, scrubber: { wave: 2 }, 'chain-buffer': { wave: 3, combo: 2 },
+};
+const PICKUP_INTRODUCTIONS: Record<PickupKind, string> = {
+  overdrive: 'Wave 1', surge: 'Wave 1', magnet: 'Wave 1 · after four cores', shield: 'Wave 2', emp: 'Wave 2', repair: 'Wave 2 · when damaged',
+  decoy: 'Wave 2 · after six cores', blaster: 'Wave 2 · after eight cores', splice: 'Wave 3', capacitor: 'After using boost below 65%', scrubber: 'Wave 2', 'chain-buffer': 'Wave 3 · after reaching 2× combo',
+};
+const PICKUP_ELIGIBILITY: Record<PickupKind, string> = {
+  overdrive: 'Refreshes its timer; does not stack.', shield: 'One absorbed hit maximum; refreshes expiry.', surge: 'Refreshes its timer; does not stack.', emp: 'One stored charge; full slot leaves pickup on the ground.',
+  magnet: 'Ordinary cores only; safe attraction paths.', repair: 'Only when damaged; one spawned per wave.', decoy: 'One stored charge; full slot leaves pickup on the ground.', splice: 'Length above eight; one spawned per wave.',
+  blaster: 'Refills to 12 shots; full ammo leaves pickup on the ground.', capacitor: 'Only below 65% boost; adds 35 without changing speed.', scrubber: 'One triggered purge; refreshes the arming timer.', 'chain-buffer': 'One saved timeout; damage still resets the combo.',
+};
+export const PICKUPS = Object.fromEntries((Object.keys(PICKUP_BASE) as PickupKind[]).map(kind => [kind, {
+  ...PICKUP_BASE[kind], unlock: PICKUP_UNLOCKS[kind], introduction: PICKUP_INTRODUCTIONS[kind], eligibility: PICKUP_ELIGIBILITY[kind],
+  activation: kind === 'emp' || kind === 'decoy' ? 'tactical' : kind === 'blaster' ? 'weapon' : 'automatic',
+  legacyIntroduction: kind === 'overdrive' || kind === 'surge' ? 'Wave 1' : kind === 'emp' || kind === 'shield' ? 'Wave 2' : ['magnet', 'repair', 'decoy', 'splice'].includes(kind) ? 'Practice only' : 'Expanded runs only',
+}])) as Record<PickupKind, (typeof PICKUP_BASE)[PickupKind] & { unlock: PickupUnlock; introduction: string; eligibility: string; activation: 'automatic' | 'tactical' | 'weapon'; legacyIntroduction: string }>;
 
 export const TRIALS: TrialDefinition[] = [
   { id: 'T01', name: 'First Current', seed: 3039001, length: 8, limit: 60, objective: 'ordinary-cores', target: 6, silver: 'Finish within 35s', gold: 'Finish within 25s' },

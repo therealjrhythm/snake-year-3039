@@ -1,23 +1,28 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, AudioLines, ChevronRight, Cpu, Gamepad2, HelpCircle, Keyboard, Maximize, Play, Radio, RotateCcw, Save, Settings2, Trophy, Volume2, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, AudioLines, ChevronRight, Cpu, Palette, FlaskConical, Gamepad2, HelpCircle, Keyboard, Maximize, Play, Radio, RotateCcw, Save, Settings2, Trophy, Volume2, X } from 'lucide-react';
 import { Simulation, FIXED_DT } from './game/simulation';
 import { GameRenderer } from './game/renderer';
 import { GameInputController } from './game/input';
 import { GameAudio } from './game/audio';
 import type { AudioStatus } from './game/audio';
-import { getSavedRun, saveRun, clearSavedRun, getRecords, commitRecord, getCheckpoint, saveCheckpoint } from './game/persistence';
+import { getSavedRun, saveRun, clearSavedRun, getRecords, commitRecord, getCheckpoint, saveCheckpoint, recordVersion, recordVersionLabel } from './game/persistence';
 import type { LocalRecord } from './game/persistence';
-import type { Difficulty, GameMode, SimulationState } from './game/types';
+import type { Difficulty, GameMode, LabKind, SimulationState } from './game/types';
 import { Settings, readSettings } from './components/Settings';
 import type { SettingsValue } from './components/Settings';
 import { Hud } from './components/Hud';
 import { Modal } from './components/Modal';
 import { MenuSelect } from './components/MenuSelect';
 import { GameplayGuide } from './components/GameplayGuide';
+import { CustomizeSnake } from './components/CustomizeSnake';
+import { PowerupLab } from './components/PowerupLab';
+import { readAppearance, writeAppearance } from './game/appearance';
+import type { GlowId } from './game/appearance';
+import { CONTENT_VERSION, LEGACY_CONTENT_VERSION } from './game/content';
 
 type Screen = 'title' | 'briefing' | 'countdown' | 'playing' | 'paused' | 'boss-intro' | 'results';
-type Overlay = 'settings' | 'guide' | 'records' | 'credits' | 'abandon' | null;
-const VERSION = '0.1.0';
+type Overlay = 'settings' | 'guide' | 'records' | 'credits' | 'abandon' | 'customize' | 'lab' | null;
+const VERSION = '0.2.0';
 
 export default function App() {
   const mount = useRef<HTMLDivElement>(null);
@@ -26,6 +31,10 @@ export default function App() {
   const checkpoint = useRef<unknown>(null);
   const savedRun = useRef<unknown>(null);
   const [hasSave, setHasSave] = useState(false);
+  const [saveVersion, setSaveVersion] = useState(CONTENT_VERSION);
+  const [appearance, setAppearance] = useState(readAppearance);
+  const appearanceRef = useRef(appearance);
+  const [recordFilter, setRecordFilter] = useState('current');
   const [screen, setScreen] = useState<Screen>('title');
   const screenRef = useRef<Screen>('title');
   const [overlay, setOverlay] = useState<Overlay>(null);
@@ -46,11 +55,12 @@ export default function App() {
   const [difficulty, setDifficulty] = useState<Difficulty>('standard');
   const [records, setRecords] = useState<LocalRecord[]>([]);
   const [busy, setBusy] = useState(false);
+  const savePending = useRef(false);
   const [eventText, setEventText] = useState('');
   const eventUntil = useRef(0);
   const eventPriority = useRef(0);
   const clockState = useRef({ accumulator: 0, hudAt: 0, lastEvent: 0, pendingUse: false, pendingSwap: false });
-  const resetFeedback = (sim: Simulation) => { clockState.current.lastEvent = sim.state.eventCounter; setEventText(''); eventUntil.current = 0; eventPriority.current = 0; };
+  const resetFeedback = (sim: Simulation, freshStart = false) => { clockState.current.lastEvent = freshStart ? 0 : sim.state.eventCounter; setEventText(''); eventUntil.current = 0; eventPriority.current = 0; };
   const pauseHandler = useRef<(reason: string) => void>(() => {});
   const tickHandler = useRef<(now: number, elapsed: number) => void>(() => {});
   const terminalRuns = useRef(new Set<string>());
@@ -61,14 +71,18 @@ export default function App() {
     simulation.current?.clearInput();
     runtime.current?.audio.setPaused(next !== 'playing' && next !== 'title' && next !== 'briefing');
   }, []);
-  const changeOverlay = useCallback((next: Overlay) => { overlayRef.current = next; setOverlay(next); runtime.current?.input.clear(); }, []);
+  const changeOverlay = useCallback((next: Overlay) => {
+    if (savePending.current) return;
+    if (overlayRef.current === 'customize' && next !== 'customize') { runtime.current?.renderer.setPreview(null); runtime.current?.renderer.setAppearance(appearanceRef.current); }
+    overlayRef.current = next; setOverlay(next); runtime.current?.input.clear();
+  }, []);
   const refreshHud = () => { if (simulation.current) setHud(structuredClone(simulation.current.state)); };
 
   useEffect(() => {
     let alive = true;
     getSavedRun().then(value => {
       if (!alive || !value) return;
-      try { Simulation.restore(value); savedRun.current = value; setHasSave(true); }
+      try { const saved = Simulation.restore(value); setSaveVersion(saved.state.contentVersion); savedRun.current = value; setHasSave(true); }
       catch { setNotice('A saved run is incompatible or damaged. Your local records are still available.'); }
     }).catch(() => { if (alive) setNotice('Storage is unavailable. You can play, but progress may be lost.'); });
     getRecords().then(value => { if (alive) setRecords(value); }).catch(() => {});
@@ -90,7 +104,7 @@ export default function App() {
       input.dispose(); audio.dispose(); setGraphicsError('WebGL 2 could not start. Enable hardware acceleration and open the game in a supported desktop browser.'); return;
     }
     runtime.current = { renderer, input, audio };
-    renderer.setSettings(settingsRef.current); input.deadZone = settingsRef.current.deadZone;
+    renderer.setSettings(settingsRef.current); renderer.setAppearance(appearanceRef.current); input.deadZone = settingsRef.current.deadZone;
     audio.setLevels(settingsRef.current.master, settingsRef.current.music, settingsRef.current.effects);
     const preview = new Simulation({ seed: 3039 });
     let last = 0;
@@ -110,6 +124,7 @@ export default function App() {
   }, []);
 
   const pause = (reason = 'pause') => {
+    if (savePending.current) return;
     if (overlayRef.current) { if (['pause', 'back'].includes(reason)) changeOverlay(null); return; }
     const current = screenRef.current;
     if (current === 'playing' || current === 'countdown') {
@@ -119,20 +134,41 @@ export default function App() {
       changeScreen('paused'); refreshHud();
     }
     else if (current === 'paused' && ['pause', 'back'].includes(reason)) resume();
-    else if (['briefing', 'results'].includes(current) && ['pause', 'back'].includes(reason)) { simulation.current = null; changeScreen('title'); }
+    else if (['briefing', 'results'].includes(current) && ['pause', 'back'].includes(reason)) { simulation.current = null; changeScreen('title'); runtime.current?.audio.setIntensity('title'); }
   };
   pauseHandler.current = pause;
   const startCountdown = () => { simulation.current?.resume(); setCountdown(3); countdownEnd.current = performance.now() / 1000 + 3; changeScreen('countdown'); refreshHud(); };
-  const resume = () => { if (simulation.current) startCountdown(); };
+  const resume = () => { if (simulation.current && !savePending.current) startCountdown(); };
   const start = (mode: GameMode) => {
     const launch = () => {
       const sim = new Simulation({ difficulty, mode, seed: Math.floor(Math.random() * 0x7fffffff) });
-      simulation.current = sim; checkpoint.current = sim.snapshot(); resetFeedback(sim);
+      simulation.current = sim; checkpoint.current = sim.snapshot(); resetFeedback(sim, true);
       if (mode === 'campaign') void saveCheckpoint(checkpoint.current).catch(() => setNotice('The checkpoint is available this session, but could not be saved to disk.'));
       runtime.current?.audio.setIntensity('playing'); changeOverlay(null); startCountdown();
     };
     if (hasSave) { void clearSavedRun().then(() => { savedRun.current = null; setHasSave(false); launch(); }).catch(() => setNotice('Could not clear the old suspended run. Try again before starting.')); }
     else launch();
+  };
+  const startLab = (kind: LabKind) => {
+    const sim = Simulation.createLab(kind); simulation.current = sim; checkpoint.current = null; resetFeedback(sim, true);
+    runtime.current?.audio.setIntensity(kind === 'warden' ? 'boss' : 'playing'); changeOverlay(null); startCountdown();
+  };
+  const refillLab = () => {
+    const sim = simulation.current; if (!sim?.state.lab) return;
+    sim.refillLab(); resetFeedback(sim, true); startCountdown();
+  };
+  const leaveLab = () => { simulation.current = null; changeOverlay(null); changeScreen('title'); runtime.current?.audio.setIntensity('title'); };
+  const replaySeed = () => {
+    const old = simulation.current?.state; if (!old) return;
+    if (old.lab) { const sim = Simulation.createLab(old.lab, old.seed); simulation.current = sim; resetFeedback(sim, true); startCountdown(); return; }
+    const sim = new Simulation({ difficulty: old.difficulty, mode: old.mode, seed: old.seed, layoutId: old.layoutId });
+    simulation.current = sim; checkpoint.current = sim.snapshot(); resetFeedback(sim, true);
+    if (sim.state.mode === 'campaign') void saveCheckpoint(checkpoint.current).catch(() => setNotice('Checkpoint kept in this session; disk storage failed.'));
+    runtime.current?.audio.setIntensity('playing'); startCountdown();
+  };
+  const applyAppearance = (glow: GlowId) => {
+    setAppearance(glow); appearanceRef.current = glow; const result = writeAppearance(glow);
+    if (result.error) setNotice(result.error); changeOverlay(null);
   };
   const retry = (fromCheckpoint: boolean) => {
     const old = simulation.current;
@@ -144,16 +180,16 @@ export default function App() {
     } else start(old?.state.mode ?? 'campaign');
   };
   const saveAndExit = async () => {
-    const sim = simulation.current; if (!sim) return;
-    setBusy(true);
-    try { const snapshot = sim.snapshot(); await saveRun(snapshot); savedRun.current = snapshot; setHasSave(true); simulation.current = null; changeScreen('title'); runtime.current?.audio.setIntensity('title'); }
+    const sim = simulation.current; if (!sim || savePending.current) return;
+    savePending.current = true; setBusy(true);
+    try { const snapshot = sim.snapshot(); await saveRun(snapshot); savedRun.current = snapshot; setHasSave(true); setSaveVersion(sim.state.contentVersion); simulation.current = null; changeScreen('title'); runtime.current?.audio.setIntensity('title'); }
     catch { setNotice('The run could not be saved. Your game is still paused; resume or retry saving.'); }
-    finally { setBusy(false); }
+    finally { savePending.current = false; setBusy(false); }
   };
   const continueRun = () => {
     try {
       simulation.current = Simulation.restore(savedRun.current); checkpoint.current = null; resetFeedback(simulation.current);
-      void getCheckpoint().then(value => { if (value) { try { const restored = Simulation.restore(value); if (restored.state.seed === simulation.current?.state.seed) checkpoint.current = value; } catch { /* The exact suspend still remains usable. */ } } }).catch(() => {});
+      void getCheckpoint().then(value => { if (value) { try { const restored = Simulation.restore(value); if (restored.state.seed === simulation.current?.state.seed && restored.state.contentVersion === simulation.current?.state.contentVersion) checkpoint.current = value; } catch { /* The exact suspend still remains usable. */ } } }).catch(() => {});
       setDifficulty(simulation.current.state.difficulty);
       runtime.current?.audio.setIntensity(simulation.current.state.boss ? 'boss' : 'playing'); startCountdown();
     } catch { setNotice('This saved run could not be restored. You can start a fresh district.'); }
@@ -162,7 +198,7 @@ export default function App() {
     const state = sim.state; refreshHud(); changeScreen('results');
     if (state.mode === 'practice' || terminalRuns.current.has(state.runId)) return;
     terminalRuns.current.add(state.runId);
-    const record: LocalRecord = { runId: state.runId, score: state.score, cores: state.totalCores, rivalKills: state.rivalKills, wave: state.wave, elapsed: state.time, completed: state.status === 'complete', difficulty: state.difficulty, date: new Date().toISOString(), cause: state.deathCause };
+    const record: LocalRecord = { runId: state.runId, score: state.score, cores: state.totalCores, rivalKills: state.rivalKills, wave: state.wave, elapsed: state.time, completed: state.status === 'complete', difficulty: state.difficulty, date: new Date().toISOString(), cause: state.deathCause, contentVersion: state.contentVersion, districtId: 'D1', mode: state.mode, seed: state.seed };
     void commitRecord(record).then(() => { savedRun.current = null; setHasSave(false); return getRecords(); }).then(setRecords).catch(() => { terminalRuns.current.delete(state.runId); setNotice('Result storage failed. This score remains visible, but was not saved.'); });
   };
   tickHandler.current = (now, elapsed) => {
@@ -192,10 +228,11 @@ export default function App() {
     const sounded = new Set<string>();
     for (const event of freshEvents) {
       clock.lastEvent = event.id;
-      if (!sounded.has(event.kind)) { active.audio.event(event.kind); sounded.add(event.kind); }
-      const priority = ['damage', 'shield-hit', 'crash', 'emp', 'decoy', 'empty'].includes(event.kind) ? 4
+      const soundKey = `${event.kind}:${event.relay ?? event.pickup ?? ''}`;
+      if (!sounded.has(soundKey)) { active.audio.event(event); sounded.add(soundKey); }
+      const priority = ['damage', 'shield-hit', 'crash', 'emp', 'decoy', 'empty', 'charge-ready', 'boss-node', 'boss-defeated'].includes(event.kind) ? 4
         : ['pickup', 'decoy-hit'].includes(event.kind) ? 3
-          : ['core', 'shot', 'lock', 'mine-arm', 'select'].includes(event.kind) ? 0 : 2;
+          : ['core', 'shot', 'lock', 'mine-arm', 'select', 'player-shot', 'drone-hit', 'receptor-hit'].includes(event.kind) ? 0 : 2;
       if (priority > 0 && (now >= eventUntil.current || priority >= eventPriority.current)) {
         setEventText(event.text); eventUntil.current = now + (priority >= 3 ? 4 : 2.5); eventPriority.current = priority;
       }
@@ -215,7 +252,8 @@ export default function App() {
     catch { setNotice('Could not clear the suspended run. Your current run is still paused.'); }
   };
   const fullscreen = () => { void (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()).catch(() => setNotice('Fullscreen was unavailable. You can keep playing in this window.')); };
-  const best = records.filter(r => r.difficulty === (hud?.difficulty ?? difficulty)).reduce((n, r) => Math.max(n, r.score), 0);
+  const best = records.filter(r => r.difficulty === (hud?.difficulty ?? difficulty) && recordVersion(r) === (simulation.current?.state.contentVersion ?? CONTENT_VERSION) && (r.mode ?? 'campaign') === (simulation.current?.state.mode ?? 'campaign') && (r.districtId ?? 'D1') === 'D1').reduce((n, r) => Math.max(n, r.score), 0);
+  const visibleRecords = records.filter(record => recordFilter === 'all' || recordVersion(record) === (recordFilter === 'current' ? CONTENT_VERSION : LEGACY_CONTENT_VERSION));
   const showHud = hud && !['title', 'briefing'].includes(screen);
   const audioNeedsGesture = settings.master > 0 && audioStatus !== 'running';
   const soundLabel = settings.master === 0 ? 'OFF' : audioStatus === 'running' ? 'ON' : 'ENABLE';
@@ -228,18 +266,20 @@ export default function App() {
     <div ref={mount} className={`world ${screen === 'title' || screen === 'briefing' ? 'cinematic' : ''}`} />
     <div className="screen-vignette" aria-hidden="true" />
     {screen === 'title' || screen === 'briefing' ? <><header className="title-header" inert={overlay !== null}><span className="system-mark"><Cpu size={19} /> S–39 <i /> AUTONOMOUS SYSTEMS</span><div><button className="icon-button" aria-label="Toggle sound" onPointerDown={() => { soundAction.current = audioNeedsGesture ? 'enable' : 'toggle'; }} onPointerCancel={() => { soundAction.current = null; }} onKeyDown={event => { if (!event.repeat && (event.key === 'Enter' || event.key === ' ')) soundAction.current = audioNeedsGesture ? 'enable' : 'toggle'; }} onClick={() => { const action = soundAction.current ?? (audioNeedsGesture ? 'enable' : 'toggle'); soundAction.current = null; if (action === 'enable') void runtime.current?.audio.unlock(); else updateSettings({ ...settings, master: settings.master > 0 ? 0 : 0.6 }); }}><Volume2 size={18} /><span>{soundLabel}</span></button><button className="icon-button" onClick={fullscreen} aria-label="Toggle fullscreen"><Maximize size={18} /></button></div></header><div className="title-bottom"><span>NEON SPIRE <i /> DEVELOPMENT BUILD {VERSION}</span><span>{device === 'keyboard' ? <Keyboard size={15} /> : <Gamepad2 size={17} />}{device === 'keyboard' ? 'KEYBOARD READY' : 'GAMEPAD DETECTED'}<span className="tiny-dot" /></span></div></> : null}
-    {screen === 'title' ? <div className="title-layout" data-menu inert={overlay !== null}><div className="game-logo" aria-label="Snake: Year 3039"><h1>SNAKE</h1><div>YEAR <b>3039</b></div></div><div className="title-tagline"><p>Collect energy. Outsmart the system.</p><span>Turn your own path into a weapon.</span></div><nav className="main-menu" aria-label="Main menu">{hasSave ? <button className="menu-button primary" onClick={continueRun} disabled={!ready} data-autofocus><Play size={21} fill="currentColor" />CONTINUE RUN<ChevronRight size={19} /></button> : null}<button className={`menu-button ${hasSave ? '' : 'primary'}`} onClick={() => changeScreen('briefing')} disabled={!ready} data-autofocus={!hasSave || undefined}><Play size={21} fill="currentColor" />{ready ? 'START GAME' : 'INITIALIZING SCENE'}<ChevronRight size={19} /></button><button className="menu-button" onClick={() => changeOverlay('settings')}><Settings2 size={23} />SETTINGS<ChevronRight size={19} /></button><button className="menu-button" onClick={() => changeOverlay('guide')}><HelpCircle size={22} />HOW TO PLAY<ChevronRight size={19} /></button></nav><div className="secondary-menu"><button onClick={() => changeOverlay('records')}><Trophy size={15} />LOCAL RECORDS</button><span>/</span><button onClick={() => changeOverlay('credits')}>CREDITS</button></div>{device === 'gamepad' ? <div className="controller-menu-hints"><span>↕ Navigate</span><span><kbd>A</kbd> Select</span><span><kbd>B</kbd> Back</span></div> : null}</div> : null}
+    {screen === 'title' ? <div className="title-layout" data-menu inert={overlay !== null}><div className="game-logo" aria-label="Snake: Year 3039"><h1>SNAKE</h1><div>YEAR <b>3039</b></div></div><div className="title-tagline"><p>Collect energy. Outsmart the system.</p><span>Turn your own path into a weapon.</span></div><nav className="main-menu" aria-label="Main menu">{hasSave ? <button className="menu-button primary" onClick={continueRun} disabled={!ready} data-autofocus><Play size={21} fill="currentColor" />CONTINUE RUN<ChevronRight size={19} /></button> : null}<button className={`menu-button ${hasSave ? '' : 'primary'}`} onClick={() => changeScreen('briefing')} disabled={!ready} data-autofocus={!hasSave || undefined}><Play size={21} fill="currentColor" />{ready ? 'START GAME' : 'INITIALIZING SCENE'}<ChevronRight size={19} /></button><button className="menu-button" onClick={() => changeOverlay('settings')}><Settings2 size={23} />SETTINGS<ChevronRight size={19} /></button><button className="menu-button" onClick={() => changeOverlay('guide')}><HelpCircle size={22} />HOW TO PLAY<ChevronRight size={19} /></button></nav><div className="secondary-menu"><button onClick={() => changeOverlay('customize')}><Palette size={15} />CUSTOMIZE SNAKE</button><span>/</span><button onClick={() => changeOverlay('records')}><Trophy size={15} />LOCAL RECORDS</button><span>/</span><button onClick={() => changeOverlay('credits')}>CREDITS</button></div>{device === 'gamepad' ? <div className="controller-menu-hints"><span>↕ Navigate</span><span><kbd>A</kbd> Select</span><span><kbd>B</kbd> Back</span></div> : null}</div> : null}
     {screen === 'title' ? <div className="scene-caption"><span className="caption-line" /><p>THE CITY IS A CIRCUIT.</p><strong>Make your own path.</strong><span>01 / NEON SPIRE</span></div> : null}
-    {screen === 'briefing' ? <div className="briefing panel" data-menu inert={overlay !== null}><button className="text-button" onClick={() => changeScreen('title')}><ArrowLeft size={16} />BACK</button><div className="briefing-number">01</div><span className="hud-label">CAMPAIGN / FIRST DISTRICT</span><h2>NEON SPIRE</h2><p>The city closed its energy network.<br />You were built to open it.</p><div className="briefing-stats"><div><strong>03</strong><span>COLLECTION WAVES</span></div><div><strong>36</strong><span>ENERGY CORES</span></div><div><Radio size={29} /><span>WARDEN FINALE</span></div></div><div className="difficulty-label"><span>RULES PROFILE</span><MenuSelect label="RULES PROFILE" value={difficulty} onChange={setDifficulty} options={[{ value: 'standard', label: 'Standard · 3 integrity' }, { value: 'assisted', label: 'Assisted · 5 integrity · slower world' }, { value: 'expert', label: 'Expert · faster hostile projectiles' }]} /></div><p className="briefing-tip">You move continuously. Steer with {device === 'keyboard' ? 'WASD or arrows' : 'the left stick or D-pad'}. Your shield stops attacks; walls and your own body still cause a critical crash.</p>{hasSave ? <p className="replace-note">Starting a new run replaces your suspended run.</p> : null}<button className="menu-button primary" onClick={() => start('campaign')} data-autofocus><Play size={20} fill="currentColor" />ENTER NEON SPIRE<ArrowRight size={20} /></button><button className="text-button practice-button" onClick={() => start('practice')}>Practice without records <ArrowRight size={15} /></button></div> : null}
+    {screen === 'briefing' ? <div className="briefing panel" data-menu inert={overlay !== null}><button className="text-button" onClick={() => changeScreen('title')}><ArrowLeft size={16} />BACK</button><div className="briefing-number">01</div><span className="hud-label">CAMPAIGN / FIRST DISTRICT</span><h2>NEON SPIRE</h2><p>The city closed its energy network.<br />You were built to open it.</p><div className="briefing-stats"><div><strong>03</strong><span>COLLECTION WAVES</span></div><div><strong>36</strong><span>ENERGY CORES</span></div><div><Radio size={29} /><span>WARDEN FINALE</span></div></div><div className="difficulty-label"><span>RULES PROFILE</span><MenuSelect label="RULES PROFILE" value={difficulty} onChange={setDifficulty} options={[{ value: 'standard', label: 'Standard · 3 integrity' }, { value: 'assisted', label: 'Assisted · 5 integrity · slower world' }, { value: 'expert', label: 'Expert · faster hostile projectiles' }]} /></div><p className="briefing-tip">36 × 26 arena · twelve powerups. Three collection waves, then Warden. You move continuously. Steer with {device === 'keyboard' ? 'WASD or arrows' : 'the left stick or D-pad'}. Your shield stops attacks; walls and your own body still cause a critical crash.</p>{hasSave ? <p className="replace-note">Starting a new run replaces your suspended run{saveVersion === LEGACY_CONTENT_VERSION ? ' (legacy 32 × 24 rules)' : ''}. The Powerup Lab keeps it.</p> : null}<button className="menu-button primary" onClick={() => start('campaign')} data-autofocus><Play size={20} fill="currentColor" />ENTER NEON SPIRE<ArrowRight size={20} /></button><div className="practice-links"><button className="text-button practice-button" onClick={() => start('practice')}>Practice without records <ArrowRight size={15} /></button><button className="text-button practice-button" onClick={() => changeOverlay('lab')}><FlaskConical size={16} />Powerup Lab</button></div></div> : null}
     {showHud ? <div inert={screen !== 'playing' || overlay !== null}><Hud state={hud} device={device} onPause={() => pause()} best={best} practice={hud.mode === 'practice'} /></div> : null}
     {screen === 'playing' && eventText ? <div className="event-toast" role="status">{eventText}</div> : null}
     {screen === 'countdown' ? <div className="countdown-overlay"><span>SYSTEMS READY</span><strong key={countdown}>{countdown}</strong><p>{hud?.boss ? 'WARDEN / BREAK THE CONTROL NODES' : 'NEON SPIRE / FIND YOUR CURRENT'}</p></div> : null}
-    {screen === 'paused' ? <div className="center-overlay"><section className="pause-panel panel" data-menu inert={overlay !== null}><div className="hud-label">{pauseCause === 'manual' ? 'SIMULATION SUSPENDED' : `AUTOMATIC PAUSE · ${pauseCause.toUpperCase()}`}</div><h2>PAUSED</h2><p>{pauseReason}</p><button className="menu-button primary" onClick={resume} data-autofocus><Play size={18} />RESUME<ArrowRight size={18} /></button><button className="menu-button" onClick={() => changeOverlay('settings')}><Settings2 size={18} />SETTINGS</button><button className="menu-button" onClick={() => changeOverlay('guide')}><HelpCircle size={18} />PICKUPS &amp; TACTICS</button><button className="menu-button" onClick={() => changeOverlay('abandon')}><X size={18} />RETURN TO TITLE</button><button className="menu-button" onClick={saveAndExit} disabled={busy}><Save size={18} />{busy ? 'SAVING RUN…' : 'SAVE & EXIT'}</button>{pauseCause === 'performance' && settings.quality !== 'low' ? <button className="text-button performance-recovery" onClick={() => { updateSettings({ ...settings, quality: 'low' }); resume(); }}>Use Low graphics &amp; resume <ArrowRight size={16} /></button> : null}<p className="fine-print">Movement and ability timers are frozen.{pauseCause === 'performance' && settings.quality === 'low' ? ' Close heavy browser tabs before resuming if this repeats.' : ''}</p></section></div> : null}
-    {screen === 'boss-intro' ? <div className="center-overlay"><section className="boss-intro-panel panel" data-menu><span className="hud-label">PERIMETER AUTHORITY / CONTROL LINK DETECTED</span><h2>THE WARDEN</h2><p>Three nodes hold Neon Spire captive.</p><ol><li>Collect the three numbered relay orbs.</li><li>Avoid the marked laser sector.</li><li>Cross the green discharge pad during recovery.</li></ol><p>Stored relay charge survives a missed window.<br />Break every node, then steer through the north exit.</p><button className="menu-button primary" data-autofocus onClick={() => { simulation.current?.beginBoss(); runtime.current?.audio.setIntensity('boss'); startCountdown(); }}><Play size={20} />BREAK THE CIRCUIT<ArrowRight size={19} /></button></section></div> : null}
-    {screen === 'results' && hud ? <div className="center-overlay"><section className="results-panel panel" data-menu inert={overlay !== null}><span className="hud-label">{hud.mode === 'practice' ? 'PRACTICE COMPLETE / NO RECORDS AWARDED' : hud.status === 'complete' ? 'DISTRICT 01 / EXTRACTION COMPLETE' : 'S–39 / SIGNAL LOST'}</span><h2>{hud.status === 'complete' ? 'NEON SPIRE LIBERATED' : 'CONNECTION SEVERED'}</h2><p>{hud.status === 'complete' ? 'The first circuit is open. You found your own way.' : hud.deathCause}</p><div className="result-score"><span>RUN SCORE</span><strong>{hud.score.toLocaleString('en-US')}</strong></div><div className="result-stats"><span><b>{hud.totalCores}</b>CORES</span><span><b>{hud.rivalKills}</b>BODY-BLOCKS</span><span><b>{Math.floor(hud.time / 60)}:{String(Math.floor(hud.time % 60)).padStart(2, '0')}</b>ACTIVE TIME</span></div>{checkpoint.current && hud.status !== 'complete' ? <button className="menu-button primary" onClick={() => retry(true)} data-autofocus><RotateCcw size={18} />RETRY CHECKPOINT<ArrowRight size={18} /></button> : null}<button className={`menu-button ${hud.status === 'complete' ? 'primary' : ''}`} onClick={() => retry(false)}><RotateCcw size={18} />RESTART DISTRICT</button><button className="text-button result-return" onClick={() => { simulation.current = null; changeScreen('title'); runtime.current?.audio.setIntensity('title'); }}><ArrowLeft size={16} />RETURN TO TITLE</button>{hud.status === 'complete' ? <p className="fine-print">Neon Spire development checkpoint complete. The remaining city is still in production.</p> : null}</section></div> : null}
+    {screen === 'paused' ? <div className="center-overlay"><section className="pause-panel panel" data-menu inert={overlay !== null || busy}><div className="hud-label">{pauseCause === 'manual' ? 'SIMULATION SUSPENDED' : `AUTOMATIC PAUSE · ${pauseCause.toUpperCase()}`}</div><h2>PAUSED</h2><p>{pauseReason}</p><button className="menu-button primary" onClick={resume} data-autofocus><Play size={18} />RESUME<ArrowRight size={18} /></button><button className="menu-button" onClick={() => changeOverlay('settings')}><Settings2 size={18} />SETTINGS</button><button className="menu-button" onClick={() => changeOverlay('guide')}><HelpCircle size={18} />PICKUPS &amp; TACTICS</button><button className="menu-button" onClick={() => changeOverlay('customize')}><Palette size={18} />CUSTOMIZE SNAKE</button>{hud?.lab ? <><button className="menu-button" onClick={refillLab}><RotateCcw size={18} />REFILL &amp; RESET LAB</button><button className="menu-button" onClick={() => changeOverlay('lab')}><FlaskConical size={18} />CHOOSE LAB SYSTEM</button><button className="menu-button" onClick={leaveLab}><X size={18} />LEAVE LAB</button></> : <><button className="menu-button" onClick={() => changeOverlay('abandon')}><X size={18} />RETURN TO TITLE</button><button className="menu-button" onClick={saveAndExit} disabled={busy}><Save size={18} />{busy ? 'SAVING RUN…' : 'SAVE & EXIT'}</button></>}{pauseCause === 'performance' && settings.quality !== 'low' ? <button className="text-button performance-recovery" onClick={() => { updateSettings({ ...settings, quality: 'low' }); resume(); }}>Use Low graphics &amp; resume <ArrowRight size={16} /></button> : null}<p className="fine-print">Movement and ability timers are frozen.{pauseCause === 'performance' && settings.quality === 'low' ? ' Close heavy browser tabs before resuming if this repeats.' : ''}</p></section></div> : null}
+    {screen === 'boss-intro' ? <div className="center-overlay"><section className="boss-intro-panel panel" data-menu><span className="hud-label">PERIMETER AUTHORITY / CONTROL LINK DETECTED</span><h2>THE WARDEN</h2><p>Three nodes hold Neon Spire captive.</p><ol><li>Collect relay 1 → 2 → 3 in order. Your charge stays banked until a node breaks.</li><li>Avoid the marked laser sector.</li><li>{hud?.contentVersion === LEGACY_CONTENT_VERSION ? 'Cross the green discharge pad during recovery.' : `During recovery, cross the green pad OR hold ${device === 'gamepad' ? 'A' : 'F'} to land three blaster hits on the exposed receptor.`}</li></ol><p>Stored relay charge survives a missed window.<br />Break every node, then steer through the north exit.</p><button className="menu-button primary" data-autofocus onClick={() => { simulation.current?.beginBoss(); runtime.current?.audio.setIntensity('boss'); startCountdown(); }}><Play size={20} />BREAK THE CIRCUIT<ArrowRight size={19} /></button></section></div> : null}
+    {screen === 'results' && hud ? <div className="center-overlay"><section className="results-panel panel" data-menu inert={overlay !== null}><span className="hud-label">{hud.mode === 'practice' ? 'PRACTICE COMPLETE / NO RECORDS AWARDED' : hud.status === 'complete' ? 'DISTRICT 01 / EXTRACTION COMPLETE' : 'S–39 / SIGNAL LOST'}</span><h2>{hud.status === 'complete' ? 'NEON SPIRE LIBERATED' : 'CONNECTION SEVERED'}</h2><p>{hud.status === 'complete' ? 'The first circuit is open. You found your own way.' : hud.deathCause}</p><div className="result-score"><span>RUN SCORE</span><strong>{hud.score.toLocaleString('en-US')}</strong></div><div className="result-stats"><span><b>{hud.totalCores}</b>CORES</span><span><b>{hud.rivalKills}</b>BODY-BLOCKS</span><span><b>{Math.floor(hud.time / 60)}:{String(Math.floor(hud.time % 60)).padStart(2, '0')}</b>ACTIVE TIME</span></div>{checkpoint.current && hud.status !== 'complete' ? <button className="menu-button primary" onClick={() => retry(true)} data-autofocus><RotateCcw size={18} />RETRY CHECKPOINT<ArrowRight size={18} /></button> : null}<button className="menu-button" onClick={replaySeed}><RotateCcw size={18} />REPLAY THIS SEED</button><button className={`menu-button ${hud.status === 'complete' ? 'primary' : ''}`} onClick={() => hud.lab ? startLab(hud.lab) : retry(false)}><RotateCcw size={18} />{hud.lab ? 'RESTART LAB' : 'RESTART DISTRICT'}</button><button className="text-button result-return" onClick={() => { simulation.current = null; changeScreen('title'); runtime.current?.audio.setIntensity('title'); }}><ArrowLeft size={16} />RETURN TO TITLE</button>{hud.status === 'complete' ? <p className="fine-print">Neon Spire development checkpoint complete. The remaining city is still in production.</p> : null}</section></div> : null}
     {overlay === 'settings' ? <Settings value={settings} onChange={updateSettings} onClose={() => changeOverlay(null)} /> : null}
-    {overlay === 'guide' ? <GameplayGuide device={device} paused={screen === 'paused'} onClose={() => changeOverlay(null)} onEnter={() => { changeOverlay(null); changeScreen('briefing'); }} /> : null}
-    {overlay === 'records' ? <Modal title="LOCAL RECORDS" subtitle="YOUR SIGNAL. YOUR MACHINE." onClose={() => changeOverlay(null)} className="records-dialog">{records.length ? <div className="records-table"><div className="records-row records-head"><span>RULES / RESULT</span><span>SCORE</span><span>CORES</span></div>{records.slice().sort((a, b) => b.score - a.score).slice(0, 12).map(record => <div className="records-row" key={record.runId}><div><strong>{record.difficulty.toUpperCase()}</strong><small>{record.completed ? 'Neon Spire cleared' : `Wave ${record.wave}`} · {new Date(record.date).toLocaleDateString()}</small></div><b>{record.score.toLocaleString('en-US')}</b><span>{record.cores}</span></div>)}</div> : <div className="empty-records"><Trophy size={40} /><h3>Your first signal starts here.</h3><p>Completed and lost district attempts appear here.<br />Practice never changes your records.</p><button className="small-button" onClick={() => { changeOverlay(null); changeScreen('briefing'); }}>Start a run <ArrowRight size={16} /></button></div>}<p className="fine-print">Local, unverified records. Standard, Expert and Assisted are identified separately.</p></Modal> : null}
+    {overlay === 'customize' ? <CustomizeSnake initial={appearance} onPreview={(glow, rotation, zoom) => { runtime.current?.renderer.setAppearance(glow); runtime.current?.renderer.setPreview({ rotation, zoom }); }} onApply={applyAppearance} onClose={() => changeOverlay(null)} /> : null}
+    {overlay === 'lab' ? <PowerupLab initial={hud?.lab ?? 'emp'} onTry={startLab} onClose={() => changeOverlay(null)} /> : null}
+    {overlay === 'guide' ? <GameplayGuide state={screen === 'paused' ? hud : null} device={device} paused={screen === 'paused'} onClose={() => changeOverlay(null)} onEnter={() => { changeOverlay(null); changeScreen('briefing'); }} /> : null}
+    {overlay === 'records' ? <Modal title="LOCAL RECORDS" subtitle="YOUR SIGNAL. YOUR MACHINE." onClose={() => changeOverlay(null)} className="records-dialog"><MenuSelect label="Record collection" value={recordFilter} onChange={setRecordFilter} options={[{ value: 'current', label: 'Expanded arena · 0.2' }, { value: 'legacy', label: 'Legacy arena · 0.1' }, { value: 'all', label: 'All retained records' }]} />{visibleRecords.length ? <div className="records-table"><div className="records-row records-head"><span>RULES / RESULT</span><span>SCORE</span><span>CORES</span></div>{visibleRecords.slice().sort((a, b) => b.score - a.score).slice(0, 12).map(record => <div className="records-row" key={record.runId}><div><strong>{record.difficulty.toUpperCase()}</strong><small>{recordVersionLabel(record)} · {record.completed ? 'Neon Spire cleared' : `Wave ${record.wave}`} · {new Date(record.date).toLocaleDateString()}</small></div><b>{record.score.toLocaleString('en-US')}</b><span>{record.cores}</span></div>)}</div> : <div className="empty-records"><Trophy size={40} /><h3>{records.length ? 'No attempts in this collection yet.' : 'Your first signal starts here.'}</h3><p>{records.length ? 'Choose the Legacy collection to see earlier retained records.' : 'Completed and lost district attempts appear here.'}<br />Practice never changes your records.</p><button className="small-button" onClick={() => { changeOverlay(null); changeScreen('briefing'); }}>Start a run <ArrowRight size={16} /></button></div>}<p className="fine-print">Local, unverified records. Best scores are separate for each content version and rules profile. Earlier records remain available in the Legacy collection.</p></Modal> : null}
     {overlay === 'credits' ? <Modal title="CREDITS" subtitle="SNAKE: YEAR 3039" onClose={() => changeOverlay(null)}><div className="credits-copy"><h3>A game for J Rhythm</h3><p>Created from the full-game product brief and approved visual references supplied by J Rhythm.</p><h3>Built for the browser</h3><p>Three.js · React · Vite<br />Orbitron and Rajdhani, SIL Open Font License<br />Lucide icons, ISC License</p><h3>An original signal</h3><p>Real-time armored models and arena geometry. Original synthesized music and sound effects. Distant skyline created with OpenAI ImageGen.</p><p className="fine-print">Development build {VERSION}. Full-game scope and production provenance are maintained in the project documentation.</p></div></Modal> : null}
     {overlay === 'abandon' ? <Modal title="LEAVE THIS RUN?" onClose={() => changeOverlay(null)}><p className="confirm-copy">Returning to the title abandons this attempt. Use Save & Exit from pause to keep your exact position.</p><div className="dialog-footer"><button className="small-button" onClick={() => changeOverlay(null)}>Keep playing</button><button className="small-button danger" onClick={() => void abandon()}>Abandon run <ArrowRight size={16} /></button></div></Modal> : null}
     {notice ? <div className="system-notice" role="status"><span>{notice}</span><button className="icon-button" aria-label="Dismiss notice" onClick={() => setNotice('')}><X size={16} /></button></div> : null}

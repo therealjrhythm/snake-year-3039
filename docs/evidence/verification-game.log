@@ -1,0 +1,15 @@
+PASS Title, fonts and WebGL scene load
+PASS Settings opens and Escape closes its modal
+PASS Keyboard start, countdown, forward motion and first core growth
+PASS Pause freezes HUD and gameplay resources
+PASS Save & Exit persists an exact active snapshot
+PASS Suspend survives reload unchanged
+PASS Focus loss freezes a resume countdown
+PASS All four HUD groups stay inside 1280×720 at 150% scale
+PASS Real movement into the arena wall produces named critical crash
+PASS Terminal result records once and clears the suspend
+PASS Retry restores the district entry checkpoint
+PASS Local Records displays the real saved result
+PASS Narrow title remains contained (touch gameplay is outside target)
+PASS Explicit Warden fixture restores and renders real relays, nodes and HUD
+PASS No uncaught browser or console errors across these flows

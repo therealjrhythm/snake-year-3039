@@ -1,0 +1,173 @@
+{
+  "passed": false,
+  "browser": "152.0.7977.77",
+  "sourceTrace": "docs/evidence/ordinary-standard-3039-keyboard.json",
+  "elapsedWallSeconds": 170.957,
+  "rendered": true,
+  "freshCampaign": true,
+  "stateEdited": false,
+  "inputDelivery": "Synthetic DOM keyboard events received by normal GameInputController; normal App clock and renderer remain active.",
+  "earnedCheckpointClicked": true,
+  "pauses": [],
+  "snapshot": {
+    "seed": 3039,
+    "time": 162.95000000002182,
+    "wave": 3,
+    "status": "dead",
+    "cores": 36,
+    "integrity": 3,
+    "score": 5900,
+    "rivalKills": 0,
+    "cause": "Critical crash: your own body",
+    "pauseRequested": null,
+    "bossNodes": 3,
+    "bossCharge": 0,
+    "position": {
+      "x": -6.609620933389472,
+      "z": -7.900362744385982
+    }
+  },
+  "firstState": {
+    "seed": 3039,
+    "mode": "campaign",
+    "contentVersion": "0.2.0-neon-spire",
+    "layoutId": "neon-spire-v2",
+    "wave": 1,
+    "time": 0,
+    "cores": 0,
+    "lab": null,
+    "integrity": 3,
+    "ammo": 0
+  },
+  "eventCounts": {
+    "wave": 3,
+    "start": 1,
+    "core": 36,
+    "pickup": 9,
+    "mine-arm": 8,
+    "power-expired": 3,
+    "transition": 2,
+    "gate-warning": 21,
+    "lock": 50,
+    "shot": 50,
+    "emp": 2,
+    "damage": 1,
+    "rival-warning": 1,
+    "rival": 1,
+    "select": 1,
+    "decoy": 1,
+    "rival-crash": 1,
+    "boss-intro": 1,
+    "boss": 1,
+    "crash": 1
+  },
+  "sounds": [
+    {
+      "kind": "pickup",
+      "pickup": "overdrive"
+    },
+    {
+      "kind": "pickup",
+      "pickup": "magnet"
+    },
+    {
+      "kind": "pickup",
+      "pickup": "emp"
+    },
+    {
+      "kind": "pickup",
+      "pickup": "emp"
+    },
+    {
+      "kind": "pickup",
+      "pickup": "repair"
+    },
+    {
+      "kind": "pickup",
+      "pickup": "decoy"
+    },
+    {
+      "kind": "pickup",
+      "pickup": "shield"
+    },
+    {
+      "kind": "pickup",
+      "pickup": "splice"
+    },
+    {
+      "kind": "pickup",
+      "pickup": "emp"
+    }
+  ],
+  "milestones": [
+    {
+      "time": 0,
+      "kind": "wave",
+      "text": "WAVE 1 / 3 · Recover 12 energy cores."
+    },
+    {
+      "time": 32.76666666666609,
+      "kind": "transition",
+      "text": "Wave 1 complete · Keep moving. Next signal in 3s."
+    },
+    {
+      "time": 35.76666666666592,
+      "kind": "wave",
+      "text": "WAVE 2 / 3 · Recover 12 energy cores."
+    },
+    {
+      "time": 69.78333333333066,
+      "kind": "damage",
+      "text": "INTEGRITY −1 · armed mine."
+    },
+    {
+      "time": 106.06666666666193,
+      "kind": "transition",
+      "text": "Wave 2 complete · Keep moving. Next signal in 3s."
+    },
+    {
+      "time": 109.06666666666176,
+      "kind": "wave",
+      "text": "WAVE 3 / 3 · Recover 12 energy cores · HUNTER inbound."
+    },
+    {
+      "time": 161.65000000002078,
+      "kind": "boss-intro",
+      "text": "CHECKPOINT · Warden perimeter sentinel online. Integrity repaired +1."
+    },
+    {
+      "time": 161.65000000002078,
+      "kind": "boss",
+      "text": "WARDEN · Collect relays 1 → 2 → 3. In recovery, cross the pad or land three receptor shots."
+    },
+    {
+      "time": 162.95000000002182,
+      "kind": "crash",
+      "text": "Critical crash: your own body"
+    }
+  ],
+  "transitions": 0,
+  "seedInitializerCalls": 1,
+  "keyEvents": 798,
+  "largestStep": 0.016666666666666666,
+  "records": [
+    {
+      "runId": "s39-3039-3efaf350-1dff-4d2b-bba6-ebbfe9819824",
+      "score": 5900,
+      "cores": 36,
+      "rivalKills": 0,
+      "wave": 3,
+      "elapsed": 162.95000000002182,
+      "completed": false,
+      "difficulty": "standard",
+      "date": "2026-09-06T17:41:46.483Z",
+      "cause": "Critical crash: your own body",
+      "contentVersion": "0.2.0-neon-spire",
+      "districtId": "D1",
+      "mode": "campaign",
+      "seed": 3039
+    }
+  ],
+  "errors": [],
+  "limitation": "Automated replay, not human playability or physical keyboard/controller acceptance. Real display-frame batching can diverge from the pure input trace; terminal status is reported without repair or replay restart."
+}

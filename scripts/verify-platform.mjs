@@ -100,6 +100,7 @@ try {
 
   const storage = await page.evaluate(async () => {
     const p = await import('/src/game/persistence.ts');
+    const { CONTENT_VERSION, LEGACY_CONTENT_VERSION } = await import('/src/game/content.ts');
     await p.saveCheckpoint({ version: 1, runId: 'checkpoint-1', score: 20 });
     await p.saveRun({ version: 1, runId: 'suspend-1', score: 90 });
     await p.clearSavedRun();
@@ -113,7 +114,16 @@ try {
     const record = { runId: 'record-1', score: 150, cores: 2, rivalKills: 0, wave: 1, elapsed: 12, completed: false, difficulty: 'standard', date: new Date().toISOString(), cause: 'test' };
     await p.commitRecord(record);
     await p.commitRecord(record);
-    return { checkpointAfterClear, cleared, rejected, preservedOnInvalid, checkpointAfterRecord: await p.getCheckpoint(), suspendedAfterRecord: await p.getSavedRun(), records: await p.getRecords() };
+    const expandedRecord = { ...record, runId: 'expanded-record', score: 175, contentVersion: CONTENT_VERSION, mode: 'campaign', districtId: 'D1', seed: 3039 };
+    await p.commitRecord(expandedRecord);
+    const records = await p.getRecords();
+    const legacy = records.find(item => item.runId === record.runId);
+    const expanded = records.find(item => item.runId === expandedRecord.runId);
+    return { checkpointAfterClear, cleared, rejected, preservedOnInvalid, checkpointAfterRecord: await p.getCheckpoint(), suspendedAfterRecord: await p.getSavedRun(), records,
+      legacyPayloadPreserved: JSON.stringify(legacy) === JSON.stringify(record),
+      expandedPayloadPreserved: JSON.stringify(expanded) === JSON.stringify(expandedRecord),
+      versionSeparation: p.recordVersion(legacy) === LEGACY_CONTENT_VERSION && p.recordVersion(expanded) === CONTENT_VERSION && p.recordVersion(legacy) !== p.recordVersion(expanded),
+      versionLabels: [p.recordVersionLabel(legacy), p.recordVersionLabel(expanded)] };
   });
   assert.equal(storage.checkpointAfterClear.runId, 'checkpoint-1');
   assert.equal(storage.cleared, null);
@@ -121,9 +131,113 @@ try {
   assert.equal(storage.preservedOnInvalid.runId, 'suspend-2');
   assert.equal(storage.checkpointAfterRecord.runId, 'checkpoint-2');
   assert.equal(storage.suspendedAfterRecord, null);
-  assert.equal(storage.records.length, 1);
+  assert.equal(storage.records.length, 2, 'Legacy and expanded records coexist, with duplicate run IDs remaining idempotent');
+  assert.equal(storage.legacyPayloadPreserved, true, 'Reading an unversioned record must not rewrite its legacy payload');
+  assert.equal(storage.expandedPayloadPreserved, true);
+  assert.equal(storage.versionSeparation, true);
+  assert.deepEqual(storage.versionLabels, ['Legacy 32 × 24', 'Expanded 36 × 26']);
+
+  // Isolate the action mapper from the rendered game to exercise held-button
+  // transitions deterministically. These are simulated controls, not hardware QA.
+  await page.close();
+  const inputPage = await context.newPage();
+  inputPage.on('pageerror', error => errors.push(error.message));
+  await inputPage.route('**/input-verification', route => route.fulfill({ contentType: 'text/html', body: '<section data-menu><button id="confirm" data-autofocus>Continue</button></section>' }));
+  await inputPage.goto(new URL('/input-verification', url).href);
+  const fire = await inputPage.evaluate(async () => {
+    const { GameInputController } = await import('/src/game/input.ts');
+    const pad = { index: 0, connected: true, mapping: 'standard', axes: [0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 })) };
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
+    let confirms = 0;
+    let pauses = 0;
+    document.querySelector('#confirm').onclick = () => { confirms++; };
+    const input = new GameInputController(() => { pauses++; input.setGameplay(false); });
+    const button = (index, pressed) => { pad.buttons[index] = { pressed, touched: pressed, value: pressed ? 1 : 0 }; };
+    const key = (code, down, repeat = false, target = window) => target.dispatchEvent(new KeyboardEvent(down ? 'keydown' : 'keyup', { code, key: code === 'KeyF' ? 'f' : 'Escape', repeat, bubbles: true }));
+    const results = {};
+    input.poll();
+    button(0, true);
+    results.menuAHasNoFire = !input.poll().fire;
+    results.menuAConfirmsOnce = confirms === 1;
+    input.clear(); // Screen enters countdown while A remains held.
+    results.countdownHasNoFire = !input.poll().fire;
+    input.setGameplay(true);
+    results.startRequiresRelease = !input.poll().fire;
+    button(0, false); input.poll();
+    button(0, true);
+    results.gameAIsHeldFire = input.poll().fire && input.poll().fire && confirms === 1;
+    button(9, true); input.poll(); button(9, false);
+    results.pauseClearsFire = pauses === 1 && !input.poll().fire;
+    input.setGameplay(true);
+    results.pauseResumeRequiresRelease = !input.poll().fire;
+    button(0, false); input.poll(); button(0, true); input.poll();
+    input.setGameplay(false);
+    document.querySelector('section').remove();
+    const customization = document.createElement('section');
+    customization.setAttribute('data-menu', '');
+    customization.innerHTML = '<button id="equip" data-autofocus>Equip</button>';
+    document.body.append(customization);
+    document.querySelector('#equip').onclick = () => { confirms++; };
+    results.customizeHasNoFire = !input.poll().fire && confirms === 1;
+    input.clear(); input.setGameplay(true);
+    results.customizeReturnRequiresRelease = !input.poll().fire;
+    button(0, false); input.poll();
+    input.setGameplay(false);
+    key('KeyF', true);
+    results.menuFHasNoFire = !input.poll().fire;
+    input.clear(); input.setGameplay(true);
+    results.heldFAtStartSuppressed = !input.poll().fire;
+    key('KeyF', false); key('KeyF', true);
+    results.keyboardHeldFire = input.poll().fire && input.poll().fire;
+    key('KeyF', true, true);
+    results.keyRepeatKeepsHeldFire = input.poll().fire;
+    key('Escape', true); key('Escape', false);
+    input.setGameplay(true);
+    results.heldFAfterPauseSuppressed = !input.poll().fire;
+    key('KeyF', false); key('KeyF', true);
+    results.releaseRestoresFire = input.poll().fire;
+    window.dispatchEvent(new Event('blur'));
+    results.blurClearsFire = !input.poll().fire;
+    input.setGameplay(true);
+    key('KeyF', false);
+    const text = document.createElement('input'); text.type = 'text'; document.body.append(text);
+    key('KeyF', true, false, text);
+    results.typingDoesNotFire = !input.poll().fire;
+    input.setGameplay(false);
+    input.poll();
+    const replaceMenu = () => {
+      document.querySelector('[data-menu]').remove();
+      const menu = document.createElement('section');
+      menu.setAttribute('data-menu', '');
+      menu.innerHTML = '<button id="first" data-autofocus style="display:block">First</button><button id="second" style="display:block">Second</button>';
+      document.body.append(menu);
+      return menu;
+    };
+    replaceMenu();
+    button(13, true); // New press after the DOM changes, before its first poll.
+    input.poll();
+    results.freshDpadAfterMenuReplacement = document.activeElement?.id === 'second';
+    button(13, false); input.poll();
+    let replacementsConfirmed = 0;
+    document.querySelector('#second').onclick = () => { replacementsConfirmed++; replaceMenu(); };
+    button(0, true); input.poll(); input.poll();
+    results.heldAStillSuppressedAfterReplacement = replacementsConfirmed === 1 && document.activeElement?.id === 'first';
+    button(0, false); input.poll();
+    replaceMenu();
+    pad.axes = [0, 1]; input.poll();
+    results.freshStickAfterMenuReplacement = document.activeElement?.id === 'second';
+    replaceMenu(); input.poll();
+    results.heldStickStillSuppressedAfterReplacement = document.activeElement?.id === 'first';
+    pad.axes = [0, 0]; input.poll(); pad.axes = [0, 1]; input.poll();
+    results.stickReleaseRestoresNavigation = document.activeElement?.id === 'second';
+    input.dispose();
+    results.disposedDoesNotFire = !input.poll().fire;
+    return results;
+  });
+  for (const [name, passed] of Object.entries(fire)) assert.equal(passed, true, name);
+  await inputPage.close();
   assert.deepEqual(errors, []);
-  console.log('PASS: real React settings sliders, select controls, gamepad A/B and tabs, held input isolation, neutral-device ownership, checkpoint isolation and overwrite, record transaction/idempotency. No browser runtime errors.');
+  console.log(`PASS: real React settings sliders, select controls, gamepad A/B and tabs, held input isolation, neutral-device ownership, checkpoint isolation and overwrite, record transaction/idempotency and legacy/expanded record coexistence; ${Object.keys(fire).length} held-fire/menu/countdown/pause/customization/typing/blur assertions. No browser runtime errors.`);
 } finally {
   await context.close();
   await browser.close();

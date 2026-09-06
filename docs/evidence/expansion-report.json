@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-06T17:57:19.497Z",
+  "browser": "152.0.7977.77",
+  "checks": [
+    "All eight free glows, same-canvas preview, rotate/zoom, Apply persistence and Cancel/Restore semantics",
+    "Expanded run uses v2 layout; customization freezes exact state and a delayed save blocks resume until committed",
+    "Powerup Lab equips/fires/refills through real keyboard input; held-F suppression and all 13 choices; campaign save and records remain intact",
+    "Replay This Seed starts a fresh attempt with the same seed, layout and rules, and a distinct run identity",
+    "Prepared Warden encounter: visible independent counters, real F shots break one node and spend charge once; paused guide matches current boss state",
+    "Legacy save guide truthfully retains original supply, Practice-only Decoy and pad-only Warden guidance",
+    "No uncaught browser or console errors"
+  ],
+  "errors": [],
+  "limitations": [
+    "Isolated installed Chrome with Low graphics; Browser plugin unavailable.",
+    "Mouse/keyboard App actions and explicit Lab/boss fixtures; no physical Xbox or ordinary full campaign clear is established.",
+    "No changes to owner browser storage."
+  ]
+}

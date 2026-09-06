@@ -4,15 +4,13 @@ Active product authority: [full PRD v2.0](../Snake_Year_3039_Full_Game_Builder_P
 
 The destination is the complete five-district game. Version 0.1 is the beginning of development and the first Neon Spire playable milestone, not a reduced release definition. The status of every launch system remains visible in [FEATURE_MATRIX.md](FEATURE_MATRIX.md). No milestone acceptance implies full release acceptance.
 
-## Current checkpoint — 0.1.0
+## Current checkpoint — 0.2.0 expansion
 
-The first-district foundations are implemented with bounded automated tests: real Three.js geometry, an armored player serpent, elevated arena view, semantic title/settings/HUD, shared keyboard/gamepad actions, fixed-step simulation, three collection waves, a Hunter rival, Warden objective finale, active extraction, procedural music/effects, restart and IndexedDB suspend/checkpoint/records.
+The owner-approved [Neon Spire expansion addendum](NEON_SPIRE_EXPANSION.md) extends milestone B before further city production. New attempts use a shared 36 × 26 layout; original saves retain 32 × 24 rules. Twelve campaign powers, reliable tactical supply, an optional forward blaster, clearer hybrid Warden combat, eight free glow colors, Practice Powerup Lab and Replay This Seed are implemented with simulation and targeted browser checks. Two fresh automated simulation runs clear the district; human and physical-controller playtesting remains open.
 
-Verification: `npm run check` passed 36 tests; `npm run build` passed; 15 real-browser checks passed in headless Chrome 152.0.7977.77; separate platform checks passed React controls, mocked-gamepad action/navigation edges and IndexedDB isolation. Details and limitations are in [FEATURE_MATRIX.md](FEATURE_MATRIX.md), [browser-report.json](evidence/browser-report.json) and [SESSION_HANDOFF.md](SESSION_HANDOFF.md).
+Current evidence and remaining requirements are maintained in [SESSION_HANDOFF.md](SESSION_HANDOFF.md) and [FEATURE_MATRIX.md](FEATURE_MATRIX.md). Milestone B acceptance remains open until an ordinary keyboard/physical Xbox clear, intentional Hunter body-block, representative performance and five-player comprehension review are recorded. Automated fixtures do not substitute for those observations.
 
-**Milestone B remains open.** No ordinary-play full Neon Spire clear has been demonstrated. Normal steering audits reached 10/16/14 cores on seeds 3039/76113/20260905 before self-collision; these are observations, not a successful district playthrough or proof of unreachability. Warden rendering uses an explicit saved-state fixture. Physical controller qualification, subjective audio, human body-block/boss play and owner visual acceptance remain unverified. The current art has improved but still has material gaps against the supplied references, recorded in [VISUAL_REVIEW.md](VISUAL_REVIEW.md).
-
-Content identifiers for the full game can be defined early. An ID, quota, menu label, or data entry is not evidence that its encounter, mode, reward, or screen is implemented. Unfinished launch functionality must not be presented as a working option in the playable build.
+After the expanded district passes playtesting, proceed through the remaining city, enemy variety, replay modes, earned Workshop/progression, learning/music/story, and release completeness in C–F below. Content identifiers and menu labels alone never establish implemented content.
 
 ## A — Visual and control foundation
 
@@ -26,9 +24,9 @@ Exit evidence: movement/resource/collision tests, successful typecheck and build
 
 ## B — Representative playable experience
 
-- Finish Neon Spire's 32 × 24 arena, three 12-core waves and environmental identity against the supplied references.
-- Add finite Patrol/Hunter encounter schedules, visible mine/gate warnings, a demonstrable Hunter body-block, and the first taught pickups: Overdrive, Score Surge, Shield and EMP.
-- Implement Warden's three visible nodes, ordered relays, telegraph/attack/recovery cycle and discharge pad. Preserve relay charge across missed windows and require no random consumable.
+- Finish Neon Spire's expanded 36 × 26 arena (retain 32 × 24 legacy saves), three 12-core waves and environmental identity against the supplied references.
+- Add finite Patrol/Hunter encounter schedules, visible mine/gate warnings, a demonstrable Hunter body-block, and all twelve addendum powers with staged introductions and repeating EMP/Decoy offers.
+- Implement Warden's three visible nodes, ordered relays, telegraph/attack/recovery cycle and discharge pad plus optional exposed-receptor blaster route. Preserve relay charge across missed windows and require no random consumable.
 - Open the actual extraction collision gap after Warden defeat and require the player to drive through it. Preserve solid/self collision during extraction.
 - Complete a reliable first-district loop: start, countdown, play, wave transition, boss entry, pause, settings, failure/retry, save/resume, clear and results.
 - Review playable presentation, music, warnings, controls and UI against both approved images. The image references provide art direction; they are not production geometry or gameplay captures.
@@ -48,7 +46,7 @@ Build four additional districts using the proven systems while preserving their 
 
 - Preserve all fifteen authored waves and 228 ordinary campaign cores. Boss relays and Trials do not contribute to this total or ordinary-core growth.
 - Finish Interceptor, Mine Layer and Ambush Serpent with explicit attack states, warning commitments, full collision rules and finite campaign rosters. Complete two-rival interactions and attack arbitration.
-- Complete Magnet, Repair, Decoy and Tail Splice plus all eight pickups' limits, expiry, safe-line rules and tactical selection behavior.
+- Carry all twelve expanded powers into later district content with appropriate eligibility, limits, expiry, safe routes and readable counterplay. Weapons retain movement solutions for serpent encounters and routing objectives.
 - Complete distinct layouts, non-consumable routes, spawn connectivity, visible shutdown/dissolve and seed reproduction. Do not reuse one obstacle layout with five lighting palettes.
 - Implement campaign map/unlocks, district recalibration, faithful district-start/boss-entry checkpoints, once-only clear rewards, story transitions, Crown Array extraction, ending and credits.
 - Upgrade persistence to validated versioned transactions for profile, records, checkpoint and suspend; retain memory-only play with clear failure UI if storage is unavailable.

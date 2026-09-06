@@ -33,17 +33,19 @@ node scripts/verify-enemies.mjs
 node scripts/verify-systems.mjs
 node scripts/verify-runtime.mjs
 node scripts/verify-render-performance.mjs
+node scripts/verify-expansion.mjs
+node scripts/verify-expansion-render.mjs
 ```
 
 Run these scripts sequentially. They accept a different local URL as their first argument. Controller/platform checks use mocked standard gamepads in isolated browser contexts; audio uses a real Web Audio graph and enemy captures use explicit frozen fixtures.
 
+Fresh input-only simulation traces and a timing-sensitive rendered keyboard replay are documented separately in the handoff. Reproduce a successful pure trace with `node scripts/probe-ordinary-run.mjs --replay docs/evidence/ordinary-standard-3039-keyboard.json`. `node scripts/verify-ordinary-keyboard.mjs` exercises the actual App with keyboard events; its retained failed clear is not hidden by fixture results. Neither method is physical-controller or human acceptance.
+
 ## Current implementation checkpoint
 
-Version **0.1.0** implements a first playable foundation: a real Three.js arena and player serpent, React/HTML title/settings/HUD, fixed 60 Hz simulation, shared keyboard/gamepad actions, three Neon Spire wave definitions and runtime transitions, Hunter body-block combat, Warden mechanics and active extraction. Original procedural music/effects and IndexedDB suspend/checkpoint/records support the initial loop. The latest feedback pass adds explained pickup effects, a pause-menu tactical guide, visible head-hit feedback, native audio recovery and bounded large-display rendering. These foundations have bounded automated verification; the representative Neon Spire milestone is not yet accepted.
+Version **0.2.0** expands Neon Spire to 36 × 26 with twelve campaign powerups, recurring EMP/Decoy opportunities, temporary forward-aim blaster combat, clearer Warden relays/armor/pad states, eight free body glows, a Practice Powerup Lab and same-seed replay. Existing 0.1 saves keep their exact original geometry, body path and rules; records are separated by content version.
 
-`npm run check` passed 43 tests and `npm run build` passed. The browser run passed 15 checks in headless Chrome 152.0.7977.77, including normal keyboard movement/first-core growth, pause, exact suspend/reload, focus-loss countdown pause, 150% HUD containment at 1280 × 720, named wall crash, once-only record/save clearing and checkpoint retry. Platform checks passed real React settings navigation, mocked gamepad edges and IndexedDB isolation. See the [browser report](docs/evidence/browser-report.json) and [feature matrix](docs/FEATURE_MATRIX.md) for coverage limits.
-
-**No complete district has been demonstrated through ordinary play.** The Warden screenshot loads an explicit snapshot fixture; it proves rendering/restoration, not that a player completed the preceding waves or boss. Normal steering audits reached 10, 16 and 14 cores on three seeds before self-collision. The owner likes the graphics, sound effects and smooth controls. Their requested Xbox-menu, enemy-readability and futuristic-music changes are implemented; revised-music listening feedback, physical Xbox confirmation and normal complete-district play remain outstanding. The [visual review](docs/VISUAL_REVIEW.md) records the remaining material gap from the approved references.
+See the [approved implementation addendum](docs/NEON_SPIRE_EXPANSION.md), [session handoff](docs/SESSION_HANDOFF.md) and [feature matrix](docs/FEATURE_MATRIX.md) for actual verification and remaining acceptance. The source package remains unchanged. Physical Xbox testing, owner listening/reference review, ordinary full-district play and five-player comprehension observations remain distinct from automated evidence.
 
 The other four districts/finales, full-city progression/ending, Arcade, Endless, twelve Trials, six liveries, six trails, twelve achievements, Workshop, full settings/accessibility, transactional save/recovery/export/import, performance and hardware qualification remain required work. Defining their IDs does not make them playable.
 
@@ -53,6 +55,7 @@ The other four districts/finales, full-city progression/ending, Arcade, Endless,
 | --- | --- | --- |
 | Steer | WASD or arrows | Left stick or D-pad |
 | Boost | Hold Shift | Right trigger |
+| Fire equipped blaster | Hold F | Hold A |
 | Use selected tactical | Space | X |
 | Select tactical slot | E | Y |
 | Pause / back | Escape | Menu / B |
@@ -67,7 +70,11 @@ Movement is continuous. Direction input changes heading; releasing it preserves 
 
 ## Pickups, tactics and recovery
 
-Cyan cores advance the quota and grow the snake. Wave 1 colored squares activate automatically: green Overdrive halves boost drain for 8s (hold RT/Shift), and magenta Score Surge doubles core/rival points for 15s. Their effects and timers appear beside integrity. Wave 2 adds blue Shield and cyan EMP charges. Collect an EMP, then use X/Space within four units of a drone or emitter; Y/E switches slots. Decoy is available in Practice in this build. Pause → Pickups & Tactics explains all eight pickups and head-only attack damage.
+Cyan cores advance the quota and grow the snake. Powerups activate immediately except stored EMP/Decoy charges and equipped blaster ammunition. The HUD shows effect descriptions, time remaining, charges and ammunition. EMP begins in Wave 2, Decoy after its sixth core, and the blaster after its eighth. Empty eligible tactical slots receive repeating supply offers when safe floor space permits. Pause → Pickups & Tactics explains all twelve powers and the current Warden objective.
+
+Wave 3 is the Hunter encounter; Warden follows its twelve-core quota. During Warden, collect relays 1 → 2 → 3, then cross the green pad during recovery or land three shots on the exposed receptor. Repeat for all three nodes, then exit north. No optional power is needed to clear the boss.
+
+Customize Snake is available on the title and pause menus. Body glow is cosmetic, saved independently, and previewed through the existing renderer. Start Game → Powerup Lab offers each power and a Warden rehearsal without replacing a suspended campaign. Pause in the Lab to refill/reset or choose another system. Results → Replay This Seed starts a fresh attempt with the same seed and rules.
 
 If the browser blocks sound, use the visible Click to enable sound button with a mouse or press a keyboard key. Automatic pauses show their cause; a performance pause offers Low graphics and a fresh countdown. Large displays use bounded rendering resolution while the HUD remains at full resolution. The challenge and critical-crash rules are unchanged.
 
@@ -84,7 +91,10 @@ If the browser blocks sound, use the visible Click to enable sound button with a
 | `src/components/Settings.tsx` | Initial Controls/Audio/Visuals/Accessibility settings and validated local settings defaults |
 | `src/style.css` | Title, HUD, menus, modals, settings, focus and responsive visual styles |
 | `src/game/types.ts` | Simulation/entity state, shared input types and full-release content contracts |
-| `src/game/content.ts` | `0.1.0-neon-spire` content version, movement/rules, complete district/wave/pickup/trial/cosmetic/achievement IDs, and inventory validation; D2–D5 are declared planned content |
+| `src/game/content.ts` | Expanded and legacy content versions, movement/rules, complete district/wave/pickup/trial/cosmetic/achievement IDs, and inventory validation; D2–D5 are declared planned content |
+| `src/game/layouts.ts` | Versioned shared arena geometry, authored routes/spawns, boss and extraction definitions |
+| `src/game/appearance.ts`, `src/components/CustomizeSnake.tsx` | Independent free glow persistence and same-renderer 3D preview UI |
+| `src/components/PowerupLab.tsx` | Real Practice encounter selection and refill/reset navigation |
 | `src/game/simulation.ts` | Authoritative fixed-step player/body movement, collisions, resources, seeded encounters, score, Neon Spire wave/boss progression and snapshot validation |
 | `src/game/renderer.ts` | Three.js scene/cameras, instanced serpent geometry, city/grid/machinery, dynamic threats/pickups, reflections/bloom and renderer lifecycle |
 | `src/game/input.ts` | Keyboard/gamepad polling, shared gameplay actions, menu navigation and input clearing/device handling |
@@ -98,10 +108,12 @@ If the browser blocks sound, use the visible Click to enable sound button with a
 | `docs/FEATURE_MATRIX.md` | Complete launch inventory, honest implementation state and verification ledger |
 | `docs/VISUAL_REVIEW.md` | Screenshot-specific comparison with the approved references and outstanding art-review work |
 | `docs/SESSION_HANDOFF.md` | Exact checkpoint, reproduction commands, evidence limits and next implementation steps |
-| `tests/simulation.test.ts` | 43 bounded content, movement, collision, pickup, rival, boss and snapshot checks |
+| `tests/simulation.test.ts` | Bounded content, movement, collision, pickup, rival, boss and snapshot checks |
+| `tests/expansion.test.ts` | Expanded power supply, weapon/target rules, buffs, boss routes, Lab and legacy/save compatibility checks |
 | `scripts/verify-game.mjs`, `scripts/verify-platform.mjs`, `scripts/verify-controller.mjs` | Real-browser app checks and isolated mocked-gamepad/storage checks |
 | `scripts/verify-systems.mjs`, `scripts/verify-runtime.mjs` | Actual App pickup/combat/guide snapshot fixtures and native audio/automatic-pause recovery checks |
 | `scripts/verify-audio.mjs`, `scripts/verify-enemies.mjs`, `scripts/verify-render-performance.mjs` | Native audio rendering/lifecycle, frozen enemy/pickup/EMP visuals, bounded buffers and short diagnostic frame observations |
+| `scripts/verify-expansion.mjs`, `scripts/verify-expansion-render.mjs` | Actual customization/Lab/replay/save flows and arranged arena/HUD/glow/power/boss presentation checks |
 | `docs/evidence/` | Actual screenshots and machine-readable browser report; Warden capture is explicitly fixture-based |
 | `Snake_Year_3039_Full_Game_Builder_Package_v2_0/docs/PRD.md` | Authoritative full-game specification |
 | `Snake_Year_3039_Full_Game_Builder_Package_v2_0/docs/FULL_GAME_HANDOFF.md` | Builder priorities and scope/engineering/evidence guardrails |

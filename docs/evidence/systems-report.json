@@ -1,10 +1,10 @@
 {
-  "date": "2026-09-06T04:42:06.342Z",
+  "date": "2026-09-06T17:35:30.686Z",
   "browser": "152.0.7977.77",
   "method": "Installed Chrome, isolated Playwright context; Browser plugin unavailable; Low quality 1280×720",
   "checks": [
     "Automatic pickup effect/timer and Wave 1 tactical availability stay readable after same-tick core and later shot",
-    "Paused guide explains all eight pickups and actual tactical availability; closes to pause with exact frozen run",
+    "Paused guide explains all twelve pickups and actual tactical availability; closes to pause with exact frozen run",
     "Collecting an EMP square loads the real slot; Space consumes it and disables an in-range preparing Patrol",
     "A projectile crossing trailing body segments leaves integrity unchanged and shows no false head-hit message",
     "An actual head hit removes one integrity and shows damage; a subsequent empty-use result stays visible beside that feedback",
@@ -29,10 +29,10 @@
         "id": 3,
         "kind": "emp",
         "text": "EMP PULSE · 1 system disabled for 3s · 1 lock broken.",
-        "time": 0.39999999999999997,
+        "time": 0.35,
         "origin": {
-          "x": 1.0562578642645918e-16,
-          "z": 4.274999999999996
+          "x": 9.184850993605147e-17,
+          "z": 4.4999999999999964
         }
       }
     },
@@ -51,7 +51,7 @@
           "id": 2,
           "kind": "empty",
           "text": "EMP EMPTY · EMP pickups arrive in Wave 2.",
-          "time": 0.3333333333333333
+          "time": 0.35
         }
       ]
     }

@@ -121,6 +121,6 @@ try {
   await screen('warden-fixture-1672');
   assert.match(await page.locator('.hud-objective').innerText(), /WARDEN/); pass('Explicit Warden fixture restores and renders real relays, nodes and HUD');
   assert.deepEqual(errors, []); pass('No uncaught browser or console errors across these flows');
-  const report = { build: '0.1.0', date: new Date().toISOString(), method: 'Playwright, installed Chrome, headless; Browser plugin absent', browser: browser.version(), checks, errors, limitations: ['Warden screenshot uses an explicit snapshot fixture, not a full playthrough.', 'Controller hardware, subjective audio and five-district launch acceptance are not established.'] };
+  const report = { build: '0.2.0', date: new Date().toISOString(), method: 'Playwright, installed Chrome, headless; Browser plugin absent', browser: browser.version(), checks, errors, limitations: ['Warden screenshot uses an explicit snapshot fixture, not a full playthrough.', 'Controller hardware, subjective audio and five-district launch acceptance are not established.'] };
   await writeFile('docs/evidence/browser-report.json', JSON.stringify(report, null, 2));
 } finally { await browser.close(); }

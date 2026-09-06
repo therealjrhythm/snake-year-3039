@@ -132,6 +132,83 @@ try {
   assert.equal(render.sourcesCreated, render.sourcesEnded, 'Every scheduled source must end');
   assert.equal(render.remainingMusicSources, 0, 'All music voices must disconnect after ending');
 
+  const cueCoverage = await page.evaluate(async () => {
+    const { GameAudio, AUDIO_EVENT_POLICY } = await import('/src/game/audio.ts');
+    const { GAME_EVENT_KINDS } = await import('/src/game/types.ts');
+    const NativeAudioContext = window.AudioContext;
+    const event = (kind, extra = {}) => ({ id: 1, kind, text: 'Unrelated text: 999. Audio must use structured fields.', time: 0, origin: { x: 0, z: 0 }, ...extra });
+    const cases = GAME_EVENT_KINDS.map(kind => ({ label: kind, event: event(kind, { relay: 1, pickup: 'overdrive' }), audible: AUDIO_EVENT_POLICY[kind] === 'audible' }));
+    cases.push(...[2, 3].map(relay => ({ label: `relay-${relay}`, event: event('relay', { relay }), audible: true })));
+    for (const pickup of ['blaster', 'capacitor', 'scrubber', 'chain-buffer']) cases.push({ label: `pickup-${pickup}`, event: event('pickup', { pickup }), audible: true });
+    for (const pickup of ['overdrive', 'shield', 'surge', 'magnet', 'scrubber', 'chain-buffer']) cases.push({ label: `expiry-${pickup}`, event: event('power-expired', { pickup }), audible: true });
+    const result = [];
+    const renderCue = async (events, master = 1, effects = 1) => {
+      const offline = new OfflineAudioContext(2, 2 * 44100, 44100);
+      let created = 0;
+      let ended = 0;
+      const proxy = new Proxy(offline, { get(target, key) {
+        if (key === 'currentTime') return 0.02;
+        if (key === 'state') return 'running';
+        if (key === 'close') return () => Promise.resolve();
+        if (key === 'createOscillator' || key === 'createBufferSource') return () => {
+          const source = target[key](); created++;
+          source.addEventListener('ended', () => { ended++; });
+          return source;
+        };
+        const value = Reflect.get(target, key, target);
+        return typeof value === 'function' ? value.bind(target) : value;
+      } });
+      window.AudioContext = function () { return proxy; };
+      const audio = new GameAudio();
+      audio.setPaused(true);
+      audio.setLevels(master, 0, effects);
+      await audio.unlock();
+      for (const item of events) audio.event(item);
+      const buffer = await offline.startRendering();
+      const samples = buffer.getChannelData(0);
+      let energy = 0;
+      let peak = 0;
+      let nonFinite = 0;
+      let crossings = 0;
+      for (let index = 0; index < samples.length; index++) {
+        const sample = samples[index];
+        if (!Number.isFinite(sample)) nonFinite++;
+        energy += sample * sample;
+        peak = Math.max(peak, Math.abs(sample));
+        // Before a relay's octave voice starts, estimate the audible fundamental.
+        if (index > 0.029 * 44100 && index < 0.065 * 44100 && samples[index - 1] <= 0 && sample > 0) crossings++;
+      }
+      const measurement = { rms: Math.sqrt(energy / samples.length), peak, nonFinite, created, ended, relayFrequency: crossings / 0.036 };
+      audio.dispose();
+      return measurement;
+    };
+    try {
+      for (const item of cases) result.push({ label: item.label, audible: item.audible, ...await renderCue([item.event]) });
+      const simultaneous = ['player-shot', 'drone-hit', 'drone-destroyed', 'damage', 'boss-node', 'boss-defeated', 'charge-ready'].map(kind => event(kind));
+      const mixed = await renderCue(simultaneous);
+      const effectsMuted = await renderCue([event('player-shot'), event('relay', { relay: 3 })], 1, 0);
+      const masterMuted = await renderCue([event('boss-node'), event('scrubber')], 0, 1);
+      return { declaredKinds: GAME_EVENT_KINDS.length, policyKinds: Object.keys(AUDIO_EVENT_POLICY).length, cases: result, mixed, effectsMuted, masterMuted };
+    } finally {
+      window.AudioContext = NativeAudioContext;
+    }
+  });
+  assert.equal(cueCoverage.declaredKinds, cueCoverage.policyKinds, 'Every typed event must deliberately map to sound or documented silence');
+  for (const cue of cueCoverage.cases) {
+    assert.equal(cue.nonFinite, 0, `${cue.label}: every output sample must be finite`);
+    assert.ok(cue.peak < 0.98, `${cue.label}: cue must leave output headroom`);
+    assert.equal(cue.created, cue.ended, `${cue.label}: all effect sources must end`);
+    if (cue.audible) assert.ok(cue.rms > 0.0001, `${cue.label}: declared audible cue must produce actual samples`);
+    else assert.equal(cue.rms, 0, `${cue.label}: intentional silence must remain silent`);
+  }
+  const relayFrequencies = ['relay', 'relay-2', 'relay-3'].map(label => cueCoverage.cases.find(cue => cue.label === label).relayFrequency);
+  assert.ok(relayFrequencies[0] < relayFrequencies[1] && relayFrequencies[1] < relayFrequencies[2], 'Relay notes must audibly ascend from structured relay 1/2/3, independently of text');
+  assert.equal(cueCoverage.mixed.nonFinite, 0);
+  assert.ok(cueCoverage.mixed.peak < 0.98, 'Simultaneous combat/boss cues must not clip');
+  assert.equal(cueCoverage.mixed.created, cueCoverage.mixed.ended);
+  assert.equal(cueCoverage.effectsMuted.rms, 0, 'Saved effects mute must silence even the first event during unlock');
+  assert.equal(cueCoverage.masterMuted.rms, 0, 'Saved master mute must silence the entire new cue vocabulary');
+
   await page.evaluate(async () => {
     const { GameAudio } = await import('/src/game/audio.ts');
     window.audioStatuses = [];
@@ -218,7 +295,7 @@ try {
   });
   assert.deepEqual(delayedRecovery, { blockedResult: false, bounded: true, blockedStatus: 'locked', recovered: true, recoveredStatus: 'running', disposedResult: false, disposedContext: null, disposedTimer: null }, 'Blocked or late browser resume promises must remain retryable and cannot resurrect disposed audio');
   assert.deepEqual(errors, [], 'No uncaught browser audio errors');
-  const report = { passed: true, browser: browser.version(), render, blocked, overlappingUnlocks, lifecycle, delayedRecovery, limitation: 'Native offline rendering, strict browser autoplay and real context suspension/closure, plus a controlled delayed resume promise; not a subjective listening review or every device/browser.' };
+  const report = { passed: true, browser: browser.version(), render, cueCoverage, blocked, overlappingUnlocks, lifecycle, delayedRecovery, limitation: 'Native offline music/every-cue rendering, strict browser autoplay and real context suspension/closure, plus a controlled delayed resume promise; not a subjective listening review or every device/browser.' };
   await writeFile('/tmp/s39-audio-report.json', `${JSON.stringify(report, null, 2)}\n`);
   console.log(JSON.stringify(report, null, 2));
 } finally {

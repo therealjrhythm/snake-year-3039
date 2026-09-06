@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "date": "2026-09-06T04:42:21.909Z",
+  "date": "2026-09-06T17:35:56.481Z",
   "browser": "152.0.7977.77",
   "checks": [
     "Sound enable control and device-readiness footer occupy separate visible areas",

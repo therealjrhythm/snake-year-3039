@@ -1,0 +1,24 @@
+Controller flow: 1440 × 900
+  Settings, tabs and sliders passed
+  Start, difficulty, pause and save passed
+Controller flow: 375 × 1020
+  Settings, tabs and sliders passed
+  Start, difficulty, pause and save passed
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "result": "PASS: controller-only title/settings/difficulty/pause/save, A hold suppression, tabs and selectors, focus-loss recovery, stick navigation, visible cursor",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "width": 375,
+      "height": 1020
+    },
+    "result": "PASS: controller-only title/settings/difficulty/pause/save, A hold suppression, tabs and selectors, focus-loss recovery, stick navigation, visible cursor",
+    "errors": []
+  }
+]

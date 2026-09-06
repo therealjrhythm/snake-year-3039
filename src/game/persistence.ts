@@ -1,3 +1,5 @@
+import { CONTENT_VERSION, LEGACY_CONTENT_VERSION } from './content';
+
 export interface LocalRecord {
   runId: string;
   score: number;
@@ -9,7 +11,14 @@ export interface LocalRecord {
   difficulty: string;
   date: string;
   cause: string;
+  contentVersion?: string;
+  mode?: string;
+  districtId?: string;
+  seed?: number;
 }
+
+export const recordVersion = (record: LocalRecord): string => record.contentVersion ?? LEGACY_CONTENT_VERSION;
+export const recordVersionLabel = (record: LocalRecord): string => recordVersion(record) === CONTENT_VERSION ? 'Expanded 36 × 26' : 'Legacy 32 × 24';
 
 interface SavedEnvelope { schema: 1; savedAt: string; snapshot: unknown }
 const DATABASE = 'snake-year-3039';
@@ -58,7 +67,11 @@ function isRecord(value: unknown): value is LocalRecord {
     && typeof record.completed === 'boolean'
     && typeof record.difficulty === 'string'
     && typeof record.date === 'string' && Number.isFinite(Date.parse(record.date))
-    && typeof record.cause === 'string';
+    && typeof record.cause === 'string'
+    && (record.contentVersion === undefined || [CONTENT_VERSION, LEGACY_CONTENT_VERSION].includes(String(record.contentVersion)))
+    && (record.mode === undefined || record.mode === 'campaign')
+    && (record.districtId === undefined || record.districtId === 'D1')
+    && (record.seed === undefined || typeof record.seed === 'number' && Number.isInteger(record.seed));
 }
 
 async function getSnapshot(key: string): Promise<unknown | null> {

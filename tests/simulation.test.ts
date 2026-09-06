@@ -16,7 +16,8 @@ function place(simulation: Simulation, x = 0, z = 0, heading = 0, length = 8): v
   p.body = Array.from({ length }, (_, i) => ({ x: x - Math.cos(heading) * (i + 1) * 0.55, z: z - Math.sin(heading) * (i + 1) * 0.55 }));
 }
 
-function quiet(simulation = new Simulation({ seed: 3039 })): Simulation {
+// Preserve the original 0.1 rules regression suite; expanded runs have their own suite.
+function quiet(simulation = new Simulation({ seed: 3039, layoutId: 'neon-spire-v1' })): Simulation {
   const s = simulation.state;
   s.obstacles = []; s.cores = []; s.pickups = []; s.mines = []; s.drones = []; s.rivals = []; s.projectiles = []; s.gates = [];
   s.pendingSpawns = []; s.optionalTimer = 99999; s.coreRetry = 99999;
@@ -261,7 +262,7 @@ describe('boost, damage and pickup semantics', () => {
 describe('pickup teaching and retained gameplay feedback', () => {
   it('keeps the authored campaign pickup introductions and offers all eight only in Practice', () => {
     const sample = (mode: 'campaign' | 'practice', wave: number) => {
-      const sim = quiet(new Simulation({ mode, seed: 3039 })); const found = new Set<string>();
+      const sim = quiet(new Simulation({ mode, seed: 3039, layoutId: 'neon-spire-v1' })); const found = new Set<string>();
       sim.state.wave = wave; sim.state.player.integrity = 2; place(sim, 0, 0, 0, 12);
       for (let attempt = 0; attempt < 150; attempt++) {
         sim.state.optionalTimer = 0; sim.state.pickups = []; sim.state.spawnedLimitedPickups = [];
