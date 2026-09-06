@@ -2,6 +2,10 @@
 
 A single-player 3D cyberpunk browser game in development. The active brief is the supplied **Full Game PRD v2.0**: five distinct districts, fifteen campaign waves, five finales, four modes, twelve Trials and complete progression/presentation/reliability. The first Neon Spire playable is a development milestone, not the release scope.
 
+## Deployment
+
+The repository is connected to the Vercel project `acoldbrand/snake-year-3039`. Pushes to `main` build the production game after `npm ci`, the simulation/type checks and the production build. The ongoing delivery workflow and production verification are recorded in [DEPLOYMENT.md](docs/DEPLOYMENT.md). Future changes should be verified, committed, pushed and checked on Vercel before handoff.
+
 ## Run locally
 
 From this folder with a current Node.js runtime and npm:
@@ -108,6 +112,7 @@ If the browser blocks sound, use the visible Click to enable sound button with a
 | `docs/FEATURE_MATRIX.md` | Complete launch inventory, honest implementation state and verification ledger |
 | `docs/VISUAL_REVIEW.md` | Screenshot-specific comparison with the approved references and outstanding art-review work |
 | `docs/SESSION_HANDOFF.md` | Exact checkpoint, reproduction commands, evidence limits and next implementation steps |
+| `docs/DEPLOYMENT.md`, `vercel.json`, `scripts/verify-deployment.mjs` | GitHub/Vercel delivery workflow, test-gated production configuration and real-UI production smoke check |
 | `tests/simulation.test.ts` | Bounded content, movement, collision, pickup, rival, boss and snapshot checks |
 | `tests/expansion.test.ts` | Expanded power supply, weapon/target rules, buffs, boss routes, Lab and legacy/save compatibility checks |
 | `scripts/verify-game.mjs`, `scripts/verify-platform.mjs`, `scripts/verify-controller.mjs` | Real-browser app checks and isolated mocked-gamepad/storage checks |

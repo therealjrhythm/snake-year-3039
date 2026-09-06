@@ -59,3 +59,7 @@ Additional ordinary-run probes are reproducible with `node scripts/probe-ordinar
 - Preserve protective focus/visibility/controller/viewport/performance pauses. A long frame must not advance the snake through unseen hazards. Existing native audio recovery and bounded drawing/compositor budgets remain required. Do not weaken physics to make a playthrough probe pass.
 
 The [feature matrix](FEATURE_MATRIX.md), [implementation roadmap](IMPLEMENTATION_ROADMAP.md), [visual review](VISUAL_REVIEW.md) and addendum remain the durable scope/evidence map.
+
+## GitHub and Vercel delivery
+
+The owner has authorized committing and pushing each completed change to `therealjrhythm/snake-year-3039`, then updating Vercel. The project `snake-year-3039` in team `acoldbrand` is connected to GitHub with production branch `main`. Follow [DEPLOYMENT.md](DEPLOYMENT.md): check/build, commit/push, wait for the exact commit's deployment and verify the public game. This standing workflow is also recorded in `AGENTS.md`; routine delivery does not need repeated confirmation. Initial production verification is being completed separately from the existing local gameplay evidence.

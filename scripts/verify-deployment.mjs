@@ -1,0 +1,127 @@
+import assert from 'node:assert/strict';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
+import { chromium, expect } from '@playwright/test';
+
+// Production smoke: real UI, a fresh installed-Chrome context, and ordinary opening
+// movement. No source imports, page instrumentation, fixtures or owner storage.
+// Run sequentially with other browser checks to avoid competing GPU workloads.
+const target = process.argv[2];
+assert.ok(target, 'Usage: node scripts/verify-deployment.mjs <deployed-url> [evidence-directory]');
+const url = new URL(target);
+assert.ok(['http:', 'https:'].includes(url.protocol), 'Use an HTTP(S) URL');
+assert.ok(!url.username && !url.password && !url.search && !url.hash, 'Use a public URL without credentials, query parameters or fragments');
+const output = process.argv[3] ? resolve(process.argv[3]) : join(tmpdir(), `snake-deployment-${Date.now()}`);
+await mkdir(output, { recursive: true });
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await context.newPage();
+page.setDefaultTimeout(15000);
+const checks = [], errors = [], warnings = [], failedAssets = [], screenshots = [];
+const pass = name => { checks.push(name); console.log(`PASS ${name}`); };
+const screen = async name => { const path = join(output, `${name}.png`); await page.screenshot({ path }); screenshots.push(path); };
+page.on('pageerror', error => errors.push(error.message));
+page.on('console', message => {
+  if (message.type() === 'error') errors.push(message.text());
+  if (message.type() === 'warning') warnings.push(message.text());
+});
+page.on('response', response => {
+  if (response.status() >= 400 && new URL(response.url()).origin === url.origin) failedAssets.push({ url: response.url(), status: response.status() });
+});
+page.on('requestfailed', request => {
+  if (new URL(request.url()).origin === url.origin && ['script', 'stylesheet', 'image', 'font'].includes(request.resourceType())) failedAssets.push({ url: request.url(), error: request.failure()?.errorText });
+});
+let failure = null;
+try {
+  const response = await page.goto(url.href, { waitUntil: 'domcontentloaded' });
+  assert.equal(response?.status(), 200, 'App document must return HTTP 200');
+  await expect(page).toHaveTitle('Snake: Year 3039');
+  assert.equal(new URL(page.url()).origin, url.origin, 'Deployment must not redirect to an authentication page');
+  await expect(page.getByRole('button', { name: 'START GAME', exact: true })).toBeEnabled({ timeout: 30000 });
+  await page.evaluate(() => document.fonts.ready);
+  await expect(page.locator('.world canvas')).toHaveCount(1);
+  const canvas = await page.locator('.world canvas').boundingBox();
+  assert.ok(canvas && canvas.width > 100 && canvas.height > 100, 'Rendered game canvas must be visible');
+  assert.equal(await page.locator('vite-error-overlay, nextjs-portal').count(), 0);
+  const scripts = await page.locator('script[src]').evaluateAll(nodes => nodes.map(node => new URL(node.src).pathname));
+  assert.ok(scripts.some(path => /^\/assets\/.+\.js$/.test(path)), 'Expected a compiled Vite asset');
+  assert.ok(scripts.every(path => !path.startsWith('/src/') && !path.includes('@vite')), 'Development entry points must not be deployed');
+  await screen('title-desktop');
+  pass('HTTP 200, intended title, compiled production assets, fonts, nonblank WebGL scene and no framework overlay');
+
+  await page.getByRole('button', { name: 'CUSTOMIZE SNAKE', exact: true }).click();
+  await expect(page.getByRole('group', { name: 'Body glow colors' }).getByRole('button')).toHaveCount(8);
+  await page.getByRole('button', { name: 'Magenta glow', exact: true }).click();
+  await expect(page.getByRole('img', { name: 'Live 3D snake with Magenta body glow and a cyan head marker', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Rotate snake right', exact: true }).click();
+  await page.getByRole('combobox', { name: 'Preview zoom', exact: true }).click();
+  await page.getByRole('option', { name: 'Head detail', exact: true }).click();
+  await expect(page.locator('.world canvas')).toHaveCount(1);
+  await screen('customize-magenta');
+  await page.getByRole('button', { name: 'Apply glow', exact: true }).click();
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'START GAME', exact: true })).toBeEnabled();
+  await page.getByRole('button', { name: 'CUSTOMIZE SNAKE', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Magenta glow', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'Cancel', exact: true }).click();
+  pass('Eight glow choices, live one-canvas rotate/zoom preview and Apply persistence through reload');
+
+  // Choose Low using the real settings menu to keep this bounded smoke repeatable.
+  await page.getByRole('button', { name: 'SETTINGS', exact: true }).click();
+  await page.getByRole('tab', { name: 'Visuals', exact: true }).click();
+  await page.getByRole('combobox', { name: 'Graphics quality', exact: true }).click();
+  await page.getByRole('option', { name: 'Low', exact: true }).click();
+  await page.getByRole('button', { name: 'Done', exact: true }).click();
+  await page.getByRole('button', { name: 'START GAME', exact: true }).click();
+  await expect(page.locator('.briefing')).toContainText('36 × 26 arena · twelve powerups');
+  await expect(page.getByRole('button', { name: 'Powerup Lab', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'ENTER NEON SPIRE', exact: true }).click();
+  await page.locator('.countdown-overlay').waitFor({ state: 'hidden', timeout: 10000 });
+  await expect(page.locator('.objective-line strong')).toHaveText('1 / 12', { timeout: 5000 });
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('heading', { name: 'PAUSED', exact: true })).toBeVisible();
+  await expect(page.locator('.length-label')).toContainText('9');
+  const frozen = await page.locator('.hud').innerText();
+  await page.waitForTimeout(350);
+  assert.equal(await page.locator('.hud').innerText(), frozen, 'Pausing must freeze visible gameplay state');
+  await screen('first-core-paused');
+  pass('Normal fresh campaign countdown, forward motion, first collected core, body growth and keyboard pause');
+
+  await page.getByRole('button', { name: 'PICKUPS & TACTICS', exact: true }).click();
+  await expect(page.getByRole('tab', { name: 'Pickups', exact: true })).toHaveAttribute('aria-selected', 'true');
+  const names = [];
+  for (const category of ['Movement & score', 'Protection', 'Tactics & weapon']) {
+    await page.getByRole('button', { name: category, exact: true }).click();
+    names.push(...await page.locator('.pickup-catalog h3').allTextContents());
+  }
+  assert.equal(new Set(names).size, 12);
+  await page.getByRole('tab', { name: 'Tactics', exact: true }).click();
+  await expect(page.locator('.weapon-guide')).toContainText('Pulse Blaster · hold F');
+  await page.getByRole('tab', { name: 'Warden', exact: true }).click();
+  await expect(page.locator('.warden-guide')).toContainText('The pad always works without ammunition');
+  await screen('warden-guide');
+  await page.getByRole('button', { name: 'Back to paused run', exact: true }).click();
+  assert.equal(await page.locator('.hud').innerText(), frozen);
+  pass('Paused guide exposes all twelve powers, keyboard firing and both Warden routes without advancing gameplay');
+
+  await page.getByRole('button', { name: 'RETURN TO TITLE', exact: true }).click();
+  await page.getByRole('button', { name: 'Abandon run', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'START GAME', exact: true })).toBeEnabled();
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.equal(await page.locator('body').evaluate(body => body.scrollWidth), 390);
+  await expect(page.getByRole('button', { name: 'START GAME', exact: true })).toBeVisible();
+  await screen('title-narrow');
+  pass('Narrow title is contained at 390 × 844 (touch gameplay remains outside target)');
+  assert.deepEqual(failedAssets, [], 'No failed same-origin assets');
+  assert.deepEqual(errors, [], 'No uncaught browser or console errors');
+  pass('No failed deployment assets or browser runtime errors');
+} catch (error) {
+  failure = error.stack ?? String(error);
+  await screen('failure').catch(() => {});
+} finally {
+  await writeFile(join(output, 'report.json'), JSON.stringify({ date: new Date().toISOString(), target: url.href, finalURL: page.url(), browser: browser.version(), method: 'Browser plugin unavailable; Playwright with isolated installed Chrome', checks, errors, warnings, failedAssets, screenshots, failure, limitations: ['Public UI interactions and ordinary opening movement only; no prepared state or development modules.', 'Owner browser storage is not used or modified.', 'Physical Xbox, complete district playthrough, subjective audio and sustained performance are not established.'] }, null, 2));
+  await browser.close();
+  console.log(`Evidence: ${output}`);
+}
+if (failure) { console.error(failure); process.exitCode = 1; }
