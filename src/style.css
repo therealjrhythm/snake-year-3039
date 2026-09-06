@@ -20,3 +20,42 @@
 /* Controller selection must remain visible after pointer use and in embedded previews. */
 .app [data-gamepad-focus]{outline:2px solid #d9fbff;outline-offset:3px}.app button[data-gamepad-focus]{color:#fff;border-color:#d9fbff;box-shadow:inset 0 0 0 2px #d9fbff;background-color:#16445b}.app .menu-button:is(:focus-visible,[data-gamepad-focus]){outline:none;color:#fff;border-color:#e1fcff;box-shadow:inset 0 0 0 2px #d9fbff,inset 5px 0 0 #d9fbff;background-image:linear-gradient(110deg,#18516beF,#10283ff2)}.controller-menu-hints{display:flex;align-items:center;gap:12px;margin-top:14px;color:#b4dbea;font-size:12px;letter-spacing:.5px}.controller-menu-hints span{white-space:nowrap}.controller-menu-hints kbd{font:inherit;font-weight:700;color:#e6fcff;border:1px solid #82b7c8;border-radius:3px;padding:0 4px;margin-right:4px}
 .menu-select{position:relative;min-width:170px;max-width:100%;font-size:15px;font-weight:500;letter-spacing:0}.menu-select-trigger{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:40px;border:1px solid #285674;border-radius:2px;background:#10293c;color:#d9edfa;padding:9px 12px;text-align:left}.menu-select-value{flex:1}.menu-select-chevron{width:16px;height:16px;flex-shrink:0;color:#8bcee4}.menu-select-popup{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;min-width:100%;max-height:240px;overflow:auto;padding:6px;background:#061827;border:1px solid #5bb9d4;box-shadow:0 12px 36px #000b}.menu-select-option,.menu-select-cancel{display:block;width:100%;padding:10px 12px;background:transparent;color:#c6e3ef;text-align:left;letter-spacing:0;font-size:15px;line-height:1.25;border:1px solid transparent}.menu-select-option[aria-selected=true]{color:#8fedff;background:#10394e}.menu-select-option:hover,.menu-select-cancel:hover{background:#174760;color:white}.menu-select-cancel{border-top:1px solid #285064;margin-top:5px;color:#92b6c8;font-size:13px}.menu-select-popup button[data-gamepad-focus],.menu-select-popup button:focus-visible{outline-offset:-2px;background:#1c526b}.setting-row>.menu-select{max-width:60%}.difficulty-label .menu-select{width:100%}
+
+/* Explain earned effects beside the resource they affect, at HUD resolution. */
+.hud-resources .active-buffs{position:static;display:flex;flex-direction:column;gap:8px;border-top:1px solid #28506a;padding-top:10px}
+.active-buffs>div{display:flex;align-items:center;gap:9px;min-width:0}
+.active-buffs .buff-symbol{color:var(--pickup-color);border:1px solid var(--pickup-color);background:#071726;min-width:24px;height:26px;display:grid;place-items:center;font-weight:700;font-size:1em}
+.active-buffs>div>span:nth-child(2){display:flex;flex-direction:column;gap:1px;min-width:0}
+.active-buffs strong{color:var(--pickup-color);font-size:.78em;font-weight:600;line-height:1.15}
+.active-buffs small{color:#d0e0ed;font-size:.72em;line-height:1.2}
+.active-buffs b{margin-left:auto;color:#e6f8ff;font-size:.87em;padding-left:2px;white-space:nowrap}
+.tactical-hint{color:#bcdbe9;font-size:.79em;line-height:1.3;margin-top:13px}
+.tactic small{letter-spacing:.6px}
+.combat-readout{font-size:.82em;font-weight:700;letter-spacing:.5px;padding:8px 0 0;border-top:1px solid #508db6;color:#8bddff;line-height:1.2}
+.combat-readout.damage{color:#ff9cb1;border-color:#c34d6a}
+.hud .hud-resources.recent-damage{border-color:#ff7595;background:linear-gradient(120deg,#35172ded,#091a2be8);box-shadow:0 0 22px #e4507438}
+.guide-tabs{grid-template-columns:repeat(3,1fr)}
+.guide-content{min-height:320px}
+.guide-intro{font-size:16px;line-height:1.5;color:#b3d0e0;margin:0 0 19px}
+.guide-intro strong{color:#e0f7ff;font-weight:600}
+.pickup-catalog{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:18px}
+.pickup-catalog article{display:flex;gap:13px;padding:15px 12px;border:1px solid #24465f;background:#061b2c}
+.pickup-symbol{flex-shrink:0;display:grid;place-items:center;width:38px;height:38px;font-size:23px;font-weight:700;color:var(--pickup-color);border:1px solid var(--pickup-color);background:#0b2235}
+.pickup-catalog h3{color:var(--pickup-color);font-size:20px;line-height:1.15;font-weight:600;margin-bottom:5px}
+.pickup-catalog small{font-size:12px;color:#e0eff8;font-weight:500}
+.pickup-catalog p{font-size:15px;line-height:1.4;color:#b3cbde;margin-top:7px}
+.tactical-guide article{background:#071c2c;border:1px solid #294960;padding:16px}
+.tactical-guide p+p{margin-top:13px;color:#d5e6f1}
+.guide-tab-hint{color:#90b5cc;font-size:12px}
+.performance-recovery{margin-top:18px;max-width:100%;text-align:left}
+.audio-unlock{left:auto;right:2.2vw;bottom:18px;border-radius:4px;padding:7px 10px;gap:7px;align-items:center;background:#092238e8;color:#c3eaff;border-color:#4094b6;font-size:12px;line-height:1.2}
+.audio-unlock span{white-space:nowrap}
+@media(max-width:700px){
+  .pickup-catalog{grid-template-columns:1fr;gap:10px}.pickup-catalog article{padding:12px}.guide-content{min-height:0}.guide-intro{font-size:15px}.guide-tab-hint{max-width:80px}.guide-dialog .dialog-footer{gap:12px}
+  .hud-resources .active-buffs{gap:6px;padding-top:7px}.active-buffs>div{gap:5px}.active-buffs .buff-symbol{min-width:18px;height:22px;font-size:12px}.active-buffs strong{font-size:.64em}.active-buffs small{font-size:.61em}.active-buffs b{font-size:.7em}
+  .tactical-hint{font-size:.65em;margin-top:11px}.tactic small{letter-spacing:0}.tactic>svg{display:none}.combat-readout{font-size:.65em}
+  .input-hints{flex-wrap:wrap;gap:4px 6px;bottom:20px}.input-hints>span:last-child{display:inline}.input-hints b{margin-left:3px}
+  .app:has(.audio-unlock) .hud-resources,.app:has(.audio-unlock) .hud-tactics{bottom:94px}.app:has(.audio-unlock) .input-hints{bottom:49px}
+  .audio-unlock{bottom:10px;right:10px;font-size:11px;padding:5px 8px}
+}
+.app:has(.title-bottom) .audio-unlock{bottom:max(62px,7vh)}

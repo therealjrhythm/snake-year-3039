@@ -1,5 +1,5 @@
 import { CONTENT_VERSION, DISTRICTS, FIXED_DT, MOVEMENT, PICKUPS, RULES } from './content';
-import type { Difficulty, GameInput, GameMode, Gate, Obstacle, PickupKind, Positioned, Rival, SimulationState, Snake, Vec2 } from './types';
+import type { Difficulty, GameEvent, GameInput, GameMode, Gate, Obstacle, PickupKind, Positioned, Rival, SimulationState, Snake, Vec2 } from './types';
 
 export { FIXED_DT } from './content';
 const EPSILON = 1e-8;
@@ -182,7 +182,7 @@ export class Simulation {
         { x: -6, z: 0, width: 3, depth: 4, kind: 'machinery' }, { x: 6, z: 0, width: 3, depth: 4, kind: 'machinery' },
         { x: -3.75, z: -4.8, width: 0.26, depth: 0.35, kind: 'emitter' }, { x: 3.75, z: -4.8, width: 0.26, depth: 0.35, kind: 'emitter' },
       ],
-      boss: null, event: null, eventCounter: 0, deathCause: '', seed, rng: seed,
+      boss: null, event: null, events: [], eventCounter: 0, deathCause: '', seed, rng: seed,
       runId: `s39-${seed}-${globalThis.crypto?.randomUUID?.() ?? Date.now().toString(36)}`,
       rivalKills: 0, nextId: 1, pendingSpawns: [], optionalTimer: 8, spawnBlockedTime: 0, coreRetry: 0,
       spawnedLimitedPickups: [], processedEvents: [], contacts: [], decoys: [], empInterrupts: 0, damageTaken: 0, maxCombo: 1,
@@ -254,6 +254,9 @@ export class Simulation {
     const parsed: unknown = JSON.parse(encoded);
     validateSnapshot(parsed);
     const simulation = new Simulation({ seed: parsed.seed, difficulty: parsed.difficulty, mode: parsed.mode });
+    // Original v1 saves predate retained feedback; migrate only this presentation data.
+    if (parsed.event && parsed.event.time === undefined) parsed.event.time = parsed.time;
+    parsed.events ??= parsed.event ? [{ ...parsed.event }] : [];
     simulation.state = parsed;
     simulation.state.accumulator = 0;
     simulation.state.pauseRequested = null;
@@ -690,11 +693,19 @@ export class Simulation {
 
   private useTactical(): void {
     const s = this.state;
-    if (!s.slots[s.selectedSlot]) { this.emit('empty', `${s.selectedSlot === 0 ? 'EMP' : 'Decoy'} slot empty.`); return; }
+    if (!s.slots[s.selectedSlot]) {
+      const availability = s.mode === 'practice' ? 'Collect a matching tactical pickup first.'
+        : s.selectedSlot === 0 ? s.boss ? 'No new EMP pickups during Warden. Relays do not require tactics.' : s.wave === 1 ? 'EMP pickups arrive in Wave 2.' : 'Collect a cyan EMP pickup first.'
+          : 'Find Decoy pickups in Practice.';
+      this.emit('empty', `${s.selectedSlot === 0 ? 'EMP' : 'DECOY'} EMPTY · ${availability}`);
+      return;
+    }
     s.slots[s.selectedSlot] = false;
     if (s.selectedSlot === 0) {
       let interrupts = 0;
+      let affected = 0;
       for (const drone of s.drones) if (distance(drone, s.player) <= 4) {
+        affected++;
         if (drone.state === 'prepare') interrupts++;
         drone.state = 'disabled';
         drone.disabled = 3;
@@ -703,10 +714,11 @@ export class Simulation {
       }
       for (const gate of s.gates) {
         const [a, b] = gateEnds(gate);
-        if (Math.min(distance(a, s.player), distance(b, s.player)) <= 4) { gate.state = 'disabled'; gate.disabled = 3; gate.timer = this.warningTime(1); }
+        if (Math.min(distance(a, s.player), distance(b, s.player)) <= 4) { affected++; gate.state = 'disabled'; gate.disabled = 3; gate.timer = this.warningTime(1); }
       }
       s.empInterrupts += interrupts;
-      this.emit('emp', `EMP PULSE · Systems interrupted for 3s${interrupts ? ` · ${interrupts} lock broken` : ''}.`);
+      this.emit('emp', affected ? `EMP PULSE · ${affected} ${affected === 1 ? 'system' : 'systems'} disabled for 3s${interrupts ? ` · ${interrupts} ${interrupts === 1 ? 'lock' : 'locks'} broken` : ''}.`
+        : 'EMP PULSE · No drones or emitters within 4 units. Mines and fired shots are unaffected.', { origin: copy(s.player) });
     } else {
       s.decoys.push({ id: this.id('decoy'), ...copy(s.player), ttl: 4 });
       this.emit('decoy', 'DECOY deployed · Future target locks can follow the lure.');
@@ -805,7 +817,7 @@ export class Simulation {
         for (const obstacle of s.obstacles) add(rectangleTOI(old, projectile, obstacle, 0.12), 1, `projectile-solid-${projectile.id}`, () => { s.projectiles = s.projectiles.filter(active => active.id !== projectile.id); });
         for (const decoy of s.decoys) if (decoy.ttl > 0) add(circleTOI(old, projectile, decoy, 0.45), 1, `projectile-decoy-${projectile.id}`, () => {
           // A co-located player remains vulnerable; damage at an equal impact wins above lure absorption.
-          if (!s.projectiles.some(active => active.id === projectile.id)) return;
+          if (decoy.ttl <= 0 || !s.projectiles.some(active => active.id === projectile.id)) return;
           s.projectiles = s.projectiles.filter(active => active.id !== projectile.id);
           decoy.ttl = 0;
           this.emit('decoy-hit', 'Decoy absorbed a diverted shot.');
@@ -893,7 +905,7 @@ export class Simulation {
     else if (pickup.kind === 'splice') p.splice = { from: p.length, to: Math.max(8, p.length - 4), remaining: 0.3 };
     else s.buffs[pickup.kind] = { overdrive: 8, shield: 12, surge: 15, magnet: 10 }[pickup.kind];
     s.pickups = s.pickups.filter(item => item.id !== id);
-    this.emit('pickup', `${PICKUPS[pickup.kind].name.toUpperCase()} · ${PICKUPS[pickup.kind].description}`);
+    this.emit('pickup', `${PICKUPS[pickup.kind].name.toUpperCase()} · ${PICKUPS[pickup.kind].description}`, { pickup: pickup.kind });
   }
 
   private damage(cause: string): void {
@@ -929,7 +941,12 @@ export class Simulation {
 
   private resetCombo(): void { this.state.chain = 0; this.state.combo = 1; this.state.comboTimer = 0; }
   private warningTime(base: number): number { return Math.max(0.6, base * RULES[this.state.difficulty].warning); }
-  private emit(kind: string, text: string): void { this.state.event = { id: ++this.state.eventCounter, kind, text }; }
+  private emit(kind: string, text: string, details: Pick<GameEvent, 'pickup' | 'origin'> = {}): void {
+    const event = { id: ++this.state.eventCounter, kind, text, time: this.state.time, ...details };
+    this.state.event = event;
+    this.state.events.push(event);
+    if (this.state.events.length > 24) this.state.events.splice(0, this.state.events.length - 24);
+  }
   private id(prefix: string): string { return `${prefix}-${this.state.nextId++}`; }
   private once(id: string): boolean { if (this.state.processedEvents.includes(id)) return false; this.state.processedEvents.push(id); return true; }
   private random(): number { let value = this.state.rng; value ^= value << 13; value ^= value >>> 17; value ^= value << 5; this.state.rng = value >>> 0; return this.state.rng / 4294967296; }
@@ -949,7 +966,7 @@ function validateSnapshot(value: unknown): asserts value is SimulationState {
     else if (item && typeof item === 'object') for (const child of Object.values(item)) walk(child, depth + 1);
   };
   walk(value, 0);
-  const number = (item: unknown) => typeof item === 'number' && Number.isFinite(item);
+  const number = (item: unknown): item is number => typeof item === 'number' && Number.isFinite(item);
   const point = (item: unknown): boolean => !!item && typeof item === 'object' && number((item as Vec2).x) && number((item as Vec2).z);
   const object = (item: unknown): item is Record<string, unknown> => !!item && typeof item === 'object' && !Array.isArray(item);
   const array = (key: string): unknown[] => { if (!Array.isArray(state[key])) invalid(); return state[key] as unknown[]; };
@@ -978,7 +995,9 @@ function validateSnapshot(value: unknown): asserts value is SimulationState {
   for (const obstacle of array('obstacles')) if (!object(obstacle) || !point(obstacle) || !number(obstacle.width) || !number(obstacle.depth)) invalid();
   for (const spawn of array('pendingSpawns')) if (!object(spawn) || typeof spawn.id !== 'string' || !['drone', 'rival', 'mine'].includes(String(spawn.kind)) || !number(spawn.at) || !point(spawn.position)) invalid();
   for (const key of ['processedEvents', 'contacts', 'spawnedLimitedPickups']) if (!array(key).every(item => typeof item === 'string')) invalid();
-  if (state.event !== null && (!object(state.event) || !number(state.event.id) || typeof state.event.kind !== 'string' || typeof state.event.text !== 'string')) invalid();
+  const validEvent = (event: unknown, legacy = false) => object(event) && number(event.id) && typeof event.kind === 'string' && typeof event.text === 'string' && (legacy && event.time === undefined || number(event.time) && event.time >= 0 && event.time <= (state.time as number)) && (event.pickup === undefined || Object.keys(PICKUPS).includes(String(event.pickup))) && (event.origin === undefined || point(event.origin));
+  if (state.event !== null && !validEvent(state.event, true)) invalid();
+  if (state.events !== undefined && (!Array.isArray(state.events) || state.events.length > 24 || !state.events.every(event => validEvent(event)))) invalid();
   if (state.boss !== null) {
     const boss = state.boss;
     if (!object(boss) || boss.id !== 'B1' || !['safe', 'warning', 'attack', 'recovery'].includes(String(boss.phase)) || !['nodes', 'charge', 'phaseTime', 'cycle', 'relayRetry', 'relayBlockedTime'].every(key => number(boss[key])) || !point(boss.pad) || !Array.isArray(boss.relays) || !boss.relays.every(relay => object(relay) && point(relay) && typeof relay.id === 'string' && number(relay.number))) invalid();

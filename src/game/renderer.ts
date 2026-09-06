@@ -5,11 +5,18 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { PICKUPS } from './content';
 import type { Simulation } from './simulation';
+import type { PickupKind } from './types';
 
 type WorldState = Simulation['state'];
 type Point = { x: number; z: number };
 export type GraphicsSettings = { quality: 'low' | 'medium' | 'high'; bloom: number; reducedMotion: boolean; uiScale?: number };
+const RENDER_BUDGET = {
+  low: { pixels: 1280 * 720, maxDpr: 1 },
+  medium: { pixels: 1920 * 1080, maxDpr: 1.5 },
+  high: { pixels: 2560 * 1440, maxDpr: 2 },
+};
 const CYAN = 0x20dfff, PINK = 0xea39f5, RED = 0xff426f;
 const dummy = new THREE.Object3D();
 const cube = new THREE.BoxGeometry(1, 1, 1);
@@ -141,12 +148,12 @@ export class GameRenderer {
 
   constructor(private container: HTMLElement, onContextLoss: () => void, onReady: () => void) {
     this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
-    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
     this.renderer.setClearColor(0x06111d);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 0.88;
     this.hostile.fog = false;
     this.renderer.domElement.setAttribute('aria-label', 'Live 3D Neon Spire arena');
+    this.renderer.domElement.style.width = this.renderer.domElement.style.height = '100%';
     this.renderer.domElement.addEventListener('webglcontextlost', (event) => { event.preventDefault(); onContextLoss(); });
     container.appendChild(this.renderer.domElement);
     this.scene.fog = new THREE.FogExp2(0x071325, 0.012);
@@ -273,7 +280,7 @@ export class GameRenderer {
   setSettings(settings: GraphicsSettings) {
     const qualityChanged = settings.quality !== this.settings.quality;
     this.settings = settings; this.bloom.strength = settings.bloom; this.fitCamera();
-    if (qualityChanged) { this.renderer.setPixelRatio(Math.min(devicePixelRatio, settings.quality === 'low' ? 1 : settings.quality === 'high' ? 2 : 1.5)); this.resize(); }
+    if (qualityChanged) this.resize();
     this.particles.visible = settings.quality !== 'low' && !settings.reducedMotion;
   }
   private fitBackground() {
@@ -283,9 +290,20 @@ export class GameRenderer {
     this.sky.offset.set((1 - this.sky.repeat.x) / 2, (1 - this.sky.repeat.y) / 2);
   }
   resize() {
-    this.width = this.container.clientWidth; this.height = this.container.clientHeight;
-    this.renderer.setSize(this.width, this.height); this.composer.setSize(this.width, this.height);
+    const width = this.container.clientWidth, height = this.container.clientHeight;
+    if (width < 1 || height < 1) return false;
+    const budget = RENDER_BUDGET[this.settings.quality];
+    const pixelRatio = Math.min(devicePixelRatio || 1, budget.maxDpr, Math.sqrt(budget.pixels / (width * height)));
+    if (width === this.width && height === this.height && pixelRatio === this.renderer.getPixelRatio()) return false;
+    this.width = width; this.height = height;
+    // Bound scene work by physical pixels, while the camera and semantic HUD keep
+    // the full CSS viewport. Set size/DPR together to avoid a transient huge buffer.
+    this.renderer.setDrawingBufferSize(width, height, pixelRatio);
+    // The composer uses physical dimensions at its default DPR of 1. It must not
+    // retain the original device DPR after a quality change or supersample twice.
+    this.composer.setSize(this.renderer.domElement.width, this.renderer.domElement.height);
     this.camera.aspect = this.width / this.height; this.fitCamera(); this.fitBackground();
+    return true;
   }
   private fitCamera() {
     if (this.titleMode) {
@@ -325,13 +343,17 @@ export class GameRenderer {
     const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace;
     return new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false }));
   }
-  private pickup(kind: string) {
-    const options: Record<string, [number, string]> = { overdrive: [0x32eda0, '»'], shield: [0x29aaff, '◇'], surge: [PINK, '2×'], emp: [CYAN, '◎'], magnet: [0x8957ff, '∩'], repair: [0xffd799, '+'], decoy: [0x8957ff, '⋈'], splice: [0xffb348, '−4'] };
-    const [color, symbol] = options[kind] ?? [CYAN, '?'];
+  private pickup(kind: PickupKind) {
+    const definition = PICKUPS[kind];
+    const color = new THREE.Color(definition.color).getHex(), symbol = definition.symbol;
     const g = new THREE.Group(), mat = light(color, 1.7);
+    g.name = definition.name;
     const body = new THREE.Mesh(new THREE.BoxGeometry(0.57, 0.57, 0.57), new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.16, metalness: 0.5, roughness: 0.2, transparent: true, opacity: 0.55 })); body.position.y = 0.48; g.add(body);
     const edge = new THREE.LineSegments(new THREE.EdgesGeometry(body.geometry), new THREE.LineBasicMaterial({ color })); edge.position.y = 0.48; g.add(edge);
-    const label = this.label(symbol, `#${color.toString(16).padStart(6, '0')}`); label.position.y = 0.48; label.scale.set(0.42, 0.42, 1); g.add(label);
+    // The identity must clear the cube's depth-writing front/top faces at the
+    // elevated gameplay camera, rather than disappear inside the collectible.
+    const label = this.label(symbol, definition.color); label.name = 'pickup-identity'; label.position.y = 1.15; label.scale.set(0.65, 0.65, 1);
+    label.material.fog = false; label.material.toneMapped = false; g.add(label);
     const base = ring(g, mat, 0.38, 0.018, 0, 0.03); base.rotation.x = -Math.PI / 2;
     return g;
   }
@@ -434,6 +456,24 @@ export class GameRenderer {
       this.syncObjects('drone-warning', state.drones.filter(d => String(d.state) === 'warning'), () => { const g = new THREE.Group(); const r = ring(g, this.warningSignal, 0.7, 0.035, 0, 0.02); r.rotation.x = -Math.PI / 2; g.add(this.threatCue('!', '#ffbc79', 'cue')); return g; }, g => this.fitThreatCue(g.getObjectByName('cue')!, true));
       this.syncObjects('lock', state.drones.filter(d => d.state === 'prepare' && d.target).map(d => ({ id: d.id, x: d.target!.x, z: d.target!.z })), () => { const g = new THREE.Group(); const r = ring(g, this.hostile, 0.54, 0.027, 0, 0.035); r.rotation.x = -Math.PI / 2; box(g, this.hostile, 0, 0.03, 0, 0.85, 0.018, 0.03); box(g, this.hostile, 0, 0.03, 0, 0.03, 0.018, 0.85); return g; });
       this.syncObjects('decoy', state.decoys, () => { const g = new THREE.Group(); const glow = ring(g, light(0x8957ff, 0.8), 0.65, 0.03, 0, 0.02); glow.rotation.x = -Math.PI / 2; const l = this.label('⋈', '#ac9dff'); l.position.y = 0.6; l.scale.setScalar(0.5); g.add(l); return g; });
+      this.syncObjects('emp-pulse', state.events.filter(event => event.kind === 'emp' && event.origin && state.time - event.time < 0.55).map(event => ({ id: String(event.id), ...event.origin!, time: event.time })), () => {
+        const g = new THREE.Group();
+        for (const name of ['boundary', 'wave']) {
+          const material = new THREE.MeshBasicMaterial({ color: CYAN, transparent: true, opacity: 0.5, depthWrite: false, toneMapped: false, fog: false });
+          const pulse = ring(g, material, name === 'boundary' ? 4 : 1, name === 'boundary' ? 0.025 : 0.035, 0, 0.045);
+          pulse.rotation.x = -Math.PI / 2; pulse.name = name;
+        }
+        return g;
+      }, (g, event) => {
+        const age = Math.max(0, state.time - event.time), fade = Math.max(0, 1 - age / 0.55);
+        const boundary = g.getObjectByName('boundary') as THREE.Mesh<THREE.TorusGeometry, THREE.MeshBasicMaterial>;
+        const wave = g.getObjectByName('wave') as THREE.Mesh<THREE.TorusGeometry, THREE.MeshBasicMaterial>;
+        boundary.material.opacity = fade * 0.4;
+        wave.material.opacity = fade * 0.7;
+        // Fixed origin and exact four-unit boundary come from the action event;
+        // the expanding inner light is presentation only and freezes with pause.
+        wave.scale.setScalar(this.settings.reducedMotion ? 4 : 0.12 + 3.88 * Math.min(1, age / 0.32));
+      });
       this.syncObjects('projectile', state.projectiles, () => {
         const g = new THREE.Group(); const p = new THREE.Mesh(sphere, this.threatEdge); p.scale.setScalar(0.14); p.position.y = 0.34; g.add(p);
         const corona = ring(g, this.threatSignal, 0.14, 0.025, 0, 0.34); corona.rotation.x = -Math.PI / 2;

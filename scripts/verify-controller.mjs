@@ -40,6 +40,8 @@ try {
     const selected = async label => {
       await expect(page.locator('[data-gamepad-focus]')).toHaveCount(1);
       await expect(page.locator('[data-gamepad-focus]')).toHaveText(label);
+      // Let a newly mounted menu observe neutral input before the next tap.
+      await frames();
     };
     await page.goto(url);
     await expect(page.getByRole('button', { name: 'START GAME', exact: true })).toBeEnabled({ timeout: 30000 });
@@ -109,6 +111,15 @@ try {
     await tap(0);
     await tap(1);
     await selected('SETTINGS');
+    await tap(13);
+    await selected('PICKUPS & TACTICS');
+    await tap(0);
+    await expect(page.getByRole('tab', { name: 'Pickups', exact: true })).toHaveAttribute('aria-selected', 'true');
+    await tap(5);
+    await selected('Tactics');
+    await expect(page.getByRole('tabpanel', { name: 'Tactics', exact: true })).toContainText('Empty means no charge');
+    await tap(1);
+    await selected('PICKUPS & TACTICS');
     await tap(13);
     await selected('RETURN TO TITLE');
     await tap(13);

@@ -43,11 +43,11 @@ export const PICKUPS: Record<PickupKind, { name: string; color: string; symbol: 
   overdrive: { name: 'Overdrive', color: '#32eda0', symbol: '»', description: '8s · half boost drain. Same top speed.', weight: 20 },
   shield: { name: 'Shield', color: '#40aaff', symbol: '◇', description: 'One attack absorbed · 12s. Crashes remain fatal.', weight: 20 },
   surge: { name: 'Score Surge', color: '#ea39f5', symbol: '2×', description: '15s · double core and rival points.', weight: 15 },
-  emp: { name: 'EMP Pulse', color: '#20dfff', symbol: '⌁', description: 'Stored · interrupt drones and emitters within 4 units.', weight: 15 },
+  emp: { name: 'EMP Pulse', color: '#20dfff', symbol: '◎', description: 'Stored · disable drones and emitters for 3s within 4 units.', weight: 15 },
   magnet: { name: 'Magnet', color: '#a583ff', symbol: '∩', description: '10s · safely attracts nearby ordinary cores.', weight: 10 },
   repair: { name: 'Repair', color: '#ffcb83', symbol: '+', description: 'Restore one integrity when damaged.', weight: 8 },
   decoy: { name: 'Decoy', color: '#c69aff', symbol: '⋈', description: 'Stored · leave a 4s holographic lure.', weight: 7 },
-  splice: { name: 'Tail Splice', color: '#ffaf56', symbol: '✂', description: 'Retract four tail segments · minimum eight.', weight: 5 },
+  splice: { name: 'Tail Splice', color: '#ffaf56', symbol: '−4', description: 'Retract four tail segments · minimum eight.', weight: 5 },
 };
 
 export const TRIALS: TrialDefinition[] = [

@@ -1,0 +1,132 @@
+{
+  "date": "2026-09-06T04:19:54.970Z",
+  "baseline": true,
+  "browser": "152.0.7977.77",
+  "initial": {
+    "canvas": [
+      5433,
+      3450
+    ],
+    "composer": [
+      5433,
+      3450
+    ]
+  },
+  "timings": {
+    "renderCompletionMs": {
+      "median": 3.299999713897705,
+      "p95": 4.599999904632568,
+      "max": 4.599999904632568
+    },
+    "frameIntervalMs": {
+      "median": 50,
+      "p95": 66.70000000000005,
+      "max": 66.70000000000005
+    },
+    "sampleCount": 20,
+    "unchanged": true
+  },
+  "sizes": [
+    {
+      "width": 3622,
+      "height": 2300,
+      "quality": "medium",
+      "canvas": [
+        5433,
+        3450
+      ],
+      "composer": [
+        5433,
+        3450
+      ],
+      "viewport": [
+        3622,
+        2300
+      ],
+      "dpr": 2,
+      "renderDpr": 1.5
+    },
+    {
+      "width": 3622,
+      "height": 2300,
+      "quality": "high",
+      "canvas": [
+        7244,
+        4600
+      ],
+      "composer": [
+        5433,
+        3450
+      ],
+      "viewport": [
+        3622,
+        2300
+      ],
+      "dpr": 2,
+      "renderDpr": 2
+    },
+    {
+      "width": 3622,
+      "height": 2300,
+      "quality": "low",
+      "canvas": [
+        3622,
+        2300
+      ],
+      "composer": [
+        5433,
+        3450
+      ],
+      "viewport": [
+        3622,
+        2300
+      ],
+      "dpr": 2,
+      "renderDpr": 1
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "quality": "medium",
+      "canvas": [
+        2160,
+        1350
+      ],
+      "composer": [
+        2160,
+        1350
+      ],
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2,
+      "renderDpr": 1.5
+    },
+    {
+      "width": 375,
+      "height": 844,
+      "quality": "medium",
+      "canvas": [
+        562,
+        1266
+      ],
+      "composer": [
+        562.5,
+        1266
+      ],
+      "viewport": [
+        375,
+        844
+      ],
+      "dpr": 2,
+      "renderDpr": 1.5
+    }
+  ],
+  "checks": [
+    "Large/regular/narrow DPR2 dimensions recorded; simulation unchanged by timed rendering",
+    "Captured large Medium fixture and disposed renderer without browser errors"
+  ],
+  "errors": [],
+  "limitation": "Isolated headless Chrome, deliberately fixed render state without app HUD. GPU completion is explicitly synchronized for this diagnostic. Timing is an observation on this run, not supported-machine performance or normal-play acceptance."
+}

@@ -71,7 +71,7 @@ export interface BossState {
   relayBlockedTime: number;
 }
 export interface PendingSpawn { id: string; kind: 'drone' | 'rival' | 'mine'; at: number; position: Vec2; heading?: number }
-export interface GameEvent { id: number; kind: string; text: string }
+export interface GameEvent { id: number; kind: string; text: string; time: number; pickup?: PickupKind; origin?: Vec2 }
 
 /** Everything needed to resume a run. Physical input state is deliberately excluded. */
 export interface SimulationState {
@@ -107,6 +107,8 @@ export interface SimulationState {
   obstacles: Obstacle[];
   boss: BossState | null;
   event: GameEvent | null;
+  /** Bounded presentation history so simultaneous rules events are never overwritten. */
+  events: GameEvent[];
   eventCounter: number;
   deathCause: string;
   seed: number;

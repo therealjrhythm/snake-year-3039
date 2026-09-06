@@ -3,27 +3,27 @@
   "browser": "152.0.7977.77",
   "render": {
     "all": {
-      "rms": 0.02163432665652358,
-      "stereoRms": 0.008994276114137362,
+      "rms": 0.021554570840815145,
+      "stereoRms": 0.009210826442353222,
       "peak": 0.22421270608901978,
       "nonFinite": 0
     },
     "title": {
-      "rms": 0.01832228150996888,
-      "stereoRms": 0.011641520793866609,
-      "peak": 0.16596005856990814,
+      "rms": 0.01837922586631015,
+      "stereoRms": 0.012228567094553331,
+      "peak": 0.1608680635690689,
       "nonFinite": 0
     },
     "playing": {
-      "rms": 0.01895414304921565,
-      "stereoRms": 0.010154040242988958,
-      "peak": 0.17837144434452057,
+      "rms": 0.018786105991374775,
+      "stereoRms": 0.010204957255742119,
+      "peak": 0.1741674244403839,
       "nonFinite": 0
     },
     "boss": {
-      "rms": 0.030650229720097552,
-      "stereoRms": 0.00917072627095075,
-      "peak": 0.204032301902771,
+      "rms": 0.03044042388230777,
+      "stereoRms": 0.009203265324383725,
+      "peak": 0.20375268161296844,
       "nonFinite": 0
     },
     "muted": {
@@ -45,9 +45,9 @@
       "nonFinite": 0
     },
     "resumed": {
-      "rms": 0.03872331910626847,
-      "stereoRms": 0.010576957376727014,
-      "peak": 0.20040448009967804,
+      "rms": 0.03866830362001129,
+      "stereoRms": 0.010410029563217746,
+      "peak": 0.19548490643501282,
       "nonFinite": 0
     },
     "arrangements": [
@@ -59,14 +59,57 @@
     "sourcesEnded": 243,
     "remainingMusicSources": 0
   },
+  "blocked": {
+    "status": "locked",
+    "state": "suspended"
+  },
+  "overlappingUnlocks": {
+    "first": true,
+    "gesture": true,
+    "sameContext": true,
+    "status": "running"
+  },
   "lifecycle": {
     "repeatedUnlockIsStable": true,
-    "pauseTime": 0.2773333333333333,
+    "pauseTime": 0.2613333333333333,
     "voicesAfterPause": 0,
     "voicesAfterResume": 2,
+    "suspended": {
+      "status": "suspended",
+      "timerStopped": true
+    },
+    "returned": {
+      "status": "running",
+      "gameStillPaused": true,
+      "schedulerStillStopped": true
+    },
+    "schedulingAfterReturn": true,
+    "closedRecovery": {
+      "previousStatus": "unavailable",
+      "result": true,
+      "replacedContext": true,
+      "status": "running"
+    },
+    "statuses": [
+      "running",
+      "suspended",
+      "running",
+      "unavailable",
+      "running"
+    ],
     "timerAfterDispose": null,
     "stateAfterDispose": "closed",
     "disposedRemainsClosed": true
   },
-  "limitation": "Native offline rendering and a live unlock/lifecycle check; not a subjective listening review or every device/browser."
+  "delayedRecovery": {
+    "blockedResult": false,
+    "bounded": true,
+    "blockedStatus": "locked",
+    "recovered": true,
+    "recoveredStatus": "running",
+    "disposedResult": false,
+    "disposedContext": null,
+    "disposedTimer": null
+  },
+  "limitation": "Native offline rendering, strict browser autoplay and real context suspension/closure, plus a controlled delayed resume promise; not a subjective listening review or every device/browser."
 }

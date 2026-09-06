@@ -148,6 +148,16 @@ describe('boost, damage and pickup semantics', () => {
     expect(sim.state.mines).toHaveLength(1); expect(sim.state.projectiles).toHaveLength(1);
   });
 
+  it('a Patrol fires a committed shot that removes one integrity when it reaches the head', () => {
+    const sim = quiet(); const s = sim.state;
+    s.drones.push({ id: 'firing-patrol', x: 3, z: 0, state: 'prepare', target: { x: 0, z: 0 }, disabled: 0, timer: 0.005, cooldown: 0, anchor: { x: 3, z: 0 }, phase: 0 });
+    run(sim, 0.4);
+    expect(s.status).toBe('playing'); expect(s.player.integrity).toBe(2); expect(s.damageTaken).toBe(1);
+    expect(s.projectiles).toHaveLength(0); expect(s.player.protection).toBeGreaterThan(1);
+    expect(s.events.some(event => event.kind === 'shot')).toBe(true);
+    expect(s.events.some(event => event.kind === 'damage' && event.text.includes('patrol projectile'))).toBe(true);
+  });
+
   it('Shield never prevents a solid crash and equal-time pickups do not undo it', () => {
     const sim = quiet(); const s = sim.state;
     s.buffs.shield = 12; s.obstacles.push({ x: 0.3, z: 0, width: 0.3, depth: 2 });
@@ -209,8 +219,34 @@ describe('boost, damage and pickup semantics', () => {
     sim.step(FIXED_DT, input({ use: true }));
     expect(s.drones[0].state).toBe('disabled'); expect(s.empInterrupts).toBe(1);
     expect(s.gates[0].state).toBe('disabled'); expect(s.mines).toHaveLength(1); expect(s.projectiles).toHaveLength(1);
+    expect(s.events.filter(event => event.kind === 'emp').at(-1)?.text).toContain('2 systems disabled');
     s.gates[0].disabled = 0.01; sim.step(FIXED_DT);
     expect(s.gates[0].state).toBe('warning'); expect(s.gates[0].timer).toBeCloseTo(1);
+  });
+
+  it('reports an empty or out-of-range EMP truthfully without spending the other slot', () => {
+    const sim = quiet(); const s = sim.state;
+    s.slots[1] = true;
+    sim.step(FIXED_DT, input({ use: true }));
+    expect(s.slots).toEqual([false, true]); expect(s.event?.text).toContain('Wave 2');
+    sim.step(FIXED_DT); s.slots[0] = true;
+    sim.step(FIXED_DT, input({ use: true }));
+    expect(s.slots).toEqual([false, true]); expect(s.event?.text).toContain('No drones or emitters within 4 units');
+    const pulse = s.event!;
+    const origin = { ...pulse.origin! };
+    expect(origin).toEqual({ x: 4.5 * FIXED_DT * 2, z: 0 });
+    run(sim, 0.1);
+    expect(pulse.origin).toEqual(origin);
+    expect(s.player.x).toBeGreaterThan(origin.x);
+  });
+
+  it('one Decoy absorbs only one of two projectiles reaching it in the same simulation step', () => {
+    const sim = quiet(); const s = sim.state;
+    s.decoys.push({ id: 'single-use-lure', x: -3, z: 3, ttl: 4 });
+    s.projectiles = ['first', 'second'].map(id => ({ id, x: -3, z: 2.5, vx: 0, vz: 4, ttl: 3 }));
+    sim.step(FIXED_DT);
+    expect(s.decoys).toHaveLength(0); expect(s.projectiles).toHaveLength(1);
+    expect(s.events.filter(event => event.kind === 'decoy-hit')).toHaveLength(1);
   });
 
   it('does not magnetize cores through solid machinery or trailing bodies', () => {
@@ -219,6 +255,68 @@ describe('boost, damage and pickup semantics', () => {
     sim.state.cores.push({ id: 'blocked', x: 0, z: -1.6 });
     sim.step(FIXED_DT);
     expect(sim.state.cores[0]).toEqual({ id: 'blocked', x: 0, z: -1.6 });
+  });
+});
+
+describe('pickup teaching and retained gameplay feedback', () => {
+  it('keeps the authored campaign pickup introductions and offers all eight only in Practice', () => {
+    const sample = (mode: 'campaign' | 'practice', wave: number) => {
+      const sim = quiet(new Simulation({ mode, seed: 3039 })); const found = new Set<string>();
+      sim.state.wave = wave; sim.state.player.integrity = 2; place(sim, 0, 0, 0, 12);
+      for (let attempt = 0; attempt < 150; attempt++) {
+        sim.state.optionalTimer = 0; sim.state.pickups = []; sim.state.spawnedLimitedPickups = [];
+        sim.step(FIXED_DT);
+        for (const pickup of sim.state.pickups) found.add(pickup.kind);
+      }
+      expect(sim.state.status).toBe('playing');
+      return [...found].sort();
+    };
+    expect(sample('campaign', 1)).toEqual(['overdrive', 'surge']);
+    expect(sample('campaign', 2)).toEqual(['emp', 'overdrive', 'shield', 'surge']);
+    expect(sample('practice', 1)).toEqual(['decoy', 'emp', 'magnet', 'overdrive', 'repair', 'shield', 'splice', 'surge']);
+  });
+
+  it('places the scripted Wave 2 EMP on the ground and leaves tactics empty until collected', () => {
+    const sim = quiet(); const s = sim.state;
+    s.coresCollected = 11; s.totalCores = 11; addCore(sim);
+    sim.step(FIXED_DT); run(sim, 3.05);
+    expect(s.wave).toBe(2); expect(s.slots).toEqual([false, false]);
+    const emp = s.pickups.find(pickup => pickup.kind === 'emp');
+    expect(emp).toBeDefined();
+    place(sim, emp!.x, emp!.z);
+    sim.step(FIXED_DT);
+    expect(s.slots).toEqual([true, false]); expect(s.selectedSlot).toBe(0);
+    expect(s.events.filter(event => event.kind === 'pickup').at(-1)?.pickup).toBe('emp');
+  });
+
+  it('retains tactical, damage and typed pickup feedback when a later event occurs in the same tick', () => {
+    const sim = quiet(); const s = sim.state;
+    s.slots[0] = true;
+    s.mines.push({ id: 'head-mine', x: 0, z: 0, armed: true, armTime: 0 });
+    s.pickups.push({ id: 'same-tick-shield', x: 0, z: 0, kind: 'shield', ttl: 15 });
+    sim.step(FIXED_DT, input({ use: true }));
+    expect(s.events.slice(-3).map(event => event.kind)).toEqual(['emp', 'damage', 'pickup']);
+    expect(s.events.slice(-3).map(event => event.time)).toEqual([FIXED_DT, FIXED_DT, FIXED_DT]);
+    expect(s.event).toEqual(s.events.at(-1)); expect(s.event?.pickup).toBe('shield');
+    expect(s.player.integrity).toBe(2); expect(s.buffs.shield).toBe(12);
+  });
+
+  it('bounds feedback history and resumes original v1 saves without losing game resources', () => {
+    const sim = quiet();
+    for (let press = 0; press < 30; press++) { sim.step(FIXED_DT, input({ use: true })); sim.step(FIXED_DT); }
+    expect(sim.state.events).toHaveLength(24);
+    const frozen = sim.snapshot(); sim.step(0.3); sim.step(FIXED_DT, input({ use: true }));
+    expect(sim.state.events).toEqual(frozen.events);
+    const legacy = JSON.parse(JSON.stringify(frozen));
+    delete legacy.events; delete legacy.event.time;
+    const restored = Simulation.restore(legacy);
+    expect(restored.state.events).toEqual([{ ...legacy.event, time: legacy.time }]);
+    expect(restored.state.player).toEqual(frozen.player);
+    restored.step(FIXED_DT, input({ use: true }));
+    expect(restored.state.events.at(-1)?.id).toBe(frozen.eventCounter + 1);
+    expect(() => Simulation.restore({ ...frozen, events: [{ ...frozen.event, pickup: 'unknown' }] })).toThrow('invalid');
+    expect(() => Simulation.restore({ ...frozen, events: [{ ...frozen.event, time: frozen.time + 1 }] })).toThrow('invalid');
+    expect(() => Simulation.restore({ ...frozen, events: [{ ...frozen.event, origin: { x: 'invalid', z: 0 } }] })).toThrow('invalid');
   });
 });
 

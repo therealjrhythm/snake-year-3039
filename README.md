@@ -30,15 +30,18 @@ node scripts/verify-platform.mjs
 node scripts/verify-controller.mjs
 node scripts/verify-audio.mjs
 node scripts/verify-enemies.mjs
+node scripts/verify-systems.mjs
+node scripts/verify-runtime.mjs
+node scripts/verify-render-performance.mjs
 ```
 
 Run these scripts sequentially. They accept a different local URL as their first argument. Controller/platform checks use mocked standard gamepads in isolated browser contexts; audio uses a real Web Audio graph and enemy captures use explicit frozen fixtures.
 
 ## Current implementation checkpoint
 
-Version **0.1.0** implements a first playable foundation: a real Three.js arena and player serpent, React/HTML title/settings/HUD, fixed 60 Hz simulation, shared keyboard/gamepad actions, three Neon Spire wave definitions and runtime transitions, Hunter body-block combat, Warden mechanics and active extraction. Original procedural music/effects and IndexedDB suspend/checkpoint/records support the initial loop. These foundations have bounded automated verification; the representative Neon Spire milestone is not yet accepted.
+Version **0.1.0** implements a first playable foundation: a real Three.js arena and player serpent, React/HTML title/settings/HUD, fixed 60 Hz simulation, shared keyboard/gamepad actions, three Neon Spire wave definitions and runtime transitions, Hunter body-block combat, Warden mechanics and active extraction. Original procedural music/effects and IndexedDB suspend/checkpoint/records support the initial loop. The latest feedback pass adds explained pickup effects, a pause-menu tactical guide, visible head-hit feedback, native audio recovery and bounded large-display rendering. These foundations have bounded automated verification; the representative Neon Spire milestone is not yet accepted.
 
-`npm run check` passed 36 tests and `npm run build` passed. The browser run passed 15 checks in headless Chrome 152.0.7977.77, including normal keyboard movement/first-core growth, pause, exact suspend/reload, focus-loss countdown pause, 150% HUD containment at 1280 × 720, named wall crash, once-only record/save clearing and checkpoint retry. Platform checks passed real React settings navigation, mocked gamepad edges and IndexedDB isolation. See the [browser report](docs/evidence/browser-report.json) and [feature matrix](docs/FEATURE_MATRIX.md) for coverage limits.
+`npm run check` passed 43 tests and `npm run build` passed. The browser run passed 15 checks in headless Chrome 152.0.7977.77, including normal keyboard movement/first-core growth, pause, exact suspend/reload, focus-loss countdown pause, 150% HUD containment at 1280 × 720, named wall crash, once-only record/save clearing and checkpoint retry. Platform checks passed real React settings navigation, mocked gamepad edges and IndexedDB isolation. See the [browser report](docs/evidence/browser-report.json) and [feature matrix](docs/FEATURE_MATRIX.md) for coverage limits.
 
 **No complete district has been demonstrated through ordinary play.** The Warden screenshot loads an explicit snapshot fixture; it proves rendering/restoration, not that a player completed the preceding waves or boss. Normal steering audits reached 10, 16 and 14 cores on three seeds before self-collision. The owner likes the graphics, sound effects and smooth controls. Their requested Xbox-menu, enemy-readability and futuristic-music changes are implemented; revised-music listening feedback, physical Xbox confirmation and normal complete-district play remain outstanding. The [visual review](docs/VISUAL_REVIEW.md) records the remaining material gap from the approved references.
 
@@ -58,9 +61,15 @@ The other four districts/finales, full-city progression/ending, Arcade, Endless,
 | Open a choice list | Enter / Space | A |
 | Choose / cancel an option | Up/down, Enter / Escape | D-pad up/down, A / B |
 | Adjust a menu setting directly | Left / right arrows | D-pad left / right |
-| Switch settings tab | Tab then Enter | LB / RB |
+| Switch settings / guide tab | Tab then Enter | LB / RB |
 
 Movement is continuous. Direction input changes heading; releasing it preserves direction. Shields protect against hostile attacks; colliding with walls, your own body or a rival remains a critical crash. A rival head striking your trailing body is the core combat interaction. Physical Xbox testing is outstanding; the mapping table records the intended shared controls.
+
+## Pickups, tactics and recovery
+
+Cyan cores advance the quota and grow the snake. Wave 1 colored squares activate automatically: green Overdrive halves boost drain for 8s (hold RT/Shift), and magenta Score Surge doubles core/rival points for 15s. Their effects and timers appear beside integrity. Wave 2 adds blue Shield and cyan EMP charges. Collect an EMP, then use X/Space within four units of a drone or emitter; Y/E switches slots. Decoy is available in Practice in this build. Pause → Pickups & Tactics explains all eight pickups and head-only attack damage.
+
+If the browser blocks sound, use the visible Click to enable sound button with a mouse or press a keyboard key. Automatic pauses show their cause; a performance pause offers Low graphics and a fresh countdown. Large displays use bounded rendering resolution while the HUD remains at full resolution. The challenge and critical-crash rules are unchanged.
 
 ## Files and authority
 
@@ -68,6 +77,7 @@ Movement is continuous. Direction input changes heading; releasing it preserves 
 | --- | --- |
 | `src/main.tsx` | React entry point and font/style imports |
 | `src/App.tsx` | Application screen/state flow; creates and coordinates simulation, renderer, input, audio, settings and save/recovery UI |
+| `src/components/GameplayGuide.tsx` | Device-aware Basics/Pickups/Tactics guide, reachable from title or the frozen pause menu |
 | `src/components/Hud.tsx` | Live objective, score, integrity, boost, tactical slots and encounter information |
 | `src/components/Modal.tsx` | Semantic modal presentation and focus handling |
 | `src/components/MenuSelect.tsx` | Visible keyboard/controller option lists, confirmation/cancellation and focus |
@@ -88,8 +98,10 @@ Movement is continuous. Direction input changes heading; releasing it preserves 
 | `docs/FEATURE_MATRIX.md` | Complete launch inventory, honest implementation state and verification ledger |
 | `docs/VISUAL_REVIEW.md` | Screenshot-specific comparison with the approved references and outstanding art-review work |
 | `docs/SESSION_HANDOFF.md` | Exact checkpoint, reproduction commands, evidence limits and next implementation steps |
-| `tests/simulation.test.ts` | 36 bounded content, movement, collision, pickup, rival, boss and snapshot checks |
-| `scripts/verify-game.mjs`, `scripts/verify-platform.mjs` | Real-browser app checks and isolated mocked-gamepad/storage checks |
+| `tests/simulation.test.ts` | 43 bounded content, movement, collision, pickup, rival, boss and snapshot checks |
+| `scripts/verify-game.mjs`, `scripts/verify-platform.mjs`, `scripts/verify-controller.mjs` | Real-browser app checks and isolated mocked-gamepad/storage checks |
+| `scripts/verify-systems.mjs`, `scripts/verify-runtime.mjs` | Actual App pickup/combat/guide snapshot fixtures and native audio/automatic-pause recovery checks |
+| `scripts/verify-audio.mjs`, `scripts/verify-enemies.mjs`, `scripts/verify-render-performance.mjs` | Native audio rendering/lifecycle, frozen enemy/pickup/EMP visuals, bounded buffers and short diagnostic frame observations |
 | `docs/evidence/` | Actual screenshots and machine-readable browser report; Warden capture is explicitly fixture-based |
 | `Snake_Year_3039_Full_Game_Builder_Package_v2_0/docs/PRD.md` | Authoritative full-game specification |
 | `Snake_Year_3039_Full_Game_Builder_Package_v2_0/docs/FULL_GAME_HANDOFF.md` | Builder priorities and scope/engineering/evidence guardrails |

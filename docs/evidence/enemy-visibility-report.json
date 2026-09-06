@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-06T03:44:14.511Z",
+  "date": "2026-09-06T04:40:34.984Z",
   "browser": "152.0.7977.77",
   "method": "Isolated installed Chrome via Playwright; Browser plugin unavailable",
   "checks": [
@@ -15,28 +15,28 @@
       "bloom": 0.45,
       "width": 1672,
       "height": 941,
-      "file": "enemies-medium-1672x941.png"
+      "file": "/tmp/snake-enemy-visibility/enemies-medium-1672x941.png"
     },
     {
       "quality": "low",
       "bloom": 0,
       "width": 1672,
       "height": 941,
-      "file": "enemies-low-1672x941.png"
+      "file": "/tmp/snake-enemy-visibility/enemies-low-1672x941.png"
     },
     {
       "quality": "low",
       "bloom": 0,
       "width": 1280,
       "height": 720,
-      "file": "enemies-low-1280x720.png"
+      "file": "/tmp/snake-enemy-visibility/enemies-low-1280x720.png"
     },
     {
       "quality": "low",
       "bloom": 0,
       "width": 375,
       "height": 844,
-      "file": "enemies-low-375x844.png"
+      "file": "/tmp/snake-enemy-visibility/enemies-low-375x844.png"
     }
   ],
   "errors": [],

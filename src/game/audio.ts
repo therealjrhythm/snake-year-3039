@@ -1,4 +1,5 @@
 type Intensity = 'title' | 'playing' | 'boss';
+export type AudioStatus = 'locked' | 'running' | 'suspended' | 'unavailable';
 const clamp = (value: number): number => Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : 0;
 const midi = (note: number): number => 440 * 2 ** ((note - 69) / 12);
 
@@ -20,14 +21,28 @@ export class GameAudio {
   private nextStep = 0;
   private step = 0;
   private disposed = false;
+  private visible = !document.hidden;
+  private hasRun = false;
+  private status: AudioStatus = 'locked';
+  private onStatusChange?: (status: AudioStatus) => void;
+  private graphReady = false;
 
-  async unlock(): Promise<void> {
-    if (this.disposed) return;
+  constructor(onStatusChange?: (status: AudioStatus) => void) {
+    this.onStatusChange = onStatusChange;
+  }
+
+  getStatus(): AudioStatus { return this.status; }
+
+  /** Call directly in a real pointer/key gesture; a gamepad click may still be blocked. */
+  async unlock(): Promise<boolean> {
+    if (this.disposed || !this.visible) return false;
+    let context = this.context;
     try {
-      if (!this.context) {
+      if (!context || context.state === 'closed') {
+        if (context) this.releaseGraph();
         const AudioConstructor = window.AudioContext ?? (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-        if (!AudioConstructor) return;
-        const context = new AudioConstructor();
+        if (!AudioConstructor) { this.publishStatus('unavailable'); return false; }
+        context = new AudioConstructor();
         this.context = context;
         this.master = context.createGain();
         this.music = context.createGain();
@@ -44,15 +59,44 @@ export class GameAudio {
         this.noise = context.createBuffer(1, context.sampleRate, context.sampleRate);
         const data = this.noise.getChannelData(0);
         for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        this.graphReady = true;
+        context.addEventListener('statechange', this.syncState);
         this.applyLevels();
       }
-      if (this.context.state === 'suspended') await this.context.resume();
-      if (this.context.state === 'running' && !this.timer) {
-        this.nextStep = this.context.currentTime + 0.035;
-        this.timer = setInterval(this.schedule, 60);
-        this.schedule();
+      if (context.state !== 'running') {
+        // A blocked resume can remain pending indefinitely. Always make a fresh
+        // resume call in the current gesture, even if an earlier call is pending.
+        // Coalescing those calls would discard the gesture that can unlock audio.
+        const resume = context.resume();
+        let timeout: ReturnType<typeof setTimeout> | undefined;
+        try {
+          await Promise.race([resume, new Promise<void>(resolve => { timeout = setTimeout(resolve, 1500); })]);
+        } finally {
+          if (timeout) clearTimeout(timeout);
+        }
       }
-    } catch { /* Audio is optional; denied or unavailable devices must never break a run. */ }
+      if (this.disposed || this.context !== context) return false;
+      this.syncState();
+      return context.state === 'running';
+    } catch {
+      if (!this.disposed && this.context === context) {
+        if (context && this.graphReady) this.syncState();
+        else { this.releaseGraph(); this.publishStatus('unavailable'); }
+      }
+      return false;
+    }
+  }
+
+  /** Visibility and gameplay pause are separate: returning never resumes the run. */
+  setVisible(visible: boolean): void {
+    if (this.visible === visible || this.disposed) return;
+    this.visible = visible;
+    if (!visible) { this.stopScheduler(); this.stopMusic(0.12); }
+    this.applyLevels();
+    if (visible) {
+      this.syncState();
+      if (this.hasRun && this.context?.state !== 'running') void this.unlock();
+    }
   }
 
   setLevels(master: number, music: number, effects: number): void {
@@ -63,14 +107,9 @@ export class GameAudio {
   setPaused(paused: boolean): void {
     if (this.paused === paused) return;
     this.paused = paused;
-    if (paused && this.context) {
-      // Fade the bus first, then stop musical voices. No synth loops survive a hidden tab.
-      for (const source of this.musicSources) {
-        try { source.stop(this.context.currentTime + 0.12); } catch { /* Already ended. */ }
-      }
-    }
-    if (!paused && this.context) this.nextStep = this.context.currentTime + 0.035;
+    if (paused) { this.stopScheduler(); this.stopMusic(0.12); }
     this.applyLevels();
+    if (!paused) this.syncState();
   }
 
   setIntensity(intensity: Intensity): void { this.intensity = intensity; }
@@ -125,15 +164,57 @@ export class GameAudio {
 
   dispose(): void {
     this.disposed = true;
+    this.onStatusChange = undefined;
+    this.releaseGraph();
+    this.status = 'unavailable';
+  }
+
+  private publishStatus(status: AudioStatus): void {
+    if (this.status === status || this.disposed) return;
+    this.status = status;
+    this.onStatusChange?.(status);
+  }
+
+  private syncState = (): void => {
+    if (this.disposed || !this.context) return;
+    const context = this.context;
+    if (context.state === 'running') {
+      this.hasRun = true;
+      this.publishStatus('running');
+      this.applyLevels();
+      if (!this.paused && this.visible && !this.timer) {
+        this.nextStep = context.currentTime + 0.035;
+        this.timer = setInterval(this.schedule, 60);
+        this.schedule();
+      }
+    } else {
+      this.stopScheduler();
+      this.stopMusic(0);
+      this.publishStatus(context.state === 'closed' ? 'unavailable' : this.hasRun ? 'suspended' : 'locked');
+    }
+  };
+
+  private stopScheduler(): void {
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
+  }
+
+  private stopMusic(fade: number): void {
+    if (!this.context) return;
     for (const source of this.musicSources) {
-      try { source.stop(); } catch { /* Already ended. */ }
+      try { source.stop(this.context.currentTime + fade); } catch { /* Already ended. */ }
     }
+  }
+
+  private releaseGraph(): void {
+    this.stopScheduler();
+    this.stopMusic(0);
     this.musicSources.clear();
     for (const node of this.musicNodes) node.disconnect();
     this.musicNodes = [];
     this.musicSend = null;
+    this.graphReady = false;
+    this.context?.removeEventListener('statechange', this.syncState);
     void this.context?.close().catch(() => undefined);
     this.context = null;
     this.master = null;
@@ -147,7 +228,7 @@ export class GameAudio {
     if (!context || context.state === 'closed') return;
     try {
       this.master?.gain.setTargetAtTime(this.levels.master, context.currentTime, 0.025);
-      this.music?.gain.setTargetAtTime(this.paused ? 0 : this.levels.music * 0.28, context.currentTime, 0.04);
+      this.music?.gain.setTargetAtTime(this.paused || !this.visible ? 0 : this.levels.music * 0.28, context.currentTime, 0.04);
       this.effects?.gain.setTargetAtTime(this.levels.effects * 0.65, context.currentTime, 0.025);
     } catch { /* Safe before or after audio-device changes. */ }
   }
@@ -155,7 +236,7 @@ export class GameAudio {
   private schedule = (): void => {
     const context = this.context;
     const music = this.music;
-    if (!context || !music || context.state !== 'running' || this.paused || this.disposed) return;
+    if (!context || !music || context.state !== 'running' || this.paused || !this.visible || this.disposed) return;
     if (this.nextStep < context.currentTime) this.nextStep = context.currentTime + 0.025;
     try {
       for (let count = 0; this.nextStep < context.currentTime + 0.16 && count < 8; count++) {

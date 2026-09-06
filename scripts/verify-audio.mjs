@@ -4,16 +4,37 @@ import { chromium } from '@playwright/test';
 
 // The Browser plugin is unavailable. Installed Chrome supplies real Web Audio graphs;
 // offline time below is controlled for measurement, not an owner listening review.
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--autoplay-policy=document-user-activation-required'] });
 const deadline = setTimeout(() => {
   console.error('Audio verification exceeded 60 seconds; closing its isolated browser.');
   void browser.close();
 }, 60_000);
 try {
-  const page = await browser.newPage();
   const errors = [];
-  page.on('pageerror', error => errors.push(error.message));
   const origin = process.argv[2] ?? 'http://127.0.0.1:3039';
+  const autoplayPage = await browser.newPage();
+  autoplayPage.on('pageerror', error => errors.push(error.message));
+  await autoplayPage.route('**/audio-autoplay-verification', route => route.fulfill({ contentType: 'text/html', body: `<button id="unlock">Enable audio</button><script type="module">
+    import { GameAudio } from '/src/game/audio.ts';
+    window.audioTest = new GameAudio();
+    window.firstUnlock = window.audioTest.unlock();
+    window.firstContext = window.audioTest.context;
+    document.querySelector('#unlock').onclick = () => { window.gestureUnlock = window.audioTest.unlock(); };
+  </script>` }));
+  await autoplayPage.goto(`${origin}/audio-autoplay-verification`);
+  // Playwright evaluate carries a user-gesture flag. Inspect this pre-gesture
+  // document through CDP without that flag so the autoplay boundary is real.
+  const cdp = await autoplayPage.context().newCDPSession(autoplayPage);
+  const blocked = (await cdp.send('Runtime.evaluate', { expression: '({ status: window.audioTest.getStatus(), state: window.audioTest.context.state })', returnByValue: true, userGesture: false })).result.value;
+  assert.equal(blocked.status, 'locked', 'A synthetic/controller start must not claim that audio is enabled');
+  assert.equal(blocked.state, 'suspended', 'Strict autoplay policy must block the initial non-gesture request');
+  await autoplayPage.locator('#unlock').click();
+  const overlappingUnlocks = await autoplayPage.evaluate(async () => ({ first: await window.firstUnlock, gesture: await window.gestureUnlock, sameContext: window.audioTest.context === window.firstContext, status: window.audioTest.getStatus() }));
+  assert.deepEqual(overlappingUnlocks, { first: true, gesture: true, sameContext: true, status: 'running' }, 'The next trusted gesture must recover an already-pending unlock without duplicating contexts');
+  await autoplayPage.evaluate(() => window.audioTest.dispose());
+  await autoplayPage.close();
+  const page = await browser.newPage();
+  page.on('pageerror', error => errors.push(error.message));
   // A minimal same-origin harness avoids rendering the game during audio measurements.
   await page.route('**/audio-verification', route => route.fulfill({ contentType: 'text/html', body: '<button id="unlock">Enable audio</button>' }));
   await page.goto(`${origin}/audio-verification`);
@@ -113,7 +134,8 @@ try {
 
   await page.evaluate(async () => {
     const { GameAudio } = await import('/src/game/audio.ts');
-    window.audioTest = new GameAudio();
+    window.audioStatuses = [];
+    window.audioTest = new GameAudio(status => window.audioStatuses.push(status));
     document.querySelector('#unlock').onclick = () => window.audioTest.unlock();
   });
   await page.locator('#unlock').click();
@@ -136,19 +158,67 @@ try {
       await new Promise(resolve => setTimeout(resolve, 50));
     }
     const voicesAfterResume = audio.musicSources.size;
+    await context.suspend();
+    await new Promise(resolve => setTimeout(resolve, 50));
+    const suspended = { status: audio.getStatus(), timerStopped: audio.timer === null };
+    audio.setPaused(true);
+    audio.setVisible(false);
+    audio.setVisible(true);
+    for (let attempt = 0; audio.getStatus() !== 'running' && attempt < 40; attempt++) await new Promise(resolve => setTimeout(resolve, 50));
+    const returned = { status: audio.getStatus(), gameStillPaused: audio.paused, schedulerStillStopped: audio.timer === null };
+    audio.setPaused(false);
+    const schedulingAfterReturn = audio.timer !== null;
+    await context.close();
+    await new Promise(resolve => setTimeout(resolve, 50));
+    const closedStatus = audio.getStatus();
+    const rebuilt = await audio.unlock();
+    const replacement = audio.context;
+    const closedRecovery = { previousStatus: closedStatus, result: rebuilt, replacedContext: replacement !== context, status: audio.getStatus() };
     const timerAfterDispose = (() => { audio.dispose(); return audio.timer; })();
     await new Promise(resolve => setTimeout(resolve, 100));
     await audio.unlock();
-    return { repeatedUnlockIsStable, pauseTime, voicesAfterPause, voicesAfterResume, timerAfterDispose, stateAfterDispose: context.state, disposedRemainsClosed: audio.context === null };
+    return { repeatedUnlockIsStable, pauseTime, voicesAfterPause, voicesAfterResume, suspended, returned, schedulingAfterReturn, closedRecovery, statuses: window.audioStatuses, timerAfterDispose, stateAfterDispose: replacement.state, disposedRemainsClosed: audio.context === null };
   });
   assert.equal(lifecycle.repeatedUnlockIsStable, true);
   assert.equal(lifecycle.voicesAfterPause, 0, 'Hidden/paused tabs must stop active music sources');
   assert.ok(lifecycle.voicesAfterResume > 0, 'A real running context must resume scheduling');
+  assert.deepEqual(lifecycle.suspended, { status: 'suspended', timerStopped: true });
+  assert.deepEqual(lifecycle.returned, { status: 'running', gameStillPaused: true, schedulerStillStopped: true }, 'Visible return must recover sound readiness without resuming gameplay');
+  assert.equal(lifecycle.schedulingAfterReturn, true);
+  assert.deepEqual(lifecycle.closedRecovery, { previousStatus: 'unavailable', result: true, replacedContext: true, status: 'running' });
   assert.equal(lifecycle.timerAfterDispose, null);
   assert.equal(lifecycle.stateAfterDispose, 'closed');
   assert.equal(lifecycle.disposedRemainsClosed, true);
+  const delayedRecovery = await page.evaluate(async () => {
+    const { GameAudio } = await import('/src/game/audio.ts');
+    const NativeAudioContext = window.AudioContext;
+    const context = new NativeAudioContext();
+    await context.suspend();
+    const nativeResume = context.resume.bind(context);
+    let release;
+    context.resume = () => new Promise(resolve => { release = resolve; });
+    window.AudioContext = function () { return context; };
+    const audio = new GameAudio();
+    const started = performance.now();
+    const blockedResult = await audio.unlock();
+    const bounded = performance.now() - started < 2500;
+    const blockedStatus = audio.getStatus();
+    context.resume = nativeResume;
+    const recovered = await audio.unlock();
+    release();
+    const recoveredStatus = audio.getStatus();
+    await context.suspend();
+    context.resume = () => new Promise(resolve => { release = resolve; });
+    const pending = audio.unlock();
+    audio.dispose();
+    release();
+    const disposedResult = await pending;
+    window.AudioContext = NativeAudioContext;
+    return { blockedResult, bounded, blockedStatus, recovered, recoveredStatus, disposedResult, disposedContext: audio.context, disposedTimer: audio.timer };
+  });
+  assert.deepEqual(delayedRecovery, { blockedResult: false, bounded: true, blockedStatus: 'locked', recovered: true, recoveredStatus: 'running', disposedResult: false, disposedContext: null, disposedTimer: null }, 'Blocked or late browser resume promises must remain retryable and cannot resurrect disposed audio');
   assert.deepEqual(errors, [], 'No uncaught browser audio errors');
-  const report = { passed: true, browser: browser.version(), render, lifecycle, limitation: 'Native offline rendering and a live unlock/lifecycle check; not a subjective listening review or every device/browser.' };
+  const report = { passed: true, browser: browser.version(), render, blocked, overlappingUnlocks, lifecycle, delayedRecovery, limitation: 'Native offline rendering, strict browser autoplay and real context suspension/closure, plus a controlled delayed resume promise; not a subjective listening review or every device/browser.' };
   await writeFile('/tmp/s39-audio-report.json', `${JSON.stringify(report, null, 2)}\n`);
   console.log(JSON.stringify(report, null, 2));
 } finally {

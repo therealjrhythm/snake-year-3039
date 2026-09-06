@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-06T04:00:45.297130+00:00",
+  "date": "2026-09-06T04:37:01.930862+00:00",
   "method": "Results recorded from scripts/verify-controller.mjs; isolated installed Chrome with a mocked standard Xbox mapping.",
   "viewports": [
     {
@@ -16,7 +16,8 @@
     "Graphics quality and Rules profile: A opens visible listbox, D-pad selects, A confirms; B cancels the quality list without closing Settings or changing its value",
     "Held A across popup open does not accidentally confirm",
     "DOM focus refusal retains controller cursor and activation",
-    "Left-stick navigation and pointer-to-gamepad visible focus pass"
+    "Left-stick navigation and pointer-to-gamepad visible focus pass",
+    "Paused Pickups & Tactics guide, Pickups-to-Tactics tab and B back preserve the paused menu and selection"
   ],
   "errors": [],
   "ownerFeedback": "Owner confirmed other menus work with their Xbox controller after the initial focus fix. They reported both dropdowns still failed to open; the final custom-list revision addresses that behavior and awaits owner recheck.",
