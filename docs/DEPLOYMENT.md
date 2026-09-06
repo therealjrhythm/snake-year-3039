@@ -4,6 +4,7 @@ The owner authorized production deployment and the ongoing commit → push → d
 
 ## Project
 
+- Public game: [snake-year-3039.vercel.app](https://snake-year-3039.vercel.app/).
 - GitHub: [therealjrhythm/snake-year-3039](https://github.com/therealjrhythm/snake-year-3039).
 - Production branch: `main`.
 - Vercel team: `acoldbrand` (COLD).
@@ -32,4 +33,12 @@ If Git integration does not trigger a build, inspect the existing connection, br
 
 `scripts/verify-deployment.mjs` uses an isolated installed-Chrome context and ordinary rendered UI. It checks production assets, menus, customization, help, game start, first-core movement and pause without Vite development imports, installed simulation snapshots, or the owner's storage. It is a deployment smoke check, not a complete Warden run, physical Xbox qualification, listening review, sustained hardware benchmark or five-player comprehension test.
 
-Initial live URL and deployment verification will be recorded after the first production build is Ready and the public game passes this check. Browser saves remain local to their site origin: localhost and the hosted game have separate saved runs/settings/records.
+Browser saves remain local to their site origin: localhost and the hosted game have separate saved runs/settings/records.
+
+## Initial production verification — September 6, 2026
+
+GitHub push `5359fe556d8cdc5d4d322794cb7f08588fe182f0` automatically created production deployment `dpl_43WbXWbgSBWjKDiPPkvfg4h2ZdYk`, which reached Ready and was assigned to **https://snake-year-3039.vercel.app/**. The deployment API confirms source `git`, branch `main`, Node 22, Vite, `npm ci`, and the checked-in test/build command. [Vercel build output](evidence/deployment-production-initial/build.log) records all 70 tests passing before the production bundle completed.
+
+The public domain returned HTTP 200 without authentication. All six production smoke groups passed in installed Chrome 152.0.7977.77, with zero browser errors, warnings or failed assets. Title/customization and normal first-core/pause captures were visually inspected. See the [structured report](evidence/deployment-production-initial/report.json), [title](evidence/deployment-production-initial/title-desktop.png) and [opening gameplay](evidence/deployment-production-initial/first-core-paused.png).
+
+This is initial deployment evidence for the specified commit. Later pushes create new deployments; verify their exact commit and public smoke separately before reporting success. Documentation/evidence updates are pushed through the same integration. Full district, hardware, subjective audio and full-release gates remain open.

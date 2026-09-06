@@ -1,0 +1,76 @@
+Vercel CLI 54.20.0 (Node.js 22.17.0)
+Fetching deployment "snake-year-3039-9l87neard-acoldbrand.vercel.app" in acoldbrand
+2026-09-06T22:12:12.662Z  Running build in Washington, D.C., USA (East) – iad1
+2026-09-06T22:12:12.662Z  Build machine configuration: 2 cores, 8 GB
+2026-09-06T22:12:12.784Z  Cloning github.com/therealjrhythm/snake-year-3039 (Branch: main, Commit: 5359fe5)
+2026-09-06T22:12:12.785Z  Previous build caches not available.
+2026-09-06T22:12:14.160Z  Cloning completed: 1.375s
+2026-09-06T22:12:14.522Z  Running "vercel build"
+2026-09-06T22:12:14.546Z  Vercel CLI 59.11.7
+2026-09-06T22:12:15.078Z  Running "install" command: `npm ci`...
+2026-09-06T22:12:19.538Z
+2026-09-06T22:12:19.538Z  added 62 packages, and audited 63 packages in 4s
+2026-09-06T22:12:19.539Z
+2026-09-06T22:12:19.539Z  15 packages are looking for funding
+2026-09-06T22:12:19.539Z  run `npm fund` for details
+2026-09-06T22:12:19.540Z
+2026-09-06T22:12:19.540Z  found 0 vulnerabilities
+2026-09-06T22:12:19.866Z
+2026-09-06T22:12:19.866Z  > snake-year-3039@0.2.0 check
+2026-09-06T22:12:19.866Z  > tsc -b && vitest run
+2026-09-06T22:12:19.866Z
+2026-09-06T22:12:21.235Z
+2026-09-06T22:12:21.236Z  RUN  v5.0.0 /vercel/path0
+2026-09-06T22:12:21.236Z
+2026-09-06T22:12:22.716Z  ✓ tests/simulation.test.ts (43 tests) 1011ms
+2026-09-06T22:12:22.717Z  ✓ pickup teaching and retained gameplay feedback (4)
+2026-09-06T22:12:22.717Z  ✓ keeps the authored campaign pickup introductions and offers all eight only in Practice 313ms
+2026-09-06T22:12:22.717Z  ✓ determinism, snapshots and spawn safety (5)
+2026-09-06T22:12:22.717Z  ✓ does not arm mines in the current snake and never exceeds the three-core budget 304ms
+2026-09-06T22:12:23.562Z  ✓ tests/expansion.test.ts (27 tests) 636ms
+2026-09-06T22:12:23.570Z
+2026-09-06T22:12:23.575Z  Test Files  2 passed (2)
+2026-09-06T22:12:23.576Z  Tests  70 passed (70)
+2026-09-06T22:12:23.576Z  Start at  22:12:21
+2026-09-06T22:12:23.577Z  Duration  2.32s (tests 81%, transform 15%, import 3%)
+2026-09-06T22:12:23.580Z
+2026-09-06T22:12:23.761Z
+2026-09-06T22:12:23.761Z  > snake-year-3039@0.2.0 build
+2026-09-06T22:12:23.761Z  > tsc -b && vite build
+2026-09-06T22:12:23.762Z
+2026-09-06T22:12:24.918Z  vite v8.2.2 building client environment for production...
+2026-09-06T22:12:24.933Z  transforming...
+2026-09-06T22:12:25.376Z  ✓ 1871 modules transformed.
+2026-09-06T22:12:25.467Z  rendering chunks...
+2026-09-06T22:12:25.577Z  computing gzip size...
+2026-09-06T22:12:25.590Z  dist/index.html                                         0.71 kB │ gzip:   0.41 kB
+2026-09-06T22:12:25.591Z  dist/assets/orbitron-latin-900-normal-DrIi7unX.woff2    6.40 kB
+2026-09-06T22:12:25.591Z  dist/assets/orbitron-latin-700-normal-4jsRXGGJ.woff2    6.52 kB
+2026-09-06T22:12:25.591Z  dist/assets/orbitron-latin-900-normal-BbJatbhp.woff     8.40 kB
+2026-09-06T22:12:25.591Z  dist/assets/orbitron-latin-700-normal-DmYOh-W9.woff     8.96 kB
+2026-09-06T22:12:25.591Z  dist/assets/rajdhani-latin-500-normal-DfvNI-Td.woff    11.76 kB
+2026-09-06T22:12:25.592Z  dist/assets/rajdhani-latin-400-normal-C6_q4usG.woff    11.76 kB
+2026-09-06T22:12:25.592Z  dist/assets/rajdhani-latin-700-normal-e0Uj8ZlN.woff    12.06 kB
+2026-09-06T22:12:25.592Z  dist/assets/rajdhani-latin-600-normal-Dx02qI2_.woff    12.09 kB
+2026-09-06T22:12:25.592Z  dist/assets/rajdhani-latin-400-normal-CurJOxDW.woff2   14.97 kB
+2026-09-06T22:12:25.592Z  dist/assets/rajdhani-latin-500-normal-ByNUCHrt.woff2   15.08 kB
+2026-09-06T22:12:25.592Z  dist/assets/rajdhani-latin-700-normal-BPDUZo87.woff2   15.68 kB
+2026-09-06T22:12:25.592Z  dist/assets/rajdhani-latin-600-normal-CXCVEoA9.woff2   15.73 kB
+2026-09-06T22:12:25.592Z  dist/assets/index-JrfndRJq.css                         41.11 kB │ gzip:   9.96 kB
+2026-09-06T22:12:25.592Z  dist/assets/index-BhFtinGY.js                         379.68 kB │ gzip: 120.25 kB
+2026-09-06T22:12:25.592Z  dist/assets/three-DA-Wj7-s.js                         572.32 kB │ gzip: 142.53 kB
+2026-09-06T22:12:25.592Z
+2026-09-06T22:12:25.593Z  [plugin builtin:vite-reporter]
+2026-09-06T22:12:25.593Z  (!) Some chunks are larger than 500 kB after minification. Consider:
+2026-09-06T22:12:25.594Z  - Using dynamic import() to code-split the application
+2026-09-06T22:12:25.594Z  - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+2026-09-06T22:12:25.594Z  - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+2026-09-06T22:12:25.594Z  ✓ built in 674ms
+2026-09-06T22:12:25.682Z  Build Completed in /vercel/output [11s]
+2026-09-06T22:12:25.705Z  Deploying outputs...
+2026-09-06T22:12:26.820Z  Deployment completed
+2026-09-06T22:12:26.824Z  Creating build cache...
+2026-09-06T22:12:32.977Z  Created build cache: 6s
+2026-09-06T22:12:32.977Z  Uploading build cache [51.84 MB]
+2026-09-06T22:12:33.631Z  Build cache uploaded: 654.000ms
+status	● Ready

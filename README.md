@@ -4,6 +4,8 @@ A single-player 3D cyberpunk browser game in development. The active brief is th
 
 ## Deployment
 
+Play the current Neon Spire milestone at **[snake-year-3039.vercel.app](https://snake-year-3039.vercel.app/)**.
+
 The repository is connected to the Vercel project `acoldbrand/snake-year-3039`. Pushes to `main` build the production game after `npm ci`, the simulation/type checks and the production build. The ongoing delivery workflow and production verification are recorded in [DEPLOYMENT.md](docs/DEPLOYMENT.md). Future changes should be verified, committed, pushed and checked on Vercel before handoff.
 
 ## Run locally

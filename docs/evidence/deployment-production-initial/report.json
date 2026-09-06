@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-06T22:13:29.258Z",
+  "target": "https://snake-year-3039.vercel.app/",
+  "finalURL": "https://snake-year-3039.vercel.app/",
+  "browser": "152.0.7977.77",
+  "method": "Browser plugin unavailable; Playwright with isolated installed Chrome",
+  "checks": [
+    "HTTP 200, intended title, compiled production assets, fonts, nonblank WebGL scene and no framework overlay",
+    "Eight glow choices, live one-canvas rotate/zoom preview and Apply persistence through reload",
+    "Normal fresh campaign countdown, forward motion, first collected core, body growth and keyboard pause",
+    "Paused guide exposes all twelve powers, keyboard firing and both Warden routes without advancing gameplay",
+    "Narrow title is contained at 390 \u00d7 844 (touch gameplay remains outside target)",
+    "No failed deployment assets or browser runtime errors"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failedAssets": [],
+  "screenshots": [
+    "title-desktop.png",
+    "customize-magenta.png",
+    "first-core-paused.png",
+    "warden-guide.png",
+    "title-narrow.png"
+  ],
+  "failure": null,
+  "limitations": [
+    "Public UI interactions and ordinary opening movement only; no prepared state or development modules.",
+    "Owner browser storage is not used or modified.",
+    "Physical Xbox, complete district playthrough, subjective audio and sustained performance are not established."
+  ],
+  "deployment": {
+    "id": "dpl_43WbXWbgSBWjKDiPPkvfg4h2ZdYk",
+    "project": "snake-year-3039",
+    "team": "acoldbrand",
+    "state": "READY",
+    "target": "production",
+    "source": "git",
+    "commit": "5359fe556d8cdc5d4d322794cb7f08588fe182f0",
+    "branch": "main",
+    "url": "https://snake-year-3039-9l87neard-acoldbrand.vercel.app",
+    "publicAlias": "https://snake-year-3039.vercel.app/",
+    "framework": "vite",
+    "nodeVersion": "22.x",
+    "installCommand": "npm ci",
+    "buildCommand": "npm run check && npm run build",
+    "outputDirectory": "dist"
+  }
+}
