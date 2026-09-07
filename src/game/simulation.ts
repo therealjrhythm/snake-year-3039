@@ -240,7 +240,7 @@ export class Simulation {
     this.refillRelays();
     this.state.pendingSpawns = [{ id: this.id('support'), kind: 'drone', at: this.state.waveTime + 5, position: copy(layout.boss.supportSpawn) }];
     this.clearInput();
-    this.emit('boss', this.legacy ? 'WARDEN · Collect relays 1 → 2 → 3. Discharge on the pad during RECOVERY.' : 'WARDEN · Collect relays 1 → 2 → 3. In recovery, cross the pad or land three receptor shots.');
+    this.emit('boss', 'WARDEN · Collect 1 → 2 → 3. Cross the round pad at the bottom-center when it turns green.');
   }
 
   snapshot(): SimulationState { return JSON.parse(JSON.stringify(this.state)) as SimulationState; }
@@ -270,7 +270,7 @@ export class Simulation {
       if (['shield', 'scrubber'].includes(kind)) s.projectiles = [{ id: sim.id('lab-shot'), x: 0, z: -1, vx: 0, vz: 4, ttl: 6 }];
       if (['emp', 'decoy', 'blaster'].includes(kind)) s.drones = [{ id: sim.id('lab-patrol'), x: kind === 'blaster' ? 0 : 2, z: 0, hp: 2, state: 'recover', timer: kind === 'blaster' ? 30 : 0.8, cooldown: 0.8, disabled: 0, anchor: { x: kind === 'blaster' ? 0 : 2, z: 0 }, phase: 0 }];
     }
-    sim.emit('lab-ready', kind === 'warden' ? 'WARDEN LAB · Charge relays 1 → 2 → 3, then use the pad or receptor.' : `${PICKUPS[kind].name.toUpperCase()} LAB · Collect the marked pickup. Reset or refill to try again.`, kind === 'warden' ? {} : { pickup: kind });
+    sim.emit('lab-ready', kind === 'warden' ? 'WARDEN LAB · Collect 1 → 2 → 3. Find the round pad at the bottom-center; cross it when green.' : `${PICKUPS[kind].name.toUpperCase()} LAB · Collect the marked pickup. Reset or refill to try again.`, kind === 'warden' ? {} : { pickup: kind });
     return sim;
   }
 
@@ -827,7 +827,7 @@ export class Simulation {
     if (boss.phaseTime > 0) return;
     if (boss.phase === 'safe') { boss.phase = 'warning'; boss.phaseTime = this.warningTime(1); this.emit('boss-warning', 'WARDEN · Laser fan charging. Outer routes remain open.'); }
     else if (boss.phase === 'warning') { boss.phase = 'attack'; boss.phaseTime = 2; }
-    else if (boss.phase === 'attack') { boss.phase = 'recovery'; boss.phaseTime = 4; this.emit('boss-recovery', boss.charge === 3 ? this.legacy ? 'RECOVERY · Cross the discharge pad now.' : 'RECOVERY · Cross the pad or land three receptor shots now.' : 'RECOVERY · Relay charge persists until you discharge.'); }
+    else if (boss.phase === 'attack') { boss.phase = 'recovery'; boss.phaseTime = 4; this.emit('boss-recovery', boss.charge === 3 ? 'PAD GREEN · Cross the round pad at the bottom-center now.' : 'Collect all three numbers to turn the bottom-center pad green.'); }
     else {
       boss.phase = 'safe';
       boss.phaseTime = 3;
@@ -1060,7 +1060,7 @@ export class Simulation {
       if (s.status === 'boss' && receptor && !this.legacy) add(circleTOI(old, shot, receptor, 0.65 + BLASTER.radius), 1, `player-receptor-${shot.id}`, () => {
         if (!active() || !s.boss || s.boss.nodes <= 0) return;
         consume();
-        if (s.boss.charge !== 3 || s.boss.phase !== 'recovery') { this.emit('armor-hit', 'WARDEN ARMORED · Charge all relays and wait for recovery.', { origin: copy(receptor), targetId: 'warden-receptor' }); return; }
+        if (s.boss.charge !== 3 || s.boss.phase !== 'recovery') { this.emit('armor-hit', 'WARDEN ARMORED · Collect 1 → 2 → 3 and wait for the bottom-center pad to turn green.', { origin: copy(receptor), targetId: 'warden-receptor' }); return; }
         s.boss.receptorHits++;
         this.emit('receptor-hit', `RECEPTOR HIT ${s.boss.receptorHits} / 3`, { origin: copy(receptor), amount: s.boss.receptorHits, targetId: 'warden-receptor' });
         if (s.boss.receptorHits >= 3) this.breakBossNode(receptor);
@@ -1079,9 +1079,9 @@ export class Simulation {
         }
         boss.charge++;
         boss.relays = boss.relays.filter(active => active.id !== relay.id);
-        this.emit('relay', `RELAY ${boss.charge} / 3${boss.charge === 3 ? this.legacy ? ' · Discharge on the pad during RECOVERY.' : ' · Pad or three receptor shots during RECOVERY.' : ` · Follow relay ${boss.charge + 1}.`}`, { relay: boss.charge, origin: copy(relay) });
+        this.emit('relay', `RELAY ${boss.charge} / 3${boss.charge === 3 ? ' · Cross the bottom-center pad when green.' : ` · Follow relay ${boss.charge + 1}.`}`, { relay: boss.charge, origin: copy(relay) });
         this.updateBossStage();
-        if (boss.charge === 3 && !this.legacy) this.emit('charge-ready', 'CHARGE READY · In recovery, cross the pad or land three receptor shots.');
+        if (boss.charge === 3 && !this.legacy) this.emit('charge-ready', 'CHARGE READY · Cross the round pad at the bottom-center when green.');
       });
       add(circleTOI(previous, p, boss.pad, HEAD + 1), 3, 'boss-pad', () => {
         if (boss.phase !== 'recovery' || boss.charge < 3 || boss.nodes <= 0) return;

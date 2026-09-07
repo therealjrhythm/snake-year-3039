@@ -2,11 +2,18 @@
 
 ## Runtime meshes, surface and interface
 
-- S-39 head, instanced armor/plates/seams, Hunter color variant, mines, Patrol drones, Warden, cores/relays, pickup cubes, gates, rooftop, towers, machinery and wet surface noise are original code-authored Three.js geometry/materials in `src/game/renderer.ts`, created for this project on September 5, 2026.
+- S-39 head, instanced armor/plates/seams, Hunter color variant, mines, Patrol drones, Warden, cores/relays, pickup shapes, gates, rooftop, towers, machinery and wet surface noise are original code-authored Three.js geometry/materials in `src/game/renderer.ts`, created for this project on September 5, 2026.
 - The generated skyline below is background scenery only. The reference PNGs are never used as a flattened playable arena or control surface.
 - Title and all interactive text/controls are HTML/CSS. Original procedural marks include the favicon and texture glyphs. Interface icons are Lucide (ISC license; distribution notice in `public/licenses/lucide-ISC.txt`).
 - Orbitron and Rajdhani fonts are bundled from pinned Fontsource packages, SIL Open Font License 1.1. Notices are in `public/licenses/orbitron-OFL.txt` and `public/licenses/rajdhani-OFL.txt`. Three.js and React use MIT licenses, copied under `public/licenses/`.
 - These are production-direction assets for the first playable build. The owner has given positive general graphics feedback; full acceptance against the supplied reference images remains open.
+
+## Powerup Lab recognition images — September 6, 2026
+
+- `public/images/powerups/` contains twelve powerup images and the ready Warden pad, exported from the actual `GameRenderer` meshes, materials and glyph textures. These are project-owned procedural assets, with no external image source or new generated art.
+- Reproduce with `node scripts/generate-powerup-previews.mjs` while the Vite server runs on 3039. It uses an isolated installed-Chrome context and one reused WebGL renderer, exports transparent 320 × 320 PNGs, and checks visible/unclipped models and transparency.
+- The thirteen images total approximately 211 KiB. They are static HTML images in the Lab; opening the menu creates no additional WebGL context. Isolated views omit gameplay bloom and scenery while preserving each shape, symbol and color identity.
+- All thirteen were visually inspected in the generated contact sheet, then checked in the actual Lab layout. Regenerate them if the underlying pickup/pad art changes.
 
 ## Original procedural audio
 

@@ -8,6 +8,8 @@ The destination is the complete five-district game. Version 0.1 is the beginning
 
 The owner-approved [Neon Spire expansion addendum](NEON_SPIRE_EXPANSION.md) extends milestone B before further city production. New attempts use a shared 36 × 26 layout; original saves retain 32 × 24 rules. Twelve campaign powers, reliable tactical supply, an optional forward blaster, clearer hybrid Warden combat, eight free glow colors, Practice Powerup Lab and Replay This Seed are implemented with simulation and targeted browser checks. Two fresh automated simulation runs clear the district; human and physical-controller playtesting remains open.
 
+The September 6 owner follow-up adds actual powerup images, simple effect/use descriptions and a pictured Warden pad explanation in the Lab and paused guide. This presentation update leaves gameplay rules unchanged; new-player comprehension still needs observation.
+
 Current evidence and remaining requirements are maintained in [SESSION_HANDOFF.md](SESSION_HANDOFF.md) and [FEATURE_MATRIX.md](FEATURE_MATRIX.md). Milestone B acceptance remains open until an ordinary keyboard/physical Xbox clear, intentional Hunter body-block, representative performance and five-player comprehension review are recorded. Automated fixtures do not substitute for those observations.
 
 After the expanded district passes playtesting, proceed through the remaining city, enemy variety, replay modes, earned Workshop/progression, learning/music/story, and release completeness in C–F below. Content identifiers and menu labels alone never establish implemented content.

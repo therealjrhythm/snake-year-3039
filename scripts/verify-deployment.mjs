@@ -76,6 +76,35 @@ try {
   await page.getByRole('button', { name: 'START GAME', exact: true }).click();
   await expect(page.locator('.briefing')).toContainText('36 × 26 arena · twelve powerups');
   await expect(page.getByRole('button', { name: 'Powerup Lab', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Powerup Lab', exact: true }).click();
+  const lab = page.getByRole('dialog', { name: 'POWERUP LAB', exact: true });
+  const chooseLab = async name => {
+    await lab.getByRole('combobox', { name: 'Choose what to try', exact: true }).click();
+    await lab.getByRole('option', { name, exact: true }).click();
+  };
+  const previews = new Set();
+  for (const name of ['Overdrive', 'Shield', 'Score Surge', 'EMP Pulse', 'Magnet', 'Repair', 'Decoy', 'Tail Splice', 'Pulse Blaster', 'Capacitor', 'Bullet Scrubber', 'Chain Buffer']) {
+    await chooseLab(name);
+    await expect(lab.getByRole('heading', { name, exact: true })).toBeVisible();
+    const picture = lab.locator('.lab-visual img');
+    await picture.evaluate(img => img.decode());
+    assert.equal(await picture.evaluate(img => img.naturalWidth), 320);
+    previews.add(await picture.getAttribute('src'));
+    await expect(lab.locator('.lab-use')).toContainText('How to use');
+    await expect(lab.locator('canvas')).toHaveCount(0);
+    if (name === 'Magnet') await screen('lab-magnet');
+  }
+  assert.equal(previews.size, 12, 'Each powerup must have its own loaded visual');
+  await expect(lab.locator('.lab-description')).toContainText('3 extra seconds');
+  await chooseLab('Warden boss fight');
+  await lab.locator('.warden-pad-visual img').evaluate(img => img.decode());
+  await expect(lab.locator('.warden-route')).toContainText('bottom-center');
+  await expect(lab.locator('.warden-route')).toContainText('turns green');
+  await expect(lab.locator('.warden-shooting')).toContainText('yellow ⊕ target');
+  await expect(lab.getByRole('button', { name: 'Start practice', exact: true })).toBeVisible();
+  await screen('lab-warden');
+  await lab.getByRole('button', { name: 'Cancel', exact: true }).click();
+  pass('All twelve Lab powers load distinct game-model images; effect/use instructions and pictured Warden pad explain both routes');
   await page.getByRole('button', { name: 'ENTER NEON SPIRE', exact: true }).click();
   await page.locator('.countdown-overlay').waitFor({ state: 'hidden', timeout: 10000 });
   await expect(page.locator('.objective-line strong')).toHaveText('1 / 12', { timeout: 5000 });
@@ -113,6 +142,18 @@ try {
   await expect(page.getByRole('button', { name: 'START GAME', exact: true })).toBeVisible();
   await screen('title-narrow');
   pass('Narrow title is contained at 390 × 844 (touch gameplay remains outside target)');
+  await page.getByRole('button', { name: 'START GAME', exact: true }).click();
+  await page.getByRole('button', { name: 'Powerup Lab', exact: true }).click();
+  await chooseLab('Chain Buffer');
+  await lab.locator('.lab-visual img').evaluate(img => img.decode());
+  assert.equal(await lab.evaluate(el => el.scrollWidth <= el.clientWidth), true, 'Lab must not overflow horizontally');
+  await screen('lab-narrow');
+  await chooseLab('Warden boss fight');
+  assert.equal(await lab.evaluate(el => el.scrollWidth <= el.clientWidth), true, 'Warden instructions must fit the narrow modal');
+  await lab.getByRole('button', { name: 'Start practice', exact: true }).scrollIntoViewIfNeeded();
+  await expect(lab.getByRole('button', { name: 'Start practice', exact: true })).toBeInViewport();
+  await screen('lab-warden-narrow');
+  pass('Narrow Lab images and instructions wrap without horizontal clipping; practice action stays reachable');
   assert.deepEqual(failedAssets, [], 'No failed same-origin assets');
   assert.deepEqual(errors, [], 'No uncaught browser or console errors');
   pass('No failed deployment assets or browser runtime errors');

@@ -3,6 +3,7 @@ import { ArrowRight, Radio, Shield, Zap } from 'lucide-react';
 import { PICKUPS, LEGACY_CONTENT_VERSION } from '../game/content';
 import type { PickupKind, SimulationState } from '../game/types';
 import { Modal } from './Modal';
+import { WardenInstructions } from './WardenInstructions';
 
 const groups: { name: string; kinds: PickupKind[] }[] = [
   { name: 'Movement & score', kinds: ['overdrive', 'surge', 'magnet', 'capacitor'] },
@@ -54,8 +55,8 @@ export function GameplayGuide({ device, paused, state, onClose, onEnter }: {
       {tab === 'Warden' ? <div className="warden-guide">
         {state?.status === 'extraction' ? <p className="guide-intro"><strong>All armor nodes are broken.</strong> Steer through the open north exit. Relays and discharge pads are no longer needed.</p> : <>
           {state?.boss ? <p className="boss-guide-state">NOW: Relay charge {state.boss.charge} / 3 · Armor nodes remaining {state.boss.nodes} / 3</p> : null}
-          <ol><li><strong>Charge:</strong> collect numbered relays 1 → 2 → 3. The next one glows brightest. Touching a later relay does no damage and does not advance charge.</li><li><strong>Wait safely:</strong> avoid the warned laser sector. Three relays bank a charge, but the armor opens only during recovery.</li><li><strong>Break one node:</strong> cross the green discharge pad{legacy ? '.' : ` OR hold ${fire} and land three blaster shots on the exposed inner-edge receptor. The pad always works without ammunition.`}</li><li><strong>Repeat and exit:</strong> collect three new relays for each remaining node. Once all three nodes break, steer through the open north exit.</li></ol>
-          <p className="guide-intro">A missed recovery window keeps your relay charge. {legacy ? 'A successful pad discharge spends all three relays and breaks exactly one node.' : 'Partial blaster hits reset when armor closes. Either successful route spends all three relays and breaks exactly one node.'}</p>
+          <WardenInstructions fire={fire} legacy={legacy} />
+          <p className="guide-intro">Missed the green window? Your collected numbers stay charged. Grey means collect more numbers; amber means wait; green means go. {legacy ? 'A successful pad discharge spends all three relays and breaks exactly one node.' : 'Partial blaster hits reset when the armor closes. Each broken armor piece uses one set of three numbers.'}</p>
         </>}
       </div> : null}
     </div>

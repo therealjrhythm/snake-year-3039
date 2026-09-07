@@ -41,7 +41,7 @@ try {
       // Plan only the D-pad route from rendered control geometry; no focus or
       // application state is written. Every navigation step uses real pad polling.
       const path = await page.evaluate(label => {
-        const root = [...document.querySelectorAll('[role="dialog"]')].at(-1);
+        const root = [...document.querySelectorAll('[role="dialog"]')].at(-1) ?? document.querySelector('[data-menu]:not([inert])');
         const controls = [...root.querySelectorAll('button,input')].filter(el => !el.disabled && el.getClientRects().length);
         const start = controls.findIndex(el => el.hasAttribute('data-gamepad-focus'));
         const target = controls.findIndex(el => el.getAttribute('aria-label') === label || el.textContent.trim() === label);
@@ -172,6 +172,30 @@ try {
     await selected('CONTINUE RUN');
     console.log('  Start, difficulty, pause and save passed');
 
+    await tap(13); await selected('START GAME'); await tap(0);
+    await selected('ENTER NEON SPIRE');
+    await navigateTo('Powerup Lab'); await tap(0); await frames();
+    await navigateTo('Choose what to try');
+    // Closed selectors support left/right changes through the same pad polling.
+    for (let i = 0; i < 3; i++) await tap(14); // EMP -> Overdrive
+    for (const name of ['Overdrive', 'Shield', 'Score Surge', 'EMP Pulse', 'Magnet', 'Repair', 'Decoy', 'Tail Splice', 'Pulse Blaster', 'Capacitor', 'Bullet Scrubber', 'Chain Buffer', 'Defeat the Warden']) {
+      await expect(page.locator('.lab-description h3')).toHaveText(name);
+      await page.locator('.lab-visual img').evaluate(img => img.decode());
+      if (name === 'EMP Pulse' || name === 'Decoy') await expect(page.locator('.lab-use kbd')).toHaveText('X');
+      if (name === 'Pulse Blaster') await expect(page.locator('.lab-use kbd')).toHaveText('A');
+      if (name !== 'Defeat the Warden') await tap(15);
+    }
+    await expect(page.locator('.warden-shooting kbd')).toHaveText('A');
+    await navigateTo('Start practice');
+    await expect(page.locator('[data-gamepad-focus]')).toBeInViewport();
+    await page.screenshot({ path: join(tmpdir(), `s39-controller-lab-${viewport.width}.png`) });
+    await tap(1); await tap(1);
+    await page.reload();
+    await expect(page.getByRole('button', { name: 'CONTINUE RUN', exact: true })).toBeEnabled();
+    await frames(); await tap(9); // Acquire pad ownership without opening a title menu.
+    await navigateTo('CONTINUE RUN'); await selected('CONTINUE RUN');
+    console.log('  All illustrated Lab choices, Xbox glyphs, visible Start practice and B-back passed (mocked controller)');
+
     // Focus loss in embedded views must not erase the controller cursor or block A.
     await page.evaluate(() => {
       document.activeElement?.blur();
@@ -213,7 +237,7 @@ try {
     assert.ok(style.rect.width > 0 && style.rect.height > 0);
     await page.screenshot({ path: join(tmpdir(), `s39-controller-focus-${viewport.width}.png`) });
     assert.deepEqual(errors, []);
-    results.push({ viewport, result: 'PASS: controller-only title/settings/difficulty/pause/save, A hold suppression, tabs and selectors, focus-loss recovery, stick navigation, visible cursor', errors });
+    results.push({ viewport, result: 'PASS: controller-only title/settings/difficulty/pause/save, all illustrated Lab choices and Xbox glyphs, A hold suppression, tabs and selectors, focus-loss recovery, stick navigation, visible cursor', errors });
     await context.close();
   }
   console.log(JSON.stringify(results, null, 2));

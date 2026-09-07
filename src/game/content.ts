@@ -42,18 +42,18 @@ export const DISTRICTS: DistrictDefinition[] = [
 ];
 
 const PICKUP_BASE: Record<PickupKind, { name: string; color: string; symbol: string; description: string; weight: number }> = {
-  overdrive: { name: 'Overdrive', color: '#32eda0', symbol: '»', description: '8s · half boost drain. Same top speed.', weight: 20 },
-  shield: { name: 'Shield', color: '#40aaff', symbol: '◇', description: 'One attack absorbed · 12s. Crashes remain fatal.', weight: 20 },
-  surge: { name: 'Score Surge', color: '#ea39f5', symbol: '2×', description: '15s · double core and rival points.', weight: 15 },
-  emp: { name: 'EMP Pulse', color: '#20dfff', symbol: '◎', description: 'Stored · disable drones and emitters for 3s within 4 units.', weight: 15 },
-  magnet: { name: 'Magnet', color: '#a583ff', symbol: '∩', description: '10s · safely attracts nearby ordinary cores.', weight: 10 },
-  repair: { name: 'Repair', color: '#ffcb83', symbol: '+', description: 'Restore one integrity when damaged.', weight: 8 },
-  decoy: { name: 'Decoy', color: '#c69aff', symbol: '⋈', description: 'Stored · leave a 4s holographic lure.', weight: 7 },
-  splice: { name: 'Tail Splice', color: '#ffaf56', symbol: '−4', description: 'Retract four tail segments · minimum eight.', weight: 5 },
-  blaster: { name: 'Pulse Blaster', color: '#fff080', symbol: '⊕', description: '12 shots · hold Fire. Drones take two hits; rivals stay armored.', weight: 12 },
-  capacitor: { name: 'Capacitor', color: '#87ff58', symbol: '+35', description: 'Restore 35 boost energy. Top speed stays unchanged.', weight: 10 },
-  scrubber: { name: 'Bullet Scrubber', color: '#f1f8ff', symbol: '⊗', description: 'Armed for 8s · a shot within 2 units triggers one 3-unit bullet purge.', weight: 8 },
-  'chain-buffer': { name: 'Chain Buffer', color: '#ff78bc', symbol: '+3s', description: 'Armed for 10s · save one expiring combo with 3 extra seconds.', weight: 8 },
+  overdrive: { name: 'Overdrive', color: '#32eda0', symbol: '»', description: 'Boost uses half as much energy for 8 seconds.', weight: 20 },
+  shield: { name: 'Shield', color: '#40aaff', symbol: '◇', description: 'Blocks one enemy hit for up to 12 seconds. Crashes still end your run.', weight: 20 },
+  surge: { name: 'Score Surge', color: '#ea39f5', symbol: '2×', description: 'Doubles points from energy cores and rival snakes for 15 seconds.', weight: 15 },
+  emp: { name: 'EMP Pulse', color: '#20dfff', symbol: '◎', description: 'Stops nearby drones and laser beams for 3 seconds.', weight: 15 },
+  magnet: { name: 'Magnet', color: '#a583ff', symbol: '∩', description: 'Pulls nearby energy cores toward your snake for 10 seconds.', weight: 10 },
+  repair: { name: 'Repair', color: '#ffcb83', symbol: '+', description: 'Restores one missing health bar.', weight: 8 },
+  decoy: { name: 'Decoy', color: '#c69aff', symbol: '⋈', description: 'Leaves a hologram that distracts nearby enemies for up to 4 seconds.', weight: 7 },
+  splice: { name: 'Tail Splice', color: '#ffaf56', symbol: '−4', description: 'Shortens your tail by up to four segments, leaving at least eight.', weight: 5 },
+  blaster: { name: 'Pulse Blaster', color: '#fff080', symbol: '⊕', description: 'Gives you 12 shots. Two hits destroy a drone. Rival snakes block your shots.', weight: 12 },
+  capacitor: { name: 'Capacitor', color: '#87ff58', symbol: '+35', description: 'Refills 35% of your boost bar.', weight: 10 },
+  scrubber: { name: 'Bullet Scrubber', color: '#f1f8ff', symbol: '⊗', description: 'For 8 seconds, clears nearby enemy bullets once when one gets close.', weight: 8 },
+  'chain-buffer': { name: 'Chain Buffer', color: '#ff78bc', symbol: '+3s', description: 'Gives you 3 extra seconds to keep your score combo going. Works once within 10 seconds.', weight: 8 },
 };
 
 export interface PickupUnlock { wave: number; waveCores?: number; totalCores?: number; boostUsed?: boolean; combo?: number }

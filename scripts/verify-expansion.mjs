@@ -84,8 +84,8 @@ try {
 
   await page.getByRole('button', { name: 'START GAME', exact: true }).click();
   await page.getByRole('button', { name: 'Powerup Lab', exact: true }).click();
-  await select('Test system', 'Pulse Blaster');
-  await page.getByRole('button', { name: 'Try system', exact: true }).click();
+  await select('Choose what to try', 'Pulse Blaster');
+  await page.getByRole('button', { name: 'Start practice', exact: true }).click();
   // Hold Fire throughout countdown: entering play must still require release.
   await page.keyboard.down('f');
   await active();
@@ -107,10 +107,18 @@ try {
   await page.waitForFunction(() => window.__observedSim.state.weapon.ammo === 12);
   await pause();
   await page.getByRole('button', { name: 'CHOOSE LAB SYSTEM', exact: true }).click();
-  for (const name of ['Overdrive', 'Score Surge', 'Magnet', 'Shield', 'EMP Pulse', 'Repair', 'Decoy', 'Tail Splice', 'Pulse Blaster', 'Capacitor', 'Bullet Scrubber', 'Chain Buffer', 'Warden · movement or blaster']) {
-    await select('Test system', name);
+  for (const name of ['Overdrive', 'Score Surge', 'Magnet', 'Shield', 'EMP Pulse', 'Repair', 'Decoy', 'Tail Splice', 'Pulse Blaster', 'Capacitor', 'Bullet Scrubber', 'Chain Buffer', 'Warden boss fight']) {
+    await select('Choose what to try', name);
+    await page.locator('.lab-visual img').evaluate(img => img.decode());
+    await expect(page.locator('.world canvas')).toHaveCount(1);
   }
-  await page.getByRole('button', { name: 'Cancel', exact: true }).click();
+  await page.getByRole('button', { name: 'Start practice', exact: true }).click();
+  await active(); await pause();
+  assert.equal((await read()).lab, 'warden');
+  assert.deepEqual(await saved(), campaignSave);
+  await page.getByRole('button', { name: 'PICKUPS & TACTICS', exact: true }).click();
+  await expect(page.locator('.warden-guide')).toContainText('bottom-center');
+  await page.getByRole('button', { name: 'Back to paused run', exact: true }).click();
   await page.getByRole('button', { name: 'LEAVE LAB', exact: true }).click();
   assert.deepEqual(await saved(), campaignSave);
   assert.deepEqual(await page.evaluate(async () => (await import('/src/game/persistence.ts')).getRecords()), []);

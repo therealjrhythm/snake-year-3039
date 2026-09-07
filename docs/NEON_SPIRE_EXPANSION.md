@@ -45,3 +45,8 @@ After this expanded milestone is verified: complete D2 Chrome Bazaar/Switchblade
 ## Delivery evidence
 
 The 0.2.0 Neon Spire expansion is implemented. The [feature matrix](FEATURE_MATRIX.md#development-verification) and [session handoff](SESSION_HANDOFF.md#verification-ledger) record automated checks, rendered fixtures, fresh simulation runs and the remaining human/device acceptance gates. The original movement speeds, turn limits, critical crashes and quotas have not been tuned to accommodate test runs. Full-city production follows the milestone playtesting gate above.
+
+
+## Owner clarity follow-up — September 6, 2026
+
+The Powerup Lab now shows the actual in-game appearance of each power alongside a plain-language effect and a separate keyboard/Xbox activation instruction. Warden help identifies and pictures the round floor pad at the bottom-center, explains waiting for green, and locates the optional yellow shooting target below Warden. The paused guide shares these instructions, and the boss introduction/HUD/event prompts use the same landmarks. This is presentation work; it changes no pickup effect, boss timing, collision or save rule. See the handoff for current verification and remaining player-comprehension acceptance.

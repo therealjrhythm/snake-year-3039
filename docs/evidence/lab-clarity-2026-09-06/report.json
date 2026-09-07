@@ -1,0 +1,37 @@
+{
+  "date": "2026-09-07T00:10:23.298Z",
+  "target": "http://127.0.0.1:3040/",
+  "finalURL": "http://127.0.0.1:3040/",
+  "browser": "152.0.7977.77",
+  "method": "Browser plugin unavailable; Playwright with isolated installed Chrome",
+  "checks": [
+    "HTTP 200, intended title, compiled production assets, fonts, nonblank WebGL scene and no framework overlay",
+    "Eight glow choices, live one-canvas rotate/zoom preview and Apply persistence through reload",
+    "All twelve Lab powers load distinct game-model images; effect/use instructions and pictured Warden pad explain both routes",
+    "Normal fresh campaign countdown, forward motion, first collected core, body growth and keyboard pause",
+    "Paused guide exposes all twelve powers, keyboard firing and both Warden routes without advancing gameplay",
+    "Narrow title is contained at 390 × 844 (touch gameplay remains outside target)",
+    "Narrow Lab images and instructions wrap without horizontal clipping; practice action stays reachable",
+    "No failed deployment assets or browser runtime errors"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failedAssets": [],
+  "screenshots": [
+    "/tmp/snake-lab-clarity-production-local/title-desktop.png",
+    "/tmp/snake-lab-clarity-production-local/customize-magenta.png",
+    "/tmp/snake-lab-clarity-production-local/lab-magnet.png",
+    "/tmp/snake-lab-clarity-production-local/lab-warden.png",
+    "/tmp/snake-lab-clarity-production-local/first-core-paused.png",
+    "/tmp/snake-lab-clarity-production-local/warden-guide.png",
+    "/tmp/snake-lab-clarity-production-local/title-narrow.png",
+    "/tmp/snake-lab-clarity-production-local/lab-narrow.png",
+    "/tmp/snake-lab-clarity-production-local/lab-warden-narrow.png"
+  ],
+  "failure": null,
+  "limitations": [
+    "Public UI interactions and ordinary opening movement only; no prepared state or development modules.",
+    "Owner browser storage is not used or modified.",
+    "Physical Xbox, complete district playthrough, subjective audio and sustained performance are not established."
+  ]
+}
