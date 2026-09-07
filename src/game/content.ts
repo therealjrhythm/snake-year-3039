@@ -7,6 +7,11 @@ export const SUPPORTED_CONTENT_VERSIONS: readonly string[] = [CONTENT_VERSION, E
 export const BLASTER = { ammo: 12, interval: 0.25, speed: 18, range: 10, coneHalfAngle: Math.PI / 6, projectileCap: 6, radius: 0.12 } as const;
 export const FIXED_DT = 1 / 60;
 export const MOVEMENT = { baseSpeed: 4.5, boostSpeed: 6.3, turnRate: Math.PI * 4 / 3, spacing: 0.55, headRadius: 0.32, bodyRadius: 0.28, neckExclusion: 1.1, startingLength: 8, endlessCap: 80 } as const;
+/** Head-center collection distances; these never enlarge a crash or hostile hitbox. */
+export const COLLECTION = {
+  current: { core: 0.78, powerup: 0.80, relay: 0.90 },
+  legacy: { core: MOVEMENT.headRadius + 0.28, powerup: MOVEMENT.headRadius + 0.30, relay: MOVEMENT.headRadius + 0.40 },
+} as const;
 export const RULES: Record<Difficulty, { integrity: number; clock: number; projectile: number; warning: number }> = {
   standard: { integrity: 3, clock: 1, projectile: 1, warning: 1 },
   expert: { integrity: 3, clock: 1, projectile: 1.15, warning: 0.9 },

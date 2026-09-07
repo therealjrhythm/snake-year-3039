@@ -1,0 +1,177 @@
+[
+  {
+    "name": "check",
+    "command": [
+      "npm",
+      "run",
+      "check"
+    ],
+    "exitCode": 0,
+    "seconds": 2.0,
+    "log": "docs/evidence/warden-controls-2026-09-07/check.log"
+  },
+  {
+    "name": "build",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "exitCode": 0,
+    "note": "Existing Three.js chunk size warning remains."
+  },
+  {
+    "name": "warden-controls",
+    "command": [
+      "node",
+      "scripts/verify-warden-controls.mjs",
+      "http://127.0.0.1:3039",
+      "docs/evidence/warden-controls-2026-09-07"
+    ],
+    "exitCode": 0,
+    "seconds": 38.4,
+    "log": "docs/evidence/warden-controls-2026-09-07/warden-controls.log"
+  },
+  {
+    "name": "game",
+    "command": [
+      "node",
+      "scripts/verify-game.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 53.5,
+    "log": "docs/evidence/warden-controls-2026-09-07/game.log"
+  },
+  {
+    "name": "platform",
+    "command": [
+      "node",
+      "scripts/verify-platform.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 4.4,
+    "log": "docs/evidence/warden-controls-2026-09-07/platform.log"
+  },
+  {
+    "name": "controller",
+    "command": [
+      "node",
+      "scripts/verify-controller.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 25.2,
+    "log": "docs/evidence/warden-controls-2026-09-07/controller.log"
+  },
+  {
+    "name": "audio",
+    "command": [
+      "node",
+      "scripts/verify-audio.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 6.0,
+    "log": "docs/evidence/warden-controls-2026-09-07/audio.log"
+  },
+  {
+    "name": "enemies",
+    "command": [
+      "node",
+      "scripts/verify-enemies.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 2.5,
+    "log": "docs/evidence/warden-controls-2026-09-07/enemies.log"
+  },
+  {
+    "name": "systems",
+    "command": [
+      "node",
+      "scripts/verify-systems.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 25.2,
+    "log": "docs/evidence/warden-controls-2026-09-07/systems.log"
+  },
+  {
+    "name": "runtime",
+    "command": [
+      "node",
+      "scripts/verify-runtime.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 15.3,
+    "log": "docs/evidence/warden-controls-2026-09-07/runtime.log"
+  },
+  {
+    "name": "render-performance",
+    "command": [
+      "node",
+      "scripts/verify-render-performance.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 3.3,
+    "log": "docs/evidence/warden-controls-2026-09-07/render-performance.log"
+  },
+  {
+    "name": "expansion",
+    "command": [
+      "node",
+      "scripts/verify-expansion.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 57.6,
+    "log": "docs/evidence/warden-controls-2026-09-07/expansion.log"
+  },
+  {
+    "name": "expansion-render",
+    "command": [
+      "node",
+      "scripts/verify-expansion-render.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 5.3,
+    "log": "docs/evidence/warden-controls-2026-09-07/expansion-render.log"
+  },
+  {
+    "name": "combat-update",
+    "command": [
+      "node",
+      "scripts/verify-combat-update.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 60.0,
+    "log": "docs/evidence/warden-controls-2026-09-07/combat-update.log"
+  },
+  {
+    "name": "menu-motion",
+    "command": [
+      "node",
+      "scripts/verify-menu-motion.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 10.3,
+    "log": "docs/evidence/warden-controls-2026-09-07/menu-motion.log"
+  },
+  {
+    "name": "tactics",
+    "command": [
+      "node",
+      "scripts/verify-tactics.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 26.1,
+    "log": "docs/evidence/warden-controls-2026-09-07/tactics.log"
+  },
+  {
+    "name": "compiled-production",
+    "command": [
+      "node",
+      "scripts/verify-deployment.mjs",
+      "http://127.0.0.1:3040",
+      "/tmp/s39-warden-production-local"
+    ],
+    "exitCode": 0,
+    "checks": 10,
+    "report": "production-local-report.json"
+  }
+]

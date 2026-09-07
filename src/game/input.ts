@@ -57,6 +57,14 @@ export class GameInputController {
     if (active === this.gameplay) return;
     this.clear();
     this.gameplay = active;
+    if (active) {
+      // Steering is continuous: accept the direction held through a popup or
+      // countdown on the first playable frame. Action buttons stay suppressed
+      // until released so confirming a menu cannot fire, boost or use a tactic.
+      this.axesSuppressed = false;
+      for (const key of movementKeys) this.suppressedKeys.delete(key);
+      for (const index of [12, 13, 14, 15]) this.suppressedButtons.delete(index);
+    }
   }
 
   focusMenu(): void {

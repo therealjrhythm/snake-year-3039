@@ -1,4 +1,4 @@
-import { BLASTER, CONTENT_VERSION, LEGACY_CONTENT_VERSION, SUPPORTED_CONTENT_VERSIONS, DISTRICTS, FIXED_DT, MOVEMENT, PICKUPS, RULES } from './content';
+import { BLASTER, COLLECTION, CONTENT_VERSION, LEGACY_CONTENT_VERSION, SUPPORTED_CONTENT_VERSIONS, DISTRICTS, FIXED_DT, MOVEMENT, PICKUPS, RULES } from './content';
 import { getLayout } from './layouts';
 import { GAME_EVENT_KINDS } from './types';
 import type { Difficulty, GameEvent, GameEventKind, GameInput, GameMode, Gate, LabKind, LayoutId, Obstacle, PickupKind, Positioned, Rival, SimulationState, Snake, Vec2 } from './types';
@@ -1077,6 +1077,15 @@ export class Simulation {
     const p = s.player;
     const events: CollisionEvent[] = [];
     const add = (time: number | null, priority: number, id: string, resolve: () => void) => { if (time !== null) events.push({ time, priority, id, resolve }); };
+    const collection = this.laserRules ? COLLECTION.current : COLLECTION.legacy;
+    const collectionTOI = (item: Vec2, radius: number): number | null => {
+      const time = circleTOI(previous, p, item, radius);
+      if (time === null || !this.laserRules) return time;
+      // A forgiving edge contact still needs an unobstructed reach to the item.
+      // Check at impact, not the frame endpoint, to preserve swept event order.
+      const contact = mix(previous, p, time);
+      return s.obstacles.some(obstacle => roundedRectangleTOI(contact, item, obstacle, 0) !== null) ? null : time;
+    };
     const world = this.worldTOI(previous, p, s.status === 'extraction');
     if (world) add(world.time, 0, 'crash-world', () => this.fail(`Critical crash: ${world.cause}`));
     add(bodyTOI(previous, p, previousBody, HEAD + BODY, 1), 0, 'crash-self', () => this.fail('Critical crash: your own body'));
@@ -1175,11 +1184,11 @@ export class Simulation {
       });
     }
 
-    if (s.status === 'playing') for (const core of [...s.cores]) add(circleTOI(previous, p, core, HEAD + 0.28), 2, core.id, () => this.collectCore(core));
-    for (const pickup of [...s.pickups]) add(circleTOI(previous, p, pickup, HEAD + 0.3), 2, pickup.id, () => this.collectPickup(pickup.id));
+    if (s.status === 'playing') for (const core of [...s.cores]) add(collectionTOI(core, collection.core), 2, core.id, () => this.collectCore(core));
+    for (const pickup of [...s.pickups]) add(collectionTOI(pickup, collection.powerup), 2, pickup.id, () => this.collectPickup(pickup.id));
     const boss = s.boss;
     if (s.status === 'boss' && boss) {
-      for (const relay of [...boss.relays]) add(circleTOI(previous, p, relay, HEAD + 0.4), 2, relay.id, () => {
+      for (const relay of [...boss.relays]) add(collectionTOI(relay, collection.relay), 2, relay.id, () => {
         if (!boss.relays.some(active => active.id === relay.id)) return;
         if (boss.charge + 1 !== relay.number) {
           if (!this.legacy && boss.relayFeedbackCooldown === 0) { this.emit('relay-wrong', `RELAY ${relay.number} LOCKED · Collect relay ${boss.charge + 1} first.`, { relay: relay.number, amount: boss.charge + 1, origin: copy(relay) }); boss.relayFeedbackCooldown = 0.75; }

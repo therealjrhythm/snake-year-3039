@@ -4,9 +4,11 @@ Active product authority: [full PRD v2.0](../Snake_Year_3039_Full_Game_Builder_P
 
 The destination is the complete five-district game. Version 0.1 is the beginning of development and the first Neon Spire playable milestone, not a reduced release definition. The status of every launch system remains visible in [FEATURE_MATRIX.md](FEATURE_MATRIX.md). No milestone acceptance implies full release acceptance.
 
-## Current checkpoint — 0.3.1 visual and tactical refinement
+## Current checkpoint — 0.3.2 Warden input and collection fixes
 
 The [latest owner revision](NEON_SPIRE_COMBAT_REFRESH.md) adds three lives and current-stage retries, required charged laser combat with Warden counterfire, a stable camera, dimensional arena dressing, crisp colored light strips, continuously pulsing loaded tactics and immediate GSAP menu feedback. Earlier saves remain on their original rules. This is still Milestone B; D2–D5 and release acceptance remain required.
+
+The September 7 patch restores held steering on the first gameplay frame after Warden instructions, countdowns and resume. It slightly widens ordinary-core/powerup/sphere collection contact, preserving solid obstruction, full-slot restrictions, older content rules and every critical-crash boundary. The current handoff records the reproduced input defect, fixed App transition checks and remaining physical-controller acceptance.
 
 ### Earlier 0.2 foundation
 

@@ -1,0 +1,7 @@
+PASS 28 input checks: held steering resumes immediately; actions still require release; neutral and blur stay safe
+PASS stick: automatic final-core popup freezes play; held inward steering works on the first Warden step and avoids the wall without losing a life
+PASS stick: ordinary pause/resume also accepts held steering while suppressing the confirming A
+PASS dpad: automatic final-core popup freezes play; held inward steering works on the first Warden step and avoids the wall without losing a life
+PASS dpad: ordinary pause/resume also accepts held steering while suppressing the confirming A
+PASS keyboard: automatic final-core popup freezes play; held inward steering works on the first Warden step and avoids the wall without losing a life
+PASS keyboard: ordinary pause/resume also accepts held steering while suppressing the confirming A

@@ -1,0 +1,11 @@
+{
+  "name": "systems",
+  "command": [
+    "node",
+    "scripts/verify-systems.mjs"
+  ],
+  "exitCode": 1,
+  "seconds": 12.2,
+  "log": "docs/evidence/warden-controls-2026-09-07/systems-original-fixture.log",
+  "resolution": "The old hard-coded contacts now both overlap at time zero and sort by ID. Repositioned the arranged items relative to their new contact radii to retain the original pickup-before-core contract; assertion unchanged."
+}

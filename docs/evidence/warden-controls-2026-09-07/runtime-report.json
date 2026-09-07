@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "date": "2026-09-07T07:26:36.450Z",
+  "browser": "152.0.7977.77",
+  "checks": [
+    "Sound enable control and device-readiness footer occupy separate visible areas",
+    "Actual App shows truthful Enable sound before a gesture and remains blocked after a synthetic click",
+    "Real header Enable click unlocks audio, hides the callout and stays ON",
+    "Native audio suspension updates the actual App callout and a real click recovers it",
+    "Duplicate resize events at unchanged dimensions keep the real run moving",
+    "A real viewport change shows AUTOMATIC PAUSE · VIEWPORT and freezes the complete simulation state",
+    "A forced 325 ms frame shows AUTOMATIC PAUSE · PERFORMANCE and freezes the complete simulation state",
+    "Use Low graphics & resume saves Low, starts an explicit countdown and resumes the same run",
+    "No browser or console errors in the audio and automatic-pause recovery flow"
+  ],
+  "beforeGesture": {
+    "callout": "Click to enable sound",
+    "header": "ENABLE",
+    "contexts": 0
+  },
+  "blocked": {
+    "state": "suspended",
+    "callout": true,
+    "header": "ENABLE"
+  },
+  "errors": [],
+  "evidence": [
+    "/tmp/s39-runtime-audio-locked.png",
+    "/tmp/s39-runtime-viewport-pause.png",
+    "/tmp/s39-runtime-performance-pause.png"
+  ],
+  "limitations": [
+    "Native context creation is observed; simulation snapshot calls are forwarded unchanged to capture the real state.",
+    "The long frame is deliberately induced to verify recovery, not an observed performance frequency or hardware qualification.",
+    "No complete district playthrough or physical controller acceptance is claimed."
+  ]
+}

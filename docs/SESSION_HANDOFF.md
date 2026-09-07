@@ -1,8 +1,24 @@
-# Session handoff — 0.3.1 crisp color and tactical feedback
+# Session handoff — 0.3.2 Warden steering and collection contact
 
 The owner explicitly authorized the [Neon Spire expansion plan](NEON_SPIRE_EXPANSION.md). It supplements the original [PRD v2.0](../Snake_Year_3039_Full_Game_Builder_Package_v2_0/docs/PRD.md); the supplied package, Word document and approved images remain unchanged. The complete destination is five distinct districts, fifteen waves/228 ordinary cores, five finales, four release modes, twelve Trials, earned liveries/trails/achievements, full Workshop, progression/ending, and complete accessibility/reliability. This checkpoint expands D1 before the remaining city; it is not full-release acceptance.
 
-## Current owner refinement — 0.3.1
+## Current owner fixes — 0.3.2
+
+The September 7 owner report describes lost gamepad steering after the Warden instructions/countdown, a resulting wall crash, and visible close contacts that fail to collect an item.
+
+- Root cause: every gameplay transition suppressed held movement along with action buttons. A stick held off-center, held D-pad, or held movement key stayed blocked until released—even if the player changed direction during the countdown. `setGameplay(true)` now accepts the current steering direction immediately. Held Fire, Boost, Use and Switch still require release; menus retain their held-navigation protection, and blur drops stale keyboard state. The live snake is never repositioned or made collision-immune.
+- Current 0.3 collection radii, measured from the head center, increase by 0.18 arena units: ordinary cores 0.60 → 0.78; powerups 0.62 → 0.80; Warden spheres 0.72 → 0.90. Swept contact still catches passes between simulation steps; the wider reach cannot collect through solid scenery. Relay order, full-slot/usefulness exclusions, fatal-crash priority and all hostile/wall/self collision dimensions remain. Earlier 0.1/0.2 content retains its exact collection radii and rules.
+- Patch version is 0.3.2; content remains `0.3.0-neon-spire`. Existing saves, snake paths and record partitions are preserved. Arena dimensions remain 36 × 26 (32 × 24 for legacy saves), with no rendering/layout changes in this patch.
+
+### 0.3.2 verification
+
+`npm run check` passes **101 tests**, including thirteen new pickup-contact regressions; production compilation passes. The new [Warden control script](../scripts/verify-warden-controls.mjs) first reproduced the held-steering failure for stick, D-pad, WASD and arrows in the original mapper ([before evidence](evidence/warden-controls-2026-09-07/before-input-failure.json)). Its fixed-version run checks 28 input boundaries plus real App final-core → Warden instructions → countdown → inward turn and ordinary pause/resume for stick, D-pad and keyboard. The prepared 40-segment approach earns the final core through ordinary simulation contact, freezes throughout the modal/countdown, then turns away from the wall without losing a life. Confirmation A remains unable to fire through either countdown.
+
+All fourteen development browser scripts pass sequentially, including the new Warden handoff check. The compiled production smoke passes ten groups with no errors, warnings or failed assets. Final results are recorded in [the verification ledger](evidence/warden-controls-2026-09-07/verification.json) and [Warden report](evidence/warden-controls-2026-09-07/warden-controls-report.json). These use isolated installed Chrome, prepared saves and mocked standard gamepads. They do not establish physical Xbox qualification, an ordinary full district clear or owner acceptance. A physical-controller retry of the reported handoff remains required. The wider radii exposed an old systems fixture whose two items both began inside collection range; its coordinates now use collection edges so the existing pickup-before-core assertion still tests distinct contact times. The [original failure and adjustment](evidence/warden-controls-2026-09-07/systems-fixture-adjustment.json) are retained.
+
+Publish after the ledger passes; confirm Git main and Vercel production reference the identical commit and rerun public production smoke.
+
+## Previous owner refinement — 0.3.1
 
 The owner rejected the misty snake halo and delayed selection flash, questioned the smaller-looking arena, and reported missing continuous tactical pulses and a pause when using Decoy. This patch retains `0.3.0-neon-spire` content rules and all existing saves/records.
 

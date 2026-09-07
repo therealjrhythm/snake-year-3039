@@ -1,0 +1,1 @@
+PASS: real React settings sliders, select controls, gamepad A/B and tabs, held input isolation, neutral-device ownership, checkpoint isolation and overwrite, record transaction/idempotency and legacy/expanded record coexistence; 23 held-fire/menu/countdown/pause/customization/typing/blur assertions. No browser runtime errors.

@@ -1,0 +1,72 @@
+PASS Automatic pickup effect/timer and Wave 1 tactical availability stay readable after same-tick core and later shot
+PASS Paused guide explains all twelve pickups and actual tactical availability; closes to pause with exact frozen run
+PASS Collecting an EMP square loads the real slot; Space consumes it and disables an in-range preparing Patrol
+PASS A projectile crossing trailing body segments leaves integrity unchanged and shows no false head-hit message
+PASS An actual head hit removes one integrity and shows damage; a subsequent empty-use result stays visible beside that feedback
+PASS Shield visibly absorbs one head hit without integrity loss, consumes its buff and grants temporary protection
+PASS No uncaught browser or console errors in the bounded systems flows
+{
+  "date": "2026-09-07T07:26:21.206Z",
+  "browser": "152.0.7977.77",
+  "method": "Installed Chrome, isolated Playwright context; Browser plugin unavailable; Low quality 1280×720",
+  "checks": [
+    "Automatic pickup effect/timer and Wave 1 tactical availability stay readable after same-tick core and later shot",
+    "Paused guide explains all twelve pickups and actual tactical availability; closes to pause with exact frozen run",
+    "Collecting an EMP square loads the real slot; Space consumes it and disables an in-range preparing Patrol",
+    "A projectile crossing trailing body segments leaves integrity unchanged and shows no false head-hit message",
+    "An actual head hit removes one integrity and shows damage; a subsequent empty-use result stays visible beside that feedback",
+    "Shield visibly absorbs one head hit without integrity loss, consumes its buff and grants temporary protection",
+    "No uncaught browser or console errors in the bounded systems flows"
+  ],
+  "captures": [
+    "/tmp/snake-systems-verification/automatic-bonus-paused.png",
+    "/tmp/snake-systems-verification/paused-tactics-guide.png",
+    "/tmp/snake-systems-verification/head-hit-feedback-paused.png"
+  ],
+  "evidence": [
+    {
+      "fixture": "emp",
+      "integrity": 3,
+      "slots": [
+        false,
+        false
+      ],
+      "empInterrupts": 1,
+      "pulse": {
+        "id": 3,
+        "kind": "emp",
+        "text": "EMP PULSE · 1 system disabled for 3s · 1 lock broken.",
+        "time": 0.36666666666666664,
+        "origin": {
+          "x": 9.644093543285404e-17,
+          "z": 4.424999999999996
+        }
+      }
+    },
+    {
+      "fixture": "head-shot",
+      "integrity": 2,
+      "damageTaken": 1,
+      "events": [
+        {
+          "id": 1,
+          "kind": "damage",
+          "text": "INTEGRITY −1 · patrol projectile.",
+          "time": 0.18333333333333332
+        },
+        {
+          "id": 2,
+          "kind": "empty",
+          "text": "EMP EMPTY · EMP pickups arrive in Wave 2.",
+          "time": 0.35
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Every encounter starts from an explicit validated snapshot fixture in isolated browser storage.",
+    "Uses the real App, fixed-step simulation, keyboard actions and persisted outcomes; does not establish ordinary campaign progression, physical Xbox behavior or complete pickup QA.",
+    "No access to or mutation of the owner browser profile, saves or records."
+  ]
+}

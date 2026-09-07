@@ -1,0 +1,157 @@
+{
+  "date": "2026-09-07T07:26:39.691Z",
+  "baseline": false,
+  "browser": "152.0.7977.77",
+  "initial": {
+    "canvas": [
+      1807,
+      1147
+    ],
+    "composer": [
+      1807,
+      1147
+    ]
+  },
+  "timings": {
+    "renderCompletionMs": {
+      "median": 4.100000001490116,
+      "p95": 4.600000001490116,
+      "max": 4.600000001490116
+    },
+    "frameIntervalMs": {
+      "median": 16.699999999999932,
+      "p95": 16.799999999999955,
+      "max": 16.799999999999955
+    },
+    "sampleCount": 20,
+    "unchanged": true
+  },
+  "sizes": [
+    {
+      "width": 3622,
+      "height": 2300,
+      "quality": "medium",
+      "canvas": [
+        1807,
+        1147
+      ],
+      "composer": [
+        1807,
+        1147
+      ],
+      "viewport": [
+        3622,
+        2300
+      ],
+      "dpr": 2,
+      "renderDpr": 0.4989124609339052,
+      "redundantResize": false
+    },
+    {
+      "width": 3622,
+      "height": 2300,
+      "quality": "high",
+      "canvas": [
+        2409,
+        1529
+      ],
+      "composer": [
+        2409,
+        1529
+      ],
+      "viewport": [
+        3622,
+        2300
+      ],
+      "dpr": 2,
+      "renderDpr": 0.6652166145785402,
+      "redundantResize": false
+    },
+    {
+      "width": 3622,
+      "height": 2300,
+      "quality": "low",
+      "canvas": [
+        1204,
+        764
+      ],
+      "composer": [
+        1204,
+        764
+      ],
+      "viewport": [
+        3622,
+        2300
+      ],
+      "dpr": 2,
+      "renderDpr": 0.3326083072892701,
+      "redundantResize": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "quality": "medium",
+      "canvas": [
+        1821,
+        1138
+      ],
+      "composer": [
+        1821,
+        1138
+      ],
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2,
+      "renderDpr": 1.2649110640673518,
+      "redundantResize": false
+    },
+    {
+      "width": 375,
+      "height": 844,
+      "quality": "medium",
+      "canvas": [
+        562,
+        1266
+      ],
+      "composer": [
+        562,
+        1266
+      ],
+      "viewport": [
+        375,
+        844
+      ],
+      "dpr": 2,
+      "renderDpr": 1.5,
+      "redundantResize": false
+    }
+  ],
+  "empEffect": {
+    "origin": {
+      "x": 0,
+      "z": 6
+    },
+    "currentPlayer": {
+      "x": 8.266365894244633e-17,
+      "z": 4.649999999999997
+    },
+    "effectOrigin": {
+      "x": 0,
+      "z": 6
+    },
+    "radius": 4,
+    "pauseFrozen": true,
+    "simulationUnchanged": true,
+    "pickupCount": 12
+  },
+  "checks": [
+    "Large/regular/narrow DPR2 dimensions recorded; simulation unchanged by timed rendering",
+    "All quality budgets enforced; composer matches canvas; CSS size preserved; repeated resize is a no-op",
+    "Real EMP action renders exact four-unit origin after movement; paused simulation freezes pulse; all twelve canonical pickups rendered",
+    "Captured large Medium fixture and disposed renderer without browser errors"
+  ],
+  "errors": [],
+  "limitation": "Isolated headless Chrome, deliberately fixed render state without app HUD. GPU completion is explicitly synchronized for this diagnostic. Timing is an observation on this run, not supported-machine performance or normal-play acceptance. EMP uses a real action in an arranged state; the pickup layout is for visual review."
+}

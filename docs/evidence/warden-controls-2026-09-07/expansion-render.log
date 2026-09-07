@@ -1,0 +1,3765 @@
+{
+  "date": "2026-09-07T07:27:42.601Z",
+  "browser": "152.0.7977.77",
+  "checks": [
+    "Real HUD and 36×26 floor/Warden fit at 16:9, 16:10 and 21:9, UI80/150",
+    "96 glow rows: eight colors × three landscape ratios × UI80/150 × Low/Medium match head, body, ports, preview head and direction marker while preserving hostile red faction; solid light filaments have equal luminance and no halo geometry; contact sheet is actual scene crops at1280 UI150",
+    "Six compact timed buffs at1280×720 UI150: names and timers visible, durations at least16px, effects accessible, no clipping, HUD overlap or covered travel lanes",
+    "Identical camera matrices across acquiring and expiring six buffs, EMP/Decoy, combo, hit feedback and weapon ammunition",
+    "Twelve canonical pickups have distinct geometric identities",
+    "Ordered relays, truthful pad, receptor exposure, node beam, exact3u Scrubber, paused effects, projectile ownership and extraction cleanup",
+    "New Warden spheres, charged laser exposure, no old pad, three clipped orange aim warnings, selected-color shots, warning cleanup and no player halo geometry",
+    "Actual 3D customizer reuses canvas; rotate/zoom work; restoration and legacy32×24 floor/exit checked"
+  ],
+  "camera": [
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 201.7173522415581,
+        "right": 950.282647758442,
+        "top": 89.99321787183445,
+        "bottom": 510.83793742227726
+      },
+      "safe": {
+        "top": 111.15625,
+        "bottom": 493.875
+      },
+      "distance": 53.55590802759979,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 201.7173522415581,
+        "right": 950.282647758442,
+        "top": 16.396296434327866,
+        "bottom": 510.83793742227726
+      },
+      "safe": {
+        "top": 145.15625,
+        "bottom": 493.875
+      },
+      "distance": 53.55590802759979,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 312.90004491708976,
+        "right": 967.0999550829104,
+        "top": 79.63201888816478,
+        "bottom": 452.1313287151685
+      },
+      "safe": {
+        "top": 121.15625,
+        "bottom": 474.34375
+      },
+      "distance": 60.29663066175762,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 312.90004491708976,
+        "right": 967.0999550829104,
+        "top": 14.487341004433315,
+        "bottom": 452.1313287151685
+      },
+      "safe": {
+        "top": 161.15625,
+        "bottom": 474.34375
+      },
+      "distance": 60.29663066175762,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 362.6275231501196,
+        "right": 789.3724768498805,
+        "top": 215.2607328873586,
+        "bottom": 466.4455066076636
+      },
+      "safe": {
+        "top": 148.15625,
+        "bottom": 429.03125
+      },
+      "distance": 88.79699677928744,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 362.6275231501196,
+        "right": 789.3724768498805,
+        "top": 171.48836409859894,
+        "bottom": 466.4455066076636
+      },
+      "safe": {
+        "top": 189.15625,
+        "bottom": 429.03125
+      },
+      "distance": 88.79699677928744,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 236.15849361172832,
+        "right": 1203.8415063882717,
+        "top": 106.46799523179652,
+        "bottom": 648.6814924557298
+      },
+      "safe": {
+        "top": 123.1875,
+        "bottom": 659.875
+      },
+      "distance": 52.01171857953575,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 236.15849361172832,
+        "right": 1203.8415063882717,
+        "top": 11.659573919950954,
+        "bottom": 648.6814924557298
+      },
+      "safe": {
+        "top": 160.1875,
+        "bottom": 659.875
+      },
+      "distance": 52.01171857953575,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 262.8523304046123,
+        "right": 1177.1476695953877,
+        "top": 116.57714870664013,
+        "bottom": 631.7616838016088
+      },
+      "safe": {
+        "top": 133.1875,
+        "bottom": 646.34375
+      },
+      "distance": 54.65026837557562,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 262.8523304046123,
+        "right": 1177.1476695953877,
+        "top": 26.476395429324374,
+        "bottom": 631.7616838016088
+      },
+      "safe": {
+        "top": 176.1875,
+        "bottom": 646.34375
+      },
+      "distance": 54.65026837557562,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 209.17618136058744,
+        "right": 942.8238186394126,
+        "top": 224.8168320047544,
+        "bottom": 646.5101808821835
+      },
+      "safe": {
+        "top": 160.1875,
+        "bottom": 603.03125
+      },
+      "distance": 66.42639138385532,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 209.17618136058744,
+        "right": 942.8238186394126,
+        "top": 151.1040745822536,
+        "bottom": 646.5101808821835
+      },
+      "safe": {
+        "top": 206.1875,
+        "bottom": 603.03125
+      },
+      "distance": 66.42639138385532,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 367.5712271775999,
+        "right": 1312.4287728224,
+        "top": 112.41643750265732,
+        "bottom": 630.6475654015833
+      },
+      "safe": {
+        "top": 111.15625,
+        "bottom": 493.875
+      },
+      "distance": 43.84765610629281,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 367.5712271775999,
+        "right": 1312.4287728224,
+        "top": 22.00122086245981,
+        "bottom": 630.6475654015833
+      },
+      "safe": {
+        "top": 145.15625,
+        "bottom": 493.875
+      },
+      "distance": 43.84765610629281,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 373.82704319141516,
+        "right": 1306.1729568085848,
+        "top": 114.54069975009469,
+        "bottom": 626.6823351220097
+      },
+      "safe": {
+        "top": 121.15625,
+        "bottom": 474.34375
+      },
+      "distance": 44.34448227653951,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 373.82704319141516,
+        "right": 1306.1729568085848,
+        "top": 25.167260246650915,
+        "bottom": 626.6823351220097
+      },
+      "safe": {
+        "top": 161.15625,
+        "bottom": 474.34375
+      },
+      "distance": 44.34448227653951,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 502.6495222176823,
+        "right": 1177.3504777823177,
+        "top": 190.73476012720403,
+        "bottom": 573.8285918858542
+      },
+      "safe": {
+        "top": 148.15625,
+        "bottom": 429.03125
+      },
+      "distance": 58.67187480770762,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 502.6495222176823,
+        "right": 1177.3504777823177,
+        "top": 123.73326059174023,
+        "bottom": 573.8285918858542
+      },
+      "safe": {
+        "top": 189.15625,
+        "bottom": 429.03125
+      },
+      "distance": 58.67187480770762,
+      "floor": [
+        36,
+        26
+      ]
+    }
+  ],
+  "cameraStability": [
+    {
+      "populated": false,
+      "unchanged": true,
+      "resourcesHeight": 102,
+      "camera": {
+        "blocked": [],
+        "bounds": {
+          "left": 362.6275231501196,
+          "right": 789.3724768498805,
+          "top": 215.2607328873586,
+          "bottom": 466.4455066076636
+        },
+        "safe": {
+          "top": 148.15625,
+          "bottom": 429.03125
+        },
+        "distance": 88.79699677928744,
+        "floor": [
+          36,
+          26
+        ]
+      }
+    },
+    {
+      "populated": true,
+      "unchanged": true,
+      "resourcesHeight": 102,
+      "camera": {
+        "blocked": [],
+        "bounds": {
+          "left": 362.6275231501196,
+          "right": 789.3724768498805,
+          "top": 215.2607328873586,
+          "bottom": 466.4455066076636
+        },
+        "safe": {
+          "top": 148.15625,
+          "bottom": 429.03125
+        },
+        "distance": 88.79699677928744,
+        "floor": [
+          36,
+          26
+        ]
+      }
+    },
+    {
+      "populated": false,
+      "unchanged": true,
+      "resourcesHeight": 102,
+      "camera": {
+        "blocked": [],
+        "bounds": {
+          "left": 362.6275231501196,
+          "right": 789.3724768498805,
+          "top": 215.2607328873586,
+          "bottom": 466.4455066076636
+        },
+        "safe": {
+          "top": 148.15625,
+          "bottom": 429.03125
+        },
+        "distance": 88.79699677928744,
+        "floor": [
+          36,
+          26
+        ]
+      }
+    },
+    {
+      "populated": true,
+      "unchanged": true,
+      "resourcesHeight": 102,
+      "camera": {
+        "blocked": [],
+        "bounds": {
+          "left": 362.6275231501196,
+          "right": 789.3724768498805,
+          "top": 215.2607328873586,
+          "bottom": 466.4455066076636
+        },
+        "safe": {
+          "top": 148.15625,
+          "bottom": 429.03125
+        },
+        "distance": 88.79699677928744,
+        "floor": [
+          36,
+          26
+        ]
+      }
+    }
+  ],
+  "glow": [
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "haloCount": 0,
+      "lightCores": [
+        {
+          "name": "player-seam-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        },
+        {
+          "name": "player-strip-light-cores",
+          "instances": 20,
+          "solid": true,
+          "luminance": 1.65
+        }
+      ],
+      "laserColor": "#e4f3ff",
+      "hostile": "#ff426f"
+    }
+  ],
+  "sixBuffs": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "uiScale": 1.5,
+    "panels": [
+      {
+        "selector": ".hud-objective",
+        "left": 28.15625,
+        "right": 463.15625,
+        "top": 20.15625,
+        "bottom": 148.15625,
+        "width": 435,
+        "height": 128
+      },
+      {
+        "selector": ".hud-score",
+        "left": 884.34375,
+        "right": 1251.84375,
+        "top": 20.15625,
+        "bottom": 139.75,
+        "width": 367.5,
+        "height": 119.59375
+      },
+      {
+        "selector": ".hud-resources",
+        "left": 28.15625,
+        "right": 478.15625,
+        "top": 514,
+        "bottom": 616,
+        "width": 450,
+        "height": 102
+      },
+      {
+        "selector": ".hud-tactics",
+        "left": 801.84375,
+        "right": 1251.84375,
+        "top": 429.03125,
+        "bottom": 616,
+        "width": 450,
+        "height": 186.96875
+      }
+    ],
+    "overlapping": [],
+    "resources": {
+      "left": 28.15625,
+      "right": 1251.84375,
+      "top": 632,
+      "bottom": 692,
+      "width": 1223.6875,
+      "height": 60
+    },
+    "bonuses": [
+      {
+        "name": "Overdrive",
+        "duration": "8s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 28.15625,
+          "right": 225.4375,
+          "top": 632,
+          "bottom": 692,
+          "width": 197.28125,
+          "height": 60
+        },
+        "durationRect": {
+          "left": 193.609375,
+          "right": 215.4375,
+          "top": 649,
+          "bottom": 675,
+          "width": 21.828125,
+          "height": 26
+        },
+        "description": "Half boost drain",
+        "accessible": "Overdrive: Half boost drain, 8 seconds remaining",
+        "title": "Overdrive: Half boost drain",
+        "clipped": false,
+        "nameFont": 18.6
+      },
+      {
+        "name": "Shield",
+        "duration": "12s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 233.4375,
+          "right": 430.71875,
+          "top": 632,
+          "bottom": 692,
+          "width": 197.28125,
+          "height": 60
+        },
+        "durationRect": {
+          "left": 393.125,
+          "right": 420.71875,
+          "top": 649,
+          "bottom": 675,
+          "width": 27.59375,
+          "height": 26
+        },
+        "description": "Absorbs one attack",
+        "accessible": "Shield: Absorbs one attack, 12 seconds remaining",
+        "title": "Shield: Absorbs one attack",
+        "clipped": false,
+        "nameFont": 18.6
+      },
+      {
+        "name": "Score Surge",
+        "duration": "15s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 438.71875,
+          "right": 636,
+          "top": 632,
+          "bottom": 692,
+          "width": 197.28125,
+          "height": 60
+        },
+        "durationRect": {
+          "left": 598.140625,
+          "right": 626,
+          "top": 649,
+          "bottom": 675,
+          "width": 27.859375,
+          "height": 26
+        },
+        "description": "Core / rival points ×2",
+        "accessible": "Score Surge: Core / rival points ×2, 15 seconds remaining",
+        "title": "Score Surge: Core / rival points ×2",
+        "clipped": false,
+        "nameFont": 18.6
+      },
+      {
+        "name": "Magnet",
+        "duration": "10s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 644,
+          "right": 841.28125,
+          "top": 632,
+          "bottom": 692,
+          "width": 197.28125,
+          "height": 60
+        },
+        "durationRect": {
+          "left": 802.828125,
+          "right": 831.28125,
+          "top": 649,
+          "bottom": 675,
+          "width": 28.453125,
+          "height": 26
+        },
+        "description": "Nearby core attraction",
+        "accessible": "Magnet: Nearby core attraction, 10 seconds remaining",
+        "title": "Magnet: Nearby core attraction",
+        "clipped": false,
+        "nameFont": 18.6
+      },
+      {
+        "name": "Bullet Scrubber",
+        "duration": "8s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 849.28125,
+          "right": 1046.5625,
+          "top": 632,
+          "bottom": 692,
+          "width": 197.28125,
+          "height": 60
+        },
+        "durationRect": {
+          "left": 1014.734375,
+          "right": 1036.5625,
+          "top": 649,
+          "bottom": 675,
+          "width": 21.828125,
+          "height": 26
+        },
+        "description": "Auto bullet purge armed",
+        "accessible": "Bullet Scrubber: Auto bullet purge armed, 8 seconds remaining",
+        "title": "Bullet Scrubber: Auto bullet purge armed",
+        "clipped": false,
+        "nameFont": 18.6
+      },
+      {
+        "name": "Chain Buffer",
+        "duration": "10s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 1054.5625,
+          "right": 1251.84375,
+          "top": 632,
+          "bottom": 692,
+          "width": 197.28125,
+          "height": 60
+        },
+        "durationRect": {
+          "left": 1213.390625,
+          "right": 1241.84375,
+          "top": 649,
+          "bottom": 675,
+          "width": 28.453125,
+          "height": 26
+        },
+        "description": "One combo extension armed",
+        "accessible": "Chain Buffer: One combo extension armed, 10 seconds remaining",
+        "title": "Chain Buffer: One combo extension armed",
+        "clipped": false,
+        "nameFont": 18.6
+      }
+    ],
+    "camera": {
+      "blocked": [],
+      "bounds": {
+        "left": 362.6275231501196,
+        "right": 789.3724768498805,
+        "top": 215.2607328873586,
+        "bottom": 466.4455066076636
+      },
+      "safe": {
+        "top": 148.15625,
+        "bottom": 429.03125
+      },
+      "distance": 88.79699677928744,
+      "floor": [
+        36,
+        26
+      ]
+    }
+  },
+  "laserBoss": {
+    "noPad": true,
+    "spheres": [
+      "SphereGeometry",
+      "SphereGeometry",
+      "SphereGeometry"
+    ],
+    "exposedDuringWarning": true,
+    "rays": 3,
+    "warningSegments": [
+      84,
+      80,
+      84
+    ],
+    "rendererPure": true,
+    "laser": "982dff",
+    "haloDraws": 0
+  },
+  "identities": [
+    {
+      "kind": "overdrive",
+      "name": "Overdrive"
+    },
+    {
+      "kind": "shield",
+      "name": "Shield"
+    },
+    {
+      "kind": "surge",
+      "name": "Score Surge"
+    },
+    {
+      "kind": "emp",
+      "name": "EMP Pulse"
+    },
+    {
+      "kind": "magnet",
+      "name": "Magnet"
+    },
+    {
+      "kind": "repair",
+      "name": "Repair"
+    },
+    {
+      "kind": "decoy",
+      "name": "Decoy"
+    },
+    {
+      "kind": "splice",
+      "name": "Tail Splice"
+    },
+    {
+      "kind": "blaster",
+      "name": "Pulse Blaster"
+    },
+    {
+      "kind": "capacitor",
+      "name": "Capacitor"
+    },
+    {
+      "kind": "scrubber",
+      "name": "Bullet Scrubber"
+    },
+    {
+      "kind": "chain-buffer",
+      "name": "Chain Buffer"
+    }
+  ],
+  "boss": {
+    "rows": [
+      {
+        "stage": "collecting-relays",
+        "pad": "inactive",
+        "next": [
+          "relay:relay-1"
+        ],
+        "nodes": 3,
+        "receptor": false
+      },
+      {
+        "stage": "collecting-relays",
+        "pad": "inactive",
+        "next": [
+          "relay:relay-2"
+        ],
+        "nodes": 3,
+        "receptor": false
+      },
+      {
+        "stage": "charge-ready",
+        "pad": "waiting",
+        "next": [],
+        "nodes": 3,
+        "receptor": false
+      },
+      {
+        "stage": "exposed",
+        "pad": "ready",
+        "next": [],
+        "nodes": 3,
+        "receptor": true
+      }
+    ],
+    "effects": {
+      "beam": true,
+      "radius": 3,
+      "freeze": true,
+      "destroyedDroneRemoved": true,
+      "playerBolt": true
+    }
+  },
+  "preview": {
+    "sameCanvas": true,
+    "count": 1,
+    "previewVisible": true,
+    "gameplayHidden": true,
+    "unchanged": true,
+    "swatches": 8
+  },
+  "restored": {
+    "previewHidden": true,
+    "playerVisible": true,
+    "body": "20dfff",
+    "head": "20dfff"
+  },
+  "legacy": {
+    "floor": [
+      32,
+      24
+    ],
+    "gate": -12,
+    "obstacles": "[{\"x\":-6,\"z\":0,\"width\":3,\"depth\":4,\"kind\":\"machinery\"},{\"x\":6,\"z\":0,\"width\":3,\"depth\":4,\"kind\":\"machinery\"},{\"x\":-3.75,\"z\":-4.8,\"width\":0.26,\"depth\":0.35,\"kind\":\"emitter\"},{\"x\":3.75,\"z\":-4.8,\"width\":0.26,\"depth\":0.35,\"kind\":\"emitter\"}]"
+  },
+  "captures": [
+    "/tmp/snake-expansion-render/wave-1280x720-ui150.png",
+    "/tmp/snake-expansion-render/boss-1280x720-ui150.png",
+    "/tmp/snake-expansion-render/boss-1680x720-ui80.png",
+    "/tmp/snake-expansion-render/glow-contact-sheet-1280-ui150.png",
+    "/tmp/snake-expansion-render/six-buffs-1280x720-ui150.png",
+    "/tmp/snake-expansion-render/twelve-pickups-1280.png",
+    "/tmp/snake-expansion-render/warden-energy-1280.png",
+    "/tmp/snake-expansion-render/warden-laser-volley-1280.png",
+    "/tmp/snake-expansion-render/customize-gold-1280.png",
+    "/tmp/snake-expansion-render/customize-head-1280.png"
+  ],
+  "errors": [],
+  "limitation": "Frozen, explicitly arranged fixture using actual HUD, customization and renderer. State checks are not campaign completion, collision/balance validation, physical Xbox acceptance, owner visual approval, listening review or a full-machine performance benchmark."
+}

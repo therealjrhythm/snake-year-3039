@@ -23,7 +23,7 @@ import { CONTENT_VERSION, EXPANDED_CONTENT_VERSION, LEGACY_CONTENT_VERSION } fro
 
 type Screen = 'title' | 'briefing' | 'countdown' | 'playing' | 'paused' | 'boss-intro' | 'lost-life' | 'results';
 type Overlay = 'settings' | 'guide' | 'records' | 'credits' | 'abandon' | 'customize' | 'lab' | null;
-const VERSION = '0.3.1';
+const VERSION = '0.3.2';
 const DIFFICULTY_OPTIONS: { value: Difficulty; label: string; description: string }[] = [
   { value: 'standard', label: 'Normal', description: '3 health. Regular speed and attack warnings.' },
   { value: 'assisted', label: 'Easier', description: '5 health. The whole game moves 25% slower, with longer attack warnings.' },

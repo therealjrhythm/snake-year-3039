@@ -40,6 +40,7 @@ async function loadFixture(kind) {
   await page.goto(new URL('/systems-fixture', baseUrl).href);
   await page.evaluate(async kind => {
     const { Simulation } = await import('/src/game/simulation.ts');
+    const { COLLECTION } = await import('/src/game/content.ts');
     const { saveRun } = await import('/src/game/persistence.ts');
     localStorage.setItem('s39.settings.v1', JSON.stringify({ quality: 'low', bloom: 0, reducedMotion: true }));
     const sim = new Simulation({ seed: 3039088, difficulty: 'standard', mode: 'campaign' });
@@ -52,13 +53,15 @@ async function loadFixture(kind) {
     if (kind === 'automatic') {
       // Pickup contact precedes a core within one fixed step. A later Patrol
       // shot then checks that routine events cannot erase the pickup explanation.
-      s.pickups = [{ id: 'fixture-overdrive', x: 0, z: 5.45, kind: 'overdrive', ttl: 15 }];
-      s.cores = [{ id: 'fixture-core', x: 0, z: 5.335 }];
+      // Place relative to the collection edges: a larger forgiving radius must
+      // not turn this ordered-contact fixture into two initially overlapping items.
+      s.pickups = [{ id: 'fixture-overdrive', x: 0, z: s.player.z - COLLECTION.current.powerup + 0.07, kind: 'overdrive', ttl: 15 }];
+      s.cores = [{ id: 'fixture-core', x: 0, z: s.player.z - COLLECTION.current.core - 0.065 }];
       s.drones = [{ id: 'distant-patrol', x: 10, z: -7, state: 'prepare', target: { x: 0, z: 6 }, disabled: 0, timer: 0.18, cooldown: 0, anchor: { x: 10, z: -7 }, phase: 0 }];
     } else if (kind === 'emp') {
       s.wave = 2;
-      s.pickups = [{ id: 'fixture-emp', x: 0, z: 5.45, kind: 'emp', ttl: 15 }];
-      s.cores = [{ id: 'fixture-core', x: 0, z: 5.335 }];
+      s.pickups = [{ id: 'fixture-emp', x: 0, z: s.player.z - COLLECTION.current.powerup + 0.07, kind: 'emp', ttl: 15 }];
+      s.cores = [{ id: 'fixture-core', x: 0, z: s.player.z - COLLECTION.current.core - 0.065 }];
       s.drones = [{ id: 'near-patrol', x: 2, z: 4, state: 'prepare', target: { x: 0, z: 6 }, disabled: 0, timer: 0.8, cooldown: 0, anchor: { x: 2, z: 4 }, phase: 0 }];
     } else if (kind === 'body-shot') {
       s.projectiles = [{ id: 'fixture-body-shot', x: 0, z: 8, vx: 4, vz: 0, ttl: 5 }];

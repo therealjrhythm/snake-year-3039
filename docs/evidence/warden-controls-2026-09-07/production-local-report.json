@@ -1,0 +1,42 @@
+{
+  "date": "2026-09-07T07:30:18.487Z",
+  "target": "http://127.0.0.1:3040/",
+  "finalURL": "http://127.0.0.1:3040/",
+  "browser": "152.0.7977.77",
+  "method": "Browser plugin unavailable; Playwright with isolated installed Chrome",
+  "checks": [
+    "HTTP 200, intended title, compiled production assets, fonts, nonblank WebGL scene and no framework overlay",
+    "Keyboard opens the full-size title Lab directly and Escape returns focus to its title entry",
+    "Eight glow choices, live one-canvas rotate/zoom preview and Apply persistence through reload",
+    "All twelve Lab powers load distinct game-model images; effect/use instructions and illustrated Warden laser guide explain combat",
+    "Normal fresh campaign countdown, forward motion, first collected core, body growth and keyboard pause",
+    "Paused guide exposes all twelve powers, keyboard firing and Warden laser combat without advancing gameplay",
+    "All six title actions including Continue Run and full-size Lab fit at 1280 \u00d7 720, 960 \u00d7 540 and 375 \u00d7 1020",
+    "Narrow title is contained at 390 \u00d7 844 (touch gameplay remains outside target)",
+    "Narrow Lab images and instructions wrap without horizontal clipping; practice action stays reachable",
+    "No failed deployment assets or browser runtime errors"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failedAssets": [],
+  "screenshots": [
+    "/tmp/s39-warden-production-local/title-desktop.png",
+    "/tmp/s39-warden-production-local/customize-magenta.png",
+    "/tmp/s39-warden-production-local/lab-magnet.png",
+    "/tmp/s39-warden-production-local/lab-warden.png",
+    "/tmp/s39-warden-production-local/first-core-paused.png",
+    "/tmp/s39-warden-production-local/warden-guide.png",
+    "/tmp/s39-warden-production-local/title-saved-1280.png",
+    "/tmp/s39-warden-production-local/title-saved-960.png",
+    "/tmp/s39-warden-production-local/title-saved-375.png",
+    "/tmp/s39-warden-production-local/title-narrow.png",
+    "/tmp/s39-warden-production-local/lab-narrow.png",
+    "/tmp/s39-warden-production-local/lab-warden-narrow.png"
+  ],
+  "failure": null,
+  "limitations": [
+    "Public UI interactions and ordinary opening movement only; no prepared state or development modules.",
+    "Owner browser storage is not used or modified.",
+    "Physical Xbox, complete district playthrough, subjective audio and sustained performance are not established."
+  ]
+}

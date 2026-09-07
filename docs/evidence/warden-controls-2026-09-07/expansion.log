@@ -1,0 +1,7 @@
+PASS All eight free glows, same-canvas preview, rotate/zoom, Apply persistence and Cancel/Restore semantics
+PASS Expanded run uses v2 layout; customization freezes exact state and a delayed save blocks resume until committed
+PASS Direct title Powerup Lab equips/fires/refills through real keyboard input; held-F suppression and all 13 choices; campaign save and records remain intact
+PASS Replay This Seed starts a fresh attempt with the same seed, layout and rules, and a distinct run identity
+PASS Prepared Warden encounter: visible independent counters, real F shots break one node and spend charge once; paused guide matches current boss state
+PASS Legacy save guide truthfully retains original supply, Practice-only Decoy and pad-only Warden guidance
+PASS No uncaught browser or console errors

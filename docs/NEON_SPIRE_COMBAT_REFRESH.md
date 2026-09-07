@@ -39,3 +39,11 @@ Decoy now has a crisp elevated violet hologram and a minimum 24px identity marke
 A long frame can interrupt X before deployment, or exhaust the catch-up budget after deployment. Both protective pauses remain. The first explicitly retains the charge and requires a fresh press after resume; the second explicitly says the Decoy is deployed and its timer is frozen. Case-insensitive frame-pacing classification gives both cases the correct Performance heading/recovery action. No queued tactical use replays through menus or countdowns. The owner's exact physical-device pause was not reproduced; controlled stalls verify these failure paths.
 
 See the current handoff and [refinement evidence](evidence/crisp-feedback-2026-09-06/verification.json) for final checks and limitations.
+
+## Owner follow-up — Warden steering and pickup contact (0.3.2)
+
+September 7 feedback reports lost steering after the Warden modal/countdown and near-miss item contacts. Gameplay now accepts the currently held stick, D-pad or movement key on its first active frame. Actions remain release-gated across menus/countdowns, with the existing focus, disconnect and performance protection. Neither the live snake path nor critical-crash rules change.
+
+Current 0.3 collection distances from the head center are 0.78 units for ordinary cores, 0.80 for powerups and 0.90 for numbered Warden spheres. Each is a 0.18-unit increase. Contacts remain swept, ordered and blocked by intervening solid scenery. Full-slot/usefulness restrictions remain. Original 0.1/0.2 collection distances are unchanged. This patch retains the content version and saved record partitions, and makes no arena or render changes.
+
+See [the Warden handoff regression](evidence/warden-controls-2026-09-07/warden-controls-report.json), [original reproduced input failure](evidence/warden-controls-2026-09-07/before-input-failure.json), thirteen focused pickup tests and the current handoff/ledger. Prepared saves and simulated controls do not replace the owner's physical Xbox confirmation.

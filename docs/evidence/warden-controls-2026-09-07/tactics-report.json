@@ -1,0 +1,6623 @@
+{
+  "checks": [
+    "An interrupted X retains its charge, explains the protective pause and requires a fresh press after resume",
+    "Loaded HUD tactics keep pulsing after three seconds, stop on use and become steady under either reduced-motion setting",
+    "low: Xbox Y/X deploys one visible stationary Decoy, redirects a fresh Patrol lock and preserves it exactly on pause/save",
+    "A catch-up pause after X confirms the deployed Decoy and freezes its lifetime through resume",
+    "medium: Xbox Y/X deploys one visible stationary Decoy, redirects a fresh Patrol lock and preserves it exactly on pause/save"
+  ],
+  "measurements": [
+    {
+      "quality": "low",
+      "deployed": [
+        {
+          "id": "decoy-9",
+          "x": -1.424999999999991,
+          "z": 6,
+          "ttl": 3.700000000000001
+        }
+      ],
+      "locked": {
+        "x": -1.424999999999991,
+        "z": 6
+      },
+      "drawn": {
+        "present": true,
+        "visible": true,
+        "position": [
+          -1.424999999999991,
+          0,
+          6
+        ],
+        "label": {
+          "visible": true,
+          "pixels": 23.999999999999996,
+          "scale": [
+            1.029941579567598,
+            1.029941579567598,
+            1.029941579567598
+          ],
+          "fog": false,
+          "depthTest": false
+        }
+      },
+      "pulsing": [
+        {
+          "animation": true,
+          "name": "EMP PULSE: ready, one charge",
+          "iterations": "infinite",
+          "duration": 1600,
+          "originalTime": 3366.4580000014857,
+          "low": "brightness(1)",
+          "high": "brightness(1.8)"
+        },
+        {
+          "animation": true,
+          "name": "DECOY: ready, one charge",
+          "iterations": "infinite",
+          "duration": 1600,
+          "originalTime": 3366.4580000014857,
+          "low": "brightness(1)",
+          "high": "brightness(1.8)"
+        }
+      ],
+      "interrupted": "AUTOMATIC PAUSE · PERFORMANCE\nPAUSED\n\nA long frame interrupted play. The game paused to prevent an unseen crash. Decoy was not deployed; its charge is still available. Resume, then press X again.\n\nRESUME\nSETTINGS\nPICKUPS & TACTICS\nCUSTOMIZE SNAKE\nRETURN TO TITLE\nSAVE & EXIT\n\nMovement and ability timers are frozen. Close heavy browser tabs before resuming if this repeats.",
+      "frames": [
+        {
+          "time": 4503.9000000059605,
+          "frameClock": 4499.6,
+          "simulationTime": 0.44999999999999996,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 4519.70000000298,
+          "frameClock": 4516.3,
+          "simulationTime": 0.4666666666666666,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 4535.9000000059605,
+          "frameClock": 4533,
+          "simulationTime": 0.49999999999999994,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 4552.70000000298,
+          "frameClock": 4549.6,
+          "simulationTime": 0.49999999999999994,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 4569.4000000059605,
+          "frameClock": 4566.3,
+          "simulationTime": 0.5166666666666666,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 4588,
+          "frameClock": 4582.9,
+          "simulationTime": 0.5333333333333333,
+          "renderMs": 3.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 4607.4000000059605,
+          "frameClock": 4599.6,
+          "simulationTime": 0.55,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 4619.60000000149,
+          "frameClock": 4616.3,
+          "simulationTime": 0.5666666666666668,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 4636.30000000447,
+          "frameClock": 4633,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 4960.30000000447,
+          "frameClock": 4949.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 4974.9000000059605,
+          "frameClock": 4966.3,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 4990,
+          "frameClock": 4982.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.6999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 5003.30000000447,
+          "frameClock": 4999.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.7000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 5019.5,
+          "frameClock": 5016.3,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 5036.60000000149,
+          "frameClock": 5033,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 5053,
+          "frameClock": 5049.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 5069.70000000298,
+          "frameClock": 5066.3,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 5086.20000000298,
+          "frameClock": 5082.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 5103.20000000298,
+          "frameClock": 5099.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 5119.9000000059605,
+          "frameClock": 5116.3,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 5136.30000000447,
+          "frameClock": 5132.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 5153.20000000298,
+          "frameClock": 5149.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.7000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 5169.60000000149,
+          "frameClock": 5166.3,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 5186.5,
+          "frameClock": 5182.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.6999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 5203,
+          "frameClock": 5199.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 5219.60000000149,
+          "frameClock": 5216.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 5236.60000000149,
+          "frameClock": 5232.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 5253,
+          "frameClock": 5249.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 5269.70000000298,
+          "frameClock": 5266.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 5286.4000000059605,
+          "frameClock": 5282.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.4000000059604645,
+          "decoys": 0
+        },
+        {
+          "time": 5303.10000000149,
+          "frameClock": 5299.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 5319.9000000059605,
+          "frameClock": 5316.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 5336.20000000298,
+          "frameClock": 5332.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 5353,
+          "frameClock": 5349.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5999999940395355,
+          "decoys": 0
+        },
+        {
+          "time": 5369.60000000149,
+          "frameClock": 5366.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 5387.30000000447,
+          "frameClock": 5382.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.7000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 5403.10000000149,
+          "frameClock": 5399.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.6999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 5419.5,
+          "frameClock": 5416.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 5435.9000000059605,
+          "frameClock": 5432.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 5452.80000000447,
+          "frameClock": 5449.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 5469.30000000447,
+          "frameClock": 5466.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 5485.9000000059605,
+          "frameClock": 5482.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 5502.70000000298,
+          "frameClock": 5499.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 5519.30000000447,
+          "frameClock": 5516.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 5536,
+          "frameClock": 5532.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 5552.5,
+          "frameClock": 5549.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 5569,
+          "frameClock": 5566.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 5586,
+          "frameClock": 5582.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 5602.5,
+          "frameClock": 5599.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.0999999940395355,
+          "decoys": 0
+        },
+        {
+          "time": 5618.80000000447,
+          "frameClock": 5616.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 5636.20000000298,
+          "frameClock": 5632.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 5652.5,
+          "frameClock": 5649.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 5669.5,
+          "frameClock": 5666.3,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 5685.70000000298,
+          "frameClock": 5682.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 5702.4000000059605,
+          "frameClock": 5699.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 5719.10000000149,
+          "frameClock": 5716.3,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 5736,
+          "frameClock": 5732.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 5752.30000000447,
+          "frameClock": 5749.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 1.8999999985098839,
+          "decoys": 0
+        },
+        {
+          "time": 5769.4000000059605,
+          "frameClock": 5766.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 5786.20000000298,
+          "frameClock": 5782.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 5803.20000000298,
+          "frameClock": 5799.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 5819.30000000447,
+          "frameClock": 5816.3,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 5836.30000000447,
+          "frameClock": 5832.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 5852.5,
+          "frameClock": 5849.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.0999999940395355,
+          "decoys": 0
+        },
+        {
+          "time": 5869.20000000298,
+          "frameClock": 5866.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 5886.20000000298,
+          "frameClock": 5882.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 5903.10000000149,
+          "frameClock": 5899.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 5919.5,
+          "frameClock": 5916.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 5935.80000000447,
+          "frameClock": 5932.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 5952.5,
+          "frameClock": 5949.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.0999999940395355,
+          "decoys": 0
+        },
+        {
+          "time": 5969.10000000149,
+          "frameClock": 5966.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 5986,
+          "frameClock": 5982.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 6003,
+          "frameClock": 5999.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5999999940395355,
+          "decoys": 0
+        },
+        {
+          "time": 6019.4000000059605,
+          "frameClock": 6016.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 6037.30000000447,
+          "frameClock": 6032.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 6052.60000000149,
+          "frameClock": 6049.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 6069.5,
+          "frameClock": 6066.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 6085.9000000059605,
+          "frameClock": 6082.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 6102.70000000298,
+          "frameClock": 6099.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 6119.70000000298,
+          "frameClock": 6116.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 6136,
+          "frameClock": 6132.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 6152.70000000298,
+          "frameClock": 6149.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 6169.5,
+          "frameClock": 6166.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 6186.10000000149,
+          "frameClock": 6182.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 6202.60000000149,
+          "frameClock": 6199.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 6219.20000000298,
+          "frameClock": 6216.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 6236.20000000298,
+          "frameClock": 6232.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 6252.5,
+          "frameClock": 6249.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.0999999940395355,
+          "decoys": 0
+        },
+        {
+          "time": 6269.30000000447,
+          "frameClock": 6266.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 6285.80000000447,
+          "frameClock": 6282.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 6303.10000000149,
+          "frameClock": 6299.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 6319.60000000149,
+          "frameClock": 6316.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 6336.30000000447,
+          "frameClock": 6332.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 6352.80000000447,
+          "frameClock": 6349.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 6369.4000000059605,
+          "frameClock": 6366.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 6386,
+          "frameClock": 6382.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 6402.70000000298,
+          "frameClock": 6399.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 6419.5,
+          "frameClock": 6416.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 6435.9000000059605,
+          "frameClock": 6432.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 6452.80000000447,
+          "frameClock": 6449.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 6469.5,
+          "frameClock": 6466.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 6486.20000000298,
+          "frameClock": 6482.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 6502.9000000059605,
+          "frameClock": 6499.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 6519.5,
+          "frameClock": 6516.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 6536,
+          "frameClock": 6532.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 6552.9000000059605,
+          "frameClock": 6549.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.4000000059604645,
+          "decoys": 0
+        },
+        {
+          "time": 6569.60000000149,
+          "frameClock": 6566.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 6586.10000000149,
+          "frameClock": 6582.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 6603,
+          "frameClock": 6599.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 6619.4000000059605,
+          "frameClock": 6616.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.4000000059604645,
+          "decoys": 0
+        },
+        {
+          "time": 6636.4000000059605,
+          "frameClock": 6632.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.7000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 6653.10000000149,
+          "frameClock": 6649.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 6669.80000000447,
+          "frameClock": 6666.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 6686.20000000298,
+          "frameClock": 6682.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 6703.20000000298,
+          "frameClock": 6699.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.7999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 6719.80000000447,
+          "frameClock": 6716.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.8000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 6736.4000000059605,
+          "frameClock": 6732.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.4000000059604645,
+          "decoys": 0
+        },
+        {
+          "time": 6752.70000000298,
+          "frameClock": 6749.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 6769.60000000149,
+          "frameClock": 6766.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 6786,
+          "frameClock": 6782.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 6802.70000000298,
+          "frameClock": 6799.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 6819.30000000447,
+          "frameClock": 6816.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 6835.9000000059605,
+          "frameClock": 6832.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 6852.70000000298,
+          "frameClock": 6849.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 6869.10000000149,
+          "frameClock": 6866.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 6885.9000000059605,
+          "frameClock": 6882.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 6902.5,
+          "frameClock": 6899.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.0999999940395355,
+          "decoys": 0
+        },
+        {
+          "time": 6919.30000000447,
+          "frameClock": 6916.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 6935.4000000059605,
+          "frameClock": 6932.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 6952.4000000059605,
+          "frameClock": 6949.6,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 6969,
+          "frameClock": 6966.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 6985.70000000298,
+          "frameClock": 6982.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7002.70000000298,
+          "frameClock": 6999.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 7019,
+          "frameClock": 7016.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7035.5,
+          "frameClock": 7032.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 1.8999999985098839,
+          "decoys": 0
+        },
+        {
+          "time": 7052.5,
+          "frameClock": 7049.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 7069.10000000149,
+          "frameClock": 7066.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7085.70000000298,
+          "frameClock": 7082.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7102.4000000059605,
+          "frameClock": 7099.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7119,
+          "frameClock": 7116.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 1.8999999985098839,
+          "decoys": 0
+        },
+        {
+          "time": 7135.80000000447,
+          "frameClock": 7132.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7152.4000000059605,
+          "frameClock": 7149.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 1.9000000059604645,
+          "decoys": 0
+        },
+        {
+          "time": 7168.80000000447,
+          "frameClock": 7166.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 1.8999999985098839,
+          "decoys": 0
+        },
+        {
+          "time": 7185.60000000149,
+          "frameClock": 7182.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 1.8999999985098839,
+          "decoys": 0
+        },
+        {
+          "time": 7202.30000000447,
+          "frameClock": 7199.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7219.10000000149,
+          "frameClock": 7216.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7235.70000000298,
+          "frameClock": 7232.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7252.30000000447,
+          "frameClock": 7249.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7269.30000000447,
+          "frameClock": 7266.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 7285.60000000149,
+          "frameClock": 7282.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 1.8999999985098839,
+          "decoys": 0
+        },
+        {
+          "time": 7302.60000000149,
+          "frameClock": 7299.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 7319.20000000298,
+          "frameClock": 7316.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7336,
+          "frameClock": 7332.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 7352.5,
+          "frameClock": 7349.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7369.60000000149,
+          "frameClock": 7366.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7385.80000000447,
+          "frameClock": 7382.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7402.5,
+          "frameClock": 7399.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.0999999940395355,
+          "decoys": 0
+        },
+        {
+          "time": 7419.20000000298,
+          "frameClock": 7416.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7436.10000000149,
+          "frameClock": 7432.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 7452.60000000149,
+          "frameClock": 7449.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7469.20000000298,
+          "frameClock": 7466.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7486.10000000149,
+          "frameClock": 7482.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 7502.80000000447,
+          "frameClock": 7499.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 7519.20000000298,
+          "frameClock": 7516.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7536.10000000149,
+          "frameClock": 7532.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 7552.5,
+          "frameClock": 7549.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.0999999940395355,
+          "decoys": 0
+        },
+        {
+          "time": 7569.4000000059605,
+          "frameClock": 7566.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 7586.20000000298,
+          "frameClock": 7582.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 7603,
+          "frameClock": 7599.4,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 7619.4000000059605,
+          "frameClock": 7616.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.4000000059604645,
+          "decoys": 0
+        },
+        {
+          "time": 7636,
+          "frameClock": 7632.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 7652.60000000149,
+          "frameClock": 7649.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 7670.30000000447,
+          "frameClock": 7666.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2,
+          "decoys": 0
+        },
+        {
+          "time": 7686.20000000298,
+          "frameClock": 7682.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 7703.20000000298,
+          "frameClock": 7699.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.7999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 7719.30000000447,
+          "frameClock": 7716.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 7736,
+          "frameClock": 7732.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 7752.80000000447,
+          "frameClock": 7749.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 7769.4000000059605,
+          "frameClock": 7766.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 7786.4000000059605,
+          "frameClock": 7782.9,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 7803,
+          "frameClock": 7799.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5999999940395355,
+          "decoys": 0
+        },
+        {
+          "time": 7819.70000000298,
+          "frameClock": 7816.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7836.20000000298,
+          "frameClock": 7832.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 7852.80000000447,
+          "frameClock": 7849.4,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 7869.60000000149,
+          "frameClock": 7866.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 7886.60000000149,
+          "frameClock": 7882.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.899999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 7903.10000000149,
+          "frameClock": 7899.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.6999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 7919.9000000059605,
+          "frameClock": 7916.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.8000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 7936.5,
+          "frameClock": 7932.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.7999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 7953.10000000149,
+          "frameClock": 7949.4,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7969.70000000298,
+          "frameClock": 7966.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 7986.4000000059605,
+          "frameClock": 7982.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 8003.10000000149,
+          "frameClock": 7999.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 2.7999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 8020,
+          "frameClock": 8016.099999999999,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3,
+          "decoys": 0
+        },
+        {
+          "time": 8036.9000000059605,
+          "frameClock": 8032.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 8053.70000000298,
+          "frameClock": 8049.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 8070.30000000447,
+          "frameClock": 8066.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 8087,
+          "frameClock": 8082.800000000001,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.1999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 8103.60000000149,
+          "frameClock": 8099.500000000001,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 8121.10000000149,
+          "frameClock": 8116.199999999999,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.7999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 8137.30000000447,
+          "frameClock": 8132.799999999999,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 8154.30000000447,
+          "frameClock": 8149.4,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.899999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 8170.70000000298,
+          "frameClock": 8166.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.7000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 8187.20000000298,
+          "frameClock": 8182.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 8204.10000000149,
+          "frameClock": 8199.4,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 8220.80000000447,
+          "frameClock": 8216.2,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.5,
+          "decoys": 0
+        },
+        {
+          "time": 8236.90000000596,
+          "frameClock": 8232.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.5,
+          "decoys": 0
+        },
+        {
+          "time": 8254.5,
+          "frameClock": 8249.5,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.899999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 8270.10000000149,
+          "frameClock": 8266.1,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.5,
+          "decoys": 0
+        },
+        {
+          "time": 8287.70000000298,
+          "frameClock": 8282.8,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.7999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 8304.60000000149,
+          "frameClock": 8299.4,
+          "simulationTime": 0.5833333333333335,
+          "renderMs": 3.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 8320.80000000447,
+          "frameClock": 8316.1,
+          "simulationTime": 0.6000000000000002,
+          "renderMs": 3.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 8338.60000000149,
+          "frameClock": 8332.8,
+          "simulationTime": 0.6166666666666669,
+          "renderMs": 3.7999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 8354.10000000149,
+          "frameClock": 8349.5,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 3.5,
+          "decoys": 0
+        },
+        {
+          "time": 8371.70000000298,
+          "frameClock": 8366.1,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 3.899999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 8387.60000000149,
+          "frameClock": 8382.8,
+          "simulationTime": 0.6666666666666671,
+          "renderMs": 3.6999999955296516,
+          "decoys": 0
+        },
+        {
+          "time": 8404.90000000596,
+          "frameClock": 8399.4,
+          "simulationTime": 0.6833333333333338,
+          "renderMs": 3.8000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 8420.70000000298,
+          "frameClock": 8416.2,
+          "simulationTime": 0.7166666666666672,
+          "renderMs": 3.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 8437.90000000596,
+          "frameClock": 8432.8,
+          "simulationTime": 0.7166666666666672,
+          "renderMs": 3.4000000059604645,
+          "decoys": 0
+        },
+        {
+          "time": 8453.70000000298,
+          "frameClock": 8449.4,
+          "simulationTime": 0.733333333333334,
+          "renderMs": 3.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 8470.20000000298,
+          "frameClock": 8466.1,
+          "simulationTime": 0.7500000000000007,
+          "renderMs": 3.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 8486.90000000596,
+          "frameClock": 8482.8,
+          "simulationTime": 0.7666666666666674,
+          "renderMs": 3,
+          "decoys": 0
+        },
+        {
+          "time": 8504,
+          "frameClock": 8499.5,
+          "simulationTime": 0.8000000000000008,
+          "renderMs": 2.899999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 8519.90000000596,
+          "frameClock": 8516.1,
+          "simulationTime": 0.8000000000000008,
+          "renderMs": 2.9000000059604645,
+          "decoys": 0
+        },
+        {
+          "time": 8536.90000000596,
+          "frameClock": 8532.8,
+          "simulationTime": 0.8333333333333343,
+          "renderMs": 3.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 8553.70000000298,
+          "frameClock": 8549.4,
+          "simulationTime": 0.8333333333333343,
+          "renderMs": 3.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 8570.80000000447,
+          "frameClock": 8566.1,
+          "simulationTime": 0.850000000000001,
+          "renderMs": 3.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 8587.20000000298,
+          "frameClock": 8582.8,
+          "simulationTime": 0.8666666666666677,
+          "renderMs": 3.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 8604.5,
+          "frameClock": 8599.4,
+          "simulationTime": 0.8833333333333344,
+          "renderMs": 2.7999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 8627.40000000596,
+          "frameClock": 8616.1,
+          "simulationTime": 0.9000000000000011,
+          "renderMs": 3.4000000059604645,
+          "decoys": 0
+        },
+        {
+          "time": 8637.10000000149,
+          "frameClock": 8632.7,
+          "simulationTime": 0.9166666666666679,
+          "renderMs": 3.2999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 8662.70000000298,
+          "frameClock": 8649.4,
+          "simulationTime": 0.9333333333333346,
+          "renderMs": 3.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 8670.10000000149,
+          "frameClock": 8666.1,
+          "simulationTime": 0.9500000000000013,
+          "renderMs": 3,
+          "decoys": 0
+        },
+        {
+          "time": 8687.70000000298,
+          "frameClock": 8682.7,
+          "simulationTime": 0.966666666666668,
+          "renderMs": 3.399999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 8704.80000000447,
+          "frameClock": 8699.5,
+          "simulationTime": 1.0000000000000013,
+          "renderMs": 3.3000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 8720.20000000298,
+          "frameClock": 8716.1,
+          "simulationTime": 1.0000000000000013,
+          "renderMs": 3.2000000029802322,
+          "decoys": 0
+        },
+        {
+          "time": 8737.10000000149,
+          "frameClock": 8732.8,
+          "simulationTime": 1.016666666666668,
+          "renderMs": 3,
+          "decoys": 0
+        },
+        {
+          "time": 8758.70000000298,
+          "frameClock": 8749.5,
+          "simulationTime": 1.0500000000000012,
+          "renderMs": 6.299999997019768,
+          "decoys": 1
+        },
+        {
+          "time": 8771.40000000596,
+          "frameClock": 8766.1,
+          "simulationTime": 1.0500000000000012,
+          "renderMs": 4.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8787.20000000298,
+          "frameClock": 8782.8,
+          "simulationTime": 1.0833333333333344,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 8804.20000000298,
+          "frameClock": 8799.5,
+          "simulationTime": 1.100000000000001,
+          "renderMs": 3.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8820.5,
+          "frameClock": 8816.1,
+          "simulationTime": 1.100000000000001,
+          "renderMs": 3.5,
+          "decoys": 1
+        },
+        {
+          "time": 8837.30000000447,
+          "frameClock": 8832.8,
+          "simulationTime": 1.1166666666666676,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 8853.60000000149,
+          "frameClock": 8849.4,
+          "simulationTime": 1.1333333333333342,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8870.70000000298,
+          "frameClock": 8866.1,
+          "simulationTime": 1.1500000000000008,
+          "renderMs": 3.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8886.90000000596,
+          "frameClock": 8882.8,
+          "simulationTime": 1.1666666666666674,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8904.30000000447,
+          "frameClock": 8899.4,
+          "simulationTime": 1.183333333333334,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8920.90000000596,
+          "frameClock": 8916.1,
+          "simulationTime": 1.2000000000000006,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 8936.60000000149,
+          "frameClock": 8932.7,
+          "simulationTime": 1.2166666666666672,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8953.60000000149,
+          "frameClock": 8949.5,
+          "simulationTime": 1.2500000000000004,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8971.10000000149,
+          "frameClock": 8966.1,
+          "simulationTime": 1.2500000000000004,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8988,
+          "frameClock": 8982.7,
+          "simulationTime": 1.266666666666667,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9003.70000000298,
+          "frameClock": 8999.5,
+          "simulationTime": 1.3000000000000003,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9020,
+          "frameClock": 9016.1,
+          "simulationTime": 1.3000000000000003,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9036.70000000298,
+          "frameClock": 9032.8,
+          "simulationTime": 1.3333333333333335,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9053.20000000298,
+          "frameClock": 9049.4,
+          "simulationTime": 1.3333333333333335,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9074.80000000447,
+          "frameClock": 9066.1,
+          "simulationTime": 1.35,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9086.5,
+          "frameClock": 9082.7,
+          "simulationTime": 1.3666666666666667,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9104,
+          "frameClock": 9099.4,
+          "simulationTime": 1.3833333333333333,
+          "renderMs": 3.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 9120.40000000596,
+          "frameClock": 9116.1,
+          "simulationTime": 1.4,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 9137.20000000298,
+          "frameClock": 9132.8,
+          "simulationTime": 1.4166666666666665,
+          "renderMs": 3.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9154.20000000298,
+          "frameClock": 9149.4,
+          "simulationTime": 1.4333333333333331,
+          "renderMs": 3.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9170.40000000596,
+          "frameClock": 9166.1,
+          "simulationTime": 1.4499999999999997,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 9187.70000000298,
+          "frameClock": 9182.7,
+          "simulationTime": 1.4666666666666663,
+          "renderMs": 3.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9204.10000000149,
+          "frameClock": 9199.4,
+          "simulationTime": 1.483333333333333,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9220.60000000149,
+          "frameClock": 9216.1,
+          "simulationTime": 1.4999999999999996,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9237,
+          "frameClock": 9232.7,
+          "simulationTime": 1.5166666666666662,
+          "renderMs": 3.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9253.60000000149,
+          "frameClock": 9249.4,
+          "simulationTime": 1.5333333333333328,
+          "renderMs": 3.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9270,
+          "frameClock": 9266.1,
+          "simulationTime": 1.5499999999999994,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9286.5,
+          "frameClock": 9282.7,
+          "simulationTime": 1.566666666666666,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9303.5,
+          "frameClock": 9299.4,
+          "simulationTime": 1.5833333333333326,
+          "renderMs": 2.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 9320.30000000447,
+          "frameClock": 9316,
+          "simulationTime": 1.5999999999999992,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 9337.5,
+          "frameClock": 9332.7,
+          "simulationTime": 1.6166666666666658,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9353.30000000447,
+          "frameClock": 9349.5,
+          "simulationTime": 1.649999999999999,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9369.5,
+          "frameClock": 9366.1,
+          "simulationTime": 1.649999999999999,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 9386.5,
+          "frameClock": 9382.8,
+          "simulationTime": 1.6666666666666656,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9403.70000000298,
+          "frameClock": 9399.4,
+          "simulationTime": 1.6833333333333322,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9420.10000000149,
+          "frameClock": 9416.1,
+          "simulationTime": 1.6999999999999988,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9437.20000000298,
+          "frameClock": 9432.7,
+          "simulationTime": 1.7166666666666655,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9453.5,
+          "frameClock": 9449.4,
+          "simulationTime": 1.733333333333332,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9470.10000000149,
+          "frameClock": 9466.1,
+          "simulationTime": 1.7499999999999987,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9486.5,
+          "frameClock": 9482.8,
+          "simulationTime": 1.7666666666666653,
+          "renderMs": 2.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 9503.60000000149,
+          "frameClock": 9499.4,
+          "simulationTime": 1.7833333333333319,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 9520.80000000447,
+          "frameClock": 9516.1,
+          "simulationTime": 1.7999999999999985,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9536.80000000447,
+          "frameClock": 9532.7,
+          "simulationTime": 1.816666666666665,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9553.30000000447,
+          "frameClock": 9549.4,
+          "simulationTime": 1.8333333333333317,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9570.40000000596,
+          "frameClock": 9566,
+          "simulationTime": 1.8499999999999983,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9586.90000000596,
+          "frameClock": 9582.7,
+          "simulationTime": 1.866666666666665,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9603.60000000149,
+          "frameClock": 9599.4,
+          "simulationTime": 1.8833333333333315,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9620,
+          "frameClock": 9616.1,
+          "simulationTime": 1.8999999999999981,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9636.70000000298,
+          "frameClock": 9632.7,
+          "simulationTime": 1.9166666666666647,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9653.5,
+          "frameClock": 9649.4,
+          "simulationTime": 1.9333333333333313,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9670,
+          "frameClock": 9666.1,
+          "simulationTime": 1.949999999999998,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9686.40000000596,
+          "frameClock": 9682.7,
+          "simulationTime": 1.9666666666666646,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9703.40000000596,
+          "frameClock": 9699.4,
+          "simulationTime": 1.9833333333333312,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 9720.10000000149,
+          "frameClock": 9716,
+          "simulationTime": 1.9999999999999978,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9736.60000000149,
+          "frameClock": 9732.8,
+          "simulationTime": 2.0166666666666644,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9753,
+          "frameClock": 9749.4,
+          "simulationTime": 2.033333333333331,
+          "renderMs": 2.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 9770.10000000149,
+          "frameClock": 9766.1,
+          "simulationTime": 2.0499999999999976,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9790.10000000149,
+          "frameClock": 9782.8,
+          "simulationTime": 2.083333333333331,
+          "renderMs": 3.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9803.70000000298,
+          "frameClock": 9799.4,
+          "simulationTime": 2.083333333333331,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9820,
+          "frameClock": 9816.1,
+          "simulationTime": 2.0999999999999974,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9836.70000000298,
+          "frameClock": 9832.8,
+          "simulationTime": 2.116666666666664,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9853.40000000596,
+          "frameClock": 9849.4,
+          "simulationTime": 2.1333333333333306,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 9870.10000000149,
+          "frameClock": 9866.1,
+          "simulationTime": 2.1499999999999972,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9886.70000000298,
+          "frameClock": 9882.7,
+          "simulationTime": 2.166666666666664,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9903.70000000298,
+          "frameClock": 9899.4,
+          "simulationTime": 2.1833333333333305,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9920.70000000298,
+          "frameClock": 9916,
+          "simulationTime": 2.199999999999997,
+          "renderMs": 3.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9936.40000000596,
+          "frameClock": 9932.7,
+          "simulationTime": 2.2166666666666637,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 9953.10000000149,
+          "frameClock": 9949.4,
+          "simulationTime": 2.2333333333333303,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9969.40000000596,
+          "frameClock": 9966,
+          "simulationTime": 2.249999999999997,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 9986.5,
+          "frameClock": 9982.7,
+          "simulationTime": 2.2666666666666635,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10003.5,
+          "frameClock": 9999.4,
+          "simulationTime": 2.28333333333333,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10019.90000000596,
+          "frameClock": 10016,
+          "simulationTime": 2.2999999999999967,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10036.40000000596,
+          "frameClock": 10032.7,
+          "simulationTime": 2.3166666666666633,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10053.30000000447,
+          "frameClock": 10049.4,
+          "simulationTime": 2.33333333333333,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10070.20000000298,
+          "frameClock": 10066,
+          "simulationTime": 2.3499999999999965,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10086.30000000447,
+          "frameClock": 10082.7,
+          "simulationTime": 2.366666666666663,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10103.20000000298,
+          "frameClock": 10099.4,
+          "simulationTime": 2.3833333333333298,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10119.90000000596,
+          "frameClock": 10116.1,
+          "simulationTime": 2.3999999999999964,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 10136.70000000298,
+          "frameClock": 10132.7,
+          "simulationTime": 2.416666666666663,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10153,
+          "frameClock": 10149.4,
+          "simulationTime": 2.4333333333333296,
+          "renderMs": 2.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 10169.90000000596,
+          "frameClock": 10166,
+          "simulationTime": 2.449999999999996,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10186.30000000447,
+          "frameClock": 10182.7,
+          "simulationTime": 2.466666666666663,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10203.70000000298,
+          "frameClock": 10199.3,
+          "simulationTime": 2.4833333333333294,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10219.60000000149,
+          "frameClock": 10216.1,
+          "simulationTime": 2.499999999999996,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10237.5,
+          "frameClock": 10232.8,
+          "simulationTime": 2.5166666666666626,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10254.10000000149,
+          "frameClock": 10249.4,
+          "simulationTime": 2.533333333333329,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10269.40000000596,
+          "frameClock": 10266,
+          "simulationTime": 2.549999999999996,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10286.5,
+          "frameClock": 10282.7,
+          "simulationTime": 2.5666666666666624,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10304.10000000149,
+          "frameClock": 10299.4,
+          "simulationTime": 2.583333333333329,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10320.40000000596,
+          "frameClock": 10316,
+          "simulationTime": 2.5999999999999956,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10336.20000000298,
+          "frameClock": 10332.8,
+          "simulationTime": 2.6166666666666623,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10353.10000000149,
+          "frameClock": 10349.3,
+          "simulationTime": 2.633333333333329,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10370.10000000149,
+          "frameClock": 10366,
+          "simulationTime": 2.6499999999999955,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10386.60000000149,
+          "frameClock": 10382.7,
+          "simulationTime": 2.666666666666662,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10403.90000000596,
+          "frameClock": 10399.4,
+          "simulationTime": 2.6833333333333287,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10420,
+          "frameClock": 10416,
+          "simulationTime": 2.6999999999999953,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10436.40000000596,
+          "frameClock": 10432.7,
+          "simulationTime": 2.716666666666662,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10453.10000000149,
+          "frameClock": 10449.4,
+          "simulationTime": 2.7333333333333285,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10469.60000000149,
+          "frameClock": 10466.1,
+          "simulationTime": 2.749999999999995,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10486.20000000298,
+          "frameClock": 10482.7,
+          "simulationTime": 2.7666666666666617,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10504.30000000447,
+          "frameClock": 10499.4,
+          "simulationTime": 2.7833333333333283,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 10520.5,
+          "frameClock": 10516,
+          "simulationTime": 2.799999999999995,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10536.30000000447,
+          "frameClock": 10532.7,
+          "simulationTime": 2.8166666666666615,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 10553,
+          "frameClock": 10549.4,
+          "simulationTime": 2.833333333333328,
+          "renderMs": 2.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 10569.60000000149,
+          "frameClock": 10566.1,
+          "simulationTime": 2.8499999999999948,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10586,
+          "frameClock": 10582.7,
+          "simulationTime": 2.8666666666666614,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10603.30000000447,
+          "frameClock": 10599.4,
+          "simulationTime": 2.883333333333328,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10619.5,
+          "frameClock": 10616,
+          "simulationTime": 2.8999999999999946,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10636,
+          "frameClock": 10632.7,
+          "simulationTime": 2.916666666666661,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10652.90000000596,
+          "frameClock": 10649.4,
+          "simulationTime": 2.933333333333328,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10669.5,
+          "frameClock": 10666.1,
+          "simulationTime": 2.9499999999999944,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10685.90000000596,
+          "frameClock": 10682.7,
+          "simulationTime": 2.966666666666661,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10703.60000000149,
+          "frameClock": 10699.3,
+          "simulationTime": 2.9833333333333276,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10719.40000000596,
+          "frameClock": 10716.1,
+          "simulationTime": 2.9999999999999942,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 10736.5,
+          "frameClock": 10732.7,
+          "simulationTime": 3.016666666666661,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10753.40000000596,
+          "frameClock": 10749.3,
+          "simulationTime": 3.0333333333333274,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10769.60000000149,
+          "frameClock": 10766,
+          "simulationTime": 3.049999999999994,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10786.40000000596,
+          "frameClock": 10782.7,
+          "simulationTime": 3.0666666666666607,
+          "renderMs": 2.4000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 10803.70000000298,
+          "frameClock": 10799.4,
+          "simulationTime": 3.0833333333333273,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10819.5,
+          "frameClock": 10816,
+          "simulationTime": 3.099999999999994,
+          "renderMs": 2.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 10836.70000000298,
+          "frameClock": 10832.7,
+          "simulationTime": 3.1166666666666605,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10853.40000000596,
+          "frameClock": 10849.3,
+          "simulationTime": 3.133333333333327,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 10869.60000000149,
+          "frameClock": 10866,
+          "simulationTime": 3.1499999999999937,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10886.40000000596,
+          "frameClock": 10882.7,
+          "simulationTime": 3.1666666666666603,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10903.30000000447,
+          "frameClock": 10899.3,
+          "simulationTime": 3.183333333333327,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 10919.80000000447,
+          "frameClock": 10916,
+          "simulationTime": 3.1999999999999935,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10936.5,
+          "frameClock": 10932.7,
+          "simulationTime": 3.21666666666666,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10953.20000000298,
+          "frameClock": 10949.4,
+          "simulationTime": 3.2333333333333267,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10969.5,
+          "frameClock": 10966,
+          "simulationTime": 3.2499999999999933,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10986.5,
+          "frameClock": 10982.6,
+          "simulationTime": 3.26666666666666,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 11003.70000000298,
+          "frameClock": 10999.4,
+          "simulationTime": 3.2833333333333266,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 11019.80000000447,
+          "frameClock": 11016,
+          "simulationTime": 3.299999999999993,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 11036.40000000596,
+          "frameClock": 11032.7,
+          "simulationTime": 3.3166666666666598,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11053.30000000447,
+          "frameClock": 11049.3,
+          "simulationTime": 3.3333333333333264,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11069.90000000596,
+          "frameClock": 11066,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 11088,
+          "frameClock": 11082.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 11105,
+          "frameClock": 11099.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 11120.60000000149,
+          "frameClock": 11116,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 11136.80000000447,
+          "frameClock": 11132.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 11153.60000000149,
+          "frameClock": 11149.4,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 11170.30000000447,
+          "frameClock": 11166,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11187,
+          "frameClock": 11182.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 11204.10000000149,
+          "frameClock": 11199.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11220.70000000298,
+          "frameClock": 11216,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 11237.5,
+          "frameClock": 11232.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 11253.70000000298,
+          "frameClock": 11249.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11270.40000000596,
+          "frameClock": 11266,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 11286.90000000596,
+          "frameClock": 11282.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 11304.10000000149,
+          "frameClock": 11299.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.5,
+          "decoys": 1
+        },
+        {
+          "time": 11320.80000000447,
+          "frameClock": 11316,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11337.10000000149,
+          "frameClock": 11332.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 11353.40000000596,
+          "frameClock": 11349.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 11370.5,
+          "frameClock": 11366,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 11387.30000000447,
+          "frameClock": 11382.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 11403.70000000298,
+          "frameClock": 11399.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11420.80000000447,
+          "frameClock": 11415.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11437.30000000447,
+          "frameClock": 11432.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 11454.40000000596,
+          "frameClock": 11449.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 11472,
+          "frameClock": 11466,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 11488,
+          "frameClock": 11482.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 4,
+          "decoys": 1
+        },
+        {
+          "time": 11504.60000000149,
+          "frameClock": 11499.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11521.10000000149,
+          "frameClock": 11516,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11538.10000000149,
+          "frameClock": 11532.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.5,
+          "decoys": 1
+        },
+        {
+          "time": 11554.60000000149,
+          "frameClock": 11549.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 11571.30000000447,
+          "frameClock": 11566,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 4,
+          "decoys": 1
+        },
+        {
+          "time": 11588.20000000298,
+          "frameClock": 11582.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.5,
+          "decoys": 1
+        },
+        {
+          "time": 11604.30000000447,
+          "frameClock": 11599.4,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11622.30000000447,
+          "frameClock": 11616,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 4.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11637.70000000298,
+          "frameClock": 11632.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 11654.40000000596,
+          "frameClock": 11649.4,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 11671,
+          "frameClock": 11666,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 11687.5,
+          "frameClock": 11682.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11704.40000000596,
+          "frameClock": 11699.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 11721.20000000298,
+          "frameClock": 11716,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11737.60000000149,
+          "frameClock": 11732.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11754.80000000447,
+          "frameClock": 11749.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11771.30000000447,
+          "frameClock": 11766,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 4,
+          "decoys": 1
+        },
+        {
+          "time": 11788.70000000298,
+          "frameClock": 11782.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 4.200000002980232,
+          "decoys": 1
+        },
+        {
+          "time": 11804.40000000596,
+          "frameClock": 11799.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 11820.40000000596,
+          "frameClock": 11816,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11837.5,
+          "frameClock": 11832.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 11854.5,
+          "frameClock": 11849.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 11871,
+          "frameClock": 11866,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 11887.30000000447,
+          "frameClock": 11882.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11904.40000000596,
+          "frameClock": 11899.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 11934.30000000447,
+          "frameClock": 11916,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 11939.60000000149,
+          "frameClock": 11932.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 11957.20000000298,
+          "frameClock": 11949.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 11970.40000000596,
+          "frameClock": 11966,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 11987.5,
+          "frameClock": 11982.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 12004.30000000447,
+          "frameClock": 11999.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 12021.20000000298,
+          "frameClock": 12015.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 12036.30000000447,
+          "frameClock": 12032.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 12054,
+          "frameClock": 12049.4,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 12070.5,
+          "frameClock": 12066,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 12087,
+          "frameClock": 12082.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 12104.40000000596,
+          "frameClock": 12099.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 12120.20000000298,
+          "frameClock": 12116,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 12137.20000000298,
+          "frameClock": 12132.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 12153.30000000447,
+          "frameClock": 12149.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 12170.10000000149,
+          "frameClock": 12166,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 12187.20000000298,
+          "frameClock": 12182.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 12203.70000000298,
+          "frameClock": 12199.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12221.40000000596,
+          "frameClock": 12216,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 12236.80000000447,
+          "frameClock": 12232.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 12253.90000000596,
+          "frameClock": 12249.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 12270.30000000447,
+          "frameClock": 12265.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12287.30000000447,
+          "frameClock": 12282.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 12305.10000000149,
+          "frameClock": 12299.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 12320.60000000149,
+          "frameClock": 12315.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 12337.10000000149,
+          "frameClock": 12332.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 12353.60000000149,
+          "frameClock": 12349.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 12370.40000000596,
+          "frameClock": 12366,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 12386.80000000447,
+          "frameClock": 12382.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 12403.60000000149,
+          "frameClock": 12399.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12421,
+          "frameClock": 12416,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 12437.20000000298,
+          "frameClock": 12432.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 12453.90000000596,
+          "frameClock": 12449.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 12471.80000000447,
+          "frameClock": 12465.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 12503.10000000149,
+          "frameClock": 12482.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 12507.40000000596,
+          "frameClock": 12499.2,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 12520.5,
+          "frameClock": 12515.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12538,
+          "frameClock": 12532.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 12553.90000000596,
+          "frameClock": 12549.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 12582.80000000447,
+          "frameClock": 12565.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 4.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12588.70000000298,
+          "frameClock": 12582.7,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 12605.30000000447,
+          "frameClock": 12599.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12621.5,
+          "frameClock": 12615.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 12637.80000000447,
+          "frameClock": 12632.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 12653.90000000596,
+          "frameClock": 12649.2,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 12670.70000000298,
+          "frameClock": 12666,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 12687.70000000298,
+          "frameClock": 12682.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 12704.10000000149,
+          "frameClock": 12699.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 12720.80000000447,
+          "frameClock": 12716,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.5,
+          "decoys": 1
+        },
+        {
+          "time": 12737.30000000447,
+          "frameClock": 12732.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 12754,
+          "frameClock": 12749.2,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12770.80000000447,
+          "frameClock": 12766,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 12788.80000000447,
+          "frameClock": 12782.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.5,
+          "decoys": 1
+        },
+        {
+          "time": 12803.90000000596,
+          "frameClock": 12799.2,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 12821,
+          "frameClock": 12815.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12837.30000000447,
+          "frameClock": 12832.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12854.30000000447,
+          "frameClock": 12849.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12870.70000000298,
+          "frameClock": 12866,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12887.40000000596,
+          "frameClock": 12882.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 12904.20000000298,
+          "frameClock": 12899.3,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.5,
+          "decoys": 1
+        },
+        {
+          "time": 12920.80000000447,
+          "frameClock": 12916,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 12936.90000000596,
+          "frameClock": 12932.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 12953.30000000447,
+          "frameClock": 12949.2,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 12970,
+          "frameClock": 12965.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 12986.60000000149,
+          "frameClock": 12982.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 13003.60000000149,
+          "frameClock": 12999.2,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 13020.10000000149,
+          "frameClock": 13015.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 13036.80000000447,
+          "frameClock": 13032.6,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 13053.60000000149,
+          "frameClock": 13049.2,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 13072.80000000447,
+          "frameClock": 13065.9,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 13104.10000000149,
+          "frameClock": 13082.6,
+          "simulationTime": 0,
+          "renderMs": 19.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 13109.40000000596,
+          "frameClock": 13099.2,
+          "simulationTime": 0,
+          "renderMs": 3.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 13120.30000000447,
+          "frameClock": 13115.9,
+          "simulationTime": 0,
+          "renderMs": 3.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 13137.10000000149,
+          "frameClock": 13132.5,
+          "simulationTime": 0,
+          "renderMs": 3.100000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 13154.5,
+          "frameClock": 13149.2,
+          "simulationTime": 0,
+          "renderMs": 3.399999998509884,
+          "decoys": 0
+        }
+      ],
+      "pausedTtl": 1.6833333333333416
+    },
+    {
+      "quality": "medium",
+      "deployed": [
+        {
+          "id": "decoy-9",
+          "x": -3.449999999999994,
+          "z": 6,
+          "ttl": 3.3000000000000025
+        }
+      ],
+      "locked": {
+        "x": -3.449999999999994,
+        "z": 6
+      },
+      "drawn": {
+        "present": true,
+        "visible": true,
+        "position": [
+          -3.449999999999994,
+          0,
+          6
+        ],
+        "label": {
+          "visible": true,
+          "pixels": 23.999999999999996,
+          "scale": [
+            1.029941579567598,
+            1.029941579567598,
+            1.029941579567598
+          ],
+          "fog": false,
+          "depthTest": false
+        }
+      },
+      "pulsing": [
+        {
+          "animation": true,
+          "name": "EMP PULSE: ready, one charge",
+          "iterations": "infinite",
+          "duration": 1600,
+          "originalTime": 3349.8390000040413,
+          "low": "brightness(1)",
+          "high": "brightness(1.8)"
+        },
+        {
+          "animation": true,
+          "name": "DECOY: ready, one charge",
+          "iterations": "infinite",
+          "duration": 1600,
+          "originalTime": 3349.8390000040413,
+          "low": "brightness(1)",
+          "high": "brightness(1.8)"
+        }
+      ],
+      "interrupted": "AUTOMATIC PAUSE · PERFORMANCE\nPAUSED\n\nA long frame interrupted play. The game paused to prevent an unseen crash. Your Decoy is deployed; its timer is frozen until you resume.\n\nRESUME\nSETTINGS\nPICKUPS & TACTICS\nCUSTOMIZE SNAKE\nRETURN TO TITLE\nSAVE & EXIT\nUse Low graphics & resume\n\nMovement and ability timers are frozen.",
+      "frames": [
+        {
+          "time": 4101.5,
+          "frameClock": 4095.3999999999996,
+          "simulationTime": 0.41666666666666663,
+          "renderMs": 2.5,
+          "decoys": 0
+        },
+        {
+          "time": 4115.79999999702,
+          "frameClock": 4112.1,
+          "simulationTime": 0.44999999999999996,
+          "renderMs": 2.899999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 4133.5,
+          "frameClock": 4128.7,
+          "simulationTime": 0.44999999999999996,
+          "renderMs": 3,
+          "decoys": 0
+        },
+        {
+          "time": 4149.5,
+          "frameClock": 4145.4,
+          "simulationTime": 0.4666666666666666,
+          "renderMs": 2.8000000044703484,
+          "decoys": 0
+        },
+        {
+          "time": 4166.69999999553,
+          "frameClock": 4162.1,
+          "simulationTime": 0.49999999999999994,
+          "renderMs": 2.899999998509884,
+          "decoys": 0
+        },
+        {
+          "time": 4183.19999999553,
+          "frameClock": 4178.8,
+          "simulationTime": 0.5166666666666666,
+          "renderMs": 2.600000001490116,
+          "decoys": 0
+        },
+        {
+          "time": 4199.5999999940395,
+          "frameClock": 4195.4,
+          "simulationTime": 0.5166666666666666,
+          "renderMs": 2.7999999970197678,
+          "decoys": 0
+        },
+        {
+          "time": 4218,
+          "frameClock": 4212.1,
+          "simulationTime": 0.55,
+          "renderMs": 4.200000002980232,
+          "decoys": 0
+        },
+        {
+          "time": 4233.19999999553,
+          "frameClock": 4228.7,
+          "simulationTime": 0.55,
+          "renderMs": 3,
+          "decoys": 0
+        },
+        {
+          "time": 4249.79999999702,
+          "frameClock": 4245.3,
+          "simulationTime": 0.5666666666666668,
+          "renderMs": 3,
+          "decoys": 0
+        },
+        {
+          "time": 4437,
+          "frameClock": 4428.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 4.800000004470348,
+          "decoys": 1
+        },
+        {
+          "time": 4455.89999999851,
+          "frameClock": 4445.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 4471.29999999702,
+          "frameClock": 4462,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 4483.69999999553,
+          "frameClock": 4478.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 4499.69999999553,
+          "frameClock": 4495.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 4516.29999999702,
+          "frameClock": 4512.1,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 4533.5999999940395,
+          "frameClock": 4528.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 4550.19999999553,
+          "frameClock": 4545.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 4567.29999999702,
+          "frameClock": 4562,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 4583,
+          "frameClock": 4578.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.4000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 4600.0999999940395,
+          "frameClock": 4595.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 4615.29999999702,
+          "frameClock": 4612,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 4632.89999999851,
+          "frameClock": 4628.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 4648.39999999851,
+          "frameClock": 4645.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 4666,
+          "frameClock": 4662.1,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 4683.5999999940395,
+          "frameClock": 4678.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 4700,
+          "frameClock": 4695.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 4716.19999999553,
+          "frameClock": 4712,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 4733.69999999553,
+          "frameClock": 4728.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 4749.5,
+          "frameClock": 4745.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 4766.69999999553,
+          "frameClock": 4762,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 4783,
+          "frameClock": 4778.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 4799.0999999940395,
+          "frameClock": 4795.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 4817.0999999940395,
+          "frameClock": 4812,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 4832.29999999702,
+          "frameClock": 4828.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 4850.29999999702,
+          "frameClock": 4845.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 4866.89999999851,
+          "frameClock": 4862.1,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 4882,
+          "frameClock": 4878.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 4899.39999999851,
+          "frameClock": 4895.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 4915.89999999851,
+          "frameClock": 4912,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 4933.29999999702,
+          "frameClock": 4928.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 4948.69999999553,
+          "frameClock": 4945.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 4966.39999999851,
+          "frameClock": 4962.1,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 4982.79999999702,
+          "frameClock": 4978.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 4999.79999999702,
+          "frameClock": 4995.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 5016.69999999553,
+          "frameClock": 5012,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 5032.5999999940395,
+          "frameClock": 5028.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 5049,
+          "frameClock": 5045.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 5065.79999999702,
+          "frameClock": 5062,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 5082.0999999940395,
+          "frameClock": 5078.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 5098.89999999851,
+          "frameClock": 5095.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 5116.29999999702,
+          "frameClock": 5112,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 5132.69999999553,
+          "frameClock": 5128.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 5147.5999999940395,
+          "frameClock": 5145.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.8999999985098839,
+          "decoys": 1
+        },
+        {
+          "time": 5166.69999999553,
+          "frameClock": 5162,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 5181.39999999851,
+          "frameClock": 5178.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 5199.19999999553,
+          "frameClock": 5195.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 5216.19999999553,
+          "frameClock": 5212,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 5232.5999999940395,
+          "frameClock": 5228.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 5248.0999999940395,
+          "frameClock": 5245.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 5265.5,
+          "frameClock": 5262.1,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 5282.79999999702,
+          "frameClock": 5278.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 5299.79999999702,
+          "frameClock": 5295.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 5315.69999999553,
+          "frameClock": 5312,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 5333,
+          "frameClock": 5328.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 5349.89999999851,
+          "frameClock": 5345.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 5365.0999999940395,
+          "frameClock": 5362,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 5381.69999999553,
+          "frameClock": 5378.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 5399,
+          "frameClock": 5395.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 5415.69999999553,
+          "frameClock": 5412,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 5432.39999999851,
+          "frameClock": 5428.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 5449.0999999940395,
+          "frameClock": 5445.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 5465.5,
+          "frameClock": 5462,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 5482.29999999702,
+          "frameClock": 5478.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.8999999985098839,
+          "decoys": 1
+        },
+        {
+          "time": 5499.29999999702,
+          "frameClock": 5495.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 5516.19999999553,
+          "frameClock": 5512,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 5532.19999999553,
+          "frameClock": 5528.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 5549.29999999702,
+          "frameClock": 5545.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 5565.89999999851,
+          "frameClock": 5562,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 5581.79999999702,
+          "frameClock": 5578.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 5599.29999999702,
+          "frameClock": 5595.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 5616,
+          "frameClock": 5612,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 5631.5999999940395,
+          "frameClock": 5628.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 5648.29999999702,
+          "frameClock": 5645.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 5665.5,
+          "frameClock": 5662,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 5682.29999999702,
+          "frameClock": 5678.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 5698,
+          "frameClock": 5695.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 5715.5,
+          "frameClock": 5712,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 5731.79999999702,
+          "frameClock": 5728.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 5749.89999999851,
+          "frameClock": 5745.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 5765.69999999553,
+          "frameClock": 5762,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 5782.5999999940395,
+          "frameClock": 5778.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 5798.89999999851,
+          "frameClock": 5795.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 5815.39999999851,
+          "frameClock": 5812,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 5832,
+          "frameClock": 5828.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 5849.69999999553,
+          "frameClock": 5845.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 5866.0999999940395,
+          "frameClock": 5862,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.8999999985098839,
+          "decoys": 1
+        },
+        {
+          "time": 5883.19999999553,
+          "frameClock": 5878.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 5899.29999999702,
+          "frameClock": 5895.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 5915.19999999553,
+          "frameClock": 5912,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 5931.89999999851,
+          "frameClock": 5928.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 5948.5999999940395,
+          "frameClock": 5945.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 5966.29999999702,
+          "frameClock": 5962,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 5982.39999999851,
+          "frameClock": 5978.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 5998,
+          "frameClock": 5995.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 6015.5,
+          "frameClock": 6012,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 6031.29999999702,
+          "frameClock": 6028.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 6049.29999999702,
+          "frameClock": 6045.4,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 6064.89999999851,
+          "frameClock": 6062,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 6082.79999999702,
+          "frameClock": 6078.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 6099.29999999702,
+          "frameClock": 6095.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 6115.5999999940395,
+          "frameClock": 6112,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 6132.29999999702,
+          "frameClock": 6128.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 6149.5,
+          "frameClock": 6145.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 6166.0999999940395,
+          "frameClock": 6161.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 6183.29999999702,
+          "frameClock": 6178.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 6199.0999999940395,
+          "frameClock": 6195.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 6215,
+          "frameClock": 6212,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 6232.39999999851,
+          "frameClock": 6228.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 6248.5,
+          "frameClock": 6245.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 6265.39999999851,
+          "frameClock": 6262,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 6282.5999999940395,
+          "frameClock": 6278.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 6299.69999999553,
+          "frameClock": 6295.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 6315.39999999851,
+          "frameClock": 6312,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.8999999985098839,
+          "decoys": 1
+        },
+        {
+          "time": 6332.5,
+          "frameClock": 6328.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 6348.69999999553,
+          "frameClock": 6345.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.8999999985098839,
+          "decoys": 1
+        },
+        {
+          "time": 6366.0999999940395,
+          "frameClock": 6362,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 6381.5999999940395,
+          "frameClock": 6378.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 6398.69999999553,
+          "frameClock": 6395.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 6415.29999999702,
+          "frameClock": 6412,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 6432.5,
+          "frameClock": 6428.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 6448.5,
+          "frameClock": 6445.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 6465.5999999940395,
+          "frameClock": 6462,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 6482,
+          "frameClock": 6478.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 6499,
+          "frameClock": 6495.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 6515.5999999940395,
+          "frameClock": 6512,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 6531.69999999553,
+          "frameClock": 6528.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 6549,
+          "frameClock": 6545.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 6565.39999999851,
+          "frameClock": 6561.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 6582.29999999702,
+          "frameClock": 6578.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 6599.19999999553,
+          "frameClock": 6595.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 6615.5999999940395,
+          "frameClock": 6611.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 6631.39999999851,
+          "frameClock": 6628.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 6649.69999999553,
+          "frameClock": 6645.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 6666,
+          "frameClock": 6661.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 6682.79999999702,
+          "frameClock": 6678.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 6698.0999999940395,
+          "frameClock": 6695.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 6715.79999999702,
+          "frameClock": 6711.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 6732.5999999940395,
+          "frameClock": 6728.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 6748.5999999940395,
+          "frameClock": 6745.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 6765.89999999851,
+          "frameClock": 6761.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 6782.89999999851,
+          "frameClock": 6778.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 6799.5,
+          "frameClock": 6795.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 6815.19999999553,
+          "frameClock": 6812,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 6831.39999999851,
+          "frameClock": 6828.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 6849.19999999553,
+          "frameClock": 6845.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 6865.69999999553,
+          "frameClock": 6862,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 6882.0999999940395,
+          "frameClock": 6878.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 6899,
+          "frameClock": 6895.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 6915,
+          "frameClock": 6911.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 6932.29999999702,
+          "frameClock": 6928.7,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 6949.89999999851,
+          "frameClock": 6945.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 6965.69999999553,
+          "frameClock": 6962,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 6981.69999999553,
+          "frameClock": 6978.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.8999999985098839,
+          "decoys": 1
+        },
+        {
+          "time": 6998.69999999553,
+          "frameClock": 6995.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 7015.89999999851,
+          "frameClock": 7012,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 7031.5999999940395,
+          "frameClock": 7028.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7048.39999999851,
+          "frameClock": 7045.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 7066.0999999940395,
+          "frameClock": 7061.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.8999999985098839,
+          "decoys": 1
+        },
+        {
+          "time": 7082.19999999553,
+          "frameClock": 7078.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 7099.5999999940395,
+          "frameClock": 7095.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7115.5999999940395,
+          "frameClock": 7112,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 7131,
+          "frameClock": 7128.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 7149.69999999553,
+          "frameClock": 7145.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 7165.39999999851,
+          "frameClock": 7162,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 7182.29999999702,
+          "frameClock": 7178.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 7199.79999999702,
+          "frameClock": 7195.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 7214.89999999851,
+          "frameClock": 7211.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.8999999985098839,
+          "decoys": 1
+        },
+        {
+          "time": 7232.69999999553,
+          "frameClock": 7228.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 7248.5,
+          "frameClock": 7245.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 7266,
+          "frameClock": 7262,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 7281.89999999851,
+          "frameClock": 7278.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 7298.69999999553,
+          "frameClock": 7295.2,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 1.8999999985098839,
+          "decoys": 1
+        },
+        {
+          "time": 7315.89999999851,
+          "frameClock": 7312,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 7332.5999999940395,
+          "frameClock": 7328.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7349,
+          "frameClock": 7345.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 7365.79999999702,
+          "frameClock": 7361.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 7382.29999999702,
+          "frameClock": 7378.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 7399.39999999851,
+          "frameClock": 7395.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 7415.29999999702,
+          "frameClock": 7411.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7432.5999999940395,
+          "frameClock": 7428.5,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7448.89999999851,
+          "frameClock": 7445.2,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 7465.89999999851,
+          "frameClock": 7461.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 7482,
+          "frameClock": 7478.5,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 7498.29999999702,
+          "frameClock": 7495.2,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 7515.39999999851,
+          "frameClock": 7512,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 7532.29999999702,
+          "frameClock": 7528.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7549.19999999553,
+          "frameClock": 7545.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 7565.5999999940395,
+          "frameClock": 7561.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 7582.5999999940395,
+          "frameClock": 7578.5,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7599,
+          "frameClock": 7595.2,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 7615.29999999702,
+          "frameClock": 7611.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7632,
+          "frameClock": 7628.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 7648.79999999702,
+          "frameClock": 7645.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 7665.0999999940395,
+          "frameClock": 7661.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 7682.19999999553,
+          "frameClock": 7678.5,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 7698.29999999702,
+          "frameClock": 7695.2,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7716.0999999940395,
+          "frameClock": 7711.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 7732.89999999851,
+          "frameClock": 7728.6,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 7749.69999999553,
+          "frameClock": 7745.3,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 7766.0999999940395,
+          "frameClock": 7761.9,
+          "simulationTime": 0.6500000000000004,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7783,
+          "frameClock": 7778.6,
+          "simulationTime": 0.6666666666666671,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 7799.19999999553,
+          "frameClock": 7795.2,
+          "simulationTime": 0.6833333333333338,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7815.79999999702,
+          "frameClock": 7812,
+          "simulationTime": 0.7166666666666672,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 7832.19999999553,
+          "frameClock": 7828.5,
+          "simulationTime": 0.7166666666666672,
+          "renderMs": 2.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 7849.5999999940395,
+          "frameClock": 7845.3,
+          "simulationTime": 0.733333333333334,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 7866.69999999553,
+          "frameClock": 7861.9,
+          "simulationTime": 0.7500000000000007,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7883.0999999940395,
+          "frameClock": 7878.6,
+          "simulationTime": 0.7666666666666674,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7899.0999999940395,
+          "frameClock": 7895.2,
+          "simulationTime": 0.7833333333333341,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 7916.0999999940395,
+          "frameClock": 7911.9,
+          "simulationTime": 0.8000000000000008,
+          "renderMs": 2.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 7932,
+          "frameClock": 7928.6,
+          "simulationTime": 0.8166666666666675,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 7948,
+          "frameClock": 7945.3,
+          "simulationTime": 0.850000000000001,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 7966,
+          "frameClock": 7961.9,
+          "simulationTime": 0.850000000000001,
+          "renderMs": 1.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 7981.29999999702,
+          "frameClock": 7978.6,
+          "simulationTime": 0.8666666666666677,
+          "renderMs": 2,
+          "decoys": 1
+        },
+        {
+          "time": 7998.89999999851,
+          "frameClock": 7995.2,
+          "simulationTime": 0.8833333333333344,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8015.79999999702,
+          "frameClock": 8011.899999999999,
+          "simulationTime": 0.9000000000000011,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8032.39999999851,
+          "frameClock": 8028.499999999999,
+          "simulationTime": 0.9166666666666679,
+          "renderMs": 2.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8048.5,
+          "frameClock": 8045.300000000001,
+          "simulationTime": 0.9500000000000013,
+          "renderMs": 2.4000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 8064.89999999851,
+          "frameClock": 8061.9,
+          "simulationTime": 0.9500000000000013,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 8081.5999999940395,
+          "frameClock": 8078.599999999999,
+          "simulationTime": 0.966666666666668,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8099.29999999702,
+          "frameClock": 8095.2,
+          "simulationTime": 0.9833333333333347,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8115.39999999851,
+          "frameClock": 8111.900000000001,
+          "simulationTime": 1.0000000000000013,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 8132,
+          "frameClock": 8128.6,
+          "simulationTime": 1.016666666666668,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8149.39999999851,
+          "frameClock": 8145.199999999999,
+          "simulationTime": 1.0333333333333345,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8168.79999999702,
+          "frameClock": 8161.9,
+          "simulationTime": 1.0500000000000012,
+          "renderMs": 4.299999997019768,
+          "decoys": 1
+        },
+        {
+          "time": 8183.0999999940395,
+          "frameClock": 8178.5,
+          "simulationTime": 1.0666666666666678,
+          "renderMs": 2.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 8200.09999999404,
+          "frameClock": 8195.2,
+          "simulationTime": 1.0833333333333344,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8214.79999999702,
+          "frameClock": 8211.9,
+          "simulationTime": 1.100000000000001,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8233.29999999702,
+          "frameClock": 8228.6,
+          "simulationTime": 1.1166666666666676,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8248.79999999702,
+          "frameClock": 8245.3,
+          "simulationTime": 1.1333333333333342,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8267.09999999404,
+          "frameClock": 8261.9,
+          "simulationTime": 1.1500000000000008,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8282.39999999851,
+          "frameClock": 8278.6,
+          "simulationTime": 1.1666666666666674,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8299.69999999553,
+          "frameClock": 8295.2,
+          "simulationTime": 1.183333333333334,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8316.39999999851,
+          "frameClock": 8311.9,
+          "simulationTime": 1.2000000000000006,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8333.29999999702,
+          "frameClock": 8328.6,
+          "simulationTime": 1.2166666666666672,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 8349.59999999404,
+          "frameClock": 8345.3,
+          "simulationTime": 1.2333333333333338,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 8367.19999999553,
+          "frameClock": 8361.9,
+          "simulationTime": 1.2500000000000004,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8382,
+          "frameClock": 8378.5,
+          "simulationTime": 1.266666666666667,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 8400,
+          "frameClock": 8395.2,
+          "simulationTime": 1.2833333333333337,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8415.89999999851,
+          "frameClock": 8411.9,
+          "simulationTime": 1.3000000000000003,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 8432.89999999851,
+          "frameClock": 8428.5,
+          "simulationTime": 1.3166666666666669,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8448.39999999851,
+          "frameClock": 8445.2,
+          "simulationTime": 1.3333333333333335,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8465.89999999851,
+          "frameClock": 8461.9,
+          "simulationTime": 1.35,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 8483.29999999702,
+          "frameClock": 8478.6,
+          "simulationTime": 1.3666666666666667,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 8499.59999999404,
+          "frameClock": 8495.2,
+          "simulationTime": 1.3833333333333333,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 8515.89999999851,
+          "frameClock": 8511.9,
+          "simulationTime": 1.4,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8532.29999999702,
+          "frameClock": 8528.5,
+          "simulationTime": 1.4166666666666665,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8549.09999999404,
+          "frameClock": 8545.2,
+          "simulationTime": 1.4333333333333331,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8566.29999999702,
+          "frameClock": 8561.9,
+          "simulationTime": 1.4499999999999997,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8582.19999999553,
+          "frameClock": 8578.5,
+          "simulationTime": 1.4666666666666663,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8599.09999999404,
+          "frameClock": 8595.2,
+          "simulationTime": 1.483333333333333,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 8615.19999999553,
+          "frameClock": 8611.8,
+          "simulationTime": 1.4999999999999996,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8632.39999999851,
+          "frameClock": 8628.5,
+          "simulationTime": 1.5166666666666662,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8649.09999999404,
+          "frameClock": 8645.2,
+          "simulationTime": 1.5333333333333328,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 8667.19999999553,
+          "frameClock": 8661.9,
+          "simulationTime": 1.5499999999999994,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8683.5,
+          "frameClock": 8678.5,
+          "simulationTime": 1.566666666666666,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8699.29999999702,
+          "frameClock": 8695.2,
+          "simulationTime": 1.5833333333333326,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8715.59999999404,
+          "frameClock": 8711.9,
+          "simulationTime": 1.5999999999999992,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8733.19999999553,
+          "frameClock": 8728.5,
+          "simulationTime": 1.6166666666666658,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 8749,
+          "frameClock": 8745.2,
+          "simulationTime": 1.6333333333333324,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8766.69999999553,
+          "frameClock": 8761.9,
+          "simulationTime": 1.649999999999999,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 8782.29999999702,
+          "frameClock": 8778.5,
+          "simulationTime": 1.6666666666666656,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 8799.89999999851,
+          "frameClock": 8795.2,
+          "simulationTime": 1.6833333333333322,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8816.5,
+          "frameClock": 8811.9,
+          "simulationTime": 1.6999999999999988,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 8832.59999999404,
+          "frameClock": 8828.5,
+          "simulationTime": 1.7166666666666655,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8848.89999999851,
+          "frameClock": 8845.2,
+          "simulationTime": 1.733333333333332,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8866,
+          "frameClock": 8861.8,
+          "simulationTime": 1.7499999999999987,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 8882.89999999851,
+          "frameClock": 8878.5,
+          "simulationTime": 1.7666666666666653,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 8899.5,
+          "frameClock": 8895.2,
+          "simulationTime": 1.7833333333333319,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 8916.09999999404,
+          "frameClock": 8911.8,
+          "simulationTime": 1.7999999999999985,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 8933.19999999553,
+          "frameClock": 8928.6,
+          "simulationTime": 1.816666666666665,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8950.19999999553,
+          "frameClock": 8945.2,
+          "simulationTime": 1.8333333333333317,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 8967.19999999553,
+          "frameClock": 8961.9,
+          "simulationTime": 1.8499999999999983,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 8983.39999999851,
+          "frameClock": 8978.6,
+          "simulationTime": 1.866666666666665,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 8999.19999999553,
+          "frameClock": 8995.2,
+          "simulationTime": 1.8833333333333315,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9015.5,
+          "frameClock": 9011.8,
+          "simulationTime": 1.8999999999999981,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 9033.09999999404,
+          "frameClock": 9028.5,
+          "simulationTime": 1.9166666666666647,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9049.39999999851,
+          "frameClock": 9045.2,
+          "simulationTime": 1.9333333333333313,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9066,
+          "frameClock": 9061.9,
+          "simulationTime": 1.949999999999998,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9081.69999999553,
+          "frameClock": 9078.5,
+          "simulationTime": 1.9666666666666646,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9100.39999999851,
+          "frameClock": 9095.2,
+          "simulationTime": 1.9833333333333312,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9116.19999999553,
+          "frameClock": 9111.8,
+          "simulationTime": 1.9999999999999978,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 9132.19999999553,
+          "frameClock": 9128.6,
+          "simulationTime": 2.0166666666666644,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9149.39999999851,
+          "frameClock": 9145.2,
+          "simulationTime": 2.033333333333331,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9166.79999999702,
+          "frameClock": 9161.9,
+          "simulationTime": 2.0499999999999976,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9184.09999999404,
+          "frameClock": 9178.5,
+          "simulationTime": 2.066666666666664,
+          "renderMs": 3.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 9202.29999999702,
+          "frameClock": 9195.2,
+          "simulationTime": 2.083333333333331,
+          "renderMs": 3.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9216.5,
+          "frameClock": 9211.9,
+          "simulationTime": 2.0999999999999974,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9233.39999999851,
+          "frameClock": 9228.5,
+          "simulationTime": 2.116666666666664,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9249.89999999851,
+          "frameClock": 9245.2,
+          "simulationTime": 2.1333333333333306,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9266.5,
+          "frameClock": 9261.9,
+          "simulationTime": 2.1499999999999972,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9282.69999999553,
+          "frameClock": 9278.5,
+          "simulationTime": 2.166666666666664,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9299,
+          "frameClock": 9295.2,
+          "simulationTime": 2.1833333333333305,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9316.89999999851,
+          "frameClock": 9311.8,
+          "simulationTime": 2.199999999999997,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9332.5,
+          "frameClock": 9328.6,
+          "simulationTime": 2.2166666666666637,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9350,
+          "frameClock": 9345.2,
+          "simulationTime": 2.2333333333333303,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 9365.79999999702,
+          "frameClock": 9361.9,
+          "simulationTime": 2.249999999999997,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9382.5,
+          "frameClock": 9378.5,
+          "simulationTime": 2.2666666666666635,
+          "renderMs": 2.4000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 9399,
+          "frameClock": 9395.2,
+          "simulationTime": 2.28333333333333,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 9415.19999999553,
+          "frameClock": 9411.9,
+          "simulationTime": 2.2999999999999967,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9432.09999999404,
+          "frameClock": 9428.5,
+          "simulationTime": 2.3166666666666633,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9448.39999999851,
+          "frameClock": 9445.2,
+          "simulationTime": 2.33333333333333,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9466.59999999404,
+          "frameClock": 9461.8,
+          "simulationTime": 2.3499999999999965,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9483,
+          "frameClock": 9478.5,
+          "simulationTime": 2.366666666666663,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9499.69999999553,
+          "frameClock": 9495.2,
+          "simulationTime": 2.3833333333333298,
+          "renderMs": 3.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9517.39999999851,
+          "frameClock": 9511.9,
+          "simulationTime": 2.3999999999999964,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9532.09999999404,
+          "frameClock": 9528.6,
+          "simulationTime": 2.416666666666663,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9549,
+          "frameClock": 9545.2,
+          "simulationTime": 2.4333333333333296,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9567,
+          "frameClock": 9561.8,
+          "simulationTime": 2.449999999999996,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 9583.09999999404,
+          "frameClock": 9578.5,
+          "simulationTime": 2.466666666666663,
+          "renderMs": 3.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 9599.89999999851,
+          "frameClock": 9595.1,
+          "simulationTime": 2.4833333333333294,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9616.5,
+          "frameClock": 9611.9,
+          "simulationTime": 2.499999999999996,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 9632.19999999553,
+          "frameClock": 9628.5,
+          "simulationTime": 2.5166666666666626,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9649.39999999851,
+          "frameClock": 9645.1,
+          "simulationTime": 2.533333333333329,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9667,
+          "frameClock": 9661.8,
+          "simulationTime": 2.549999999999996,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 9681.5,
+          "frameClock": 9678.6,
+          "simulationTime": 2.5666666666666624,
+          "renderMs": 2.4000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 9699.29999999702,
+          "frameClock": 9695.2,
+          "simulationTime": 2.583333333333329,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9716,
+          "frameClock": 9711.9,
+          "simulationTime": 2.5999999999999956,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9732.59999999404,
+          "frameClock": 9728.5,
+          "simulationTime": 2.6166666666666623,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9749.39999999851,
+          "frameClock": 9745.2,
+          "simulationTime": 2.633333333333329,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 9767,
+          "frameClock": 9761.9,
+          "simulationTime": 2.6499999999999955,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9782.29999999702,
+          "frameClock": 9778.5,
+          "simulationTime": 2.666666666666662,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9799.69999999553,
+          "frameClock": 9795.1,
+          "simulationTime": 2.6833333333333287,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9815.19999999553,
+          "frameClock": 9811.8,
+          "simulationTime": 2.6999999999999953,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 9833.59999999404,
+          "frameClock": 9828.5,
+          "simulationTime": 2.716666666666662,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 9848.59999999404,
+          "frameClock": 9845.2,
+          "simulationTime": 2.7333333333333285,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9866,
+          "frameClock": 9861.8,
+          "simulationTime": 2.749999999999995,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9882.69999999553,
+          "frameClock": 9878.5,
+          "simulationTime": 2.7666666666666617,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 9900.29999999702,
+          "frameClock": 9895.2,
+          "simulationTime": 2.7833333333333283,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9916.09999999404,
+          "frameClock": 9911.8,
+          "simulationTime": 2.799999999999995,
+          "renderMs": 2.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 9933.39999999851,
+          "frameClock": 9928.5,
+          "simulationTime": 2.8166666666666615,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 9949.09999999404,
+          "frameClock": 9945.2,
+          "simulationTime": 2.833333333333328,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 9967,
+          "frameClock": 9961.8,
+          "simulationTime": 2.8499999999999948,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 9983.5,
+          "frameClock": 9978.5,
+          "simulationTime": 2.8666666666666614,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 9999.09999999404,
+          "frameClock": 9995.2,
+          "simulationTime": 2.883333333333328,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10016.29999999702,
+          "frameClock": 10011.9,
+          "simulationTime": 2.8999999999999946,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10032.59999999404,
+          "frameClock": 10028.4,
+          "simulationTime": 2.916666666666661,
+          "renderMs": 2.2999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10049.29999999702,
+          "frameClock": 10045.1,
+          "simulationTime": 2.933333333333328,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10066.69999999553,
+          "frameClock": 10061.8,
+          "simulationTime": 2.9499999999999944,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10082.5,
+          "frameClock": 10078.5,
+          "simulationTime": 2.966666666666661,
+          "renderMs": 2.4000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 10099.09999999404,
+          "frameClock": 10095.1,
+          "simulationTime": 2.9833333333333276,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10114.89999999851,
+          "frameClock": 10111.8,
+          "simulationTime": 2.9999999999999942,
+          "renderMs": 2.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10132,
+          "frameClock": 10128.5,
+          "simulationTime": 3.016666666666661,
+          "renderMs": 2.3000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 10150.09999999404,
+          "frameClock": 10145.1,
+          "simulationTime": 3.0333333333333274,
+          "renderMs": 2.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 10167.29999999702,
+          "frameClock": 10161.8,
+          "simulationTime": 3.049999999999994,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10183,
+          "frameClock": 10178.5,
+          "simulationTime": 3.0666666666666607,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10199.79999999702,
+          "frameClock": 10195.2,
+          "simulationTime": 3.0833333333333273,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10216.79999999702,
+          "frameClock": 10211.8,
+          "simulationTime": 3.099999999999994,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10232.29999999702,
+          "frameClock": 10228.5,
+          "simulationTime": 3.1166666666666605,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10249,
+          "frameClock": 10245.1,
+          "simulationTime": 3.133333333333327,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10266.39999999851,
+          "frameClock": 10261.8,
+          "simulationTime": 3.1499999999999937,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10282.29999999702,
+          "frameClock": 10278.5,
+          "simulationTime": 3.1666666666666603,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10298.79999999702,
+          "frameClock": 10295.2,
+          "simulationTime": 3.183333333333327,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10316,
+          "frameClock": 10311.8,
+          "simulationTime": 3.1999999999999935,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 10332.39999999851,
+          "frameClock": 10328.5,
+          "simulationTime": 3.21666666666666,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10348.89999999851,
+          "frameClock": 10345.1,
+          "simulationTime": 3.2333333333333267,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10366,
+          "frameClock": 10361.8,
+          "simulationTime": 3.2499999999999933,
+          "renderMs": 2.4000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 10382.29999999702,
+          "frameClock": 10378.5,
+          "simulationTime": 3.26666666666666,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10399.59999999404,
+          "frameClock": 10395.1,
+          "simulationTime": 3.2833333333333266,
+          "renderMs": 3.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 10416.89999999851,
+          "frameClock": 10411.8,
+          "simulationTime": 3.299999999999993,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10433,
+          "frameClock": 10428.5,
+          "simulationTime": 3.3166666666666598,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 10448.79999999702,
+          "frameClock": 10445.2,
+          "simulationTime": 3.3333333333333264,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10467,
+          "frameClock": 10461.8,
+          "simulationTime": 3.349999999999993,
+          "renderMs": 2.5,
+          "decoys": 1
+        },
+        {
+          "time": 10482.29999999702,
+          "frameClock": 10478.4,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 10500.19999999553,
+          "frameClock": 10495.2,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10517.39999999851,
+          "frameClock": 10511.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10533.29999999702,
+          "frameClock": 10528.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10550,
+          "frameClock": 10545.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10565.5,
+          "frameClock": 10561.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 10582.59999999404,
+          "frameClock": 10578.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.5999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 10599.09999999404,
+          "frameClock": 10595.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 10618.09999999404,
+          "frameClock": 10611.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10632.39999999851,
+          "frameClock": 10628.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10648.69999999553,
+          "frameClock": 10645.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.7999999970197678,
+          "decoys": 1
+        },
+        {
+          "time": 10665.19999999553,
+          "frameClock": 10661.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10684,
+          "frameClock": 10678.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10699.79999999702,
+          "frameClock": 10695.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10716.29999999702,
+          "frameClock": 10711.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10733.09999999404,
+          "frameClock": 10728.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10749.59999999404,
+          "frameClock": 10745.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 10766.5,
+          "frameClock": 10761.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.4000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 10783.19999999553,
+          "frameClock": 10778.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 10799,
+          "frameClock": 10795.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 10816.29999999702,
+          "frameClock": 10811.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10833.59999999404,
+          "frameClock": 10828.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.5,
+          "decoys": 1
+        },
+        {
+          "time": 10850.09999999404,
+          "frameClock": 10845.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.1999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 10867.09999999404,
+          "frameClock": 10861.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 10882.39999999851,
+          "frameClock": 10878.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10900.89999999851,
+          "frameClock": 10895.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 10916.59999999404,
+          "frameClock": 10911.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 10934.19999999553,
+          "frameClock": 10928.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.399999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 10950.5,
+          "frameClock": 10945.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10966.89999999851,
+          "frameClock": 10961.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.2000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 10982.69999999553,
+          "frameClock": 10978.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.5,
+          "decoys": 1
+        },
+        {
+          "time": 11000.39999999851,
+          "frameClock": 10995.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11015.5,
+          "frameClock": 11011.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 11033.19999999553,
+          "frameClock": 11028.4,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 11048.89999999851,
+          "frameClock": 11045.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11066.79999999702,
+          "frameClock": 11061.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.100000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11083.69999999553,
+          "frameClock": 11078.4,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11100,
+          "frameClock": 11095.2,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 11116.89999999851,
+          "frameClock": 11111.7,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 11133,
+          "frameClock": 11128.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.8000000044703484,
+          "decoys": 1
+        },
+        {
+          "time": 11149.59999999404,
+          "frameClock": 11145.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3.0999999940395355,
+          "decoys": 1
+        },
+        {
+          "time": 11165.69999999553,
+          "frameClock": 11161.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 11182.5,
+          "frameClock": 11178.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.9000000059604645,
+          "decoys": 1
+        },
+        {
+          "time": 11200.59999999404,
+          "frameClock": 11195.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.6999999955296516,
+          "decoys": 1
+        },
+        {
+          "time": 11217.09999999404,
+          "frameClock": 11211.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 3,
+          "decoys": 1
+        },
+        {
+          "time": 11233.29999999702,
+          "frameClock": 11228.4,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11249.89999999851,
+          "frameClock": 11245.1,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.600000001490116,
+          "decoys": 1
+        },
+        {
+          "time": 11269.89999999851,
+          "frameClock": 11261.8,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.7000000029802322,
+          "decoys": 1
+        },
+        {
+          "time": 11285.09999999404,
+          "frameClock": 11278.5,
+          "simulationTime": 3.3666666666666596,
+          "renderMs": 2.899999998509884,
+          "decoys": 1
+        },
+        {
+          "time": 11309,
+          "frameClock": 11295.1,
+          "simulationTime": 0,
+          "renderMs": 11.700000002980232,
+          "decoys": 0
+        },
+        {
+          "time": 11317.19999999553,
+          "frameClock": 11311.7,
+          "simulationTime": 0,
+          "renderMs": 3.5,
+          "decoys": 0
+        },
+        {
+          "time": 11331.89999999851,
+          "frameClock": 11328.4,
+          "simulationTime": 0,
+          "renderMs": 2.8000000044703484,
+          "decoys": 0
+        }
+      ],
+      "pausedTtl": 1.2166666666666766
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Prepared encounter saves and a simulated standard gamepad in isolated installed Chrome.",
+    "Frame observations are bounded diagnostics, not sustained performance or physical Xbox qualification."
+  ]
+}

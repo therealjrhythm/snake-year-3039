@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "Actual mouse navigation and mouse/keyboard/mock-RB tabs: immediate strength 1, monotonic fade, source cleanup, no detached overlay; unchanged Settings stays stationary",
+    "Rapid tab changes clear the earlier pulse; inactive tabs have no lingering outline transition",
+    "App reduced motion disables confirmation and entrance tweens",
+    "OS reduced motion disables feedback and leaves no inline state",
+    "Dropdown choice applies immediately and discarded option leaves no lingering flash",
+    "390 × 844 narrow Settings remains inside viewport and feedback cleans up",
+    "Correct page identity, meaningful content, no Vite overlay, no browser errors/warnings"
+  ],
+  "errors": [],
+  "warnings": [],
+  "evidence": "/var/folders/kx/z4wc_9795p14lydy1_3b0sl80000gn/T/s39-menu-motion"
+}
