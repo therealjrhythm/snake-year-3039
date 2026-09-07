@@ -1,7 +1,9 @@
 import type { AchievementDefinition, CosmeticDefinition, Difficulty, DistrictDefinition, PickupKind, ThreatRoster, TrialDefinition } from './types';
 
-export const CONTENT_VERSION = '0.2.0-neon-spire';
+export const CONTENT_VERSION = '0.3.0-neon-spire';
+export const EXPANDED_CONTENT_VERSION = '0.2.0-neon-spire';
 export const LEGACY_CONTENT_VERSION = '0.1.0-neon-spire';
+export const SUPPORTED_CONTENT_VERSIONS: readonly string[] = [CONTENT_VERSION, EXPANDED_CONTENT_VERSION, LEGACY_CONTENT_VERSION];
 export const BLASTER = { ammo: 12, interval: 0.25, speed: 18, range: 10, coneHalfAngle: Math.PI / 6, projectileCap: 6, radius: 0.12 } as const;
 export const FIXED_DT = 1 / 60;
 export const MOVEMENT = { baseSpeed: 4.5, boostSpeed: 6.3, turnRate: Math.PI * 4 / 3, spacing: 0.55, headRadius: 0.32, bodyRadius: 0.28, neckExclusion: 1.1, startingLength: 8, endlessCap: 80 } as const;
@@ -43,7 +45,7 @@ export const DISTRICTS: DistrictDefinition[] = [
 
 const PICKUP_BASE: Record<PickupKind, { name: string; color: string; symbol: string; description: string; weight: number }> = {
   overdrive: { name: 'Overdrive', color: '#32eda0', symbol: '»', description: 'Boost uses half as much energy for 8 seconds.', weight: 20 },
-  shield: { name: 'Shield', color: '#40aaff', symbol: '◇', description: 'Blocks one enemy hit for up to 12 seconds. Crashes still end your run.', weight: 20 },
+  shield: { name: 'Shield', color: '#40aaff', symbol: '◇', description: 'Blocks one enemy hit for up to 12 seconds. Crashes still cost a life.', weight: 20 },
   surge: { name: 'Score Surge', color: '#ea39f5', symbol: '2×', description: 'Doubles points from energy cores and rival snakes for 15 seconds.', weight: 15 },
   emp: { name: 'EMP Pulse', color: '#20dfff', symbol: '◎', description: 'Stops nearby drones and laser beams for 3 seconds.', weight: 15 },
   magnet: { name: 'Magnet', color: '#a583ff', symbol: '∩', description: 'Pulls nearby energy cores toward your snake for 10 seconds.', weight: 10 },

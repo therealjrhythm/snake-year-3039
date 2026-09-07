@@ -1,0 +1,400 @@
+[
+  {
+    "width": 1920,
+    "height": 1248,
+    "geometry": [
+      {
+        "text": "CONTINUE RUN",
+        "x": 136.3125,
+        "y": 547.46875,
+        "width": 365,
+        "height": 59,
+        "bottom": 606.46875
+      },
+      {
+        "text": "START GAME",
+        "x": 136.3125,
+        "y": 618.46875,
+        "width": 365,
+        "height": 59,
+        "bottom": 677.46875
+      },
+      {
+        "text": "POWERUP LAB",
+        "x": 136.3125,
+        "y": 689.46875,
+        "width": 365,
+        "height": 59,
+        "bottom": 748.46875
+      },
+      {
+        "text": "CUSTOMIZE SNAKE",
+        "x": 136.3125,
+        "y": 760.46875,
+        "width": 365,
+        "height": 59,
+        "bottom": 819.46875
+      },
+      {
+        "text": "SETTINGS",
+        "x": 136.3125,
+        "y": 831.46875,
+        "width": 365,
+        "height": 59,
+        "bottom": 890.46875
+      },
+      {
+        "text": "HOW TO PLAY",
+        "x": 136.3125,
+        "y": 902.46875,
+        "width": 365,
+        "height": 59,
+        "bottom": 961.46875
+      }
+    ],
+    "center": {
+      "x": 592.5,
+      "y": 276.53125,
+      "width": 735,
+      "height": 694.9375
+    },
+    "focus": {
+      "outline": "rgb(39, 243, 255)",
+      "box": "rgba(9, 207, 255, 0.4) 0px 0px 14px 0px inset, rgba(18, 207, 255, 0.4) 0px 0px 16px 0px"
+    },
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "height": 900,
+    "geometry": [
+      {
+        "text": "CONTINUE RUN",
+        "x": 102.234375,
+        "y": 315.203125,
+        "width": 352,
+        "height": 51,
+        "bottom": 366.203125
+      },
+      {
+        "text": "START GAME",
+        "x": 102.234375,
+        "y": 375.203125,
+        "width": 352,
+        "height": 51,
+        "bottom": 426.203125
+      },
+      {
+        "text": "POWERUP LAB",
+        "x": 102.234375,
+        "y": 435.203125,
+        "width": 352,
+        "height": 51,
+        "bottom": 486.203125
+      },
+      {
+        "text": "CUSTOMIZE SNAKE",
+        "x": 102.234375,
+        "y": 495.203125,
+        "width": 352,
+        "height": 51,
+        "bottom": 546.203125
+      },
+      {
+        "text": "SETTINGS",
+        "x": 102.234375,
+        "y": 555.203125,
+        "width": 352,
+        "height": 51,
+        "bottom": 606.203125
+      },
+      {
+        "text": "HOW TO PLAY",
+        "x": 102.234375,
+        "y": 615.203125,
+        "width": 352,
+        "height": 51,
+        "bottom": 666.203125
+      }
+    ],
+    "center": {
+      "x": 352.5,
+      "y": 102.53125,
+      "width": 735,
+      "height": 694.9375
+    },
+    "focus": {
+      "outline": "rgb(39, 243, 255)",
+      "box": "rgba(9, 207, 255, 0.4) 0px 0px 14px 0px inset, rgba(18, 207, 255, 0.4) 0px 0px 16px 0px"
+    },
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "height": 720,
+    "geometry": [
+      {
+        "text": "CONTINUE RUN",
+        "x": 90.875,
+        "y": 241.921875,
+        "width": 352,
+        "height": 45,
+        "bottom": 286.921875
+      },
+      {
+        "text": "START GAME",
+        "x": 90.875,
+        "y": 293.921875,
+        "width": 352,
+        "height": 45,
+        "bottom": 338.921875
+      },
+      {
+        "text": "POWERUP LAB",
+        "x": 90.875,
+        "y": 345.921875,
+        "width": 352,
+        "height": 45,
+        "bottom": 390.921875
+      },
+      {
+        "text": "CUSTOMIZE SNAKE",
+        "x": 90.875,
+        "y": 397.921875,
+        "width": 352,
+        "height": 45,
+        "bottom": 442.921875
+      },
+      {
+        "text": "SETTINGS",
+        "x": 90.875,
+        "y": 449.921875,
+        "width": 352,
+        "height": 45,
+        "bottom": 494.921875
+      },
+      {
+        "text": "HOW TO PLAY",
+        "x": 90.875,
+        "y": 501.921875,
+        "width": 352,
+        "height": 45,
+        "bottom": 546.921875
+      }
+    ],
+    "center": {
+      "x": 272.5,
+      "y": 36,
+      "width": 735,
+      "height": 648
+    },
+    "focus": {
+      "outline": "rgb(39, 243, 255)",
+      "box": "rgba(9, 207, 255, 0.4) 0px 0px 14px 0px inset, rgba(18, 207, 255, 0.4) 0px 0px 16px 0px"
+    },
+    "errors": []
+  },
+  {
+    "width": 960,
+    "height": 540,
+    "geometry": [
+      {
+        "text": "CONTINUE RUN",
+        "x": 57.59375,
+        "y": 212.0625,
+        "width": 248,
+        "height": 44,
+        "bottom": 256.0625
+      },
+      {
+        "text": "START GAME",
+        "x": 313.59375,
+        "y": 212.0625,
+        "width": 248,
+        "height": 44,
+        "bottom": 256.0625
+      },
+      {
+        "text": "POWERUP LAB",
+        "x": 57.59375,
+        "y": 264.0625,
+        "width": 248,
+        "height": 44,
+        "bottom": 308.0625
+      },
+      {
+        "text": "CUSTOMIZE SNAKE",
+        "x": 313.59375,
+        "y": 264.0625,
+        "width": 248,
+        "height": 44,
+        "bottom": 308.0625
+      },
+      {
+        "text": "SETTINGS",
+        "x": 57.59375,
+        "y": 316.0625,
+        "width": 248,
+        "height": 44,
+        "bottom": 360.0625
+      },
+      {
+        "text": "HOW TO PLAY",
+        "x": 313.59375,
+        "y": 316.0625,
+        "width": 248,
+        "height": 44,
+        "bottom": 360.0625
+      }
+    ],
+    "center": {
+      "x": 112.5,
+      "y": 27,
+      "width": 735,
+      "height": 486
+    },
+    "focus": {
+      "outline": "rgb(39, 243, 255)",
+      "box": "rgba(9, 207, 255, 0.4) 0px 0px 14px 0px inset, rgba(18, 207, 255, 0.4) 0px 0px 16px 0px"
+    },
+    "errors": []
+  },
+  {
+    "width": 375,
+    "height": 1020,
+    "geometry": [
+      {
+        "text": "CONTINUE RUN",
+        "x": 30,
+        "y": 324.375,
+        "width": 299,
+        "height": 51,
+        "bottom": 375.375
+      },
+      {
+        "text": "START GAME",
+        "x": 30,
+        "y": 384.375,
+        "width": 299,
+        "height": 51,
+        "bottom": 435.375
+      },
+      {
+        "text": "POWERUP LAB",
+        "x": 30,
+        "y": 444.375,
+        "width": 299,
+        "height": 51,
+        "bottom": 495.375
+      },
+      {
+        "text": "CUSTOMIZE SNAKE",
+        "x": 30,
+        "y": 504.375,
+        "width": 299,
+        "height": 51,
+        "bottom": 555.375
+      },
+      {
+        "text": "SETTINGS",
+        "x": 30,
+        "y": 564.375,
+        "width": 299,
+        "height": 51,
+        "bottom": 615.375
+      },
+      {
+        "text": "HOW TO PLAY",
+        "x": 30,
+        "y": 624.375,
+        "width": 299,
+        "height": 51,
+        "bottom": 675.375
+      }
+    ],
+    "center": {
+      "x": 11.25,
+      "y": 160.1875,
+      "width": 352.5,
+      "height": 699.625
+    },
+    "focus": {
+      "outline": "rgb(39, 243, 255)",
+      "box": "rgba(9, 207, 255, 0.4) 0px 0px 14px 0px inset, rgba(18, 207, 255, 0.4) 0px 0px 16px 0px"
+    },
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "geometry": [
+      {
+        "text": "CONTINUE RUN",
+        "x": 31.1875,
+        "y": 303.25,
+        "width": 311.59375,
+        "height": 51,
+        "bottom": 354.25
+      },
+      {
+        "text": "START GAME",
+        "x": 31.1875,
+        "y": 363.25,
+        "width": 311.59375,
+        "height": 51,
+        "bottom": 414.25
+      },
+      {
+        "text": "POWERUP LAB",
+        "x": 31.1875,
+        "y": 423.25,
+        "width": 311.59375,
+        "height": 51,
+        "bottom": 474.25
+      },
+      {
+        "text": "CUSTOMIZE SNAKE",
+        "x": 31.1875,
+        "y": 483.25,
+        "width": 311.59375,
+        "height": 51,
+        "bottom": 534.25
+      },
+      {
+        "text": "SETTINGS",
+        "x": 31.1875,
+        "y": 543.25,
+        "width": 311.59375,
+        "height": 51,
+        "bottom": 594.25
+      },
+      {
+        "text": "HOW TO PLAY",
+        "x": 31.1875,
+        "y": 603.25,
+        "width": 311.59375,
+        "height": 51,
+        "bottom": 654.25
+      }
+    ],
+    "center": {
+      "x": 11.6875,
+      "y": 72.1875,
+      "width": 366.625,
+      "height": 699.625
+    },
+    "focus": {
+      "outline": "rgb(39, 243, 255)",
+      "box": "rgba(9, 207, 255, 0.4) 0px 0px 14px 0px inset, rgba(18, 207, 255, 0.4) 0px 0px 16px 0px"
+    },
+    "errors": []
+  },
+  {
+    "motion": "GSAP entry and one confirmation pulse; OS and app reduced motion respected",
+    "entry": {
+      "opacity": "0.8138",
+      "transform": "matrix(1, 0, 0, 1, 0, 6.5168)"
+    },
+    "errors": []
+  }
+]

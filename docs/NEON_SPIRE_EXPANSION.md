@@ -2,7 +2,9 @@
 
 Approved by the owner on September 6, 2026. This supplements the untouched PRD v2.0 source package and changes its first-district teaching defaults, adds optional shooting and four pickups, adds free glow selection, and expands Neon Spire. It does not remove the remaining four districts, five total finales, fifteen waves/228 campaign cores, four release modes, twelve Trials, six earned liveries/trails, twelve achievements, full Workshop, ending, accessibility or reliability requirements.
 
-## Next playable update
+The [September 6 combat and interface revision](NEON_SPIRE_COMBAT_REFRESH.md) supersedes the single-attempt and optional-pad boss rules for new 0.3 runs. The sections below retain the original 0.2 expansion contract as history and compatibility guidance.
+
+## Original 0.2 playable update
 
 - New Neon Spire attempts use a shared versioned 36 × 26 layout. Existing saves retain their legacy 32 × 24 layout and rules; never rescale a saved head/body path. Keep 4.5/6.3 movement, bounded steering, twelve-core quotas, existing integrity, head-only attack damage and fatal solid/self/rival crashes.
 - Keep the progression three collection waves → Warden finale → extraction. Wave 3 is labeled Hunter encounter. Separate relay charge from remaining armor nodes; highlight only the next valid relay and explain out-of-order contact. Show inactive/charged-waiting/ready pad states. Add relay 1/2/3, charge-ready, warning, recovery, discharge/node-break and defeat sounds, energy links, prominent Warden geometry and contextual paused help. Extraction replaces obsolete boss prompts.

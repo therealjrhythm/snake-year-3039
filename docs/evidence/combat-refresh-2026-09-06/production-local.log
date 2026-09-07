@@ -1,0 +1,11 @@
+PASS HTTP 200, intended title, compiled production assets, fonts, nonblank WebGL scene and no framework overlay
+PASS Keyboard opens the full-size title Lab directly and Escape returns focus to its title entry
+PASS Eight glow choices, live one-canvas rotate/zoom preview and Apply persistence through reload
+PASS All twelve Lab powers load distinct game-model images; effect/use instructions and illustrated Warden laser guide explain combat
+PASS Normal fresh campaign countdown, forward motion, first collected core, body growth and keyboard pause
+PASS Paused guide exposes all twelve powers, keyboard firing and Warden laser combat without advancing gameplay
+PASS All six title actions including Continue Run and full-size Lab fit at 1280 × 720, 960 × 540 and 375 × 1020
+PASS Narrow title is contained at 390 × 844 (touch gameplay remains outside target)
+PASS Narrow Lab images and instructions wrap without horizontal clipping; practice action stays reachable
+PASS No failed deployment assets or browser runtime errors
+Evidence: /tmp/s39-combat-production-local

@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-07T04:05:30.220Z",
+  "target": "http://127.0.0.1:3039/",
+  "browser": "152.0.7977.77",
+  "checks": [
+    "Each real Difficulty choice creates the intended health/rules profile and three-life run",
+    "Full-size briefing Practice action uses its selected rules without creating records; duplicate Lab link is removed",
+    "Prepared wave-2 wall approach loses exactly one life; dead-state autosave reloads into the frozen life menu with two lives",
+    "Real Retry restores exact wave-entry score, equipment and body with the same identity; countdown suppresses held Fire until release and pause freezes state",
+    "Three actual wall deaths end one run exactly once; no checkpoint bypass remains, and replay begins Wave 1 with a new identity and three lives",
+    "Prepared Warden approach uses actual sphere contact and held F: no precharge fire, immediate exposure outside recovery, three no-ammo laser hits and one armor break with truthful HUD/guide",
+    "Prepared Warden attack shows incoming-fire HUD and three warning rays before emitting actual shots on those locked trajectories",
+    "Earlier 0.2 saves display a Continue notice and retain one life, finite ammunition, hybrid pad guidance and original rules",
+    "No uncaught browser or console errors in the actual App integration"
+  ],
+  "errors": [],
+  "warnings": [],
+  "evidence": [
+    "life-lost-wave-2.png",
+    "laser-warden-guide.png",
+    "warden-counterfire-warning.png"
+  ],
+  "failure": null,
+  "limitations": [
+    "Browser plugin not available; isolated installed Chrome with Low graphics and reduced motion.",
+    "Actual App mouse/keyboard actions plus clearly prepared wave/boss saves and read-only state observers.",
+    "No ordinary full campaign clear, physical Xbox acceptance or sustained performance measurement is claimed.",
+    "The owner browser, saves and records are never touched."
+  ]
+}

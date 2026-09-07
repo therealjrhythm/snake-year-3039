@@ -420,6 +420,7 @@ describe('determinism, snapshots and spawn safety', () => {
   it('same seeds and observed controls produce the same simulation and director', () => {
     const first = new Simulation({ seed: 4482 }); const second = new Simulation({ seed: 4482 });
     second.state.runId = first.state.runId;
+    second.state.retryCheckpoint!.runId = first.state.runId;
     for (let frame = 0; frame < 240; frame++) {
       const controls = frame < 120 ? input({ x: 0, y: -1 }) : input({ x: 1, y: 0 });
       first.step(FIXED_DT, controls); second.step(FIXED_DT, controls);

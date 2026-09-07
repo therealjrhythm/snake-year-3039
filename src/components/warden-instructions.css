@@ -1,0 +1,4 @@
+.warden-combat-visual svg { display: block; width: 100%; height: auto; max-width: 240px; margin: auto; }
+.laser-instructions .warden-route { align-items: center; }
+.laser-instructions li kbd { color: #eaa5ff; border-color: #bc5df0; }
+.laser-instructions .warden-shooting { border-color: #7943a4; }

@@ -59,7 +59,7 @@ try {
       const blocked = ['.hud-objective', '.hud-score', '.hud-resources', '.hud-tactics'].filter(selector => { const b = document.querySelector(selector).getBoundingClientRect(), rectangle = [{x:b.left,y:b.top},{x:b.right,y:b.top},{x:b.right,y:b.bottom},{x:b.left,y:b.bottom}]; return ordered.some(p => inside(p,rectangle)) || rectangle.some(p => inside(p,ordered)) || ordered.some((p,i) => rectangle.some((q,j) => crossed(p,ordered[(i+1)%4],q,rectangle[(j+1)%4]))); });
       return { blocked, bounds: { left: Math.min(...projected.map(p => p.x)), right: Math.max(...projected.map(p => p.x)), top: Math.min(...projected.map(p => p.y)), bottom: Math.max(...projected.map(p => p.y)) }, safe: { top, bottom }, distance: r.camera.position.length(), floor: [r.reflector.scale.x, r.reflector.scale.y] };
     };
-    f.boss = () => { state.status = 'boss'; state.boss = { id: 'B1', nodes: 3, charge: 0, phase: 'safe', phaseTime: 3, relays: layout.boss.relayCandidates.map((p, i) => ({ id: `relay-${i + 1}`, ...p, number: i + 1 })), pad: { ...layout.boss.pad }, cycle: 0, relayRetry: 0, relayBlockedTime: 0, stage: 'collecting-relays', receptor: { ...layout.boss.receptor }, receptorHits: 0, relayFeedbackCooldown: 0 }; };
+    f.boss = (version = '0.3.0-neon-spire') => { state.contentVersion = version; state.status = 'boss'; state.boss = { id: 'B1', nodes: 3, charge: 0, phase: 'safe', phaseTime: 3, relays: layout.boss.relayCandidates.map((p, i) => ({ id: `relay-${i + 1}`, ...p, number: i + 1 })), pad: { ...layout.boss.pad }, cycle: 0, relayRetry: 0, relayBlockedTime: 0, stage: 'collecting-relays', receptor: { ...layout.boss.receptor }, receptorHits: 0, relayFeedbackCooldown: 0, volley: null }; };
     window.__expansion = f; await loaded;
   });
   for (const [width, height] of [[1280, 720], [1440, 900], [1680, 720]]) for (const uiScale of [.8, 1.5]) for (const mode of ['wave', 'boss']) {
@@ -91,7 +91,7 @@ try {
       await f.hud(); r.resize();
       for (const quality of ['low', 'medium']) for (const [index, preset] of f.appearance.GLOW_PRESETS.entries()) {
         r.setSettings({ quality, bloom: quality === 'low' ? 0 : .45, reducedMotion: true, uiScale }); r.setAppearance(preset.id); f.draw();
-        rows.push({ width, height, uiScale, quality, glow: preset.id, selected: preset.color, body: `#${r.player.signature.emissive.getHexString()}`, head: `#${r.player.headSignature.emissive.getHexString()}`, ports: `#${r.player.ports.material.emissive.getHexString()}`, marker: `#${r.objects.get('player-marker:head').getObjectByName('head-marker').material.color.getHexString()}`, previewHead: `#${r.titleSnake.headSignature.emissive.getHexString()}`, hostile: `#${r.rivalModels.get('hunter').signature.emissive.getHexString()}` });
+        rows.push({ width, height, uiScale, quality, glow: preset.id, selected: preset.color, body: `#${r.player.signature.emissive.getHexString()}`, head: `#${r.player.headSignature.emissive.getHexString()}`, ports: `#${r.player.ports.material.emissive.getHexString()}`, marker: `#${r.objects.get('player-marker:head').getObjectByName('head-marker').material.color.getHexString()}`, previewHead: `#${r.titleSnake.headSignature.emissive.getHexString()}`, halo: { visible: r.player.group.getObjectByName('player-color-halo').visible, instances: r.player.group.getObjectByName('player-color-halo').count, depthWrite: r.player.group.getObjectByName('player-color-halo').material.depthWrite }, laserColor: `#${r.objects.get('player-projectile:friendly-bolt').children[0].material.color.getHexString()}`, hostile: `#${r.rivalModels.get('hunter').signature.emissive.getHexString()}` });
         if (width === 1280 && uiScale === 1.5) {
           // Copy the just-rendered player region immediately, before WebGL clears
           // its drawing buffer. These are native scene crops, not a second model.
@@ -109,7 +109,7 @@ try {
     }, { width, height, uiScale });
     glow.push(...rows);
   }
-  assert.equal(glow.length, 96); for (const row of glow) { assert.equal(row.body, row.selected); assert.equal(row.head, row.selected); assert.equal(row.ports, row.selected); assert.equal(row.marker, row.selected); assert.equal(row.previewHead, row.selected); assert.equal(row.hostile, '#ff426f'); }
+  assert.equal(glow.length, 96); for (const row of glow) { assert.equal(row.body, row.selected); assert.equal(row.head, row.selected); assert.equal(row.ports, row.selected); assert.equal(row.marker, row.selected); assert.equal(row.previewHead, row.selected); assert.equal(row.hostile, '#ff426f'); assert.equal(row.laserColor, row.selected); assert.equal(row.halo.visible, true); assert.equal(row.halo.instances, 21); assert.equal(row.halo.depthWrite, false); }
   const glowSheet = path.join(outputDir, 'glow-contact-sheet-1280-ui150.png');
   const glowSheetData = await page.evaluate(() => window.__expansion.glowSheet.toDataURL('image/png').split(',')[1]);
   await writeFile(glowSheet, Buffer.from(glowSheetData, 'base64')); captures.push(glowSheet);
@@ -127,7 +127,7 @@ try {
     const resources = document.querySelector('.hud-resources'), bounds = rect(resources);
     const bonuses = [...document.querySelectorAll('.active-buffs>div')].map(element => {
       const duration = element.querySelector('b'), name = element.querySelector('strong'), description = element.querySelector('small');
-      return { name: name.textContent, duration: duration.textContent, fontSize: parseFloat(getComputedStyle(duration).fontSize), rect: rect(element), durationRect: rect(duration), description: description.textContent, clipped: element.scrollWidth > element.clientWidth + 1 || duration.scrollWidth > duration.clientWidth + 1, nameFont: parseFloat(getComputedStyle(name).fontSize) };
+      return { name: name.textContent, duration: duration.textContent, fontSize: parseFloat(getComputedStyle(duration).fontSize), rect: rect(element), durationRect: rect(duration), description: description.textContent, accessible: element.getAttribute('aria-label'), title: element.title, clipped: element.scrollWidth > element.clientWidth + 1 || duration.scrollWidth > duration.clientWidth + 1, nameFont: parseFloat(getComputedStyle(name).fontSize) };
     });
     return { viewport: [innerWidth, innerHeight], uiScale: 1.5, panels, overlapping, resources: bounds, bonuses, camera: f.measure() };
   });
@@ -135,21 +135,36 @@ try {
   assert.equal(sixBuffs.bonuses.length, 6); assert.deepEqual(sixBuffs.overlapping, []); assert.deepEqual(sixBuffs.camera.blocked, []);
   for (const panel of sixBuffs.panels) assert.ok(panel.left >= 0 && panel.top >= 0 && panel.right <= 1280 && panel.bottom <= 720, `HUD panel fits: ${panel.selector}`);
   assert.deepEqual(sixBuffs.bonuses.map(value => value.duration), ['8s', '12s', '15s', '10s', '8s', '10s']);
-  for (const bonus of sixBuffs.bonuses) { assert.ok(bonus.fontSize >= 16, `Readable duration for ${bonus.name}`); assert.equal(bonus.clipped, false); assert.ok(bonus.rect.top >= sixBuffs.resources.top && bonus.rect.bottom <= sixBuffs.resources.bottom && bonus.durationRect.right <= sixBuffs.resources.right, `Bonus fits resources: ${bonus.name}`); }
-  checks.push('Six simultaneous timed buffs at1280×720 UI150: all names/effects/durations present, durations at least16px, no clipping, HUD overlap or covered travel lanes');
+  for (const bonus of sixBuffs.bonuses) { assert.ok(bonus.fontSize >= 16, `Readable duration for ${bonus.name}`); assert.equal(bonus.clipped, false); assert.ok(bonus.accessible.includes(bonus.description)); assert.ok(bonus.title.includes(bonus.description)); assert.ok(bonus.rect.top >= sixBuffs.resources.top && bonus.rect.bottom <= sixBuffs.resources.bottom && bonus.durationRect.right <= sixBuffs.resources.right, `Bonus fits resources: ${bonus.name}`); }
+  checks.push('Six compact timed buffs at1280×720 UI150: names and timers visible, durations at least16px, effects accessible, no clipping, HUD overlap or covered travel lanes');
+  const cameraStability = await page.evaluate(async () => {
+    const f = window.__expansion, r = f.renderer, s = f.sim.state;
+    const matrix = () => JSON.stringify({ position: r.camera.position.toArray(), projection: r.camera.projectionMatrix.toArray(), world: r.camera.matrixWorld.toArray() });
+    const before = matrix(), rows = [];
+    for (const populated of [false, true, false, true]) {
+      for (const key of Object.keys(s.buffs)) s.buffs[key] = populated ? 6 : 0;
+      s.slots = populated ? [true, true] : [false, false]; s.combo = populated ? 4 : 1;
+      s.weapon.ammo = populated ? 12 : 0;
+      s.events = populated ? [{ id: 500, kind: 'damage', text: 'Hit', time: s.time - .1, origin: { x: s.player.x, z: s.player.z } }, { id: 501, kind: 'pickup', text: 'EMP ready', time: s.time, origin: { x: s.player.x, z: s.player.z } }] : [];
+      await f.hud(); f.draw(); rows.push({ populated, unchanged: before === matrix(), resourcesHeight: document.querySelector('.hud-resources').getBoundingClientRect().height, camera: f.measure() });
+    }
+    s.events = []; s.combo = 1; s.slots = [false, false]; return rows;
+  });
+  for (const row of cameraStability) { assert.equal(row.unchanged, true, 'Pickup/buff/slot/combo/hit/ammo changes must never shift the camera'); assert.deepEqual(row.camera.blocked, []); }
+  checks.push('Identical camera matrices across acquiring and expiring six buffs, EMP/Decoy, combo, hit feedback and weapon ammunition');
   await page.evaluate(() => { const s = window.__expansion.sim.state; for (const key of Object.keys(s.buffs)) s.buffs[key] = 0; });
   await page.setViewportSize({ width: 1280, height: 720 });
   const identities = await page.evaluate(async () => {
     const f = window.__expansion, r = f.renderer, s = f.sim.state;
     document.getElementById('app').style.setProperty('--ui-scale', '1'); s.status = 'playing'; s.boss = null;
     s.pickups = Object.keys(f.PICKUPS).map((kind, i) => ({ id: kind, kind, x: -13 + (i % 4) * 8.6, z: -9 + Math.floor(i / 4) * 8, ttl: 15 }));
-    await f.hud(); r.setAppearance('cyan'); r.resize(); f.draw();
+    await f.hud(); r.setAppearance('cyan'); r.resize(); r.setSettings({ quality: 'medium', bloom: .45, reducedMotion: true, uiScale: 1 }); f.draw();
     return s.pickups.map(p => { const g = r.objects.get(`pickup:${p.id}`), shape = g.getObjectByName(`pickup-shape-${p.kind}`); return { kind: p.kind, name: g.name, shape: shape.children.map(mesh => [mesh.geometry.type, mesh.geometry.parameters, mesh.position.toArray(), mesh.scale.toArray(), mesh.rotation.toArray()]) }; });
   });
   assert.equal(identities.length, 12); assert.equal(new Set(identities.map(value => JSON.stringify(value.shape))).size, 12);
   const pickupFile = path.join(outputDir, 'twelve-pickups-1280.png'); await page.screenshot({ path: pickupFile }); captures.push(pickupFile); checks.push('Twelve canonical pickups have distinct geometric identities');
   const boss = await page.evaluate(async () => {
-    const f = window.__expansion, r = f.renderer, s = f.sim.state; s.pickups = []; f.boss(); await f.hud(); f.draw();
+    const f = window.__expansion, r = f.renderer, s = f.sim.state; s.pickups = []; f.boss('0.2.0-neon-spire'); await f.hud(); f.draw();
     const rows = [];
     const measure = () => ({ stage: s.boss.stage, pad: r.objects.get('pad:pad')?.userData.state, next: [...r.objects].filter(([key, group]) => key.startsWith('relay:') && group.userData.next).map(([key]) => key), nodes: r.bossNodes.filter(node => node.visible).length, receptor: r.objects.get('receptor:warden-receptor')?.userData.exposed });
     rows.push(measure()); s.boss.charge = 1; s.boss.relays.shift(); f.draw(); rows.push(measure());
@@ -169,6 +184,27 @@ try {
   const extraction = await page.evaluate(() => { const f = window.__expansion; f.sim.state.status = 'extraction'; f.sim.state.boss.nodes = 0; f.draw(); return { sentinel: f.renderer.sentinel.visible, pad: f.renderer.objects.has('pad:pad'), receptor: f.renderer.objects.has('receptor:warden-receptor'), relay: [...f.renderer.objects.keys()].some(key => key.startsWith('relay:')), exit: f.renderer.objects.has('exit:exit') }; });
   assert.deepEqual(extraction, { sentinel: false, pad: false, receptor: false, relay: false, exit: true });
   checks.push('Ordered relays, truthful pad, receptor exposure, node beam, exact3u Scrubber, paused effects, projectile ownership and extraction cleanup');
+  const laserBoss = await page.evaluate(async () => {
+    const f = window.__expansion, r = f.renderer, s = f.sim.state; f.boss(); s.events = []; s.contentVersion = '0.3.0-neon-spire';
+    r.setAppearance('violet'); await f.hud(); f.draw();
+    const spheres = [...r.objects].filter(([key]) => key.startsWith('relay:')).map(([, group]) => group.children[0].geometry.type);
+    const noPad = !r.objects.has('pad:pad');
+    s.boss.charge = 3; s.boss.relays = []; s.boss.phase = 'warning'; s.boss.stage = 'exposed';
+    s.boss.volley = { origin: { ...s.boss.receptor }, targets: [{ x: -6, z: 14 }, { x: 0, z: 14 }, { x: 6, z: 14 }], remaining: 1.2 };
+    await f.hud(); f.draw();
+    const warning = [...r.objects].filter(([key]) => key.startsWith('warden-aim:'));
+    const exposedDuringWarning = r.objects.get('receptor:warden-receptor').userData.exposed;
+    const warningSegments = warning.map(([, group]) => group.getObjectByName('locked-shot-warning').geometry.attributes.position.count);
+    const before = JSON.stringify(s); f.draw(); const rendererPure = before === JSON.stringify(s);
+    return { noPad, spheres, exposedDuringWarning, rays: warning.length, warningSegments, rendererPure, laser: r.objects.get('player-projectile:friendly-bolt').children[0].material.color.getHexString(), haloDraws: r.player.group.children.filter(child => child.name === 'player-color-halo').length };
+  });
+  assert.equal(laserBoss.noPad, true); assert.deepEqual(laserBoss.spheres, ['SphereGeometry', 'SphereGeometry', 'SphereGeometry']);
+  assert.equal(laserBoss.exposedDuringWarning, true); assert.equal(laserBoss.rays, 3); assert.ok(laserBoss.warningSegments.every(count => count > 0));
+  assert.equal(laserBoss.rendererPure, true); assert.equal(laserBoss.laser, '982dff'); assert.equal(laserBoss.haloDraws, 1);
+  const laserBossFile = path.join(outputDir, 'warden-laser-volley-1280.png'); await page.screenshot({ path: laserBossFile }); captures.push(laserBossFile);
+  await page.evaluate(() => { const f = window.__expansion; f.sim.state.boss.volley = null; f.draw(); });
+  assert.equal(await page.evaluate(() => [...window.__expansion.renderer.objects.keys()].some(key => key.startsWith('warden-aim:'))), false);
+  checks.push('New Warden spheres, charged laser exposure, no old pad, three clipped orange aim warnings, selected-color shots, warning cleanup and bounded per-snake halo draw');
   const preview = await page.evaluate(async () => {
     const f = window.__expansion, r = f.renderer; const canvas = r.renderer.domElement, before = JSON.stringify(f.sim.state);
     await f.mount(f.React.createElement(f.CustomizeSnake, { initial: 'gold', onPreview(glow, rotation, zoom) { r.setAppearance(glow); r.setPreview({ rotation, zoom }); }, onApply() {}, onClose() {} }));
@@ -187,7 +223,7 @@ try {
   assert.deepEqual(legacy.floor, [32, 24]); assert.equal(legacy.gate, -12);
   checks.push('Actual 3D customizer reuses canvas; rotate/zoom work; restoration and legacy32×24 floor/exit checked');
   await page.evaluate(() => { window.__expansion.root.unmount(); window.__expansion.renderer.dispose(); }); assert.equal(await page.locator('canvas').count(), 0); assert.deepEqual(errors, []);
-  const report = { date: new Date().toISOString(), browser: browser.version(), checks, camera, glow, sixBuffs, identities: identities.map(value => ({ kind: value.kind, name: value.name })), boss, preview, restored, legacy, captures, errors, limitation: 'Frozen, explicitly arranged fixture using actual HUD, customization and renderer. State checks are not campaign completion, collision/balance validation, physical Xbox acceptance, owner visual approval, listening review or a full-machine performance benchmark.' };
+  const report = { date: new Date().toISOString(), browser: browser.version(), checks, camera, cameraStability, glow, sixBuffs, laserBoss, identities: identities.map(value => ({ kind: value.kind, name: value.name })), boss, preview, restored, legacy, captures, errors, limitation: 'Frozen, explicitly arranged fixture using actual HUD, customization and renderer. State checks are not campaign completion, collision/balance validation, physical Xbox acceptance, owner visual approval, listening review or a full-machine performance benchmark.' };
   await writeFile(path.join(outputDir, 'report.json'), JSON.stringify(report, null, 2)); console.log(JSON.stringify(report, null, 2));
 } catch (error) {
   const diagnostics = { message: String(error), errors, html: await page.locator('body').innerHTML().catch(() => '<unavailable>') };

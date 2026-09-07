@@ -41,17 +41,18 @@ node scripts/verify-runtime.mjs
 node scripts/verify-render-performance.mjs
 node scripts/verify-expansion.mjs
 node scripts/verify-expansion-render.mjs
+node scripts/verify-combat-update.mjs
 ```
 
 Run these scripts sequentially. They accept a different local URL as their first argument. Controller/platform checks use mocked standard gamepads in isolated browser contexts; audio uses a real Web Audio graph and enemy captures use explicit frozen fixtures.
 
-Fresh input-only simulation traces and a timing-sensitive rendered keyboard replay are documented separately in the handoff. Reproduce a successful pure trace with `node scripts/probe-ordinary-run.mjs --replay docs/evidence/ordinary-standard-3039-keyboard.json`. `node scripts/verify-ordinary-keyboard.mjs` exercises the actual App with keyboard events; its retained failed clear is not hidden by fixture results. Neither method is physical-controller or human acceptance.
+Historical 0.2 input-only simulation traces and a timing-sensitive rendered keyboard replay are documented separately in the handoff. Reproduce a successful pure trace with `node scripts/probe-ordinary-run.mjs --replay docs/evidence/ordinary-standard-3039-keyboard.json`. `node scripts/verify-ordinary-keyboard.mjs` requires a matching-version trace/build and exercises the actual App with keyboard events; its retained failed clear is not hidden by fixture results. Neither method is physical-controller or human acceptance.
 
 ## Current implementation checkpoint
 
-Version **0.2.0** expands Neon Spire to 36 × 26 with twelve campaign powerups, recurring EMP/Decoy opportunities, temporary forward-aim blaster combat, clearer Warden relays/armor/pad states, eight free body glows, a Practice Powerup Lab and same-seed replay. Existing 0.1 saves keep their exact original geometry, body path and rules; records are separated by content version.
+Version **0.3.0** adds three lives with current-wave/boss retries, charged laser combat against a firing Warden, a stable gameplay camera, a more dimensional arena, consistent colored halos and clearer animated menus to the 36 × 26 Neon Spire expansion. Existing 0.1 and 0.2 saves keep their exact original geometry, body path and rules; records stay separated by content version. Use Start Game for the new rules.
 
-See the [approved implementation addendum](docs/NEON_SPIRE_EXPANSION.md), [session handoff](docs/SESSION_HANDOFF.md) and [feature matrix](docs/FEATURE_MATRIX.md) for actual verification and remaining acceptance. The source package remains unchanged. Physical Xbox testing, owner listening/reference review, ordinary full-district play and five-player comprehension observations remain distinct from automated evidence.
+See the [current combat/interface addendum](docs/NEON_SPIRE_COMBAT_REFRESH.md), [expansion addendum](docs/NEON_SPIRE_EXPANSION.md), [session handoff](docs/SESSION_HANDOFF.md) and [feature matrix](docs/FEATURE_MATRIX.md) for actual verification and remaining acceptance. The source package remains unchanged. Physical Xbox testing, owner listening/reference review, ordinary full-district play and five-player comprehension observations remain distinct from automated evidence.
 
 The other four districts/finales, full-city progression/ending, Arcade, Endless, twelve Trials, six liveries, six trails, twelve achievements, Workshop, full settings/accessibility, transactional save/recovery/export/import, performance and hardware qualification remain required work. Defining their IDs does not make them playable.
 
@@ -61,7 +62,7 @@ The other four districts/finales, full-city progression/ending, Arcade, Endless,
 | --- | --- | --- |
 | Steer | WASD or arrows | Left stick or D-pad |
 | Boost | Hold Shift | Right trigger |
-| Fire equipped blaster | Hold F | Hold A |
+| Fire blaster / charged boss laser | Hold F | Hold A |
 | Use selected tactical | Space | X |
 | Select tactical slot | E | Y |
 | Pause / back | Escape | Menu / B |
@@ -76,13 +77,15 @@ Movement is continuous. Direction input changes heading; releasing it preserves 
 
 ## Pickups, tactics and recovery
 
-Cyan cores advance the quota and grow the snake. Powerups activate immediately except stored EMP/Decoy charges and equipped blaster ammunition. The HUD shows effect descriptions, time remaining, charges and ammunition. EMP begins in Wave 2, Decoy after its sixth core, and the blaster after its eighth. Empty eligible tactical slots receive repeating supply offers when safe floor space permits. Pause → Pickups & Tactics explains all twelve powers and the current Warden objective.
+Cyan cores advance the quota and grow the snake. Powerups activate immediately except stored EMP/Decoy charges and equipped blaster ammunition. The HUD shows bonus names, time remaining, glowing ready tactical slots and ammunition. Bonus cards expose effect descriptions to assistive technology and on hover; the Lab and paused guide explain effects in full. EMP begins in Wave 2, Decoy after its sixth core, and the blaster after its eighth. Empty eligible tactical slots receive repeating supply offers when safe floor space permits. Pause → Pickups & Tactics explains all twelve powers and the current Warden objective.
 
-Wave 3 is the Hunter encounter; Warden follows its twelve-core quota. During Warden, collect relays 1 → 2 → 3, then cross the green pad during recovery or land three shots on the exposed receptor. Repeat for all three nodes, then exit north. No optional power is needed to clear the boss.
+Wave 3 is the Hunter encounter; Warden follows its twelve-core quota. During the new Warden fight, collect spheres 1 → 2 → 3 to charge your laser and open the glowing target at top-center. Hold F / Xbox A to land three hits. Dodge the red shots along the warned orange lines, repeat for all three armor pieces, then exit north. The boss laser matches your snake and needs no ammunition. Earlier saves retain their pad/hybrid fight.
 
-Customize Snake is available on the title and pause menus. Body glow is cosmetic, saved independently, and previewed through the existing renderer. Start Game → Powerup Lab offers each power and a Warden rehearsal without replacing a suspended campaign. Pause in the Lab to refill/reset or choose another system. Results → Replay This Seed starts a fresh attempt with the same seed and rules.
+Customize Snake is available on the title and pause menus. Head/body glow is cosmetic, saved independently, and previewed through the existing renderer. Title → Powerup Lab offers each power and a Warden rehearsal without replacing a suspended campaign. Pause in the Lab to refill/reset or choose another system. Results → Replay This Seed starts a fresh attempt with the same seed and rules.
 
-If the browser blocks sound, use the visible Click to enable sound button with a mouse or press a keyboard key. Automatic pauses show their cause; a performance pause offers Low graphics and a fresh countdown. Large displays use bounded rendering resolution while the HUD remains at full resolution. The challenge and critical-crash rules are unchanged.
+New runs have three lives total. A lost life retries the current wave or Warden with the score and equipment from that stage’s beginning; elapsed time and damage counts continue. The third loss ends the run. A suspended lost-life screen restores with the same remaining lives.
+
+If the browser blocks sound, use the visible Click to enable sound button with a mouse or press a keyboard key. Automatic pauses show their cause; a performance pause offers Low graphics and a fresh countdown. Large displays use bounded rendering resolution while the HUD remains at full resolution. Movement and critical-crash collision rules remain unchanged; a crash spends a life.
 
 ## Files and authority
 

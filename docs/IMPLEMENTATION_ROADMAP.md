@@ -4,7 +4,11 @@ Active product authority: [full PRD v2.0](../Snake_Year_3039_Full_Game_Builder_P
 
 The destination is the complete five-district game. Version 0.1 is the beginning of development and the first Neon Spire playable milestone, not a reduced release definition. The status of every launch system remains visible in [FEATURE_MATRIX.md](FEATURE_MATRIX.md). No milestone acceptance implies full release acceptance.
 
-## Current checkpoint — 0.2.0 expansion
+## Current checkpoint — 0.3.0 combat and interface update
+
+The [latest owner revision](NEON_SPIRE_COMBAT_REFRESH.md) adds three lives and current-stage retries, required charged laser combat with Warden counterfire, a stable camera, dimensional arena dressing, all-color halos, ready-tactical feedback and GSAP menus. Earlier saves remain on their original rules. This is still Milestone B; D2–D5 and release acceptance remain required.
+
+### Earlier 0.2 foundation
 
 The owner-approved [Neon Spire expansion addendum](NEON_SPIRE_EXPANSION.md) extends milestone B before further city production. New attempts use a shared 36 × 26 layout; original saves retain 32 × 24 rules. Twelve campaign powers, reliable tactical supply, an optional forward blaster, clearer hybrid Warden combat, eight free glow colors, Practice Powerup Lab and Replay This Seed are implemented with simulation and targeted browser checks. Two fresh automated simulation runs clear the district; human and physical-controller playtesting remains open.
 
@@ -30,7 +34,7 @@ Exit evidence: movement/resource/collision tests, successful typecheck and build
 
 - Finish Neon Spire's expanded 36 × 26 arena (retain 32 × 24 legacy saves), three 12-core waves and environmental identity against the supplied references.
 - Add finite Patrol/Hunter encounter schedules, visible mine/gate warnings, a demonstrable Hunter body-block, and all twelve addendum powers with staged introductions and repeating EMP/Decoy offers.
-- Implement Warden's three visible nodes, ordered relays, telegraph/attack/recovery cycle and discharge pad plus optional exposed-receptor blaster route. Preserve relay charge across missed windows and require no random consumable.
+- Implement Warden’s three armor pieces, ordered spheres and visibly warned return fire. Three spheres unlock an unlimited boss laser; three hits break a piece. Preserve charged progress until the piece breaks and require no random consumable. Retain original pad/hybrid behavior only for earlier saved rules.
 - Open the actual extraction collision gap after Warden defeat and require the player to drive through it. Preserve solid/self collision during extraction.
 - Complete a reliable first-district loop: start, countdown, play, wave transition, boss entry, pause, settings, failure/retry, save/resume, clear and results.
 - Review playable presentation, music, warnings, controls and UI against both approved images. The image references provide art direction; they are not production geometry or gameplay captures.

@@ -87,20 +87,20 @@ try {
   await tap(1);
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await page.getByRole('button', { name: 'START GAME', exact: true }).click();
-  const difficulty = page.getByRole('combobox', { name: 'RULES PROFILE' });
+  const difficulty = page.getByRole('combobox', { name: 'Difficulty' });
   await expect(difficulty).toBeVisible();
   await frames(3);
   await difficulty.focus();
   await expect(difficulty).toBeFocused();
   await tap(15);
-  await expect(difficulty).toContainText('Assisted');
+  await expect(difficulty).toContainText('Easier');
   await expect(difficulty).toBeFocused();
   await tap(14);
-  await expect(difficulty).toContainText('Standard');
+  await expect(difficulty).toContainText('Normal');
 
   const storage = await page.evaluate(async () => {
     const p = await import('/src/game/persistence.ts');
-    const { CONTENT_VERSION, LEGACY_CONTENT_VERSION } = await import('/src/game/content.ts');
+    const { CONTENT_VERSION, EXPANDED_CONTENT_VERSION, LEGACY_CONTENT_VERSION } = await import('/src/game/content.ts');
     await p.saveCheckpoint({ version: 1, runId: 'checkpoint-1', score: 20 });
     await p.saveRun({ version: 1, runId: 'suspend-1', score: 90 });
     await p.clearSavedRun();
@@ -116,14 +116,18 @@ try {
     await p.commitRecord(record);
     const expandedRecord = { ...record, runId: 'expanded-record', score: 175, contentVersion: CONTENT_VERSION, mode: 'campaign', districtId: 'D1', seed: 3039 };
     await p.commitRecord(expandedRecord);
+    const earlierRecord = { ...expandedRecord, runId: 'earlier-expanded-record', contentVersion: EXPANDED_CONTENT_VERSION };
+    await p.commitRecord(earlierRecord);
     const records = await p.getRecords();
     const legacy = records.find(item => item.runId === record.runId);
     const expanded = records.find(item => item.runId === expandedRecord.runId);
+    const earlier = records.find(item => item.runId === earlierRecord.runId);
     return { checkpointAfterClear, cleared, rejected, preservedOnInvalid, checkpointAfterRecord: await p.getCheckpoint(), suspendedAfterRecord: await p.getSavedRun(), records,
       legacyPayloadPreserved: JSON.stringify(legacy) === JSON.stringify(record),
+      earlierPayloadPreserved: JSON.stringify(earlier) === JSON.stringify(earlierRecord),
       expandedPayloadPreserved: JSON.stringify(expanded) === JSON.stringify(expandedRecord),
-      versionSeparation: p.recordVersion(legacy) === LEGACY_CONTENT_VERSION && p.recordVersion(expanded) === CONTENT_VERSION && p.recordVersion(legacy) !== p.recordVersion(expanded),
-      versionLabels: [p.recordVersionLabel(legacy), p.recordVersionLabel(expanded)] };
+      versionSeparation: p.recordVersion(legacy) === LEGACY_CONTENT_VERSION && p.recordVersion(expanded) === CONTENT_VERSION && p.recordVersion(earlier) === EXPANDED_CONTENT_VERSION && new Set([p.recordVersion(legacy), p.recordVersion(earlier), p.recordVersion(expanded)]).size === 3,
+      versionLabels: [p.recordVersionLabel(legacy), p.recordVersionLabel(earlier), p.recordVersionLabel(expanded)] };
   });
   assert.equal(storage.checkpointAfterClear.runId, 'checkpoint-1');
   assert.equal(storage.cleared, null);
@@ -131,11 +135,12 @@ try {
   assert.equal(storage.preservedOnInvalid.runId, 'suspend-2');
   assert.equal(storage.checkpointAfterRecord.runId, 'checkpoint-2');
   assert.equal(storage.suspendedAfterRecord, null);
-  assert.equal(storage.records.length, 2, 'Legacy and expanded records coexist, with duplicate run IDs remaining idempotent');
+  assert.equal(storage.records.length, 3, 'All three content versions coexist, with duplicate run IDs remaining idempotent');
   assert.equal(storage.legacyPayloadPreserved, true, 'Reading an unversioned record must not rewrite its legacy payload');
   assert.equal(storage.expandedPayloadPreserved, true);
+  assert.equal(storage.earlierPayloadPreserved, true);
   assert.equal(storage.versionSeparation, true);
-  assert.deepEqual(storage.versionLabels, ['Legacy 32 × 24', 'Expanded 36 × 26']);
+  assert.deepEqual(storage.versionLabels, ['Legacy 32 × 24 · 0.1', 'Expanded 36 × 26 · 0.2', 'Laser & lives · 0.3']);
 
   // Isolate the action mapper from the rendered game to exercise held-button
   // transitions deterministically. These are simulated controls, not hardware QA.

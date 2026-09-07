@@ -13,7 +13,7 @@ try {
   const { MOVEMENT, FIXED_DT } = await server.ssrLoadModule('/src/game/content.ts');
   if (process.argv[2] === '--replay') {
     const recorded = JSON.parse(await readFile(process.argv[3], 'utf8'));
-    const replay = new Simulation({ seed: recorded.seed, difficulty: recorded.difficulty });
+    const replay = new Simulation({ seed: recorded.seed, difficulty: recorded.difficulty, contentVersion: recorded.contentVersion });
     let input = { x: 0, y: -1, boost: false, fire: false, use: false, swap: false };
     let cursor = 0;
     let observedEvent = 0;

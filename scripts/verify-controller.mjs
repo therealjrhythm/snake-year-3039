@@ -80,6 +80,8 @@ try {
     await tap(1);
     await selected('POWERUP LAB');
     await tap(13);
+    await selected('CUSTOMIZE SNAKE');
+    await tap(13);
     await selected('SETTINGS');
     await hold(0, true);
     await expect(page.getByRole('dialog', { name: 'SETTINGS', exact: true })).toBeVisible();
@@ -119,20 +121,22 @@ try {
     await selected('SETTINGS');
     console.log('  Settings, tabs and sliders passed');
     await tap(12);
+    await selected('CUSTOMIZE SNAKE');
+    await tap(12);
     await selected('POWERUP LAB');
     await tap(12);
     await selected('START GAME');
     await tap(0);
     await selected('ENTER NEON SPIRE');
     await tap(12);
-    const difficulty = page.getByRole('combobox', { name: 'RULES PROFILE' });
+    const difficulty = page.getByRole('combobox', { name: 'Difficulty' });
     await expect(difficulty).toHaveAttribute('data-gamepad-focus', 'true');
     await tap(0);
-    await expect(page.getByRole('listbox', { name: 'RULES PROFILE' })).toBeVisible();
+    await expect(page.getByRole('listbox', { name: 'Difficulty' })).toBeVisible();
     await tap(13);
-    await selected('Assisted · 5 integrity · slower world');
+    await expect(page.locator('[data-gamepad-focus]')).toContainText('Easier'); await frames();
     await tap(0);
-    await expect(difficulty).toContainText('Assisted');
+    await expect(difficulty).toContainText('Easier');
     await expect(difficulty).toHaveAttribute('aria-expanded', 'false');
     await tap(13);
     await tap(0);
@@ -190,12 +194,13 @@ try {
     for (let i = 0; i < 3; i++) await tap(14); // EMP -> Overdrive
     for (const name of ['Overdrive', 'Shield', 'Score Surge', 'EMP Pulse', 'Magnet', 'Repair', 'Decoy', 'Tail Splice', 'Pulse Blaster', 'Capacitor', 'Bullet Scrubber', 'Chain Buffer', 'Defeat the Warden']) {
       await expect(page.locator('.lab-description h3')).toHaveText(name);
-      await page.locator('.lab-visual img').evaluate(img => img.decode());
+      if (name === 'Defeat the Warden') await expect(page.locator('.warden-combat-visual svg')).toBeVisible();
+      else await page.locator('.lab-visual img').evaluate(img => img.decode());
       if (name === 'EMP Pulse' || name === 'Decoy') await expect(page.locator('.lab-use kbd')).toHaveText('X');
       if (name === 'Pulse Blaster') await expect(page.locator('.lab-use kbd')).toHaveText('A');
       if (name !== 'Defeat the Warden') await tap(15);
     }
-    await expect(page.locator('.warden-shooting kbd')).toHaveText('A');
+    await expect(page.locator('.warden-route kbd')).toHaveText('A');
     await navigateTo('Start practice');
     await expect(page.locator('[data-gamepad-focus]')).toBeInViewport();
     await page.screenshot({ path: join(tmpdir(), `s39-controller-lab-${viewport.width}.png`) });
@@ -217,6 +222,8 @@ try {
     await selected('START GAME');
     await tap(13);
     await selected('POWERUP LAB');
+    await tap(13);
+    await selected('CUSTOMIZE SNAKE');
     await tap(13);
     await selected('SETTINGS');
     await tap(0);

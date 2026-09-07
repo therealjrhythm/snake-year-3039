@@ -1,6 +1,6 @@
 {
-  "build": "0.2.0",
-  "date": "2026-09-07T00:46:09.295Z",
+  "build": "0.3.0",
+  "date": "2026-09-07T04:07:05.575Z",
   "method": "Playwright, installed Chrome, headless; Browser plugin absent",
   "browser": "152.0.7977.77",
   "checks": [
@@ -12,9 +12,9 @@
     "Suspend survives reload unchanged",
     "Focus loss freezes a resume countdown",
     "All four HUD groups stay inside 1280×720 at 150% scale",
-    "Real movement into the arena wall produces named critical crash",
-    "Terminal result records once and clears the suspend",
-    "Retry restores the district entry checkpoint",
+    "Two real wall crashes spend lives, preserve run identity across reload, and restart Wave 1 without recording terminal results",
+    "Third death records once and clears suspend; checkpoint retry cannot bypass the life limit",
+    "New attempt starts Wave 1 with three fresh lives",
     "Local Records displays the real saved result",
     "Narrow title remains contained (touch gameplay is outside target)",
     "Explicit Warden fixture restores and renders real relays, nodes and HUD",

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { BLASTER, CONTENT_VERSION, FIXED_DT, LEGACY_CONTENT_VERSION, PICKUPS } from '../src/game/content';
+import { BLASTER, CONTENT_VERSION, EXPANDED_CONTENT_VERSION, FIXED_DT, LEGACY_CONTENT_VERSION, PICKUPS } from '../src/game/content';
 import { getLayout } from '../src/game/layouts';
 import { Simulation } from '../src/game/simulation';
 import type { GameInput, PickupKind, Rival } from '../src/game/types';
@@ -14,7 +14,7 @@ function place(sim: Simulation, x = 0, z = 0, heading = 0, length = 8) {
   });
 }
 function quiet() {
-  const sim = new Simulation({ seed: 3039 });
+  const sim = new Simulation({ seed: 3039, contentVersion: EXPANDED_CONTENT_VERSION });
   Object.assign(sim.state, { obstacles: [], cores: [], pickups: [], mines: [], drones: [], rivals: [], gates: [], projectiles: [], playerProjectiles: [], pendingSpawns: [], coreRetry: 99999, optionalTimer: 99999 });
   sim.state.supply.introduced = Object.keys(PICKUPS) as PickupKind[]; sim.state.supply.pending = [];
   place(sim); return sim;
@@ -311,7 +311,7 @@ describe('Practice Lab isolation and snapshots', () => {
 
   it('demonstrates doubled Surge core points only inside Lab and resets its session score on refill', () => {
     const lab = Simulation.createLab('surge', 99);
-    const practice = Simulation.restore({ ...lab.snapshot(), lab: null, supply: { ...lab.state.supply, introduced: Object.keys(PICKUPS), pending: [] } });
+    const practice = Simulation.restore({ ...lab.snapshot(), lab: null, retryCheckpoint: { ...lab.state.retryCheckpoint, lab: null }, supply: { ...lab.state.supply, introduced: Object.keys(PICKUPS), pending: [] } });
     run(lab, 1); run(practice, 1);
     expect(lab.state.buffs.surge).toBeGreaterThan(0);
     expect(lab.state.coresCollected).toBe(1); expect(lab.state.score).toBe(200);

@@ -1,8 +1,26 @@
-# Session handoff — 0.2.0 expanded Neon Spire
+# Session handoff — 0.3.0 Neon Spire combat and interface update
 
 The owner explicitly authorized the [Neon Spire expansion plan](NEON_SPIRE_EXPANSION.md). It supplements the original [PRD v2.0](../Snake_Year_3039_Full_Game_Builder_Package_v2_0/docs/PRD.md); the supplied package, Word document and approved images remain unchanged. The complete destination is five distinct districts, fifteen waves/228 ordinary cores, five finales, four release modes, twelve Trials, earned liveries/trails/achievements, full Workshop, progression/ending, and complete accessibility/reliability. This checkpoint expands D1 before the remaining city; it is not full-release acceptance.
 
-## What changed
+## Current owner revision — 0.3.0
+
+The [combat/interface addendum](NEON_SPIRE_COMBAT_REFRESH.md) records the latest owner request and supersedes the specified 0.2 boss/life rules for new attempts. **Start Game enables three lives and the laser Warden.** Continue preserves an older save's original rules, explained on the title screen. Content versions 0.1, 0.2 and 0.3 have separate records; saved snake paths are never rescaled.
+
+- New runs have three lives. A critical crash still ends a life immediately. Retry restores the current wave or boss entry, including score, equipment, body length, RNG and supply schedule; remaining lives, run identity, elapsed time and damage taken persist. Later-wave and boss retry paths use a clear rounded perimeter route so a near-wall stage transition cannot trap the next life; this does not move the live player or grant collision immunity. Failed-wave points cannot be farmed. Campaign auto-saves the lost-life state, so a reload cannot refund a life. The third loss records one terminal result; a fresh attempt starts at Wave 1.
+- Warden's three ordered numbered spheres immediately open its armor and charge the snake laser. Hold F / Xbox A toward the glowing target below Warden; three hits break one node. Charge and partial hits persist until that node breaks. Boss shots use no blaster ammunition; ordinary-wave blasters keep their twelve-round rules. The pad route remains only for older runs. Warden locks three orange warning rays, then shoots along those same paths. Shot caps, scenery collisions and critical crashes remain fixed-step rules.
+- Camera fitting uses stable viewport/UI-scale reservations, removing powerup-driven view shifts. Compact automatic-bonus cards retain names/timers, with full effects in accessible labels and the Lab/guide. Layered arena structures and floor routes add depth within existing solid footprints. Instanced colored halos make all eight snake colors glow even at Low; head, body and laser match.
+- EMP and Decoy show colored ready glows and two slow acquisition pulses. Customize Snake is a full-size title action. The briefing has a full-size Practice button and no duplicate Lab link. Normal/Easier/Harder explain the actual three-health/five-health/faster-shot profiles. Settings is centered. Shared neon outlines, a brief confirmation pulse and GSAP entrances respect app and OS reduced motion.
+- Soundtrack files have not been supplied. MP3 delivery and WAV source originals are suitable; six to ten tracks of three to four minutes are acceptable. The procedural score remains active until supplied tracks are integrated.
+
+### Current verification
+
+`npm run check` currently passes **85 tests**; the production build passes. The new [combat App script](../scripts/verify-combat-update.mjs) passes [nine groups](evidence/combat-refresh-2026-09-06/combat-report.json) with no browser errors/warnings: actual difficulty application, Practice, lost-life save/reload/retry, no score farming, held-F isolation, three-loss records/replay, charged laser hits without ammo, warned counterfire, and original 0.2 compatibility. [Six menu viewport checks](evidence/combat-refresh-2026-09-06/menu-report.json) verify centered Settings, visible main actions, difficulty selection, neon focus and GSAP cleanup/reduced motion. The [renderer report](evidence/combat-refresh-2026-09-06/render-report.json) passes eight groups including 96 glow combinations and exact camera invariance with six buffs, tactics, combo, hit feedback and ammo. Three additional simulation tests cover a real near-wall stage entry and safe full-length retries, including the 128-segment save bound. All eleven applicable development browser scripts passed sequentially: game, platform, controller, audio, enemies, systems, runtime, render-performance, expansion, expansion-render and combat-update. Their current logs and reports are in [combat-refresh evidence](evidence/combat-refresh-2026-09-06/verification.json). Native audio recovery and protective pauses remain intact; controller evidence uses mocked standard pads. The bounded 20-frame large-view render diagnostic measured 2.8ms median / 3.3ms p95 GPU completion and 16.7ms frame intervals; it is not a sustained hardware benchmark. The [compiled local production smoke](evidence/combat-refresh-2026-09-06/production-local-report.json) passes ten groups with zero errors, warnings or failed assets, including ordinary first-core/pause, all twelve images, new Warden help, one-canvas customization and responsive full-size title actions. Title and paused-game captures were visually reviewed. After the commit/push, verify Vercel reports the exact Git SHA and rerun the same smoke on the public domain.
+
+These are isolated installed-Chrome checks with prepared encounter snapshots where explicitly stated. They do not establish a human full clear, five-player comprehension, physical Xbox qualification or sustained hardware performance. The owner screenshots are the feedback baseline; full artistic acceptance remains open.
+
+## Historical 0.2 expansion behavior
+
+The following describes the earlier expansion and compatibility behavior. The current revision above replaces its single-attempt/hybrid boss rules for new games.
 
 - New attempts use `0.2.0-neon-spire` and `neon-spire-v2`, a 36 × 26 layout. `src/game/layouts.ts` owns physical arena bounds, obstacles, candidates, entries, gates, Warden and extraction. Original 0.1 saves infer `neon-spire-v1`, retaining 32 × 24 geometry, original pickup rules and exact body coordinates.
 - All eight original powers enter the expanded campaign with staged eligibility. Pulse Blaster, Capacitor, Bullet Scrubber and Chain Buffer bring the roster to twelve. Typed content supplies introductions, activation and eligibility descriptions. Supply state persists the rotating EMP/Decoy/automatic opportunities and safe retries; three ground pickups, eight-second cadence, fifteen-second expiry and one charge per slot remain.
@@ -21,7 +39,7 @@ The Lab and paused Warden guide share pictured instructions: collect 1 → 2 →
 
 Verification for this follow-up: 70 tests and build pass; expansion App, controller, systems and expansion-render scripts pass sequentially. Controller coverage now includes all thirteen Lab choices, image loading, Xbox glyphs, reachable Start practice and B-back at 1440 × 900 / 375 × 1020 using mocked standard pads. Expansion checks enter the Warden Lab and preserve the campaign save. The compiled production preview passes all eight smoke groups, including every image, ordinary first-core/pause, desktop/narrow Lab layouts and zero failed assets/browser errors. See the [report](evidence/lab-clarity-2026-09-06/report.json), [powerup view](evidence/lab-clarity-2026-09-06/lab-magnet.png), [Warden instructions](evidence/lab-clarity-2026-09-06/lab-warden.png) and [narrow layout](evidence/lab-clarity-2026-09-06/lab-narrow.png). These captures were visually reviewed against the owner's confusing Lab screenshot; accepted visual styling is retained. Rerun the same production smoke against Vercel after this commit deploys. Physical Xbox and new-player comprehension still require human observation.
 
-## Latest owner revision — vibrant full-snake glow and direct Lab access
+## Earlier owner revision — full-snake glow and direct Lab access
 
 The owner explicitly replaced the fixed-cyan-head requirement with matching head/body glow. Wider, brighter emissive strips and more saturated presets improve recognition at Low and Medium, while the preview no longer darkens the model with a modal overlay. Head lights and the small direction marker follow the chosen preset; armor shape, hostile red faction, movement/collisions and saved appearance IDs remain intact. Apply/Cancel/Restore and independent persistence retain their existing behavior.
 
@@ -37,9 +55,9 @@ Run `npm run dev` and open **http://127.0.0.1:3039/**. Refresh the preview to lo
 
 Keyboard: WASD/arrows steer, Shift boosts, Space uses the selected tactical, E switches, F fires, Escape pauses/backs out. Xbox target: left stick/D-pad steers, RT boosts, X uses, Y switches, A fires, Menu pauses; A/B select/back in menus and LB/RB switch tabs. Held actions are suppressed across menus/countdowns until release. Physical Xbox qualification remains outstanding.
 
-## Verification ledger
+## Historical expansion verification ledger
 
-The expanded implementation passes 70 simulation/content tests and production compilation. All ten targeted browser scripts below passed sequentially in installed Chrome 152.0.7977.77. Their logs and structured reports are in `docs/evidence/`; the [feature matrix](FEATURE_MATRIX.md#development-verification) records each scope and limitation.
+The earlier 0.2 expanded implementation passed 70 simulation/content tests and production compilation. All ten targeted browser scripts below passed sequentially in installed Chrome 152.0.7977.77. Their logs and structured reports are in `docs/evidence/`; the [feature matrix](FEATURE_MATRIX.md#development-verification) records each scope and limitation.
 
 The checks cover actual title/pause customization with independent persistence and one canvas, all twelve Lab selections plus Warden rehearsal, campaign-save isolation, the delayed-save/resume race, new-attempt replay identity, explicit relay sounds, both boss damage routes, supply retry/exact resume, fresh/held controller inputs, native audio recovery and protected pauses. The renderer check covers 96 glow/quality/ratio/scale combinations and a six-buff UI150 stress state with every effect and duration visible. Controller checks use mocked standard gamepads at 1440 × 900 and 375 × 1020; they are not physical Xbox acceptance.
 
@@ -64,9 +82,10 @@ node scripts/verify-runtime.mjs
 node scripts/verify-render-performance.mjs
 node scripts/verify-expansion.mjs
 node scripts/verify-expansion-render.mjs
+node scripts/verify-combat-update.mjs
 ```
 
-Additional ordinary-run probes are reproducible with `node scripts/probe-ordinary-run.mjs --replay docs/evidence/ordinary-standard-3039-keyboard.json` and `node scripts/verify-ordinary-keyboard.mjs`. The latter is a paced, rendered keyboard replay and can diverge when an input arrives a fixed step late. Do not relabel a fixture as an ordinary clear or weaken collision rules to pass it.
+Historical 0.2 pure-input traces remain replayable with `node scripts/probe-ordinary-run.mjs --replay docs/evidence/ordinary-standard-3039-keyboard.json`; replay explicitly selects the recorded content version. `verify-ordinary-keyboard.mjs` is the historical rendered probe and requires a matching-version trace/build. Its earlier failure is retained and must not be presented as a current 0.3 clear. Do not relabel a fixture as an ordinary clear or weaken collision rules to pass it.
 
 ## Remaining acceptance and next work
 

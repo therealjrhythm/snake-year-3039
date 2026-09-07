@@ -5,7 +5,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { PICKUPS } from './content';
+import { CONTENT_VERSION, PICKUPS } from './content';
 import { getLayout } from './layouts';
 import { GLOW_PRESETS } from './appearance';
 import type { GlowId, PreviewZoom } from './appearance';
@@ -71,6 +71,9 @@ class SerpentModel {
   private hostile: boolean;
   private bodyPorts: THREE.MeshStandardMaterial;
   readonly headSignature: THREE.MeshStandardMaterial;
+  private halo: THREE.InstancedMesh | null = null;
+  private haloBody: Point[] = [];
+  private haloRotation = new THREE.Quaternion();
   constructor(faction: 'player' | 'hostile', capacity = 128) {
     this.hostile = faction === 'hostile';
     const color = this.hostile ? RED : CYAN;
@@ -79,6 +82,20 @@ class SerpentModel {
     this.signature = light(color, this.hostile ? 1.65 : PLAYER_GLOW.body);
     this.headSignature = light(color, this.hostile ? 1.65 : PLAYER_GLOW.head);
     this.bodyPorts = light(color, this.hostile ? 0.7 : PLAYER_GLOW.ports);
+    if (!this.hostile) {
+      // One bounded, instanced halo draw supplies colored light independently of
+      // the bloom luminance threshold. Blue/violet also glow at Low quality.
+      const canvas = document.createElement('canvas'); canvas.width = canvas.height = 64;
+      const context = canvas.getContext('2d')!, gradient = context.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gradient.addColorStop(0, 'rgba(255,255,255,.48)'); gradient.addColorStop(.3, 'rgba(255,255,255,.36)');
+      gradient.addColorStop(.58, 'rgba(255,255,255,.17)'); gradient.addColorStop(1, 'rgba(255,255,255,0)');
+      context.fillStyle = gradient; context.fillRect(0, 0, 64, 64);
+      const texture = new THREE.CanvasTexture(canvas);
+      const material = new THREE.MeshBasicMaterial({ color, map: texture, transparent: true, depthWrite: false, toneMapped: false, fog: false });
+      this.halo = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), material, capacity + 1);
+      this.halo.name = 'player-color-halo'; this.halo.frustumCulled = false;
+      this.halo.instanceMatrix.setUsage(THREE.DynamicDrawUsage); this.group.add(this.halo);
+    }
     if (!this.hostile) for (const material of [this.signature, this.headSignature, this.bodyPorts]) {
       // Colored emission carries the light identity; reflected white scene lights
       // must not wash it out. Low remains vivid without enabling bloom.
@@ -121,8 +138,28 @@ class SerpentModel {
   setGlow(color: number) {
     if (this.hostile) return;
     for (const material of [this.signature, this.bodyPorts, this.headSignature]) material.emissive.setHex(color);
+    if (this.halo) {
+      const haloColor = (this.halo.material as THREE.MeshBasicMaterial).color.setHex(color).multiplyScalar(1.7);
+      const luminance = haloColor.r * .2126 + haloColor.g * .7152 + haloColor.b * .0722;
+      // Keep the broad halo below the bloom threshold: bright presets must not
+      // erase their armor while darker blue/violet retain the same soft outline.
+      if (luminance > .8) haloColor.multiplyScalar(.8 / luminance);
+    }
+  }
+  faceGlow(camera: THREE.Camera) {
+    if (!this.halo || !this.group.visible) return;
+    this.group.updateMatrixWorld();
+    this.group.getWorldQuaternion(this.haloRotation).invert().multiply(camera.quaternion);
+    this.halo.count = Math.min(this.haloBody.length + 1, this.halo.instanceMatrix.count);
+    for (let i = 0; i < this.halo.count; i++) {
+      const p = i ? this.haloBody[i - 1] : this.head.position;
+      dummy.position.set(p.x, i ? 0.38 : 0.43, p.z); dummy.quaternion.copy(this.haloRotation);
+      dummy.scale.setScalar(i ? 1.55 : 1.85); dummy.updateMatrix(); this.halo.setMatrixAt(i, dummy.matrix);
+    }
+    this.halo.instanceMatrix.needsUpdate = true;
   }
   update(head: Point, heading: number, body: Point[], opacity = 1) {
+    this.haloBody = body;
     this.group.visible = opacity > 0;
     this.head.position.set(head.x, 0.37, head.z); this.head.rotation.y = -heading;
     const count = Math.min(body.length, this.armor.instanceMatrix.count);
@@ -170,6 +207,8 @@ export class GameRenderer {
   private dynamic = new THREE.Group();
   private sentinel = new THREE.Group();
   private bossNodes: THREE.Mesh[] = [];
+  private bossIris = new THREE.Group();
+  private bossCannons = new THREE.Group();
   private gateDoor: THREE.Mesh;
   private staticCyan = light(CYAN, 0.8);
   private staticPink = light(PINK, 0.8);
@@ -285,9 +324,47 @@ export class GameRenderer {
       box(this.arena, this.dark, x, 0.45, z, 0.5, 0.85, 0.65);
       box(this.arena, this.staticCyan, x, 0.77, z + (z < 0 ? 0.35 : -0.35), 0.3, 0.08, 0.025);
     }
+    this.buildArenaDepth();
     this.gateDoor.position.set(exit.center.x, 0.3, exit.center.z);
     this.sentinel.position.set(boss.anchor.x, 2.1, boss.anchor.z);
     this.fitCamera();
+  }
+
+  private buildArenaDepth() {
+    const { width, depth, halfWidth: x, halfDepth: z } = this.layout;
+    // Layer the suspended platform below the unchanged collision floor. The
+    // stepped hull and structural ribs are scenery outside the drivable volume.
+    box(this.arena, this.silver, 0, -.70, 0, width + .85, .20, depth + .85);
+    box(this.arena, this.dark, 0, -1.04, 0, width - .5, .48, depth - .5);
+    for (const side of [-1, 1]) {
+      box(this.arena, this.staticCyan, side * (x + .38), -.68, 0, .055, .045, depth + .3);
+      box(this.arena, this.staticCyan, 0, -.68, side * (z + .38), width + .3, .045, .055);
+      box(this.arena, this.dark, side * (x - 2.5), -2.05, 0, 1.8, 1.6, depth - 4);
+      box(this.arena, this.staticPink, side * (x - 2.5), -2.62, 0, 1.45, .075, depth - 5);
+    }
+    const ribs = new THREE.InstancedMesh(cube, this.silver, 100); let ribCount = 0;
+    for (const sign of [-1, 1]) {
+      for (let n = -z + 1; n < z; n += 2) {
+        dummy.position.set(sign * (x + .15), -.45, n); dummy.rotation.set(0, 0, sign * .25); dummy.scale.set(.24, 1.30, .24); dummy.updateMatrix(); ribs.setMatrixAt(ribCount++, dummy.matrix);
+      }
+      for (let n = -x + 1; n < x; n += 2) {
+        dummy.position.set(n, -.45, sign * (z + .15)); dummy.rotation.set(sign * .25, 0, 0); dummy.scale.set(.24, 1.30, .24); dummy.updateMatrix(); ribs.setMatrixAt(ribCount++, dummy.matrix);
+      }
+    }
+    ribs.count = ribCount; this.arena.add(ribs);
+    // Flush deck plating leaves every approach visible and has no raised edges.
+    const plates = new THREE.InstancedMesh(cube, new THREE.MeshStandardMaterial({ color: 0x20405a, metalness: .65, roughness: .4, transparent: true, opacity: .13, depthWrite: false }), 100);
+    let plateCount = 0;
+    for (let px = -x + 2; px < x; px += 4) for (let pz = -z + 2; pz < z; pz += 4) {
+      dummy.position.set(px, -.002, pz); dummy.rotation.set(0, 0, 0); dummy.scale.set(Math.min(3.9, (x - px) * 2), .008, Math.min(3.9, (z - pz) * 2)); dummy.updateMatrix(); plates.setMatrixAt(plateCount++, dummy.matrix);
+    }
+    plates.count = plateCount; this.arena.add(plates);
+    // Inset approach chevrons give the lanes a purposeful direction and scale.
+    const markings = new THREE.InstancedMesh(cube, this.staticCyan, 100); let markCount = 0;
+    for (const side of [-1, 1]) for (let pz = -z + 3; pz < z - 2; pz += 4) for (const wing of [-1, 1]) {
+      dummy.position.set(side * (x - 2.1) + wing * .18, .012, pz); dummy.rotation.set(0, wing * -.65, 0); dummy.scale.set(.085, .014, .50); dummy.updateMatrix(); markings.setMatrixAt(markCount++, dummy.matrix);
+    }
+    markings.count = markCount; this.arena.add(markings);
   }
 
   private buildCity() {
@@ -337,7 +414,17 @@ export class GameRenderer {
       const wing = box(this.sentinel, this.dark, sign * 3.45, -0.4, 0, 2.2, 0.8, 1.25); wing.rotation.z = -sign * 0.2;
       box(this.sentinel, this.threatSignal, sign * 3.5, -0.13, 0.66, 1.9, 0.07, 0.035);
       for (let n = 0; n < 4; n++) box(this.sentinel, this.silver, sign * (2.8 + n * 0.4), -0.5, 0.7, 0.12, 0.4, 0.07);
+      const cannon = new THREE.Group(); cannon.position.set(sign * 1.55, -.65, .8);
+      const housing = new THREE.Mesh(new THREE.CylinderGeometry(.25, .35, .9, 8), this.dark); housing.rotation.x = Math.PI / 2; cannon.add(housing);
+      ring(cannon, this.threatSignal, .23, .045, 0, 0, .48);
+      this.bossCannons.add(cannon);
     }
+    for (let i = 0; i < 8; i++) {
+      const angle = i * Math.PI / 4, blade = box(this.bossIris, this.silver, Math.cos(angle) * .86, Math.sin(angle) * .86, .86, .55, .12, .12);
+      blade.rotation.z = angle + .55;
+      const arc = box(this.bossIris, this.threatSignal, Math.cos(angle) * 1.18, Math.sin(angle) * 1.18, .83, .34, .035, .035); arc.rotation.z = angle + Math.PI / 2;
+    }
+    this.bossIris.name = 'warden-reactor-iris'; this.sentinel.add(this.bossIris, this.bossCannons);
     this.scene.add(this.sentinel); this.sentinel.visible = false;
   }
 
@@ -398,13 +485,11 @@ export class GameRenderer {
       this.camera.fov = 43; this.camera.position.set(15.8, 9.4, 19.5); this.camera.lookAt(0, 0.3, -1.2);
     } else {
       this.camera.fov = 42;
-      const host = this.container.getBoundingClientRect();
-      const app = this.container.parentElement;
-      const panels = ['.hud-objective', '.hud-score', '.hud-resources', '.hud-tactics'].map(selector => app?.querySelector(selector)?.getBoundingClientRect()).filter((rect): rect is DOMRect => !!rect && rect.height > 0).map(rect => ({ left: rect.left - host.left - 12, right: rect.right - host.left + 12, top: rect.top - host.top - 12, bottom: rect.bottom - host.top + 12 }));
+      const panels = this.hudReservations();
       const { halfWidth: x, halfDepth: z, boss } = this.layout;
       const floor = [-1, 1].flatMap(sx => [-1, 1].flatMap(sz => [0, 0.8].map(y => new THREE.Vector3(sx * (x + 0.7), y, sz * (z + 0.7)))));
       const sentinel = [-1, 1].flatMap(sx => [0.7, 4.3].map(y => new THREE.Vector3(sx * 4.65, y, boss.anchor.z - 0.5)));
-      const offsets = [0, -0.05, 0.05, -0.10, 0.10, -0.15, 0.15].flatMap(dx => [0, -0.04, 0.04, -0.08, 0.08, -0.12, 0.12].map(dy => ({ x: dx * width, y: dy * height }))).sort((a, b) => Math.hypot(a.x / width, a.y / height) - Math.hypot(b.x / width, b.y / height));
+      const offsets = [0, -0.05, 0.05, -0.10, 0.10, -0.15, 0.15].flatMap(dx => [0, -0.04, 0.04, -0.08, 0.08, -0.12, 0.12, -0.16, 0.16, -0.20, 0.20].map(dy => ({ x: dx * width, y: dy * height }))).sort((a, b) => Math.hypot(a.x / width, a.y / height) - Math.hypot(b.x / width, b.y / height));
       this.camera.updateProjectionMatrix();
       let low = 20, high = 240, chosen = { x: 0, y: 0 };
       for (let iteration = 0; iteration < 15; iteration++) {
@@ -418,16 +503,41 @@ export class GameRenderer {
         if (fit) { high = distance; chosen = fit; } else low = distance;
       }
       this.camera.position.set(0, high * 0.8660254, high * 0.5); this.camera.lookAt(0, 0, 0);
-      // Fit around actual corner panels instead of discarding two full screen
-      // rows. This keeps the arena larger while every travel lane stays visible.
+      // Reserve every HUD state from the first frame. A collected buff, changed
+      // combo, loaded tactic or boss prompt must never move the gameplay camera.
       this.camera.setViewOffset(width, height, -chosen.x, -chosen.y, width, height);
     }
     this.camera.updateProjectionMatrix(); this.camera.updateMatrixWorld();
   }
+  private hudReservations() {
+    const width = this.width, height = this.height, scale = this.settings.uiScale ?? 1;
+    const narrow = width <= 700, short = height <= 850;
+    const left = narrow ? 10 : width * .022, top = narrow || height <= 550 ? 10 : height * .028;
+    const bottom = narrow ? 94 : height * (height <= 550 ? .10 : height <= 800 ? .09 : .085);
+    const objectiveWidth = narrow ? width * .48 : Math.min(290 * scale, width * .40);
+    const resourcesWidth = narrow ? width * .45 : Math.min(300 * scale, width * .41);
+    const tacticsWidth = narrow ? width * .46 : Math.min(300 * scale, width * .44);
+    const scoreWidth = narrow ? width * .44 : Math.min(245 * scale, width * .40);
+    // Includes six timed powers, three lives, and one retained hit message.
+    // These are presentation limits, independent of transient DOM content.
+    const resourcesHeight = narrow ? 245 * scale + 100 : 60 * scale + (short ? 234 : 240);
+    const objectiveHeight = narrow ? 150 * scale + 55 : 100 * scale + 55;
+    const tacticsHeight = narrow ? 155 * scale + 65 : 70 * scale + 125;
+    const rectangles = [
+      { left, top, right: left + objectiveWidth, bottom: top + objectiveHeight },
+      { left: width - left - scoreWidth, top, right: width - left, bottom: top + 60 * scale + (short ? 35 : 41) },
+      { left, top: height - bottom - resourcesHeight, right: left + resourcesWidth, bottom: height - bottom },
+      { left: width - left - tacticsWidth, top: height - bottom - tacticsHeight, right: width - left, bottom: height - bottom },
+    ];
+    return rectangles.map(rect => ({ left: rect.left - 10, right: rect.right + 10, top: rect.top - 10, bottom: rect.bottom + 10 }));
+  }
   private checkCameraRegion(now: number) {
+    // Only the freely sized Workshop preview follows a live DOM region. Gameplay
+    // refits happen on actual viewport, UI scale, layout or screen-mode changes.
+    if (!this.preview) return;
     if (now - this.cameraCheckTime < 0.3) return;
     this.cameraCheckTime = now;
-    const selectors = this.preview ? ['[data-snake-preview]'] : ['.hud-objective', '.hud-score', '.hud-resources', '.hud-tactics'];
+    const selectors = ['[data-snake-preview]'];
     const key = selectors.map(selector => {
       const rect = this.container.parentElement?.querySelector(selector)?.getBoundingClientRect();
       return rect ? [rect.x, rect.y, rect.width, rect.height].map(value => Math.round(value)).join(',') : '';
@@ -615,6 +725,13 @@ export class GameRenderer {
           for (const sx of [-1, 1]) for (const sz of [-1, 1]) { box(this.obstacles, this.silver, o.x + sx * (o.width * 0.5 - 0.14), 0.55, o.z + sz * (o.depth * 0.5 - 0.14), 0.28, 1.2, 0.28); box(this.obstacles, this.dark, o.x + sx * (o.width * 0.5 - 0.14), 0.60, o.z + sz * o.depth * 0.5, 0.12, 0.65, 0.06); }
           box(this.obstacles, this.dark, o.x, 0.70, o.z + o.depth / 2 + 0.01, 1.4, 0.5, 0.055);
           for (let j = 0; j < 4; j++) box(this.obstacles, this.staticCyan, o.x - 0.44 + j * 0.28, 0.73, o.z + o.depth / 2 + 0.045, 0.07, 0.24, 0.02);
+          // Recessed turbine housings stay inside each authored solid footprint.
+          const turbine = new THREE.Group(); turbine.position.set(o.x, 1.23, o.z); turbine.name = 'deck-turbine';
+          const rim = ring(turbine, this.silver, Math.min(o.width, o.depth) * .29, .11); rim.rotation.x = -Math.PI / 2;
+          const energy = ring(turbine, this.staticCyan, Math.min(o.width, o.depth) * .22, .038, 0, .02); energy.rotation.x = -Math.PI / 2;
+          const rotor = new THREE.Group(); rotor.name = 'rotor';
+          for (let blade = 0; blade < 6; blade++) { const angle = blade * Math.PI / 3; const fin = box(rotor, this.dark, Math.cos(angle) * .35, .025, Math.sin(angle) * .35, .64, .07, .14); fin.rotation.y = -angle + .35; }
+          turbine.add(rotor); this.obstacles.add(turbine);
         }
       }
       this.syncObjects('core', state.cores, () => this.energy(CYAN), (g, e) => { g.rotation.y = t * 1.2 + e.x; g.position.y = Math.sin(t * 2 + e.x) * 0.06; });
@@ -662,12 +779,12 @@ export class GameRenderer {
         trail.rotation.x = -Math.PI / 2; trail.position.set(0, 0.34, -0.36); g.add(trail); return g;
       }, (g, e) => { g.rotation.y = Math.atan2(e.vx, e.vz); });
       this.syncObjects('player-projectile', state.playerProjectiles ?? [], () => {
-        const g = new THREE.Group(), mat = new THREE.MeshBasicMaterial({ color: 0xfff4a8, toneMapped: false, fog: false });
+        const g = new THREE.Group(), mat = new THREE.MeshBasicMaterial({ color: this.player.headSignature.emissive, toneMapped: false, fog: false });
         const core = new THREE.Mesh(sphere, mat); core.scale.setScalar(0.12); core.position.y = 0.34; g.add(core);
-        box(g, mat, 0, 0.34, -0.2, 0.05, 0.045, 0.36);
-        const tail = box(g, new THREE.MeshBasicMaterial({ color: 0xffdd54, transparent: true, opacity: 0.4, depthWrite: false, toneMapped: false, fog: false }), 0, 0.34, -0.43, 0.08, 0.025, 0.36); tail.name = 'light-trail';
+        box(g, mat, 0, 0.34, -.35, .055, .055, .70);
+        const tail = box(g, new THREE.MeshBasicMaterial({ color: this.player.headSignature.emissive, transparent: true, opacity: .40, depthWrite: false, toneMapped: false, fog: false }), 0, 0.34, -.55, .18, .10, .90); tail.name = 'light-trail';
         return g;
-      }, (g, shot) => { g.rotation.y = Math.atan2(shot.vx, shot.vz); });
+      }, (g, shot) => { g.rotation.y = Math.atan2(shot.vx, shot.vz); g.traverse(child => { if (child instanceof THREE.Mesh) (child.material as THREE.MeshBasicMaterial).color.copy(this.player.headSignature.emissive); }); });
       this.renderCombatEvents(state);
       this.syncObjects('gate', state.gates.filter(gate => !gate.boss || !['extraction', 'complete'].includes(state.status)), e => this.emitter(e.length, e.axis, e.boss), (g, e) => { g.rotation.y = e.axis === 'z' ? Math.PI / 2 : 0; g.getObjectByName('beam')!.visible = e.state === 'active'; g.getObjectByName('warning')!.visible = e.state === 'warning' || e.state === 'active'; });
       const liveRivals = new Set(state.rivals.map(r => r.id));
@@ -682,11 +799,16 @@ export class GameRenderer {
       this.syncObjects('rival-warning', state.rivals.filter(r => r.state === 'warning'), () => { const g = new THREE.Group(); g.add(this.threatCue('»', '#ffbc79', 'cue')); const r = ring(g, this.warningSignal, 0.8, 0.035, 0, 0.02); r.rotation.x = -Math.PI / 2; return g; }, g => this.fitThreatCue(g.getObjectByName('cue')!, true));
       this.syncObjects('rival-cue', state.rivals.filter(r => r.state !== 'warning'), () => { const g = new THREE.Group(); g.add(this.threatCue('»', '#ff7895', 'cue')); return g; }, g => this.fitThreatCue(g.getObjectByName('cue')!, this.needsThreatCue()));
       const bossActive = !!state.boss && !['extraction', 'complete'].includes(state.status) && state.boss.nodes > 0;
-      const boss = state.boss, exposed = bossActive && boss?.charge === 3 && boss.phase === 'recovery';
+      const boss = state.boss, laserBattle = state.contentVersion === CONTENT_VERSION;
+      const exposed = bossActive && boss?.charge === 3 && (laserBattle || boss.phase === 'recovery');
       this.sentinel.visible = bossActive;
       this.gateDoor.visible = state.status !== 'extraction' && state.status !== 'complete';
       this.syncObjects('relay', bossActive ? boss?.relays ?? [] : [], e => {
         const g = this.energy(0xffcf78, String(e.number));
+        if (laserBattle) {
+          const core = g.children[0] as THREE.Mesh; core.geometry.dispose(); core.geometry = new THREE.SphereGeometry(.26, 16, 12);
+          const shell = new THREE.Mesh(new THREE.SphereGeometry(.36, 16, 12), new THREE.MeshBasicMaterial({ color: 0xffd178, transparent: true, opacity: .16, depthWrite: false, toneMapped: false, fog: false })); shell.position.y = .45; g.add(shell);
+        }
         const focus = ring(g, new THREE.MeshBasicMaterial({ color: 0xffe3a4, toneMapped: false, fog: false }), 0.48, 0.035, 0, 0.04); focus.rotation.x = -Math.PI / 2; focus.name = 'next-relay';
         return g;
       }, (g, relay) => {
@@ -698,7 +820,7 @@ export class GameRenderer {
         this.fitThreatCue(g.getObjectByName('relay-identity')!, true, next ? 20 : 16);
         g.rotation.y = 0;
       });
-      this.syncObjects('pad', bossActive && boss ? [{ id: 'pad', ...boss.pad }] : [], () => {
+      this.syncObjects('pad', bossActive && boss && !laserBattle ? [{ id: 'pad', ...boss.pad }] : [], () => {
         const g = new THREE.Group();
         const rim = ring(g, this.disabledSignal, 1, 0.055, 0, 0.04); rim.rotation.x = -Math.PI / 2; rim.name = 'pad-ring';
         for (const [name, symbol, color] of [['inactive', '·', '#a1b2c0'], ['waiting', 'Ⅱ', '#ffcf78'], ['ready', '»', '#82ffd0']]) {
@@ -714,6 +836,11 @@ export class GameRenderer {
         const g = new THREE.Group();
         const footprint = ring(g, this.disabledSignal, 0.65, 0.055, 0, 0.04); footprint.rotation.x = -Math.PI / 2; footprint.name = 'receptor-ring';
         const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.33), new THREE.MeshBasicMaterial({ color: 0xffd178, transparent: true, opacity: 0.65, depthWrite: false, toneMapped: false, fog: false })); crystal.position.y = 0.48; crystal.name = 'receptor-core'; g.add(crystal);
+        if (laserBattle) {
+          // A low articulated cannon links the reachable target to the Warden.
+          const mount = new THREE.Mesh(new THREE.CylinderGeometry(.53, .63, .14, 12), this.dark); mount.position.y = .07; g.add(mount);
+          const link = box(g, this.hostile, 0, .045, (this.layout.boss.anchor.z - this.layout.boss.receptor.z) / 2, .045, .025, Math.abs(this.layout.boss.anchor.z - this.layout.boss.receptor.z)); link.name = 'warden-cannon-link';
+        }
         const target = this.label('⊕', '#fff080'); target.position.y = 1.25; target.name = 'receptor-target'; target.material.fog = false; target.material.toneMapped = false; g.add(target);
         for (let i = 0; i < 3; i++) box(g, this.disabledSignal, (i - 1) * 0.3, 0.045, 0.87, 0.20, 0.025, 0.10).name = `hit-${i}`;
         return g;
@@ -731,9 +858,40 @@ export class GameRenderer {
       }, g => this.fitThreatCue(g.getObjectByName('exit-mark')!, true));
       for (let i = 0; i < 3; i++) this.bossNodes[i].visible = i < (boss?.nodes ?? 0);
       this.sentinel.rotation.z = 0;
+      this.bossIris.rotation.z = this.settings.reducedMotion ? 0 : state.time * (exposed ? .85 : .20);
+      this.bossIris.scale.setScalar(exposed ? 1.18 : 1);
+      this.bossCannons.rotation.x = boss?.volley ? -.14 : boss?.phase === 'attack' ? .08 : 0;
+      this.renderBossWarnings(state);
+      this.obstacles.children.filter(child => child.name === 'deck-turbine').forEach(turbine => { turbine.getObjectByName('rotor')!.rotation.y = this.settings.reducedMotion ? 0 : state.time * .6; });
 
     }
+    this.player.faceGlow(this.camera); this.titleSnake.faceGlow(this.camera);
     if (this.settings.quality === 'low' || this.settings.bloom === 0) this.renderer.render(this.scene, this.camera); else this.composer.render();
+  }
+  private renderBossWarnings(state: WorldState) {
+    const volley = state.boss?.volley;
+    this.syncObjects('warden-aim', volley && state.contentVersion === CONTENT_VERSION ? volley.targets.map((target, i) => ({ id: `ray-${state.boss!.cycle}-${i}`, ...volley.origin, target })) : [], ray => {
+      const g = new THREE.Group(), dx = ray.target.x - ray.x, dz = ray.target.z - ray.z;
+      let limit = 1;
+      for (const [p, d, boundary] of [[ray.x, dx, this.layout.halfWidth], [ray.z, dz, this.layout.halfDepth]]) if (Math.abs(d) > .0001) limit = Math.min(limit, ((d > 0 ? boundary : -boundary) - p) / d);
+      for (const obstacle of state.obstacles) {
+        let near = 0, far = 1;
+        for (const [p, d, center, extent] of [[ray.x, dx, obstacle.x, obstacle.width / 2], [ray.z, dz, obstacle.z, obstacle.depth / 2]]) {
+          if (Math.abs(d) < .0001) { if (p < center - extent || p > center + extent) far = -1; }
+          else { const a = (center - extent - p) / d, b = (center + extent - p) / d; near = Math.max(near, Math.min(a, b)); far = Math.min(far, Math.max(a, b)); }
+        }
+        if (near <= far && far >= 0) limit = Math.min(limit, near);
+      }
+      const distance = Math.hypot(dx, dz), points: number[] = [];
+      for (let start = 0; start < limit * distance; start += .6) {
+        const end = Math.min(start + .36, limit * distance);
+        points.push(dx * start / distance, .075, dz * start / distance, dx * end / distance, .075, dz * end / distance);
+      }
+      const geometry = new THREE.BufferGeometry(); geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+      const line = new THREE.LineSegments(geometry, new THREE.LineBasicMaterial({ color: 0xffb44b, transparent: true, opacity: .95, depthWrite: false, toneMapped: false, fog: false })); line.name = 'locked-shot-warning'; g.add(line);
+      const ringMesh = ring(g, this.warningSignal, .78, .045, 0, .065); ringMesh.rotation.x = -Math.PI / 2;
+      return g;
+    });
   }
   private renderCombatEvents(state: WorldState) {
     const recent = state.events.filter(event => event.origin && state.time >= event.time && state.time - event.time < 0.6);

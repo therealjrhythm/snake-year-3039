@@ -15,6 +15,12 @@
 - The thirteen images total approximately 211 KiB. They are static HTML images in the Lab; opening the menu creates no additional WebGL context. Isolated views omit gameplay bloom and scenery while preserving each shape, symbol and color identity.
 - All thirteen were visually inspected in the generated contact sheet, then checked in the actual Lab layout. Regenerate them if the underlying pickup/pad art changes.
 
+## Combat and interface revision — September 6, 2026
+
+- Layered rooftop supports, flush deck plates/route markings, machinery turbines, Warden iris/cannons, relay spheres and instanced color halos are original extensions of the existing procedural Three.js scene. Solid footprints are unchanged.
+- The new Warden instructions use a project-authored SVG teaching diagram in `WardenInstructions.tsx`. The existing exported pad image remains for earlier rules; the twelve actual pickup images remain current.
+- GSAP 3.14.2 is pinned for DOM menu/confirmation animations, with scoped cleanup and app/OS reduced-motion support. Its package declares the [GSAP standard license](https://gsap.com/standard-license/). No GSAP animation drives simulation state.
+
 ## Original procedural audio
 
 - `src/game/audio.ts` contains an original code-authored electronic score (detuned filtered synth pads, syncopated bass/sub voices, metallic FM sequences, synthesized percussion and stereo delay) and event sounds for pickups, attacks, tactics, rivals and progression.

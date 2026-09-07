@@ -1,4 +1,4 @@
-import { CONTENT_VERSION, LEGACY_CONTENT_VERSION } from './content';
+import { CONTENT_VERSION, EXPANDED_CONTENT_VERSION, LEGACY_CONTENT_VERSION, SUPPORTED_CONTENT_VERSIONS } from './content';
 
 export interface LocalRecord {
   runId: string;
@@ -18,7 +18,7 @@ export interface LocalRecord {
 }
 
 export const recordVersion = (record: LocalRecord): string => record.contentVersion ?? LEGACY_CONTENT_VERSION;
-export const recordVersionLabel = (record: LocalRecord): string => recordVersion(record) === CONTENT_VERSION ? 'Expanded 36 × 26' : 'Legacy 32 × 24';
+export const recordVersionLabel = (record: LocalRecord): string => recordVersion(record) === CONTENT_VERSION ? 'Laser & lives · 0.3' : recordVersion(record) === EXPANDED_CONTENT_VERSION ? 'Expanded 36 × 26 · 0.2' : 'Legacy 32 × 24 · 0.1';
 
 interface SavedEnvelope { schema: 1; savedAt: string; snapshot: unknown }
 const DATABASE = 'snake-year-3039';
@@ -68,7 +68,7 @@ function isRecord(value: unknown): value is LocalRecord {
     && typeof record.difficulty === 'string'
     && typeof record.date === 'string' && Number.isFinite(Date.parse(record.date))
     && typeof record.cause === 'string'
-    && (record.contentVersion === undefined || [CONTENT_VERSION, LEGACY_CONTENT_VERSION].includes(String(record.contentVersion)))
+    && (record.contentVersion === undefined || SUPPORTED_CONTENT_VERSIONS.includes(String(record.contentVersion)))
     && (record.mode === undefined || record.mode === 'campaign')
     && (record.districtId === undefined || record.districtId === 'D1')
     && (record.seed === undefined || typeof record.seed === 'number' && Number.isInteger(record.seed));

@@ -108,7 +108,8 @@ try {
   await page.getByRole('button', { name: 'CHOOSE LAB SYSTEM', exact: true }).click();
   for (const name of ['Overdrive', 'Score Surge', 'Magnet', 'Shield', 'EMP Pulse', 'Repair', 'Decoy', 'Tail Splice', 'Pulse Blaster', 'Capacitor', 'Bullet Scrubber', 'Chain Buffer', 'Warden boss fight']) {
     await select('Choose what to try', name);
-    await page.locator('.lab-visual img').evaluate(img => img.decode());
+    if (name === 'Warden boss fight') await expect(page.locator('.warden-combat-visual svg')).toBeVisible();
+    else await page.locator('.lab-visual img').evaluate(img => img.decode());
     await expect(page.locator('.world canvas')).toHaveCount(1);
   }
   await page.getByRole('button', { name: 'Start practice', exact: true }).click();
@@ -116,7 +117,7 @@ try {
   assert.equal((await read()).lab, 'warden');
   assert.deepEqual(await saved(), campaignSave);
   await page.getByRole('button', { name: 'PICKUPS & TACTICS', exact: true }).click();
-  await expect(page.locator('.warden-guide')).toContainText('bottom-center');
+  await expect(page.locator('.warden-guide')).toContainText('Top-center');
   await page.getByRole('button', { name: 'Back to paused run', exact: true }).click();
   await page.getByRole('button', { name: 'LEAVE LAB', exact: true }).click();
   assert.deepEqual(await saved(), campaignSave);
@@ -125,6 +126,11 @@ try {
 
   await page.getByRole('button', { name: 'CONTINUE RUN', exact: true }).click();
   await active();
+  for (const remaining of [2, 1]) {
+    await page.getByRole('heading', { name: 'GET BACK IN THE FIGHT', exact: true }).waitFor({ timeout: 12000 });
+    assert.equal((await read()).lives, remaining);
+    await page.getByRole('button', { name: 'RETRY WAVE 1', exact: true }).click(); await active();
+  }
   await page.getByRole('heading', { name: 'CONNECTION SEVERED', exact: true }).waitFor({ timeout: 12000 });
   const ended = await read();
   await page.getByRole('button', { name: 'REPLAY THIS SEED', exact: true }).click();
@@ -137,7 +143,7 @@ try {
   assert.ok(replay.time < ended.time); assert.equal(replay.wave, 1);
   pass('Replay This Seed starts a fresh attempt with the same seed, layout and rules, and a distinct run identity');
 
-  // Explicit hybrid-boss snapshot: no claim of ordinary collection-wave progression.
+  // Explicit laser-boss snapshot: no claim of ordinary collection-wave progression.
   await page.goto(url);
   await page.evaluate(async () => {
     const { Simulation } = await import('/src/game/simulation.ts');

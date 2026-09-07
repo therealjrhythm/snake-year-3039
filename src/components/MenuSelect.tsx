@@ -5,6 +5,7 @@ export interface MenuSelectOption<T extends string> {
   value: T;
   label: string;
   disabled?: boolean;
+  description?: string;
 }
 
 /** A controller-readable selector whose options remain inside the game's menu. */
@@ -20,6 +21,8 @@ export function MenuSelect<T extends string>({ label, value, options, onChange, 
   const wrapper = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const firstOption = useRef<HTMLButtonElement>(null);
+  const popup = useRef<HTMLDivElement>(null);
+  const [popupLayout, setPopupLayout] = useState({ above: false, maxHeight: 330 });
   const selected = options.find(option => option.value === value);
   const initialOption = options.find(option => option.value === value && !option.disabled)
     ?? options.find(option => !option.disabled);
@@ -30,7 +33,18 @@ export function MenuSelect<T extends string>({ label, value, options, onChange, 
   };
 
   useLayoutEffect(() => {
-    if (open) firstOption.current?.focus({ preventScroll: true });
+    if (!open) return;
+    const button = trigger.current;
+    if (button && popup.current) {
+      const bounds = button.getBoundingClientRect();
+      const container = button.closest('.dialog, .briefing')?.getBoundingClientRect();
+      const below = Math.min(window.innerHeight - 14, container ? container.bottom - 10 : Infinity) - bounds.bottom - 6;
+      const above = bounds.top - Math.max(14, container ? container.top + 10 : 0) - 6;
+      const desired = Math.min(330, popup.current.scrollHeight);
+      const placeAbove = below < desired && above > below;
+      setPopupLayout({ above: placeAbove, maxHeight: Math.max(100, Math.min(330, placeAbove ? above : below)) });
+    }
+    firstOption.current?.focus({ preventScroll: true });
   }, [open]);
 
   useEffect(() => {
@@ -90,14 +104,15 @@ export function MenuSelect<T extends string>({ label, value, options, onChange, 
       <span className="menu-select-value">{selected?.label ?? value}</span>
       <span className="menu-select-chevron" aria-hidden="true">⌄</span>
     </button>
-    {open ? <div className="menu-select-popup" data-menu-popup onKeyDown={trapTab}>
+    {open ? <div className="menu-select-popup" data-menu-popup onKeyDown={trapTab} ref={popup}
+      style={{ maxHeight: popupLayout.maxHeight, ...(popupLayout.above ? { top: 'auto', bottom: 'calc(100% + 6px)' } : {}) }}>
       <div id={`${id}-listbox`} role="listbox" aria-label={label}>
         {options.map(option => <button type="button" className="menu-select-option" role="option"
           aria-selected={option.value === value} disabled={option.disabled} key={option.value}
           ref={option === initialOption ? firstOption : undefined}
           data-autofocus={option === initialOption || undefined}
           onClick={() => { onChange(option.value); close(); }}>
-          {option.label}
+          <span>{option.label}</span>{option.description ? <small>{option.description}</small> : null}
         </button>)}
       </div>
       <button type="button" className="menu-select-cancel" data-menu-back onClick={() => close()}>Cancel</button>

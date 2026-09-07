@@ -66,6 +66,7 @@ async function loadFixture(kind) {
       s.projectiles = [{ id: 'fixture-head-shot', x: 0, z: 4, vx: 0, vz: 4, ttl: 5 }];
       if (kind === 'shield') s.buffs.shield = 12;
     }
+    s.retryCheckpoint.runId = s.runId;
     Simulation.restore(sim.snapshot());
     await saveRun(sim.snapshot());
   }, kind);
@@ -79,9 +80,9 @@ try {
   await page.route('**/systems-fixture', route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>Explicit systems fixture installer</title>' }));
 
   await loadFixture('automatic');
-  await page.getByText('Half boost drain', { exact: true }).waitFor();
+  await page.getByLabel(/Overdrive: Half boost drain, [1-8] seconds remaining/).waitFor();
   assert.match(await page.locator('.tactical-hint').innerText(), /EMP supply begins in Wave 2/);
-  assert.match(await page.locator('.hud-resources .active-buffs').innerText(), /Overdrive[\s\S]*Half boost drain[\s\S]*[1-8]s/);
+  assert.match(await page.locator('.hud-resources .active-buffs').innerText(), /Overdrive[\s\S]*[1-8]s/);
   await page.waitForTimeout(350);
   assert.match(await page.locator('.event-toast').innerText(), /OVERDRIVE/);
   await pause();
@@ -124,7 +125,7 @@ try {
 
   await loadFixture('emp');
   await page.locator('.tactic.ready').waitFor();
-  assert.match(await page.locator('.tactic.ready').innerText(), /EMP PULSE[\s\S]*1 CHARGE/);
+  assert.match(await page.locator('.tactic.ready').innerText(), /EMP PULSE[\s\S]*READY ×1/);
   await page.keyboard.press('Space');
   await page.waitForFunction(() => /EMP PULSE.*disabled for 3s/s.test(document.querySelector('.event-toast')?.textContent ?? ''));
   await page.locator('.tactic.ready').waitFor({ state: 'hidden' });
@@ -150,11 +151,11 @@ try {
 
   await loadFixture('head-shot');
   await page.locator('.combat-readout.damage').waitFor();
-  assert.match(await page.locator('.combat-readout').innerText(), /HEAD HIT.*−1 INTEGRITY/);
+  assert.match(await page.locator('.combat-readout').innerText(), /HEAD HIT.*−1 HEALTH/);
   assert.equal(await page.getByLabel('2 of 3 integrity', { exact: true }).count(), 1);
   await page.keyboard.press('Space');
   await page.waitForFunction(() => /EMP EMPTY.*Wave 2/s.test(document.querySelector('.event-toast')?.textContent ?? ''));
-  assert.match(await page.locator('.combat-readout').innerText(), /HEAD HIT.*−1 INTEGRITY/);
+  assert.match(await page.locator('.combat-readout').innerText(), /HEAD HIT.*−1 HEALTH/);
   await pause();
   await capture('head-hit-feedback-paused');
   const head = await saveAndRead();
@@ -164,7 +165,7 @@ try {
 
   await loadFixture('shield');
   await page.locator('.combat-readout.shield-hit').waitFor();
-  assert.match(await page.locator('.combat-readout').innerText(), /SHIELD ABSORBED THE HIT/);
+  assert.match(await page.locator('.combat-readout').innerText(), /SHIELD BLOCKED HIT/);
   assert.equal(await page.getByLabel('3 of 3 integrity', { exact: true }).count(), 1);
   await pause();
   const shield = await saveAndRead();

@@ -1,0 +1,27 @@
+
+> snake-year-3039@0.3.0 build
+> tsc -b && vite build
+
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 1878 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                         0.71 kB │ gzip:   0.41 kB
+dist/assets/orbitron-latin-900-normal-DrIi7unX.woff2    6.40 kB
+dist/assets/orbitron-latin-700-normal-4jsRXGGJ.woff2    6.52 kB
+dist/assets/orbitron-latin-900-normal-BbJatbhp.woff     8.40 kB
+dist/assets/orbitron-latin-700-normal-DmYOh-W9.woff     8.96 kB
+dist/assets/rajdhani-latin-500-normal-DfvNI-Td.woff    11.76 kB
+dist/assets/rajdhani-latin-400-normal-C6_q4usG.woff    11.76 kB
+dist/assets/rajdhani-latin-700-normal-e0Uj8ZlN.woff    12.06 kB
+dist/assets/rajdhani-latin-600-normal-Dx02qI2_.woff    12.09 kB
+dist/assets/rajdhani-latin-400-normal-CurJOxDW.woff2   14.97 kB
+dist/assets/rajdhani-latin-500-normal-ByNUCHrt.woff2   15.08 kB
+dist/assets/rajdhani-latin-700-normal-BPDUZo87.woff2   15.68 kB
+dist/assets/rajdhani-latin-600-normal-CXCVEoA9.woff2   15.73 kB
+dist/assets/index-CNR2J2h_.css                         51.49 kB │ gzip:  12.03 kB
+dist/assets/index-D_Iqo495.js                         473.96 kB │ gzip: 156.06 kB
+dist/assets/three-BeZmq72c.js                         573.51 kB │ gzip: 142.95 kB
+
+✓ built in 215ms

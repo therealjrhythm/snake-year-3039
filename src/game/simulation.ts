@@ -1,4 +1,4 @@
-import { BLASTER, CONTENT_VERSION, LEGACY_CONTENT_VERSION, DISTRICTS, FIXED_DT, MOVEMENT, PICKUPS, RULES } from './content';
+import { BLASTER, CONTENT_VERSION, LEGACY_CONTENT_VERSION, SUPPORTED_CONTENT_VERSIONS, DISTRICTS, FIXED_DT, MOVEMENT, PICKUPS, RULES } from './content';
 import { getLayout } from './layouts';
 import { GAME_EVENT_KINDS } from './types';
 import type { Difficulty, GameEvent, GameEventKind, GameInput, GameMode, Gate, LabKind, LayoutId, Obstacle, PickupKind, Positioned, Rival, SimulationState, Snake, Vec2 } from './types';
@@ -29,6 +29,37 @@ function initialSnake(x: number, z: number, heading: number, length: number): Sn
   for (let d = 0; d <= 76; d += 0.15) path.push({ x: x - Math.cos(heading) * d, z: z - Math.sin(heading) * d });
   const snake: Snake = { x, z, heading, length, path, body: [], lastTurn: 1 };
   sampleBody(snake, length);
+  return snake;
+}
+
+/** Stage retries start on the clear south lane; the saved tail follows the perimeter. */
+function retrySnake(halfWidth: number, halfDepth: number, length: number, visibleLength: number): Snake {
+  const x = halfWidth - 3;
+  const z = halfDepth - 3;
+  const radius = 3;
+  const path: Vec2[] = [{ x: 0, z }];
+  const lineTo = (end: Vec2) => {
+    const start = path[path.length - 1];
+    const steps = Math.ceil(distance(start, end) / 0.1);
+    for (let step = 1; step <= steps; step++) path.push(mix(start, end, step / steps));
+  };
+  const corner = (center: Vec2, start: number) => {
+    const steps = Math.ceil(radius * Math.PI / 2 / 0.1);
+    for (let step = 1; step <= steps; step++) {
+      const angle = start + Math.PI / 2 * step / steps;
+      path.push({ x: center.x + Math.cos(angle) * radius, z: center.z + Math.sin(angle) * radius });
+    }
+  };
+  lineTo({ x: -x + radius, z });
+  corner({ x: -x + radius, z: z - radius }, Math.PI / 2);
+  lineTo({ x: -x, z: -z + radius });
+  corner({ x: -x + radius, z: -z + radius }, Math.PI);
+  lineTo({ x: x - radius, z: -z });
+  corner({ x: x - radius, z: -z + radius }, Math.PI * 1.5);
+  lineTo({ x, z: z - radius });
+  // This open path holds the full 128-segment save bound without looping into the head.
+  const snake: Snake = { x: 0, z, heading: 0, length, path, body: [], lastTurn: 1 };
+  sampleBody(snake, visibleLength);
   return snake;
 }
 
@@ -162,13 +193,18 @@ export class Simulation {
   private queuedUse = false;
   private queuedSwap = false;
 
-  constructor(options: { seed?: number; difficulty?: Difficulty; mode?: GameMode; layoutId?: LayoutId } = {}) {
+  constructor(options: { seed?: number; difficulty?: Difficulty; mode?: GameMode; layoutId?: LayoutId; contentVersion?: string } = {}) {
     const seed = (options.seed ?? 3039) >>> 0 || 3039;
     const difficulty = options.difficulty ?? 'standard';
     const integrity = RULES[difficulty].integrity;
-    const layout = getLayout(options.layoutId);
+    const contentVersion = options.contentVersion ?? (options.layoutId === 'neon-spire-v1' ? LEGACY_CONTENT_VERSION : CONTENT_VERSION);
+    if (!SUPPORTED_CONTENT_VERSIONS.includes(contentVersion)) throw new Error('Unsupported content version.');
+    const expectedLayout = contentVersion === LEGACY_CONTENT_VERSION ? 'neon-spire-v1' : 'neon-spire-v2';
+    if (options.layoutId && options.layoutId !== expectedLayout) throw new Error('Content version and arena layout do not match.');
+    const layout = getLayout(expectedLayout);
     this.state = {
-      version: 1, contentVersion: layout.id === 'neon-spire-v1' ? LEGACY_CONTENT_VERSION : CONTENT_VERSION, layoutId: layout.id, status: 'playing', mode: options.mode ?? 'campaign', difficulty,
+      version: 1, contentVersion, layoutId: layout.id, status: 'playing', mode: options.mode ?? 'campaign', difficulty,
+      lives: contentVersion === CONTENT_VERSION ? 3 : 1, retryCheckpoint: null,
       time: 0, accumulator: 0, pauseRequested: null,
       player: { ...initialSnake(layout.playerStart.x, layout.playerStart.z, layout.playerStart.heading, 8), integrity, maxIntegrity: integrity, boost: 100, boostLocked: false, boosting: false, boostRest: 0, protection: 0, splice: null },
       wave: 1, waveTime: 0, transitionTime: 0, coresCollected: 0, totalCores: 0, quota: 12,
@@ -235,12 +271,46 @@ export class Simulation {
     if (this.state.status !== 'boss-intro') return;
     this.state.status = 'boss';
     const layout = getLayout(this.state);
-    this.state.boss = { id: 'B1', nodes: 3, charge: 0, phase: 'safe', phaseTime: 3, relays: [], pad: copy(layout.boss.pad), cycle: 0, relayRetry: 0, relayBlockedTime: 0, stage: 'collecting-relays', receptor: copy(layout.boss.receptor), receptorHits: 0, relayFeedbackCooldown: 0 };
+    this.state.boss = { id: 'B1', nodes: 3, charge: 0, phase: 'safe', phaseTime: 3, relays: [], pad: copy(layout.boss.pad), cycle: 0, relayRetry: 0, relayBlockedTime: 0, stage: 'collecting-relays', receptor: copy(layout.boss.receptor), receptorHits: 0, relayFeedbackCooldown: 0, volley: null };
     this.state.gates = [{ id: this.id('warden-beam'), ...layout.boss.sectors[0], state: 'safe', timer: 3, disabled: 0, boss: true }];
     this.refillRelays();
     this.state.pendingSpawns = [{ id: this.id('support'), kind: 'drone', at: this.state.waveTime + 5, position: copy(layout.boss.supportSpawn) }];
     this.clearInput();
-    this.emit('boss', 'WARDEN · Collect 1 → 2 → 3. Cross the round pad at the bottom-center when it turns green.');
+    this.emit('boss', this.laserRules ? 'WARDEN · Collect spheres 1 → 2 → 3, then fire your laser at the glowing target below Warden. Dodge its warned shots.' : 'WARDEN · Collect 1 → 2 → 3. Cross the round pad at the bottom-center when it turns green.');
+    this.captureRetryCheckpoint();
+  }
+
+  get canRetry(): boolean { return this.laserRules && this.state.status === 'dead' && this.state.lives > 0 && !!this.state.retryCheckpoint; }
+
+  /** Restore the entry state without duplicating earned score or resetting the run identity. */
+  retryCurrentWave(): boolean {
+    if (!this.canRetry || !this.state.retryCheckpoint) return false;
+    const failed = this.state;
+    const checkpoint = JSON.parse(JSON.stringify(failed.retryCheckpoint)) as SimulationState;
+    checkpoint.lives = failed.lives;
+    checkpoint.time = failed.time;
+    checkpoint.damageTaken = failed.damageTaken;
+    checkpoint.eventCounter = failed.eventCounter;
+    checkpoint.events = []; checkpoint.event = null;
+    checkpoint.retryCheckpoint = failed.retryCheckpoint;
+    checkpoint.accumulator = 0; checkpoint.pauseRequested = null; checkpoint.deathCause = '';
+    this.state = checkpoint;
+    this.clearInput();
+    this.emit('start', `${checkpoint.boss ? 'WARDEN' : `WAVE ${checkpoint.wave}`} RESTARTED · ${checkpoint.lives} ${checkpoint.lives === 1 ? 'life' : 'lives'} left.`);
+    return true;
+  }
+
+  private captureRetryCheckpoint(): void {
+    if (!this.laserRules) return;
+    const checkpoint = JSON.parse(JSON.stringify({ ...this.state, accumulator: 0, retryCheckpoint: null })) as SimulationState;
+    if (!checkpoint.lab && (checkpoint.wave > 1 || checkpoint.boss)) {
+      const layout = getLayout(checkpoint);
+      const player = checkpoint.player;
+      const visibleLength = player.splice ? player.splice.to + (player.splice.from - player.splice.to) * player.splice.remaining / 0.3 : player.length;
+      // Only the retry copy moves. Continuing the live wave never teleports the snake.
+      Object.assign(player, retrySnake(layout.halfWidth, layout.halfDepth, player.length, visibleLength));
+    }
+    this.state.retryCheckpoint = checkpoint;
   }
 
   snapshot(): SimulationState { return JSON.parse(JSON.stringify(this.state)) as SimulationState; }
@@ -270,7 +340,8 @@ export class Simulation {
       if (['shield', 'scrubber'].includes(kind)) s.projectiles = [{ id: sim.id('lab-shot'), x: 0, z: -1, vx: 0, vz: 4, ttl: 6 }];
       if (['emp', 'decoy', 'blaster'].includes(kind)) s.drones = [{ id: sim.id('lab-patrol'), x: kind === 'blaster' ? 0 : 2, z: 0, hp: 2, state: 'recover', timer: kind === 'blaster' ? 30 : 0.8, cooldown: 0.8, disabled: 0, anchor: { x: kind === 'blaster' ? 0 : 2, z: 0 }, phase: 0 }];
     }
-    sim.emit('lab-ready', kind === 'warden' ? 'WARDEN LAB · Collect 1 → 2 → 3. Find the round pad at the bottom-center; cross it when green.' : `${PICKUPS[kind].name.toUpperCase()} LAB · Collect the marked pickup. Reset or refill to try again.`, kind === 'warden' ? {} : { pickup: kind });
+    sim.emit('lab-ready', kind === 'warden' ? 'WARDEN LAB · Collect spheres 1 → 2 → 3, then hold Fire to hit the glowing target below Warden.' : `${PICKUPS[kind].name.toUpperCase()} LAB · Collect the marked pickup. Reset or refill to try again.`, kind === 'warden' ? {} : { pickup: kind });
+    sim.captureRetryCheckpoint();
     return sim;
   }
 
@@ -285,10 +356,12 @@ export class Simulation {
     if (!encoded || encoded.length > 1_500_000) throw new Error('Save is empty or exceeds the 1.5 MB limit.');
     const parsed: unknown = JSON.parse(encoded);
     validateSnapshot(parsed);
-    const simulation = new Simulation({ seed: parsed.seed, difficulty: parsed.difficulty, mode: parsed.mode, layoutId: parsed.contentVersion === LEGACY_CONTENT_VERSION ? 'neon-spire-v1' : 'neon-spire-v2' });
+    const simulation = new Simulation({ seed: parsed.seed, difficulty: parsed.difficulty, mode: parsed.mode, contentVersion: parsed.contentVersion });
     // Original v1 saves predate retained feedback; migrate only this presentation data.
     if (parsed.event && parsed.event.time === undefined) parsed.event.time = parsed.time;
     parsed.events ??= parsed.event ? [{ ...parsed.event }] : [];
+    parsed.lives ??= parsed.status === 'dead' ? 0 : 1;
+    parsed.retryCheckpoint ??= null;
     parsed.layoutId ??= 'neon-spire-v1';
     parsed.weapon ??= { ammo: 0, cooldown: 0, emptyCooldown: 0 };
     parsed.playerProjectiles ??= [];
@@ -296,6 +369,7 @@ export class Simulation {
     parsed.lab ??= null;
     parsed.buffs.scrubber ??= 0; parsed.buffs['chain-buffer'] ??= 0;
     if (parsed.boss) {
+      parsed.boss.volley ??= null;
       parsed.boss.receptor ??= copy(getLayout(parsed).boss.receptor);
       parsed.boss.receptorHits ??= 0; parsed.boss.relayFeedbackCooldown ??= 0;
       parsed.boss.stage ??= parsed.boss.nodes <= 0 ? 'defeated' : parsed.boss.charge < 3 ? 'collecting-relays' : parsed.boss.phase === 'recovery' ? 'exposed' : 'charge-ready';
@@ -422,6 +496,7 @@ export class Simulation {
       } else this.queueIntroductions();
     }
     this.emit('wave', `WAVE ${wave} / 3 · Recover ${s.quota} energy cores${wave === 3 ? ' · HUNTER inbound' : ''}.`);
+    this.captureRetryCheckpoint();
   }
 
   private completeWave(): void {
@@ -544,6 +619,8 @@ export class Simulation {
     s.pickups.push({ id: this.id('pickup'), ...point, kind: selected, ttl: 15 });
     if (selected === 'repair' || selected === 'splice') s.spawnedLimitedPickups.push(selected);
   }
+
+  private get laserRules(): boolean { return this.state.contentVersion === CONTENT_VERSION; }
 
   private get legacy(): boolean { return this.state.contentVersion === LEGACY_CONTENT_VERSION; }
 
@@ -722,20 +799,25 @@ export class Simulation {
     s.weapon.cooldown = Math.max(0, s.weapon.cooldown - dt);
     s.weapon.emptyCooldown = Math.max(0, s.weapon.emptyCooldown - dt);
     if (this.legacy || !input.fire || !['playing', 'boss'].includes(s.status) || s.weapon.cooldown > EPSILON) return;
-    if (!s.weapon.ammo) {
+    const bossLaser = this.laserRules && s.status === 'boss' && !!s.boss && s.boss.nodes > 0;
+    if (bossLaser && s.boss!.charge !== 3) {
+      if (s.weapon.emptyCooldown === 0) { this.emit('weapon-empty', 'LASER CHARGING · Collect spheres 1 → 2 → 3 first.'); s.weapon.emptyCooldown = 1; }
+      return;
+    }
+    if (!bossLaser && !s.weapon.ammo) {
       if (s.weapon.emptyCooldown === 0) { this.emit('weapon-empty', 'BLASTER EMPTY · Collect an ammo pickup.'); s.weapon.emptyCooldown = 1; }
       return;
     }
     if (s.playerProjectiles.length >= BLASTER.projectileCap) return;
     let heading = s.player.heading;
     const targets: (Vec2 & { id: string })[] = s.drones.filter(drone => drone.state !== 'warning').map(drone => ({ id: drone.id, ...copy(drone) }));
-    if (s.boss && s.boss.charge === 3 && s.boss.phase === 'recovery' && s.boss.nodes > 0) targets.push({ id: 'warden-receptor', ...s.boss.receptor });
+    if (s.boss && s.boss.charge === 3 && (this.laserRules || s.boss.phase === 'recovery') && s.boss.nodes > 0) targets.push({ id: 'warden-receptor', ...s.boss.receptor });
     const target = targets.filter(point => distance(point, s.player) <= BLASTER.range && Math.abs(angleDelta(heading, Math.atan2(point.z - s.player.z, point.x - s.player.x))) <= BLASTER.coneHalfAngle && this.lineClear(s.player, point, false) && !s.rivals.some(rival => rival.state === 'hunting' && bodyTOI(s.player, point, [rival, ...rival.body], BODY + BLASTER.radius) !== null)).sort((a, b) => Math.abs(angleDelta(heading, Math.atan2(a.z - s.player.z, a.x - s.player.x))) - Math.abs(angleDelta(heading, Math.atan2(b.z - s.player.z, b.x - s.player.x))) || distance(a, s.player) - distance(b, s.player))[0];
     if (target) heading = Math.atan2(target.z - s.player.z, target.x - s.player.x);
-    s.weapon.ammo--;
+    if (!bossLaser) s.weapon.ammo--;
     s.weapon.cooldown = BLASTER.interval;
     s.playerProjectiles.push({ id: this.id('player-shot'), ...copy(s.player), vx: Math.cos(heading) * BLASTER.speed, vz: Math.sin(heading) * BLASTER.speed, ttl: BLASTER.range / BLASTER.speed, range: BLASTER.range });
-    this.emit('player-shot', 'PULSE BLASTER fired.', { origin: copy(s.player), target: target ? copy(target) : { x: s.player.x + Math.cos(heading) * BLASTER.range, z: s.player.z + Math.sin(heading) * BLASTER.range }, amount: s.weapon.ammo, targetId: target?.id });
+    this.emit('player-shot', bossLaser ? 'RELAY LASER fired.' : 'PULSE BLASTER fired.', { origin: copy(s.player), target: target ? copy(target) : { x: s.player.x + Math.cos(heading) * BLASTER.range, z: s.player.z + Math.sin(heading) * BLASTER.range }, amount: s.weapon.ammo, targetId: target?.id });
   }
 
   private tickPlayerProjectiles(dt: number): void {
@@ -824,14 +906,39 @@ export class Simulation {
       boss.relayBlockedTime = boss.relays.length < 3 - boss.charge ? boss.relayBlockedTime + 0.25 : 0;
     }
     boss.phaseTime -= dt;
+    if (boss.volley) boss.volley.remaining = Math.max(0, boss.phaseTime);
     if (boss.phaseTime > 0) return;
-    if (boss.phase === 'safe') { boss.phase = 'warning'; boss.phaseTime = this.warningTime(1); this.emit('boss-warning', 'WARDEN · Laser fan charging. Outer routes remain open.'); }
-    else if (boss.phase === 'warning') { boss.phase = 'attack'; boss.phaseTime = 2; }
-    else if (boss.phase === 'attack') { boss.phase = 'recovery'; boss.phaseTime = 4; this.emit('boss-recovery', boss.charge === 3 ? 'PAD GREEN · Cross the round pad at the bottom-center now.' : 'Collect all three numbers to turn the bottom-center pad green.'); }
+    if (boss.phase === 'safe') {
+      boss.phase = 'warning'; boss.phaseTime = this.warningTime(this.laserRules ? 1.2 : 1);
+      if (this.laserRules) {
+        const origin = copy(boss.receptor);
+        const heading = Math.atan2(s.player.z - origin.z, s.player.x - origin.x);
+        boss.volley = { origin, remaining: boss.phaseTime, targets: [-0.2, 0, 0.2].map(offset => ({ x: origin.x + Math.cos(heading + offset) * 28, z: origin.z + Math.sin(heading + offset) * 28 })) };
+      }
+      this.emit('boss-warning', this.laserRules ? 'WARDEN LOCKED ON · Move away from the orange aiming lines.' : 'WARDEN · Laser fan charging. Outer routes remain open.', this.laserRules ? { origin: copy(boss.receptor), target: copy(s.player) } : {});
+    } else if (boss.phase === 'warning') {
+      boss.phase = 'attack'; boss.phaseTime = 2;
+      if (this.laserRules && boss.volley) {
+        const volley = boss.volley;
+        let fired = 0;
+        for (const target of volley.targets) {
+          if (s.projectiles.length >= 8) break;
+          const heading = Math.atan2(target.z - volley.origin.z, target.x - volley.origin.x);
+          const speed = 4.8 * RULES[s.difficulty].projectile;
+          s.projectiles.push({ id: this.id('warden-shot'), ...copy(volley.origin), vx: Math.cos(heading) * speed, vz: Math.sin(heading) * speed, ttl: 7 });
+          fired++;
+        }
+        if (fired) this.emit('shot', `WARDEN FIRED · Dodge ${fired} red ${fired === 1 ? 'shot' : 'shots'}.`, { origin: copy(volley.origin), target: copy(volley.targets[1]) });
+        boss.volley = null;
+      }
+    } else if (boss.phase === 'attack') {
+      boss.phase = 'recovery'; boss.phaseTime = this.laserRules ? 2.5 : 4;
+      this.emit('boss-recovery', this.laserRules ? boss.charge === 3 ? 'WARDEN RELOADING · Your laser is ready. Shoot the glowing target.' : 'WARDEN RELOADING · Collect spheres 1 → 2 → 3.' : boss.charge === 3 ? 'PAD GREEN · Cross the round pad at the bottom-center now.' : 'Collect all three numbers to turn the bottom-center pad green.');
+    }
     else {
       boss.phase = 'safe';
       boss.phaseTime = 3;
-      boss.receptorHits = 0;
+      if (!this.laserRules) boss.receptorHits = 0;
       boss.cycle++;
       for (const gate of s.gates) if (gate.boss) Object.assign(gate, getLayout(s).boss.sectors[boss.cycle % 2]);
     }
@@ -841,12 +948,12 @@ export class Simulation {
 
   private updateBossStage(): void {
     const boss = this.state.boss;
-    if (boss) boss.stage = boss.nodes <= 0 ? 'defeated' : boss.charge < 3 ? 'collecting-relays' : boss.phase === 'recovery' ? 'exposed' : 'charge-ready';
+    if (boss) boss.stage = boss.nodes <= 0 ? 'defeated' : boss.charge < 3 ? 'collecting-relays' : this.laserRules || boss.phase === 'recovery' ? 'exposed' : 'charge-ready';
   }
 
   private breakBossNode(origin: Vec2): void {
     const s = this.state, boss = s.boss;
-    if (!boss || boss.phase !== 'recovery' || boss.charge !== 3 || boss.nodes <= 0) return;
+    if (!boss || (!this.laserRules && boss.phase !== 'recovery') || boss.charge !== 3 || boss.nodes <= 0) return;
     boss.nodes--; boss.charge = 0; boss.receptorHits = 0;
     this.updateBossStage();
     this.emit('boss-node', `WARDEN ARMOR BROKEN · ${boss.nodes} ${boss.nodes === 1 ? 'node' : 'nodes'} remain.`, { origin: copy(origin), target: copy(getLayout(s).boss.anchor), amount: boss.nodes });
@@ -879,7 +986,7 @@ export class Simulation {
     s.playerProjectiles = [];
     s.pendingSpawns = [];
     s.cores = [];
-    if (s.boss) s.boss.relays = [];
+    if (s.boss) { s.boss.relays = []; s.boss.volley = null; }
     this.updateBossStage();
     this.resetCombo();
     this.emit('boss-defeated', 'WARDEN OFFLINE · Steer through the north extraction gate. Crashes still matter.');
@@ -1003,12 +1110,13 @@ export class Simulation {
         this.damage('armed mine');
       });
       for (const projectile of [...s.projectiles]) {
-        const old = previousProjectiles.get(projectile.id) ?? { x: projectile.x - projectile.vx * FIXED_DT, z: projectile.z - projectile.vz * FIXED_DT };
+        // Warden shots spawn after projectile movement this tick; their first swept position is their visible origin.
+        const old = previousProjectiles.get(projectile.id) ?? (projectile.id.startsWith('warden-shot-') ? copy(projectile) : { x: projectile.x - projectile.vx * FIXED_DT, z: projectile.z - projectile.vz * FIXED_DT });
         const relativeEnd = { x: p.x - (projectile.x - old.x), z: p.z - (projectile.z - old.z) };
         add(circleTOI(previous, relativeEnd, old, HEAD + 0.14), 1, `shot-${projectile.id}`, () => {
           if (!s.projectiles.some(active => active.id === projectile.id)) return;
           s.projectiles = s.projectiles.filter(active => active.id !== projectile.id);
-          this.damage('patrol projectile');
+          this.damage(projectile.id.startsWith('warden-shot-') ? 'Warden projectile' : 'patrol projectile');
         });
         for (const obstacle of s.obstacles) add(rectangleTOI(old, projectile, obstacle, 0.12), 1, `projectile-solid-${projectile.id}`, () => { s.projectiles = s.projectiles.filter(active => active.id !== projectile.id); });
         for (const decoy of s.decoys) if (decoy.ttl > 0) add(circleTOI(old, projectile, decoy, 0.45), 1, `projectile-decoy-${projectile.id}`, () => {
@@ -1060,7 +1168,7 @@ export class Simulation {
       if (s.status === 'boss' && receptor && !this.legacy) add(circleTOI(old, shot, receptor, 0.65 + BLASTER.radius), 1, `player-receptor-${shot.id}`, () => {
         if (!active() || !s.boss || s.boss.nodes <= 0) return;
         consume();
-        if (s.boss.charge !== 3 || s.boss.phase !== 'recovery') { this.emit('armor-hit', 'WARDEN ARMORED · Collect 1 → 2 → 3 and wait for the bottom-center pad to turn green.', { origin: copy(receptor), targetId: 'warden-receptor' }); return; }
+        if (s.boss.charge !== 3 || (!this.laserRules && s.boss.phase !== 'recovery')) { this.emit('armor-hit', this.laserRules ? 'WARDEN ARMORED · Collect spheres 1 → 2 → 3 to charge your laser.' : 'WARDEN ARMORED · Collect 1 → 2 → 3 and wait for the bottom-center pad to turn green.', { origin: copy(receptor), targetId: 'warden-receptor' }); return; }
         s.boss.receptorHits++;
         this.emit('receptor-hit', `RECEPTOR HIT ${s.boss.receptorHits} / 3`, { origin: copy(receptor), amount: s.boss.receptorHits, targetId: 'warden-receptor' });
         if (s.boss.receptorHits >= 3) this.breakBossNode(receptor);
@@ -1079,11 +1187,11 @@ export class Simulation {
         }
         boss.charge++;
         boss.relays = boss.relays.filter(active => active.id !== relay.id);
-        this.emit('relay', `RELAY ${boss.charge} / 3${boss.charge === 3 ? ' · Cross the bottom-center pad when green.' : ` · Follow relay ${boss.charge + 1}.`}`, { relay: boss.charge, origin: copy(relay) });
+        this.emit('relay', `${this.laserRules ? 'SPHERE' : 'RELAY'} ${boss.charge} / 3${boss.charge === 3 ? this.laserRules ? ' · Laser ready! Shoot the glowing Warden target.' : ' · Cross the bottom-center pad when green.' : ` · Follow ${this.laserRules ? 'sphere' : 'relay'} ${boss.charge + 1}.`}`, { relay: boss.charge, origin: copy(relay) });
         this.updateBossStage();
-        if (boss.charge === 3 && !this.legacy) this.emit('charge-ready', 'CHARGE READY · Cross the round pad at the bottom-center when green.');
+        if (boss.charge === 3 && !this.legacy) this.emit('charge-ready', this.laserRules ? 'LASER READY · Hold Fire and aim toward the glowing target below Warden. Unlimited shots until this armor piece breaks.' : 'CHARGE READY · Cross the round pad at the bottom-center when green.');
       });
-      add(circleTOI(previous, p, boss.pad, HEAD + 1), 3, 'boss-pad', () => {
+      if (!this.laserRules) add(circleTOI(previous, p, boss.pad, HEAD + 1), 3, 'boss-pad', () => {
         if (boss.phase !== 'recovery' || boss.charge < 3 || boss.nodes <= 0) return;
         this.breakBossNode(boss.pad);
       });
@@ -1178,10 +1286,12 @@ export class Simulation {
   }
 
   private fail(cause: string): void {
+    if (this.state.status === 'dead' || this.state.status === 'complete') return;
+    this.state.lives = Math.max(0, this.state.lives - 1);
     this.state.status = 'dead';
     this.state.deathCause = cause;
     this.state.player.boosting = false;
-    this.emit('crash', cause);
+    this.emit('crash', this.laserRules ? `${cause} · ${this.state.lives ? `${this.state.lives} lives left.` : 'No lives left.'}` : cause);
   }
 
   private resetCombo(): void { this.state.chain = 0; this.state.combo = 1; this.state.comboTimer = 0; }
@@ -1197,12 +1307,13 @@ export class Simulation {
   private random(): number { let value = this.state.rng; value ^= value << 13; value ^= value >>> 17; value ^= value << 5; this.state.rng = value >>> 0; return this.state.rng / 4294967296; }
 }
 
-function validateSnapshot(value: unknown): asserts value is SimulationState {
+function validateSnapshot(value: unknown, nestedCheckpoint = false): asserts value is SimulationState {
   const invalid = () => { throw new Error('Save data is invalid or incompatible. Your profile can be retained separately.'); };
   if (!value || typeof value !== 'object') return invalid();
   const state = value as Record<string, unknown>;
-  if (state.version !== 1 || ![CONTENT_VERSION, LEGACY_CONTENT_VERSION].includes(String(state.contentVersion))) throw new Error('This run belongs to a different content version and cannot be resumed.');
+  if (state.version !== 1 || !SUPPORTED_CONTENT_VERSIONS.includes(String(state.contentVersion))) throw new Error('This run belongs to a different content version and cannot be resumed.');
   const legacy = state.contentVersion === LEGACY_CONTENT_VERSION;
+  const laserRules = state.contentVersion === CONTENT_VERSION;
   if (state.layoutId !== (legacy ? 'neon-spire-v1' : 'neon-spire-v2') && !(legacy && state.layoutId === undefined)) invalid();
   let entries = 0;
   const walk = (item: unknown, depth: number): void => {
@@ -1220,6 +1331,16 @@ function validateSnapshot(value: unknown): asserts value is SimulationState {
   if (!['playing', 'transition', 'boss-intro', 'boss', 'extraction', 'dead', 'complete'].includes(String(state.status)) || !['campaign', 'practice'].includes(String(state.mode)) || !['standard', 'assisted', 'expert'].includes(String(state.difficulty))) invalid();
   for (const key of ['time', 'accumulator', 'wave', 'waveTime', 'transitionTime', 'coresCollected', 'totalCores', 'quota', 'score', 'combo', 'chain', 'comboTimer', 'seed', 'rng', 'nextId', 'rivalKills', 'eventCounter', 'optionalTimer', 'spawnBlockedTime', 'coreRetry', 'empInterrupts', 'damageTaken', 'maxCombo']) if (!number(state[key])) invalid();
   if ((state.wave as number) < 1 || (state.wave as number) > 3 || (state.score as number) < 0 || typeof state.runId !== 'string' || typeof state.deathCause !== 'string') invalid();
+  if (laserRules) {
+    if (!Number.isInteger(state.lives) || Number(state.lives) < 0 || Number(state.lives) > 3 || state.status !== 'dead' && state.lives === 0) invalid();
+    if (nestedCheckpoint) { if (state.retryCheckpoint !== null || !['playing', 'boss'].includes(String(state.status))) invalid(); }
+    else {
+      if (!object(state.retryCheckpoint)) return invalid();
+      validateSnapshot(state.retryCheckpoint, true);
+      for (const key of ['runId', 'contentVersion', 'layoutId', 'seed', 'difficulty', 'mode', 'lab']) if (state.retryCheckpoint[key] !== state[key]) invalid();
+      if (Number(state.retryCheckpoint.time) > Number(state.time) || Number(state.retryCheckpoint.wave) > Number(state.wave)) invalid();
+    }
+  } else if (state.lives !== undefined && (!Number.isInteger(state.lives) || Number(state.lives) < 0 || Number(state.lives) > 1) || state.retryCheckpoint != null) invalid();
   const player = state.player;
   if (!object(player) || !point(player) || !Array.isArray(player.body) || !player.body.every(point) || player.body.length > 128 || !Array.isArray(player.path) || player.path.length < 2 || !player.path.every(point)) return invalid();
   for (const key of ['heading', 'length', 'lastTurn', 'integrity', 'maxIntegrity', 'boost', 'boostRest', 'protection']) if (!number(player[key])) invalid();
@@ -1266,6 +1387,13 @@ function validateSnapshot(value: unknown): asserts value is SimulationState {
   if (state.boss !== null) {
     const boss = state.boss;
     if (!object(boss) || boss.id !== 'B1' || !['safe', 'warning', 'attack', 'recovery'].includes(String(boss.phase)) || !['nodes', 'charge', 'phaseTime', 'cycle', 'relayRetry', 'relayBlockedTime'].every(key => number(boss[key])) || !point(boss.pad) || !Array.isArray(boss.relays) || !boss.relays.every(relay => object(relay) && point(relay) && typeof relay.id === 'string' && number(relay.number))) invalid();
+    if (object(boss) && laserRules) {
+      if (boss.volley !== null) {
+        const volley = boss.volley;
+        if (!object(volley) || !point(volley.origin) || !Array.isArray(volley.targets) || volley.targets.length !== 3 || !volley.targets.every(point) || !number(volley.remaining) || volley.remaining < 0 || volley.remaining > 2 || boss.phase !== 'warning') invalid();
+      }
+      if (!Number.isInteger(boss.nodes) || Number(boss.nodes) < 0 || Number(boss.nodes) > 3 || !Number.isInteger(boss.charge) || Number(boss.charge) < 0 || Number(boss.charge) > 3) invalid();
+    }
     if (!legacy && (!object(boss) || !['collecting-relays', 'charge-ready', 'exposed', 'defeated'].includes(String(boss.stage)) || !point(boss.receptor) || !number(boss.receptorHits) || boss.receptorHits < 0 || boss.receptorHits > 3 || !number(boss.relayFeedbackCooldown))) invalid();
   }
 }

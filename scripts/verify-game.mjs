@@ -73,16 +73,40 @@ try {
   await page.getByRole('button', { name: 'Done', exact: true }).click();
   await page.getByRole('button', { name: 'RESUME', exact: true }).click();
   await waitActive();
-  await page.getByRole('heading', { name: 'CONNECTION SEVERED', exact: true }).waitFor({ timeout: 10000 });
-  assert.match(await page.locator('.results-panel').innerText(), /Critical crash: arena wall/);
-  await screen('results-1280'); pass('Real movement into the arena wall produces named critical crash');
-  await page.waitForTimeout(150);
+  const runId = firstSave.runId;
+  for (const remaining of [2, 1]) {
+    await page.getByRole('heading', { name: 'GET BACK IN THE FIGHT', exact: true }).waitFor({ timeout: 12000 });
+    assert.match(await page.locator('.life-panel').innerText(), /Critical crash: arena wall/);
+    await page.waitForFunction(async remaining => (await (await import('/src/game/persistence.ts')).getSavedRun())?.lives === remaining, remaining);
+    assert.equal((await saved()).runId, runId);
+    assert.equal((await page.evaluate(async () => (await import('/src/game/persistence.ts')).getRecords())).length, 0);
+    if (remaining === 2) {
+      await page.reload();
+      await page.getByRole('button', { name: 'CONTINUE RUN', exact: true }).click();
+      await page.getByRole('heading', { name: 'GET BACK IN THE FIGHT', exact: true }).waitFor();
+      assert.equal(await page.locator('.countdown-overlay').count(), 0, 'A saved lost life must not resume a dead simulation');
+      await screen('life-lost-1280');
+    }
+    await page.getByRole('button', { name: 'RETRY WAVE 1', exact: true }).click();
+    await waitActive();
+    if (remaining === 2) {
+      await page.keyboard.press('Escape');
+      assert.match(await page.locator('.objective-line').innerText(), /0 \/ 12/);
+      await page.getByRole('button', { name: 'RESUME', exact: true }).click(); await waitActive();
+    }
+  }
+  pass('Two real wall crashes spend lives, preserve run identity across reload, and restart Wave 1 without recording terminal results');
+  await page.getByRole('heading', { name: 'CONNECTION SEVERED', exact: true }).waitFor({ timeout: 12000 });
+  assert.match(await page.locator('.results-panel').innerText(), /All three lives used/);
+  assert.equal(await page.getByRole('button', { name: 'RETRY CHECKPOINT', exact: true }).count(), 0);
+  await screen('results-1280');
+  await page.waitForFunction(async () => (await (await import('/src/game/persistence.ts')).getRecords()).length === 1);
   const records = await page.evaluate(async () => (await import('/src/game/persistence.ts')).getRecords());
-  assert.equal(records.length, 1); assert.equal(await saved(), null); pass('Terminal result records once and clears the suspend');
-  await page.getByRole('button', { name: 'RETRY CHECKPOINT', exact: true }).click();
-  await waitActive();
-  await page.keyboard.press('Escape');
-  assert.match(await page.locator('.objective-line').innerText(), /0 \/ 12/); pass('Retry restores the district entry checkpoint');
+  assert.equal(records[0].runId, runId); assert.equal(await saved(), null); pass('Third death records once and clears suspend; checkpoint retry cannot bypass the life limit');
+  await page.getByRole('button', { name: 'RESTART DISTRICT', exact: true }).click();
+  await waitActive(); await page.keyboard.press('Escape');
+  assert.match(await page.locator('.objective-line').innerText(), /0 \/ 12/);
+  assert.equal(await page.getByLabel('3 lives remaining', { exact: true }).count(), 1); pass('New attempt starts Wave 1 with three fresh lives');
   await page.getByRole('button', { name: 'RETURN TO TITLE', exact: true }).click();
   await page.getByRole('button', { name: 'Abandon run', exact: true }).click();
   await page.getByRole('button', { name: 'LOCAL RECORDS', exact: true }).click();
@@ -121,6 +145,6 @@ try {
   await screen('warden-fixture-1672');
   assert.match(await page.locator('.hud-objective').innerText(), /WARDEN/); pass('Explicit Warden fixture restores and renders real relays, nodes and HUD');
   assert.deepEqual(errors, []); pass('No uncaught browser or console errors across these flows');
-  const report = { build: '0.2.0', date: new Date().toISOString(), method: 'Playwright, installed Chrome, headless; Browser plugin absent', browser: browser.version(), checks, errors, limitations: ['Warden screenshot uses an explicit snapshot fixture, not a full playthrough.', 'Controller hardware, subjective audio and five-district launch acceptance are not established.'] };
+  const report = { build: '0.3.0', date: new Date().toISOString(), method: 'Playwright, installed Chrome, headless; Browser plugin absent', browser: browser.version(), checks, errors, limitations: ['Warden screenshot uses an explicit snapshot fixture, not a full playthrough.', 'Controller hardware, subjective audio and five-district launch acceptance are not established.'] };
   await writeFile('docs/evidence/browser-report.json', JSON.stringify(report, null, 2));
 } finally { await browser.close(); }

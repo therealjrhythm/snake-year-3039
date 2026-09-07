@@ -1,0 +1,9 @@
+PASS Each real Difficulty choice creates the intended health/rules profile and three-life run
+PASS Full-size briefing Practice action uses its selected rules without creating records; duplicate Lab link is removed
+PASS Prepared wave-2 wall approach loses exactly one life; dead-state autosave reloads into the frozen life menu with two lives
+PASS Real Retry restores exact wave-entry score, equipment and body with the same identity; countdown suppresses held Fire until release and pause freezes state
+PASS Three actual wall deaths end one run exactly once; no checkpoint bypass remains, and replay begins Wave 1 with a new identity and three lives
+PASS Prepared Warden approach uses actual sphere contact and held F: no precharge fire, immediate exposure outside recovery, three no-ammo laser hits and one armor break with truthful HUD/guide
+PASS Prepared Warden attack shows incoming-fire HUD and three warning rays before emitting actual shots on those locked trajectories
+PASS Earlier 0.2 saves display a Continue notice and retain one life, finite ammunition, hybrid pad guidance and original rules
+PASS No uncaught browser or console errors in the actual App integration

@@ -83,9 +83,11 @@ try {
   await page.getByRole('option', { name: 'Low', exact: true }).click();
   await page.getByRole('button', { name: 'Done', exact: true }).click();
   await page.getByRole('button', { name: 'START GAME', exact: true }).click();
-  await expect(page.locator('.briefing')).toContainText('36 × 26 arena · twelve powerups');
-  await expect(page.getByRole('button', { name: 'Powerup Lab', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Powerup Lab', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'PRACTICE WITHOUT RECORDS', exact: true })).toBeVisible();
+  await expect(page.getByRole('combobox', { name: 'Difficulty', exact: true })).toContainText('Normal');
+  await expect(page.locator('.briefing').getByRole('button', { name: 'Powerup Lab', exact: true })).toHaveCount(0);
+  await page.getByRole('button', { name: 'BACK', exact: true }).click();
+  await page.getByRole('button', { name: 'POWERUP LAB', exact: true }).click();
   const lab = page.getByRole('dialog', { name: 'POWERUP LAB', exact: true });
   const chooseLab = async name => {
     await lab.getByRole('combobox', { name: 'Choose what to try', exact: true }).click();
@@ -106,14 +108,15 @@ try {
   assert.equal(previews.size, 12, 'Each powerup must have its own loaded visual');
   await expect(lab.locator('.lab-description')).toContainText('3 extra seconds');
   await chooseLab('Warden boss fight');
-  await lab.locator('.warden-pad-visual img').evaluate(img => img.decode());
-  await expect(lab.locator('.warden-route')).toContainText('bottom-center');
-  await expect(lab.locator('.warden-route')).toContainText('turns green');
-  await expect(lab.locator('.warden-shooting')).toContainText('yellow ⊕ target');
+  await expect(lab.locator('.warden-combat-visual svg')).toBeVisible();
+  await expect(lab.locator('.warden-route')).toContainText('Collect spheres 1 → 2 → 3');
+  await expect(lab.locator('.warden-route')).toContainText('Dodge Warden’s return fire');
+  await expect(lab.locator('.warden-route kbd')).toHaveText('F');
   await expect(lab.getByRole('button', { name: 'Start practice', exact: true })).toBeVisible();
   await screen('lab-warden');
   await lab.getByRole('button', { name: 'Cancel', exact: true }).click();
-  pass('All twelve Lab powers load distinct game-model images; effect/use instructions and pictured Warden pad explain both routes');
+  pass('All twelve Lab powers load distinct game-model images; effect/use instructions and illustrated Warden laser guide explain combat');
+  await page.getByRole('button', { name: 'START GAME', exact: true }).click();
   await page.getByRole('button', { name: 'ENTER NEON SPIRE', exact: true }).click();
   await page.locator('.countdown-overlay').waitFor({ state: 'hidden', timeout: 10000 });
   await expect(page.locator('.objective-line strong')).toHaveText('1 / 12', { timeout: 5000 });
@@ -137,11 +140,11 @@ try {
   await page.getByRole('tab', { name: 'Tactics', exact: true }).click();
   await expect(page.locator('.weapon-guide')).toContainText('Pulse Blaster · hold F');
   await page.getByRole('tab', { name: 'Warden', exact: true }).click();
-  await expect(page.locator('.warden-guide')).toContainText('The pad always works without ammunition');
+  await expect(page.locator('.warden-guide')).toContainText('needs no ammo during this fight');
   await screen('warden-guide');
   await page.getByRole('button', { name: 'Back to paused run', exact: true }).click();
   assert.equal(await page.locator('.hud').innerText(), frozen);
-  pass('Paused guide exposes all twelve powers, keyboard firing and both Warden routes without advancing gameplay');
+  pass('Paused guide exposes all twelve powers, keyboard firing and Warden laser combat without advancing gameplay');
 
   await page.getByRole('button', { name: 'SAVE & EXIT', exact: true }).click();
   await expect(page.getByRole('button', { name: 'CONTINUE RUN', exact: true })).toBeEnabled();
@@ -150,13 +153,16 @@ try {
     const bounds = await page.locator('.main-menu .menu-button').evaluateAll(buttons => buttons.map(button => {
       const r = button.getBoundingClientRect(); return { name: button.textContent.trim(), x: r.x, y: r.y, width: r.width, height: r.height, right: r.right, bottom: r.bottom };
     }));
-    assert.equal(bounds.length, 5, 'All five main actions must be present with a saved run');
+    assert.equal(bounds.length, 6, 'All six main actions must be present with a saved run');
     for (const rect of bounds) assert.ok(rect.x >= 0 && rect.y >= 0 && rect.right <= viewport.width && rect.bottom <= viewport.height - 30, `${rect.name} must fit above the footer at ${viewport.width} × ${viewport.height}`);
-    const start = bounds.find(rect => rect.name === 'START GAME'), labEntry = bounds.find(rect => rect.name === 'POWERUP LAB');
-    assert.deepEqual([labEntry.width, labEntry.height], [start.width, start.height], 'The title Lab must be a full-size action');
+    const start = bounds.find(rect => rect.name === 'START GAME');
+    for (const name of ['POWERUP LAB', 'CUSTOMIZE SNAKE']) {
+      const entry = bounds.find(rect => rect.name === name);
+      assert.ok(Math.abs(entry.width - start.width) < 0.1 && Math.abs(entry.height - start.height) < 0.1, `${name} must match the main action size (allowing subpixel transform rounding)`);
+    }
     await screen(`title-saved-${viewport.width}`);
   }
-  pass('All five title actions including Continue Run and full-size Lab fit at 1280 × 720, 960 × 540 and 375 × 1020');
+  pass('All six title actions including Continue Run and full-size Lab fit at 1280 × 720, 960 × 540 and 375 × 1020');
   await page.setViewportSize({ width: 390, height: 844 });
   assert.equal(await page.locator('body').evaluate(body => body.scrollWidth), 390);
   await expect(page.getByRole('button', { name: 'START GAME', exact: true })).toBeVisible();

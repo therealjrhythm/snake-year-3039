@@ -1,0 +1,44 @@
+{
+  "date": "2026-09-07T04:07:40.371Z",
+  "browser": "152.0.7977.77",
+  "method": "Isolated installed Chrome via Playwright; Browser plugin unavailable",
+  "checks": [
+    "medium 1672x941: real renderer captured; simulation unchanged",
+    "low 1672x941: real renderer captured; simulation unchanged",
+    "low 1280x720: real renderer captured; simulation unchanged",
+    "low 375x844: real renderer captured; simulation unchanged",
+    "Renderer disposed cleanly; no uncaught browser/console errors"
+  ],
+  "captures": [
+    {
+      "quality": "medium",
+      "bloom": 0.45,
+      "width": 1672,
+      "height": 941,
+      "file": "/tmp/snake-enemy-visibility/enemies-medium-1672x941.png"
+    },
+    {
+      "quality": "low",
+      "bloom": 0,
+      "width": 1672,
+      "height": 941,
+      "file": "/tmp/snake-enemy-visibility/enemies-low-1672x941.png"
+    },
+    {
+      "quality": "low",
+      "bloom": 0,
+      "width": 1280,
+      "height": 720,
+      "file": "/tmp/snake-enemy-visibility/enemies-low-1280x720.png"
+    },
+    {
+      "quality": "low",
+      "bloom": 0,
+      "width": 375,
+      "height": 844,
+      "file": "/tmp/snake-enemy-visibility/enemies-low-375x844.png"
+    }
+  ],
+  "errors": [],
+  "limitation": "Explicit frozen renderer fixture without the app HUD. Covers selected visual states, not normal gameplay, complete state-transition QA, physical Xbox, owner acceptance or supported-platform qualification."
+}

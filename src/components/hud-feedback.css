@@ -1,0 +1,50 @@
+.hud .tactic.ready {
+  color: var(--tactic-color);
+  border-color: var(--tactic-color);
+  background: color-mix(in srgb, var(--tactic-color) 16%, #061626);
+  box-shadow: inset 0 0 17px color-mix(in srgb, var(--tactic-color) 23%, transparent), 0 0 12px color-mix(in srgb, var(--tactic-color) 35%, transparent);
+  animation: arsenal-acquired 1.4s ease-out 2;
+}
+.hud .tactic.ready > svg { filter: drop-shadow(0 0 5px var(--tactic-color)); }
+.hud .tactic.ready small { color: #f0fcff; font-weight: 700; }
+.hud .tactic.selected { outline: 2px solid #b8f7ff; outline-offset: 2px; }
+.lives-display { display: flex; align-items: center; gap: 9px; color: #badeef; font-size: .72em; letter-spacing: 1px; }
+.lives-display > span:nth-child(2) { display: flex; gap: 5px; color: #ef79ff; }
+.lives-display .remaining { filter: drop-shadow(0 0 4px #e238ef88); }
+.lives-display .lost { color: #456078; }
+.lives-display b { margin-left: auto; color: #e8faff; white-space: nowrap; }
+.weapon-readout[aria-label="Boss laser status"] > b { font-size: .92em; }
+.hud .resource-line .combat-readout { padding: 0; margin: 0; border: 0; font-size: .72em; line-height: normal; white-space: nowrap; }
+.hud .hud-resources .active-buffs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 10px; }
+.hud .active-buffs > div { gap: 5px; min-height: 36px; }
+.hud .active-buffs strong { font-size: .7em; line-height: 1.15; }
+.hud .active-buffs small { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.hud .active-buffs .buff-symbol { min-width: 20px; width: 20px; height: 24px; font-size: .75em; }
+.hud .active-buffs b { font-size: .87em; }
+.hud .active-buffs > div { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; column-gap: 7px; min-height: 40px; }
+.hud .active-buffs .buff-symbol { width: 30px; min-width: 30px; font-size: .65em; }
+.hud .active-buffs strong { overflow-wrap: normal; }
+/* A compact, predictable score corner leaves the Warden and arena visible even
+   at UI150. Values and the combo meter keep their own space as scores change. */
+@media (min-width: 701px) {
+  .hud .hud-score { width: calc(245px * var(--ui-scale)); max-width: 40vw; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "score pause" "best combo"; gap: 8px 9px; }
+  .hud-score > div:first-child { grid-area: score; }
+  .hud .hud-score > div:first-child strong { font-size: 1.55em; line-height: 1; }
+  .hud .hud-score .local-best { grid-area: best; border: 0; padding: 0; flex-direction: row; align-items: baseline; gap: 6px; white-space: nowrap; }
+  .hud .local-best .hud-label { font-size: .55em; letter-spacing: .4px; }
+  .hud .local-best > span:last-child { font-size: 1em; line-height: 1.1; letter-spacing: 0; }
+  .hud .hud-score .combo { grid-area: combo; position: relative; border: 0; padding: 0 0 5px; flex-direction: row; align-items: baseline; gap: 4px; }
+  .hud .hud-score .combo .hud-label { font-size: .5em; letter-spacing: .3px; }
+  .hud .hud-score .combo strong { font-size: 1em; line-height: 1.1; }
+  .hud .hud-score .combo .meter { position: absolute; left: 0; right: 0; bottom: 0; }
+  .hud .hud-score > .icon-button { grid-area: pause; justify-self: end; }
+}
+@media (max-width: 700px) {
+  .hud .hud-resources .active-buffs { grid-template-columns: 1fr; gap: 5px; }
+  .hud .active-buffs > div { min-height: 26px; }
+}
+@keyframes arsenal-acquired {
+  0%, 100% { filter: brightness(1); }
+  30% { filter: brightness(1.8); box-shadow: inset 0 0 24px color-mix(in srgb, var(--tactic-color) 35%, transparent), 0 0 23px var(--tactic-color); }
+}
+@media (prefers-reduced-motion: reduce) { .hud .tactic.ready { animation: none; } }

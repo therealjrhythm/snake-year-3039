@@ -1,0 +1,65 @@
+{
+  "replayPassed": true,
+  "freshCampaign": true,
+  "stateEdited": false,
+  "seed": 3039,
+  "difficulty": "standard",
+  "status": "complete",
+  "time": 267.36666666675217,
+  "cores": 36,
+  "integrity": 2,
+  "score": 9400,
+  "rivalKills": 0,
+  "pickups": {
+    "overdrive": 1,
+    "magnet": 1,
+    "emp": 3,
+    "repair": 1,
+    "decoy": 1,
+    "shield": 1,
+    "splice": 1
+  },
+  "eventCounts": {
+    "wave": 3,
+    "start": 1,
+    "core": 36,
+    "pickup": 9,
+    "mine-arm": 8,
+    "power-expired": 3,
+    "transition": 2,
+    "gate-warning": 21,
+    "lock": 72,
+    "shot": 71,
+    "emp": 3,
+    "damage": 2,
+    "rival-warning": 1,
+    "rival": 1,
+    "select": 1,
+    "decoy": 1,
+    "rival-crash": 1,
+    "boss-intro": 1,
+    "boss": 1,
+    "boss-warning": 10,
+    "boss-recovery": 10,
+    "relay": 9,
+    "charge-ready": 3,
+    "boss-node": 3,
+    "boss-defeated": 1,
+    "complete": 1
+  },
+  "nodeOrigins": [
+    {
+      "x": 0,
+      "z": 9.5
+    },
+    {
+      "x": 0,
+      "z": 9.5
+    },
+    {
+      "x": 0,
+      "z": 9.5
+    }
+  ],
+  "limitation": "Deterministic input replay; no rendered or physical-controller evidence."
+}

@@ -1,0 +1,29 @@
+{
+  "contentVersion": "0.3.0-neon-spire",
+  "unitTestsPassed": 85,
+  "buildPassed": true,
+  "browserScriptsPassed": [
+    "verify-game.mjs",
+    "verify-platform.mjs",
+    "verify-controller.mjs",
+    "verify-audio.mjs",
+    "verify-enemies.mjs",
+    "verify-systems.mjs",
+    "verify-runtime.mjs",
+    "verify-render-performance.mjs",
+    "verify-expansion.mjs",
+    "verify-expansion-render.mjs",
+    "verify-combat-update.mjs"
+  ],
+  "method": "Sequential isolated installed Chrome via Playwright; no owner storage used",
+  "glowCases": 96,
+  "menuViewports": 6,
+  "limitations": [
+    "Prepared wave/boss/renderer fixtures are explicitly identified by their reports.",
+    "Mocked controllers are not physical Xbox qualification.",
+    "Human full-district clear, five-player comprehension, artistic/listening review and sustained hardware performance remain open."
+  ],
+  "compiledProductionSmokeGroupsPassed": 10,
+  "compiledProductionErrors": 0,
+  "compiledProductionFailedAssets": 0
+}

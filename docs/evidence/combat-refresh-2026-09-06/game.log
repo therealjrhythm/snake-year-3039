@@ -1,0 +1,15 @@
+PASS Title, fonts and WebGL scene load
+PASS Settings opens and Escape closes its modal
+PASS Keyboard start, countdown, forward motion and first core growth
+PASS Pause freezes HUD and gameplay resources
+PASS Save & Exit persists an exact active snapshot
+PASS Suspend survives reload unchanged
+PASS Focus loss freezes a resume countdown
+PASS All four HUD groups stay inside 1280×720 at 150% scale
+PASS Two real wall crashes spend lives, preserve run identity across reload, and restart Wave 1 without recording terminal results
+PASS Third death records once and clears suspend; checkpoint retry cannot bypass the life limit
+PASS New attempt starts Wave 1 with three fresh lives
+PASS Local Records displays the real saved result
+PASS Narrow title remains contained (touch gameplay is outside target)
+PASS Explicit Warden fixture restores and renders real relays, nodes and HUD
+PASS No uncaught browser or console errors across these flows

@@ -77,6 +77,8 @@ export interface BossState {
   receptor: Vec2;
   receptorHits: number;
   relayFeedbackCooldown: number;
+  /** Locked counterfire rays: drawing and eventual shots use these exact points. */
+  volley: { origin: Vec2; targets: Vec2[]; remaining: number } | null;
 }
 export interface PendingSpawn { id: string; kind: 'drone' | 'rival' | 'mine'; at: number; position: Vec2; heading?: number }
 export const GAME_EVENT_KINDS = ['start', 'wave', 'transition', 'core', 'pickup', 'boost-empty', 'select', 'empty', 'emp', 'decoy', 'decoy-hit', 'mine-arm', 'gate-warning', 'lock', 'shot', 'rival-warning', 'rival', 'rival-crash', 'rival-defeated', 'boss-intro', 'boss', 'boss-warning', 'boss-recovery', 'relay', 'relay-wrong', 'charge-ready', 'boss-node', 'boss-defeated', 'complete', 'damage', 'shield-hit', 'crash', 'player-shot', 'weapon-empty', 'drone-hit', 'drone-destroyed', 'armor-hit', 'receptor-hit', 'scrubber', 'chain-buffer', 'power-expired', 'lab-ready'] as const;
@@ -89,6 +91,10 @@ export interface SimulationState {
   contentVersion: string;
   layoutId: LayoutId;
   status: GameStatus;
+  /** Total attempts remaining, including the current life. Older rules have one. */
+  lives: number;
+  /** Exact wave/boss entry. Its own retryCheckpoint is always null. */
+  retryCheckpoint: SimulationState | null;
   mode: GameMode;
   difficulty: Difficulty;
   time: number;
