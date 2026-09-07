@@ -18,15 +18,15 @@ export function CustomizeSnake({ initial, onPreview, onApply, onClose }: {
   const [zoom, setZoom] = useState<PreviewZoom>('full');
   useEffect(() => { onPreview(glow, rotation, zoom); }, [glow, rotation, zoom, onPreview]);
   const selected = GLOW_PRESETS.find(preset => preset.id === glow)!;
-  return <Modal title="Customize Snake" subtitle="Body glow" onClose={onClose} className="customize-dialog">
+  return <Modal title="Customize Snake" subtitle="Head & body glow" onClose={onClose} className="customize-dialog">
     <div className="customize-layout">
-      <div className="snake-preview" data-snake-preview role="img" aria-label={`Live 3D snake with ${selected.name} body glow and a cyan head marker`}>
+      <div className="snake-preview" data-snake-preview role="img" aria-label={`Live 3D snake with ${selected.name} head and body glow`}>
         <div className="preview-name"><span>LIVE PREVIEW</span><strong>{selected.name}</strong></div>
-        <p>The cyan head marker stays visible.</p>
+        <p>Your head and body share the same glow.</p>
       </div>
       <div className="customize-controls">
         <h3>Choose your glow</h3>
-        <div className="glow-swatches" role="group" aria-label="Body glow colors">
+        <div className="glow-swatches" role="group" aria-label="Snake glow colors">
           {GLOW_PRESETS.map(preset => <button type="button" key={preset.id}
             className="glow-swatch" style={{ '--glow': preset.color } as CSSProperties}
             aria-label={`${preset.name} glow`} aria-pressed={glow === preset.id}
@@ -41,7 +41,7 @@ export function CustomizeSnake({ initial, onPreview, onApply, onClose }: {
           </div>
           <MenuSelect label="Preview zoom" value={zoom} options={[{ value: 'full', label: 'Full snake' }, { value: 'close', label: 'Head detail' }]} onChange={setZoom} />
         </div>
-        <p className="glow-note">All eight colors are available. Your choice changes the body lights only.</p>
+        <p className="glow-note">All eight colors are free. Your glow colors the head and body lights.</p>
         <button type="button" className="text-button restore-glow" onClick={() => setGlow(DEFAULT_GLOW)}>Restore Cyan</button>
         <div className="customize-actions">
           <button type="button" className="menu-button primary" onClick={() => onApply(glow)}>Apply glow <Check size={18} /></button>

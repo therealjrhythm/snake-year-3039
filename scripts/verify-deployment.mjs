@@ -50,10 +50,19 @@ try {
   await screen('title-desktop');
   pass('HTTP 200, intended title, compiled production assets, fonts, nonblank WebGL scene and no framework overlay');
 
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('button', { name: 'POWERUP LAB', exact: true })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('dialog', { name: 'POWERUP LAB', exact: true })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'POWERUP LAB', exact: true })).toBeFocused();
+  await expect(page.locator('.briefing')).toHaveCount(0);
+  pass('Keyboard opens the full-size title Lab directly and Escape returns focus to its title entry');
+
   await page.getByRole('button', { name: 'CUSTOMIZE SNAKE', exact: true }).click();
-  await expect(page.getByRole('group', { name: 'Body glow colors' }).getByRole('button')).toHaveCount(8);
+  await expect(page.getByRole('group', { name: 'Snake glow colors' }).getByRole('button')).toHaveCount(8);
   await page.getByRole('button', { name: 'Magenta glow', exact: true }).click();
-  await expect(page.getByRole('img', { name: 'Live 3D snake with Magenta body glow and a cyan head marker', exact: true })).toBeVisible();
+  await expect(page.getByRole('img', { name: 'Live 3D snake with Magenta head and body glow', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Rotate snake right', exact: true }).click();
   await page.getByRole('combobox', { name: 'Preview zoom', exact: true }).click();
   await page.getByRole('option', { name: 'Head detail', exact: true }).click();
@@ -134,16 +143,26 @@ try {
   assert.equal(await page.locator('.hud').innerText(), frozen);
   pass('Paused guide exposes all twelve powers, keyboard firing and both Warden routes without advancing gameplay');
 
-  await page.getByRole('button', { name: 'RETURN TO TITLE', exact: true }).click();
-  await page.getByRole('button', { name: 'Abandon run', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'START GAME', exact: true })).toBeEnabled();
+  await page.getByRole('button', { name: 'SAVE & EXIT', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'CONTINUE RUN', exact: true })).toBeEnabled();
+  for (const viewport of [{ width: 1280, height: 720 }, { width: 960, height: 540 }, { width: 375, height: 1020 }]) {
+    await page.setViewportSize(viewport);
+    const bounds = await page.locator('.main-menu .menu-button').evaluateAll(buttons => buttons.map(button => {
+      const r = button.getBoundingClientRect(); return { name: button.textContent.trim(), x: r.x, y: r.y, width: r.width, height: r.height, right: r.right, bottom: r.bottom };
+    }));
+    assert.equal(bounds.length, 5, 'All five main actions must be present with a saved run');
+    for (const rect of bounds) assert.ok(rect.x >= 0 && rect.y >= 0 && rect.right <= viewport.width && rect.bottom <= viewport.height - 30, `${rect.name} must fit above the footer at ${viewport.width} × ${viewport.height}`);
+    const start = bounds.find(rect => rect.name === 'START GAME'), labEntry = bounds.find(rect => rect.name === 'POWERUP LAB');
+    assert.deepEqual([labEntry.width, labEntry.height], [start.width, start.height], 'The title Lab must be a full-size action');
+    await screen(`title-saved-${viewport.width}`);
+  }
+  pass('All five title actions including Continue Run and full-size Lab fit at 1280 × 720, 960 × 540 and 375 × 1020');
   await page.setViewportSize({ width: 390, height: 844 });
   assert.equal(await page.locator('body').evaluate(body => body.scrollWidth), 390);
   await expect(page.getByRole('button', { name: 'START GAME', exact: true })).toBeVisible();
   await screen('title-narrow');
   pass('Narrow title is contained at 390 × 844 (touch gameplay remains outside target)');
-  await page.getByRole('button', { name: 'START GAME', exact: true }).click();
-  await page.getByRole('button', { name: 'Powerup Lab', exact: true }).click();
+  await page.getByRole('button', { name: 'POWERUP LAB', exact: true }).click();
   await chooseLab('Chain Buffer');
   await lab.locator('.lab-visual img').evaluate(img => img.decode());
   assert.equal(await lab.evaluate(el => el.scrollWidth <= el.clientWidth), true, 'Lab must not overflow horizontally');

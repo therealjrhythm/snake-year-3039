@@ -91,7 +91,7 @@ try {
       await f.hud(); r.resize();
       for (const quality of ['low', 'medium']) for (const [index, preset] of f.appearance.GLOW_PRESETS.entries()) {
         r.setSettings({ quality, bloom: quality === 'low' ? 0 : .45, reducedMotion: true, uiScale }); r.setAppearance(preset.id); f.draw();
-        rows.push({ width, height, uiScale, quality, glow: preset.id, selected: preset.color, body: `#${r.player.signature.emissive.getHexString()}`, head: `#${r.player.headSignature.emissive.getHexString()}`, hostile: `#${r.rivalModels.get('hunter').signature.emissive.getHexString()}` });
+        rows.push({ width, height, uiScale, quality, glow: preset.id, selected: preset.color, body: `#${r.player.signature.emissive.getHexString()}`, head: `#${r.player.headSignature.emissive.getHexString()}`, ports: `#${r.player.ports.material.emissive.getHexString()}`, marker: `#${r.objects.get('player-marker:head').getObjectByName('head-marker').material.color.getHexString()}`, previewHead: `#${r.titleSnake.headSignature.emissive.getHexString()}`, hostile: `#${r.rivalModels.get('hunter').signature.emissive.getHexString()}` });
         if (width === 1280 && uiScale === 1.5) {
           // Copy the just-rendered player region immediately, before WebGL clears
           // its drawing buffer. These are native scene crops, not a second model.
@@ -109,11 +109,11 @@ try {
     }, { width, height, uiScale });
     glow.push(...rows);
   }
-  assert.equal(glow.length, 96); for (const row of glow) { assert.equal(row.body, row.selected); assert.equal(row.head, '#20dfff'); assert.equal(row.hostile, '#ff426f'); }
+  assert.equal(glow.length, 96); for (const row of glow) { assert.equal(row.body, row.selected); assert.equal(row.head, row.selected); assert.equal(row.ports, row.selected); assert.equal(row.marker, row.selected); assert.equal(row.previewHead, row.selected); assert.equal(row.hostile, '#ff426f'); }
   const glowSheet = path.join(outputDir, 'glow-contact-sheet-1280-ui150.png');
   const glowSheetData = await page.evaluate(() => window.__expansion.glowSheet.toDataURL('image/png').split(',')[1]);
   await writeFile(glowSheet, Buffer.from(glowSheetData, 'base64')); captures.push(glowSheet);
-  checks.push('96 glow rows: eight colors × three landscape ratios × UI80/150 × Low/Medium preserve fixed cyan head and hostile red faction; contact sheet is actual scene crops at1280 UI150');
+  checks.push('96 glow rows: eight colors × three landscape ratios × UI80/150 × Low/Medium match head, body, ports, preview head and direction marker while preserving hostile red faction; contact sheet is actual scene crops at1280 UI150');
   await page.setViewportSize({ width: 1280, height: 720 });
   const sixBuffs = await page.evaluate(async () => {
     const f = window.__expansion, r = f.renderer, s = f.sim.state;

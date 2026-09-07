@@ -74,6 +74,12 @@ try {
     await frames();
     await expect(page.locator('.title-bottom')).toContainText('KEYBOARD READY');
     await tap(13);
+    await selected('POWERUP LAB');
+    await tap(0);
+    await expect(page.getByRole('dialog', { name: 'POWERUP LAB', exact: true })).toBeVisible();
+    await tap(1);
+    await selected('POWERUP LAB');
+    await tap(13);
     await selected('SETTINGS');
     await hold(0, true);
     await expect(page.getByRole('dialog', { name: 'SETTINGS', exact: true })).toBeVisible();
@@ -112,6 +118,8 @@ try {
     await tap(1);
     await selected('SETTINGS');
     console.log('  Settings, tabs and sliders passed');
+    await tap(12);
+    await selected('POWERUP LAB');
     await tap(12);
     await selected('START GAME');
     await tap(0);
@@ -172,9 +180,11 @@ try {
     await selected('CONTINUE RUN');
     console.log('  Start, difficulty, pause and save passed');
 
-    await tap(13); await selected('START GAME'); await tap(0);
-    await selected('ENTER NEON SPIRE');
-    await navigateTo('Powerup Lab'); await tap(0); await frames();
+    await navigateTo('POWERUP LAB');
+    const labButton = page.getByRole('button', { name: 'POWERUP LAB', exact: true });
+    await expect(labButton).toBeInViewport();
+    assert.deepEqual(await labButton.evaluate(el => { const r = el.getBoundingClientRect(); return [r.width, r.height]; }), await page.getByRole('button', { name: 'START GAME', exact: true }).evaluate(el => { const r = el.getBoundingClientRect(); return [r.width, r.height]; }), 'Lab must have the same full-size row as Start Game');
+    await tap(0); await frames();
     await navigateTo('Choose what to try');
     // Closed selectors support left/right changes through the same pad polling.
     for (let i = 0; i < 3; i++) await tap(14); // EMP -> Overdrive
@@ -189,7 +199,9 @@ try {
     await navigateTo('Start practice');
     await expect(page.locator('[data-gamepad-focus]')).toBeInViewport();
     await page.screenshot({ path: join(tmpdir(), `s39-controller-lab-${viewport.width}.png`) });
-    await tap(1); await tap(1);
+    await tap(1);
+    await selected('POWERUP LAB');
+    await expect(page.locator('.briefing')).toHaveCount(0);
     await page.reload();
     await expect(page.getByRole('button', { name: 'CONTINUE RUN', exact: true })).toBeEnabled();
     await frames(); await tap(9); // Acquire pad ownership without opening a title menu.
@@ -203,6 +215,8 @@ try {
     });
     await tap(13);
     await selected('START GAME');
+    await tap(13);
+    await selected('POWERUP LAB');
     await tap(13);
     await selected('SETTINGS');
     await tap(0);
@@ -237,7 +251,7 @@ try {
     assert.ok(style.rect.width > 0 && style.rect.height > 0);
     await page.screenshot({ path: join(tmpdir(), `s39-controller-focus-${viewport.width}.png`) });
     assert.deepEqual(errors, []);
-    results.push({ viewport, result: 'PASS: controller-only title/settings/difficulty/pause/save, all illustrated Lab choices and Xbox glyphs, A hold suppression, tabs and selectors, focus-loss recovery, stick navigation, visible cursor', errors });
+    results.push({ viewport, result: 'PASS: controller-only title/settings/difficulty/pause/save, full-size title Lab with B-back, all illustrated Lab choices and Xbox glyphs, A hold suppression, tabs and selectors, focus-loss recovery, stick navigation, visible cursor', errors });
     await context.close();
   }
   console.log(JSON.stringify(results, null, 2));

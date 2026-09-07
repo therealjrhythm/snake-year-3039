@@ -1,12 +1,12 @@
-/** Free body-light colors are separate from earned liveries and trail rewards. */
+/** Free head/body light colors are separate from earned liveries and trail rewards. */
 export const GLOW_PRESETS = [
   { id: 'cyan', name: 'Cyan', color: '#20dfff' },
-  { id: 'electric-blue', name: 'Electric Blue', color: '#528aff' },
-  { id: 'violet', name: 'Violet', color: '#a277ff' },
-  { id: 'magenta', name: 'Magenta', color: '#f264df' },
-  { id: 'mint', name: 'Mint', color: '#82ffd0' },
-  { id: 'teal', name: 'Teal', color: '#23c9b1' },
-  { id: 'gold', name: 'Gold', color: '#ffd178' },
+  { id: 'electric-blue', name: 'Electric Blue', color: '#2864ff' },
+  { id: 'violet', name: 'Violet', color: '#982dff' },
+  { id: 'magenta', name: 'Magenta', color: '#ff20d7' },
+  { id: 'mint', name: 'Mint', color: '#58ffb6' },
+  { id: 'teal', name: 'Teal', color: '#00dca6' },
+  { id: 'gold', name: 'Gold', color: '#ffba24' },
   { id: 'pearl', name: 'Pearl', color: '#e4f3ff' },
 ] as const;
 

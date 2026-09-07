@@ -36,10 +36,10 @@ try {
   await page.goto(url);
   await expect(page.getByRole('button', { name: 'START GAME', exact: true })).toBeEnabled({ timeout: 30000 });
   await page.getByRole('button', { name: 'CUSTOMIZE SNAKE', exact: true }).click();
-  await expect(page.getByRole('group', { name: 'Body glow colors' }).getByRole('button')).toHaveCount(8);
+  await expect(page.getByRole('group', { name: 'Snake glow colors' }).getByRole('button')).toHaveCount(8);
   for (const glow of ['Cyan', 'Electric Blue', 'Violet', 'Magenta', 'Mint', 'Teal', 'Gold', 'Pearl']) {
     await page.getByRole('button', { name: `${glow} glow`, exact: true }).click();
-    await expect(page.getByRole('img', { name: `Live 3D snake with ${glow} body glow and a cyan head marker`, exact: true })).toBeVisible();
+    await expect(page.getByRole('img', { name: `Live 3D snake with ${glow} head and body glow`, exact: true })).toBeVisible();
   }
   await page.getByRole('button', { name: 'Rotate snake right', exact: true }).click();
   await select('Preview zoom', 'Head detail');
@@ -82,8 +82,7 @@ try {
   assert.deepEqual(campaignSave.player, beforeCustomize.player);
   pass('Expanded run uses v2 layout; customization freezes exact state and a delayed save blocks resume until committed');
 
-  await page.getByRole('button', { name: 'START GAME', exact: true }).click();
-  await page.getByRole('button', { name: 'Powerup Lab', exact: true }).click();
+  await page.getByRole('button', { name: 'POWERUP LAB', exact: true }).click();
   await select('Choose what to try', 'Pulse Blaster');
   await page.getByRole('button', { name: 'Start practice', exact: true }).click();
   // Hold Fire throughout countdown: entering play must still require release.
@@ -122,7 +121,7 @@ try {
   await page.getByRole('button', { name: 'LEAVE LAB', exact: true }).click();
   assert.deepEqual(await saved(), campaignSave);
   assert.deepEqual(await page.evaluate(async () => (await import('/src/game/persistence.ts')).getRecords()), []);
-  pass('Powerup Lab equips/fires/refills through real keyboard input; held-F suppression and all 13 choices; campaign save and records remain intact');
+  pass('Direct title Powerup Lab equips/fires/refills through real keyboard input; held-F suppression and all 13 choices; campaign save and records remain intact');
 
   await page.getByRole('button', { name: 'CONTINUE RUN', exact: true }).click();
   await active();

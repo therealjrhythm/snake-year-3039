@@ -1,0 +1,26 @@
+Controller flow: 1440 × 900
+  Settings, tabs and sliders passed
+  Start, difficulty, pause and save passed
+  All illustrated Lab choices, Xbox glyphs, visible Start practice and B-back passed (mocked controller)
+Controller flow: 375 × 1020
+  Settings, tabs and sliders passed
+  Start, difficulty, pause and save passed
+  All illustrated Lab choices, Xbox glyphs, visible Start practice and B-back passed (mocked controller)
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "result": "PASS: controller-only title/settings/difficulty/pause/save, full-size title Lab with B-back, all illustrated Lab choices and Xbox glyphs, A hold suppression, tabs and selectors, focus-loss recovery, stick navigation, visible cursor",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "width": 375,
+      "height": 1020
+    },
+    "result": "PASS: controller-only title/settings/difficulty/pause/save, full-size title Lab with B-back, all illustrated Lab choices and Xbox glyphs, A hold suppression, tabs and selectors, focus-loss recovery, stick navigation, visible cursor",
+    "errors": []
+  }
+]

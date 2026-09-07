@@ -74,3 +74,20 @@
 @media(max-width:700px){.catalog-groups .small-button{min-width:80px;font-size:10px}.warden-guide ol{font-size:15px;gap:12px}.lab-dialog .setting-row{align-items:flex-start;flex-direction:column;gap:12px}.lab-dialog .menu-select{width:100%;min-width:0}.boss-counters{font-size:.6em}.weapon-readout{font-size:.64em}.receptor-progress{font-size:.6em}.encounter-hint{font-size:.64em}.secondary-menu{gap:10px}}
 @media(min-width:701px){.boss-counters{grid-template-columns:1fr 1fr;gap:12px}.boss-counters>span{flex-direction:column;align-items:flex-start;gap:3px;letter-spacing:.25px;font-size:.92em}.boss-counters b{font-size:1.25em}.boss-counters>span+span{border-left:1px solid #22526a;padding-left:12px}.hud-objective:has(.boss-counters){width:calc(265px * var(--ui-scale))}.hud-tactics{width:calc(300px * var(--ui-scale))}}
 @media(max-height:850px) and (min-width:701px){.hud-objective:has(.boss-counters) .objective-line{font-size:.78em}.hud-objective:has(.boss-counters) h2{margin:5px 0 7px}.boss-counters{margin-top:7px;padding-top:7px}.boss-phase{font-size:.65em;padding-top:7px}.hud-tactics .tactic{min-height:44px}.hud-tactics .tactical-hint{margin-top:7px;line-height:1.2}.weapon-readout{font-size:.7em}}
+
+/* Keep every primary title action reachable, including a suspended run. */
+.title-layout{--title-top:18.5vh;top:var(--title-top);max-height:calc(100dvh - var(--title-top) - 55px);overflow:auto;scrollbar-width:thin;scrollbar-color:#285674 transparent;padding:6px 8px 8px;margin:-6px -8px -8px}
+.title-layout .secondary-menu{max-width:100%}
+@media(min-width:1600px){.title-layout{--title-top:19vh}}
+@media(max-height:1000px) and (min-width:701px){
+  .title-layout{--title-top:10vh}.title-layout .game-logo h1{font-size:84px}.title-layout .game-logo>div{font-size:24px}.title-layout .title-tagline{margin-top:30px;font-size:16px}.title-layout .title-tagline span{font-size:14px}.title-layout .main-menu{margin-top:22px;gap:9px}.title-layout .menu-button{min-height:51px;font-size:17px}.title-layout .secondary-menu{margin-top:14px;row-gap:6px}.title-layout .controller-menu-hints{margin-top:10px}
+}
+@media(max-height:800px) and (min-width:701px){
+  .title-layout{--title-top:70px}.title-layout .game-logo h1{font-size:64px}.title-layout .game-logo>div{font-size:20px}.title-layout .title-tagline{margin-top:26px}.title-layout .main-menu{margin-top:18px;gap:8px}.title-layout .menu-button{min-height:48px}.title-layout .secondary-menu{margin-top:12px}
+}
+@media(max-width:700px){
+  .title-layout{--title-top:12vh}.title-layout .title-tagline{margin-top:32px}.title-layout .main-menu{margin-top:23px;gap:9px}.title-layout .menu-button{min-height:51px;font-size:17px}.title-layout .secondary-menu{margin-top:14px;row-gap:6px}
+}
+@media(max-height:550px) and (min-width:701px){
+  .title-layout{--title-top:58px;max-height:calc(100dvh - 96px)}.title-layout .game-logo h1{font-size:48px}.title-layout .game-logo>div{font-size:15px;margin-top:7px}.title-layout .title-tagline{margin-top:18px;font-size:14px}.title-layout .title-tagline span{font-size:12px}.title-layout .main-menu{margin-top:12px;gap:6px}.title-layout .menu-button{min-height:40px;font-size:13px}.title-layout .secondary-menu{margin-top:8px;row-gap:4px}.title-layout .controller-menu-hints{font-size:10px;margin-top:8px}
+}

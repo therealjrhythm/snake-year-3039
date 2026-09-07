@@ -10,6 +10,8 @@ The owner-approved [Neon Spire expansion addendum](NEON_SPIRE_EXPANSION.md) exte
 
 The September 6 owner follow-up adds actual powerup images, simple effect/use descriptions and a pictured Warden pad explanation in the Lab and paused guide. This presentation update leaves gameplay rules unchanged; new-player comprehension still needs observation.
 
+The subsequent owner appearance/access revision makes the eight glows brighter, colors the head and body together, and promotes POWERUP LAB to a full-size title action. It supersedes the earlier fixed cyan head marker without changing rules or the full-game roadmap.
+
 Current evidence and remaining requirements are maintained in [SESSION_HANDOFF.md](SESSION_HANDOFF.md) and [FEATURE_MATRIX.md](FEATURE_MATRIX.md). Milestone B acceptance remains open until an ordinary keyboard/physical Xbox clear, intentional Hunter body-block, representative performance and five-player comprehension review are recorded. Automated fixtures do not substitute for those observations.
 
 After the expanded district passes playtesting, proceed through the remaining city, enemy variety, replay modes, earned Workshop/progression, learning/music/story, and release completeness in C–F below. Content identifiers and menu labels alone never establish implemented content.

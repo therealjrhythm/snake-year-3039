@@ -1,0 +1,1970 @@
+{
+  "date": "2026-09-07T00:42:04.188Z",
+  "browser": "152.0.7977.77",
+  "checks": [
+    "Real HUD and 36×26 floor/Warden fit at 16:9, 16:10 and 21:9, UI80/150",
+    "96 glow rows: eight colors × three landscape ratios × UI80/150 × Low/Medium match head, body, ports, preview head and direction marker while preserving hostile red faction; contact sheet is actual scene crops at1280 UI150",
+    "Six simultaneous timed buffs at1280×720 UI150: all names/effects/durations present, durations at least16px, no clipping, HUD overlap or covered travel lanes",
+    "Twelve canonical pickups have distinct geometric identities",
+    "Ordered relays, truthful pad, receptor exposure, node beam, exact3u Scrubber, paused effects, projectile ownership and extraction cleanup",
+    "Actual 3D customizer reuses canvas; rotate/zoom work; restoration and legacy32×24 floor/exit checked"
+  ],
+  "camera": [
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 202.25431567440182,
+        "right": 949.7456843255982,
+        "top": 118.99714696677603,
+        "bottom": 539.2975847555374
+      },
+      "safe": {
+        "top": 149.0625,
+        "bottom": 513.1875
+      },
+      "distance": 53.62304669925475,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 185.15208923454267,
+        "right": 966.8479107654573,
+        "top": 36.059033165662996,
+        "bottom": 550.1377798600125
+      },
+      "safe": {
+        "top": 153.15625,
+        "bottom": 513.1875
+      },
+      "distance": 51.575317213778526,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 447.77404359949503,
+        "right": 960.225956400505,
+        "top": 138.2558950342622,
+        "bottom": 436.0080565170552
+      },
+      "safe": {
+        "top": 209.15625,
+        "bottom": 456.53125
+      },
+      "distance": 75.08728002734495,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 435.4386698012922,
+        "right": 972.5613301987079,
+        "top": 78.54844321834418,
+        "bottom": 443.8267963243763
+      },
+      "safe": {
+        "top": 220.15625,
+        "bottom": 456.53125
+      },
+      "distance": 71.95190406105839,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 177.51046148534544,
+        "right": 1118.4895385146544,
+        "top": 183.49192785786514,
+        "bottom": 712.2183875326562
+      },
+      "safe": {
+        "top": 161.09375,
+        "bottom": 650.859375
+      },
+      "distance": 53.29406720814545,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 160.97454331884828,
+        "right": 1135.0254566811516,
+        "top": 45.9136135044095,
+        "bottom": 686.6996298309505
+      },
+      "safe": {
+        "top": 181.1875,
+        "bottom": 650.859375
+      },
+      "distance": 51.71630842425393,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 211.10805395581187,
+        "right": 940.8919460441883,
+        "top": 261.628298112317,
+        "bottom": 681.2856692127308
+      },
+      "safe": {
+        "top": 221.1875,
+        "bottom": 598.03125
+      },
+      "distance": 66.74194314063362,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 422.97299943984314,
+        "right": 1161.027000560157,
+        "top": 77.77237314524291,
+        "bottom": 575.9066611565792
+      },
+      "safe": {
+        "top": 252.1875,
+        "bottom": 598.03125
+      },
+      "distance": 66.07055642408403,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 329.5240652613635,
+        "right": 1350.4759347386364,
+        "top": 128.6163498971499,
+        "bottom": 683.5636452461524
+      },
+      "safe": {
+        "top": 149.0625,
+        "bottom": 513.1875
+      },
+      "distance": 41.08825670127402,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 329.5240652613635,
+        "right": 1350.4759347386364,
+        "top": 31.95188414597116,
+        "bottom": 683.5636452461524
+      },
+      "safe": {
+        "top": 153.15625,
+        "bottom": 513.1875
+      },
+      "distance": 41.08825670127402,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "mode": "wave",
+      "blocked": [],
+      "bounds": {
+        "left": 504.56076866841926,
+        "right": 1175.4392313315807,
+        "top": 191.49476824678467,
+        "bottom": 572.6171540364269
+      },
+      "safe": {
+        "top": 209.15625,
+        "bottom": 456.53125
+      },
+      "distance": 58.96728496298944,
+      "floor": [
+        36,
+        26
+      ]
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "mode": "boss",
+      "blocked": [],
+      "bounds": {
+        "left": 401.2867371887882,
+        "right": 1110.713262811212,
+        "top": 27.391188405364698,
+        "bottom": 498.43394127309006
+      },
+      "safe": {
+        "top": 220.15625,
+        "bottom": 456.53125
+      },
+      "distance": 56.134033019150195,
+      "floor": [
+        36,
+        26
+      ]
+    }
+  ],
+  "glow": [
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 0.8,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "low",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "cyan",
+      "selected": "#20dfff",
+      "body": "#20dfff",
+      "head": "#20dfff",
+      "ports": "#20dfff",
+      "marker": "#20dfff",
+      "previewHead": "#20dfff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "electric-blue",
+      "selected": "#2864ff",
+      "body": "#2864ff",
+      "head": "#2864ff",
+      "ports": "#2864ff",
+      "marker": "#2864ff",
+      "previewHead": "#2864ff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "violet",
+      "selected": "#982dff",
+      "body": "#982dff",
+      "head": "#982dff",
+      "ports": "#982dff",
+      "marker": "#982dff",
+      "previewHead": "#982dff",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "magenta",
+      "selected": "#ff20d7",
+      "body": "#ff20d7",
+      "head": "#ff20d7",
+      "ports": "#ff20d7",
+      "marker": "#ff20d7",
+      "previewHead": "#ff20d7",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "mint",
+      "selected": "#58ffb6",
+      "body": "#58ffb6",
+      "head": "#58ffb6",
+      "ports": "#58ffb6",
+      "marker": "#58ffb6",
+      "previewHead": "#58ffb6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "teal",
+      "selected": "#00dca6",
+      "body": "#00dca6",
+      "head": "#00dca6",
+      "ports": "#00dca6",
+      "marker": "#00dca6",
+      "previewHead": "#00dca6",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "gold",
+      "selected": "#ffba24",
+      "body": "#ffba24",
+      "head": "#ffba24",
+      "ports": "#ffba24",
+      "marker": "#ffba24",
+      "previewHead": "#ffba24",
+      "hostile": "#ff426f"
+    },
+    {
+      "width": 1680,
+      "height": 720,
+      "uiScale": 1.5,
+      "quality": "medium",
+      "glow": "pearl",
+      "selected": "#e4f3ff",
+      "body": "#e4f3ff",
+      "head": "#e4f3ff",
+      "ports": "#e4f3ff",
+      "marker": "#e4f3ff",
+      "previewHead": "#e4f3ff",
+      "hostile": "#ff426f"
+    }
+  ],
+  "sixBuffs": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "uiScale": 1.5,
+    "panels": [
+      {
+        "selector": ".hud-objective",
+        "left": 28.15625,
+        "right": 463.15625,
+        "top": 20.15625,
+        "bottom": 209.15625,
+        "width": 435,
+        "height": 189
+      },
+      {
+        "selector": ".hud-score",
+        "left": 952.0625,
+        "right": 1251.84375,
+        "top": 20.15625,
+        "bottom": 126.15625,
+        "width": 299.78125,
+        "height": 106
+      },
+      {
+        "selector": ".hud-resources",
+        "left": 28.15625,
+        "right": 478.15625,
+        "top": 256.734375,
+        "bottom": 655.203125,
+        "width": 450,
+        "height": 398.46875
+      },
+      {
+        "selector": ".hud-tactics",
+        "left": 801.84375,
+        "right": 1251.84375,
+        "top": 456.53125,
+        "bottom": 655.203125,
+        "width": 450,
+        "height": 198.671875
+      }
+    ],
+    "overlapping": [],
+    "resources": {
+      "left": 28.15625,
+      "right": 478.15625,
+      "top": 256.734375,
+      "bottom": 655.203125,
+      "width": 450,
+      "height": 398.46875
+    },
+    "bonuses": [
+      {
+        "name": "Overdrive",
+        "duration": "8s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 46.15625,
+          "right": 460.15625,
+          "top": 389.734375,
+          "bottom": 427.8125,
+          "width": 414,
+          "height": 38.078125
+        },
+        "durationRect": {
+          "left": 438.328125,
+          "right": 460.15625,
+          "top": 395.765625,
+          "bottom": 421.765625,
+          "width": 21.828125,
+          "height": 26
+        },
+        "description": "Half boost drain",
+        "clipped": false,
+        "nameFont": 16.74
+      },
+      {
+        "name": "Shield",
+        "duration": "12s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 46.15625,
+          "right": 460.15625,
+          "top": 432.8125,
+          "bottom": 470.890625,
+          "width": 414,
+          "height": 38.078125
+        },
+        "durationRect": {
+          "left": 432.5625,
+          "right": 460.15625,
+          "top": 438.84375,
+          "bottom": 464.84375,
+          "width": 27.59375,
+          "height": 26
+        },
+        "description": "Absorbs one attack",
+        "clipped": false,
+        "nameFont": 16.74
+      },
+      {
+        "name": "Score Surge",
+        "duration": "15s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 46.15625,
+          "right": 460.15625,
+          "top": 475.890625,
+          "bottom": 513.96875,
+          "width": 414,
+          "height": 38.078125
+        },
+        "durationRect": {
+          "left": 432.296875,
+          "right": 460.15625,
+          "top": 481.921875,
+          "bottom": 507.921875,
+          "width": 27.859375,
+          "height": 26
+        },
+        "description": "Core / rival points ×2",
+        "clipped": false,
+        "nameFont": 16.74
+      },
+      {
+        "name": "Magnet",
+        "duration": "10s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 46.15625,
+          "right": 460.15625,
+          "top": 518.96875,
+          "bottom": 557.046875,
+          "width": 414,
+          "height": 38.078125
+        },
+        "durationRect": {
+          "left": 431.703125,
+          "right": 460.15625,
+          "top": 525,
+          "bottom": 551,
+          "width": 28.453125,
+          "height": 26
+        },
+        "description": "Nearby core attraction",
+        "clipped": false,
+        "nameFont": 16.74
+      },
+      {
+        "name": "Bullet Scrubber",
+        "duration": "8s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 46.15625,
+          "right": 460.15625,
+          "top": 562.046875,
+          "bottom": 600.125,
+          "width": 414,
+          "height": 38.078125
+        },
+        "durationRect": {
+          "left": 438.328125,
+          "right": 460.15625,
+          "top": 568.078125,
+          "bottom": 594.078125,
+          "width": 21.828125,
+          "height": 26
+        },
+        "description": "Auto bullet purge armed",
+        "clipped": false,
+        "nameFont": 16.74
+      },
+      {
+        "name": "Chain Buffer",
+        "duration": "10s",
+        "fontSize": 20.2275,
+        "rect": {
+          "left": 46.15625,
+          "right": 460.15625,
+          "top": 605.125,
+          "bottom": 643.203125,
+          "width": 414,
+          "height": 38.078125
+        },
+        "durationRect": {
+          "left": 431.703125,
+          "right": 460.15625,
+          "top": 611.15625,
+          "bottom": 637.15625,
+          "width": 28.453125,
+          "height": 26
+        },
+        "description": "One combo extension armed",
+        "clipped": false,
+        "nameFont": 16.74
+      }
+    ],
+    "camera": {
+      "blocked": [],
+      "bounds": {
+        "left": 524.8778377645956,
+        "right": 1011.1221622354043,
+        "top": 144.07373961349438,
+        "bottom": 427.70225575724845
+      },
+      "safe": {
+        "top": 209.15625,
+        "bottom": 256.734375
+      },
+      "distance": 78.76647923403665,
+      "floor": [
+        36,
+        26
+      ]
+    }
+  },
+  "identities": [
+    {
+      "kind": "overdrive",
+      "name": "Overdrive"
+    },
+    {
+      "kind": "shield",
+      "name": "Shield"
+    },
+    {
+      "kind": "surge",
+      "name": "Score Surge"
+    },
+    {
+      "kind": "emp",
+      "name": "EMP Pulse"
+    },
+    {
+      "kind": "magnet",
+      "name": "Magnet"
+    },
+    {
+      "kind": "repair",
+      "name": "Repair"
+    },
+    {
+      "kind": "decoy",
+      "name": "Decoy"
+    },
+    {
+      "kind": "splice",
+      "name": "Tail Splice"
+    },
+    {
+      "kind": "blaster",
+      "name": "Pulse Blaster"
+    },
+    {
+      "kind": "capacitor",
+      "name": "Capacitor"
+    },
+    {
+      "kind": "scrubber",
+      "name": "Bullet Scrubber"
+    },
+    {
+      "kind": "chain-buffer",
+      "name": "Chain Buffer"
+    }
+  ],
+  "boss": {
+    "rows": [
+      {
+        "stage": "collecting-relays",
+        "pad": "inactive",
+        "next": [
+          "relay:relay-1"
+        ],
+        "nodes": 3,
+        "receptor": false
+      },
+      {
+        "stage": "collecting-relays",
+        "pad": "inactive",
+        "next": [
+          "relay:relay-2"
+        ],
+        "nodes": 3,
+        "receptor": false
+      },
+      {
+        "stage": "charge-ready",
+        "pad": "waiting",
+        "next": [],
+        "nodes": 3,
+        "receptor": false
+      },
+      {
+        "stage": "exposed",
+        "pad": "ready",
+        "next": [],
+        "nodes": 3,
+        "receptor": true
+      }
+    ],
+    "effects": {
+      "beam": true,
+      "radius": 3,
+      "freeze": true,
+      "destroyedDroneRemoved": true,
+      "playerBolt": true
+    }
+  },
+  "preview": {
+    "sameCanvas": true,
+    "count": 1,
+    "previewVisible": true,
+    "gameplayHidden": true,
+    "unchanged": true,
+    "swatches": 8
+  },
+  "restored": {
+    "previewHidden": true,
+    "playerVisible": true,
+    "body": "20dfff",
+    "head": "20dfff"
+  },
+  "legacy": {
+    "floor": [
+      32,
+      24
+    ],
+    "gate": -12,
+    "obstacles": "[{\"x\":-6,\"z\":0,\"width\":3,\"depth\":4,\"kind\":\"machinery\"},{\"x\":6,\"z\":0,\"width\":3,\"depth\":4,\"kind\":\"machinery\"},{\"x\":-3.75,\"z\":-4.8,\"width\":0.26,\"depth\":0.35,\"kind\":\"emitter\"},{\"x\":3.75,\"z\":-4.8,\"width\":0.26,\"depth\":0.35,\"kind\":\"emitter\"}]"
+  },
+  "captures": [
+    "/tmp/snake-expansion-render/wave-1280x720-ui150.png",
+    "/tmp/snake-expansion-render/boss-1280x720-ui150.png",
+    "/tmp/snake-expansion-render/boss-1680x720-ui80.png",
+    "/tmp/snake-expansion-render/glow-contact-sheet-1280-ui150.png",
+    "/tmp/snake-expansion-render/six-buffs-1280x720-ui150.png",
+    "/tmp/snake-expansion-render/twelve-pickups-1280.png",
+    "/tmp/snake-expansion-render/warden-energy-1280.png",
+    "/tmp/snake-expansion-render/customize-gold-1280.png",
+    "/tmp/snake-expansion-render/customize-head-1280.png"
+  ],
+  "errors": [],
+  "limitation": "Frozen, explicitly arranged fixture using actual HUD, customization and renderer. State checks are not campaign completion, collision/balance validation, physical Xbox acceptance, owner visual approval, listening review or a full-machine performance benchmark."
+}

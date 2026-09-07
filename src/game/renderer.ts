@@ -21,6 +21,7 @@ const RENDER_BUDGET = {
   high: { pixels: 2560 * 1440, maxDpr: 2 },
 };
 const CYAN = 0x20dfff, PINK = 0xea39f5, RED = 0xff426f;
+const PLAYER_GLOW = { body: 2.1, head: 2.3, ports: 1.7, shield: 2.8 };
 const dummy = new THREE.Object3D();
 const markerOrigin = new THREE.Vector3(), markerForward = new THREE.Vector3();
 const cube = new THREE.BoxGeometry(1, 1, 1);
@@ -75,15 +76,20 @@ class SerpentModel {
     const color = this.hostile ? RED : CYAN;
     const shell = this.hostile ? new THREE.MeshStandardMaterial({ color: 0x782338, emissive: 0x871c36, emissiveIntensity: 0.32, metalness: 0.55, roughness: 0.36, fog: false }) : metal(0x102030, 0.29);
     const dark = metal(0x070d16, 0.39), edge = this.hostile ? light(0xb44256, 0.35) : metal(0x34495c, 0.23);
-    this.signature = light(color, this.hostile ? 1.65 : 1.1);
-    this.headSignature = light(color, this.hostile ? 1.65 : 1.25);
-    this.bodyPorts = light(this.hostile ? RED : CYAN, 0.7);
+    this.signature = light(color, this.hostile ? 1.65 : PLAYER_GLOW.body);
+    this.headSignature = light(color, this.hostile ? 1.65 : PLAYER_GLOW.head);
+    this.bodyPorts = light(color, this.hostile ? 0.7 : PLAYER_GLOW.ports);
+    if (!this.hostile) for (const material of [this.signature, this.headSignature, this.bodyPorts]) {
+      // Colored emission carries the light identity; reflected white scene lights
+      // must not wash it out. Low remains vivid without enabling bloom.
+      material.color.setHex(0x020408); material.toneMapped = false;
+    }
     // Selected light colors must remain identifiable in Low without bloom;
     // fog still applies to armor, floor and the surrounding city.
     this.signature.fog = false; this.bodyPorts.fog = false; this.headSignature.fog = false;
     if (this.hostile) edge.fog = false;
     const shellGeo = new THREE.CylinderGeometry(0.30, 0.30, 0.44, 8); shellGeo.rotateZ(Math.PI / 2);
-    const seamGeo = new THREE.CylinderGeometry(0.276, 0.276, 0.50, 8); seamGeo.rotateZ(Math.PI / 2);
+    const seamGeo = new THREE.CylinderGeometry(0.276, 0.276, this.hostile ? 0.50 : 0.535, 8); seamGeo.rotateZ(Math.PI / 2);
     this.armor = new THREE.InstancedMesh(shellGeo, shell, capacity);
     this.seams = new THREE.InstancedMesh(seamGeo, this.signature, capacity);
     this.plates = new THREE.InstancedMesh(cube, edge, capacity);
@@ -106,7 +112,7 @@ class SerpentModel {
       const guard = box(this.head, dark, -0.22, 0.02, sign * 0.30, 0.25, 0.35, 0.09); guard.rotation.x = sign * 0.2;
     }
     box(this.head, edge, -0.13, 0.28, 0, 0.43, 0.08, 0.17);
-    box(this.head, this.headSignature, -0.12, 0.33, 0, 0.28, 0.02, 0.06);
+    box(this.head, this.headSignature, -0.12, 0.33, 0, this.hostile ? 0.28 : 0.33, 0.02, this.hostile ? 0.06 : 0.10);
     for (const sign of [-1, 1]) {
       const cheek = box(this.head, shell, 0, -0.015, sign * 0.285, 0.42, 0.21, 0.15); cheek.rotation.x = sign * 0.32; cheek.rotation.y = sign * -0.2;
       const seam = box(this.head, this.headSignature, 0.13, 0.03, sign * 0.364, 0.26, 0.028, 0.028); seam.rotation.y = sign * 0.15;
@@ -114,7 +120,7 @@ class SerpentModel {
   }
   setGlow(color: number) {
     if (this.hostile) return;
-    for (const material of [this.signature, this.bodyPorts]) { material.color.setHex(color); material.emissive.setHex(color); }
+    for (const material of [this.signature, this.bodyPorts, this.headSignature]) material.emissive.setHex(color);
   }
   update(head: Point, heading: number, body: Point[], opacity = 1) {
     this.group.visible = opacity > 0;
@@ -129,12 +135,12 @@ class SerpentModel {
       dummy.position.set(p.x, 0.33, p.z); dummy.rotation.set(0, -angle, 0); dummy.scale.set(1, taper, taper); dummy.updateMatrix();
       this.armor.setMatrixAt(i, dummy.matrix); this.seams.setMatrixAt(i, dummy.matrix);
       dummy.position.y = 0.33 + 0.27 * taper; dummy.scale.set(0.30, 0.06, 0.20 * taper); dummy.updateMatrix(); this.plates.setMatrixAt(i, dummy.matrix);
-      dummy.position.y += 0.036; dummy.scale.set(this.hostile ? 0.25 : 0.09, 0.018, this.hostile ? 0.10 : 0.075); dummy.updateMatrix(); this.highlights.setMatrixAt(i, dummy.matrix);
+      dummy.position.y += 0.036; dummy.scale.set(this.hostile ? 0.25 : 0.23, 0.018, 0.10); dummy.updateMatrix(); this.highlights.setMatrixAt(i, dummy.matrix);
       for (let side = 0; side < 2; side++) {
         const sign = side === 0 ? -1 : 1;
         dummy.position.set(p.x - Math.sin(angle) * sign * 0.23 * taper, 0.40, p.z + Math.cos(angle) * sign * 0.23 * taper);
         dummy.rotation.set(0, -angle, 0); dummy.scale.set(0.29, 0.25 * taper, 0.17 * taper); dummy.updateMatrix(); this.flanks.setMatrixAt(i * 2 + side, dummy.matrix);
-        dummy.position.y = 0.49; dummy.scale.set(0.13, 0.025, 0.19 * taper); dummy.updateMatrix(); this.ports.setMatrixAt(i * 2 + side, dummy.matrix);
+        dummy.position.y = 0.49; dummy.scale.set(this.hostile ? 0.13 : 0.20, this.hostile ? 0.025 : 0.045, 0.19 * taper); dummy.updateMatrix(); this.ports.setMatrixAt(i * 2 + side, dummy.matrix);
       }
     }
     for (const mesh of [this.armor, this.seams, this.plates, this.highlights, this.flanks, this.ports]) mesh.instanceMatrix.needsUpdate = true;
@@ -538,7 +544,7 @@ export class GameRenderer {
     const canvas = document.createElement('canvas'); canvas.width = canvas.height = 64;
     const ctx = canvas.getContext('2d')!;
     ctx.beginPath(); ctx.moveTo(14, 12); ctx.lineTo(52, 32); ctx.lineTo(14, 52); ctx.lineTo(23, 32); ctx.closePath();
-    ctx.fillStyle = '#20dfff'; ctx.fill(); ctx.strokeStyle = '#c7fbff'; ctx.lineWidth = 3; ctx.stroke();
+    ctx.fillStyle = '#ffffff'; ctx.fill(); ctx.strokeStyle = '#06111d'; ctx.lineWidth = 3; ctx.stroke();
     const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace;
     const cue = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false, fog: false, toneMapped: false })); cue.name = 'head-marker'; cue.position.y = 1.2;
     const group = new THREE.Group(); group.add(cue); return group;
@@ -585,9 +591,10 @@ export class GameRenderer {
     this.particles.rotation.y = t * 0.004;
     if (state && !this.preview) {
       this.player.update(state.player, state.player.heading, state.player.body);
-      this.player.signature.emissiveIntensity = state.buffs.shield > 0 ? 1.8 : 1.1;
+      this.player.signature.emissiveIntensity = state.buffs.shield > 0 ? PLAYER_GLOW.shield : PLAYER_GLOW.body;
       this.syncObjects('player-marker', [{ id: 'head', x: state.player.x, z: state.player.z }], () => this.headCue(), g => {
         const cue = g.getObjectByName('head-marker') as THREE.Sprite;
+        cue.material.color.copy(this.player.headSignature.emissive);
         this.fitThreatCue(cue, !cinematic && this.needsThreatCue(), 15);
         markerOrigin.set(state.player.x, 1.2, state.player.z).project(this.camera);
         markerForward.set(state.player.x + Math.cos(state.player.heading), 1.2, state.player.z + Math.sin(state.player.heading)).project(this.camera);

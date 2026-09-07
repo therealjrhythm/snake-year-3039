@@ -1,6 +1,6 @@
 .app:has(.customize-dialog)>:is(.title-header,.title-layout,.title-bottom,.scene-caption,.center-overlay,.hud,.screen-vignette,.audio-unlock){visibility:hidden}
 .app:has(.customize-dialog) .world.cinematic:after{display:none}
-.modal-backdrop:has(.customize-dialog){background:linear-gradient(90deg,#020a1640,#020a1699);backdrop-filter:none;padding:4vh 4vw}
+.modal-backdrop:has(.customize-dialog){background:transparent;backdrop-filter:none;padding:4vh 4vw}
 .customize-dialog.dialog{width:min(1180px,92vw);max-width:none;max-height:92vh;background:transparent;backdrop-filter:none;border-color:#39738b70;box-shadow:0 20px 80px #01070d44;padding:24px;overflow:auto}
 .customize-dialog.dialog:before{display:none}
 .customize-dialog .dialog-heading{background:#061827e8;padding:16px 18px;margin:-24px -24px 0}
