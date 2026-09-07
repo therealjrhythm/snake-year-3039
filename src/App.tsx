@@ -23,7 +23,7 @@ import { CONTENT_VERSION, EXPANDED_CONTENT_VERSION, LEGACY_CONTENT_VERSION } fro
 
 type Screen = 'title' | 'briefing' | 'countdown' | 'playing' | 'paused' | 'boss-intro' | 'lost-life' | 'results';
 type Overlay = 'settings' | 'guide' | 'records' | 'credits' | 'abandon' | 'customize' | 'lab' | null;
-const VERSION = '0.3.0';
+const VERSION = '0.3.1';
 const DIFFICULTY_OPTIONS: { value: Difficulty; label: string; description: string }[] = [
   { value: 'standard', label: 'Normal', description: '3 health. Regular speed and attack warnings.' },
   { value: 'assisted', label: 'Easier', description: '5 health. The whole game moves 25% slower, with longer attack warnings.' },
@@ -141,14 +141,16 @@ export default function App() {
     return () => { runtime.current = null; window.removeEventListener('pointerdown', unlock); window.removeEventListener('keydown', unlock); window.removeEventListener('resize', resize); window.removeEventListener('blur', freezeCountdown); document.removeEventListener('visibilitychange', hidden); renderer.dispose(); input.dispose(); audio.dispose(); };
   }, []);
 
-  const pause = (reason = 'pause') => {
+  const pause = (reason = 'pause', interruptedTactical?: 'EMP' | 'Decoy') => {
     if (savePending.current) return;
     if (overlayRef.current) { if (['pause', 'back'].includes(reason)) changeOverlay(null); return; }
     const current = screenRef.current;
     if (current === 'playing' || current === 'countdown') {
-      const cause = reason === 'pause' ? 'manual' : reason === 'focus-lost' ? 'focus' : reason === 'controller-disconnected' ? 'controller' : reason.includes('viewport') ? 'viewport' : /frame|pace|Performance/.test(reason) ? 'performance' : 'recovery';
+      const cause = reason === 'pause' ? 'manual' : reason === 'focus-lost' ? 'focus' : reason === 'controller-disconnected' ? 'controller' : reason.includes('viewport') ? 'viewport' : /frame|pac(?:e|ing)|performance/i.test(reason) ? 'performance' : 'recovery';
       setPauseCause(cause);
-      setPauseReason(cause === 'focus' ? 'The game lost focus. Resume when you are ready.' : cause === 'controller' ? 'Your controller disconnected. Reconnect or choose keyboard, then resume.' : cause === 'manual' ? 'Take a breath. The city can wait.' : cause === 'performance' ? 'A long frame interrupted play. The game paused to prevent an unseen crash.' : reason);
+      const retainedTactical = interruptedTactical ? ` ${interruptedTactical} was not deployed; its charge is still available. Resume, then press ${runtime.current?.input.device === 'gamepad' ? 'X' : 'Space'} again.`
+        : simulation.current?.state.decoys.some(decoy => decoy.ttl > 0) ? ' Your Decoy is deployed; its timer is frozen until you resume.' : '';
+      setPauseReason(cause === 'focus' ? 'The game lost focus. Resume when you are ready.' : cause === 'controller' ? 'Your controller disconnected. Reconnect or choose keyboard, then resume.' : cause === 'manual' ? 'Take a breath. The city can wait.' : cause === 'performance' ? `A long frame interrupted play. The game paused to prevent an unseen crash.${retainedTactical}` : reason);
       changeScreen('paused'); refreshHud();
     }
     else if (current === 'paused' && ['pause', 'back'].includes(reason)) resume();
@@ -252,7 +254,14 @@ export default function App() {
     }
     if (screenRef.current !== 'playing' || overlayRef.current) { clock.accumulator = 0; return; }
     const sim = simulation.current; if (!sim) return;
-    if (elapsed > 0.25) { pause('A long frame interrupted play. Resume when the game is ready.'); return; }
+    if (elapsed > 0.25) {
+      // An input edge can arrive on the interrupted frame before any fixed
+      // step runs. Keep its unspent charge and explain the required fresh press;
+      // never replay the action automatically across a pause or countdown.
+      const slot = input.swap || clock.pendingSwap ? 1 - sim.state.selectedSlot : sim.state.selectedSlot;
+      const interruptedTactical = (input.use || clock.pendingUse) && sim.state.slots[slot] ? slot === 0 ? 'EMP' : 'Decoy' : undefined;
+      pause('A long frame interrupted play. Resume when the game is ready.', interruptedTactical); return;
+    }
     clock.accumulator += elapsed; clock.pendingUse ||= input.use; clock.pendingSwap ||= input.swap;
     let steps = 0;
     while (clock.accumulator >= FIXED_DT && steps < 5) {

@@ -81,8 +81,8 @@ try {
 
   await loadFixture('automatic');
   await page.getByLabel(/Overdrive: Half boost drain, [1-8] seconds remaining/).waitFor();
-  assert.match(await page.locator('.tactical-hint').innerText(), /EMP supply begins in Wave 2/);
-  assert.match(await page.locator('.hud-resources .active-buffs').innerText(), /Overdrive[\s\S]*[1-8]s/);
+  assert.match(await page.locator('.tactical-hint').innerText(), /EMP pickups start in Wave 2/);
+  assert.match(await page.locator('.hud > .active-buffs').innerText(), /Overdrive[\s\S]*[1-8]s/);
   await page.waitForTimeout(350);
   assert.match(await page.locator('.event-toast').innerText(), /OVERDRIVE/);
   await pause();

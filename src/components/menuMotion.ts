@@ -11,14 +11,24 @@ export function useMenuMotion(ref: RefObject<HTMLElement | null>, reducedMotion:
     if (!root || reducedMotion) return;
     const media = gsap.matchMedia(root);
     media.add('(prefers-reduced-motion: no-preference)', () => {
+      const entered = new WeakSet<HTMLElement>();
       const entrances = new Map<HTMLElement, gsap.core.Tween>();
-      const confirmations = new Map<HTMLElement, gsap.core.Timeline>();
-      let lastConfirmation = -Infinity;
+      const confirmations = new Map<HTMLElement, gsap.core.Tween>();
+      const clearConfirmation = (control: HTMLElement) => {
+        control.classList.remove('menu-confirming');
+        control.style.removeProperty('--menu-confirm-strength');
+        confirmations.delete(control);
+      };
       const enter = (surface: HTMLElement) => {
-        if (surface.closest('[inert]') || entrances.has(surface)) return;
-        // Small movement keeps the scene behind the menu stationary and text readable.
-        const tween = gsap.fromTo(surface, { opacity: 0.6, y: 14 }, {
-          opacity: 1, y: 0, duration: 0.32, ease: 'power2.out', clearProps: 'opacity,transform',
+        if (surface.closest('[inert]') || entered.has(surface)) return;
+        entered.add(surface);
+        // A newly mounted dialog already carries its descendants into view.
+        // Later tab panels may enter independently without restarting the dialog.
+        for (let parent = surface.parentElement; parent && parent !== root; parent = parent.parentElement) {
+          if (entrances.has(parent)) return;
+        }
+        const tween = gsap.fromTo(surface, { opacity: 0.82, y: 10 }, {
+          opacity: 1, y: 0, duration: 0.24, ease: 'power2.out', clearProps: 'opacity,transform',
           onComplete: () => { entrances.delete(surface); },
         });
         entrances.set(surface, tween);
@@ -31,6 +41,9 @@ export function useMenuMotion(ref: RefObject<HTMLElement | null>, reducedMotion:
           else added.querySelectorAll<HTMLElement>(SURFACES).forEach(enter);
         }
         for (const [element, tween] of entrances) if (!element.isConnected) { tween.revert(); entrances.delete(element); }
+        for (const [control, tween] of confirmations) {
+          if (!control.isConnected || control.closest('[inert]')) { tween.kill(); clearConfirmation(control); }
+        }
       });
       observer.observe(root, { childList: true, subtree: true });
 
@@ -38,21 +51,17 @@ export function useMenuMotion(ref: RefObject<HTMLElement | null>, reducedMotion:
         if (!(event.target instanceof Element)) return;
         const control = event.target.closest<HTMLElement>(CONTROLS);
         if (!control || control.closest('[inert]') || (event.type === 'click' && control.matches('input[type="range"]'))) return;
-        const now = performance.now();
-        // A held slider or rapidly repeated input produces no repeated strobing.
-        if (now - lastConfirmation < 650) return;
-        lastConfirmation = now;
-        const bounds = control.getBoundingClientRect();
-        if (!bounds.width || !bounds.height) return;
-        const outline = document.createElement('div');
-        outline.className = 'menu-confirmation';
-        outline.setAttribute('aria-hidden', 'true');
-        Object.assign(outline.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
-        root.appendChild(outline);
-        const pulse = gsap.timeline({ onComplete: () => { outline.remove(); confirmations.delete(outline); } });
-        pulse.fromTo(outline, { opacity: 0 }, { opacity: 1, duration: 0.09, ease: 'power1.out' })
-          .to(outline, { opacity: 0, duration: 0.36, ease: 'power2.out' });
-        confirmations.set(outline, pulse);
+        if (!control.getClientRects().length || confirmations.has(control)) return;
+        for (const [previous, tween] of confirmations) { tween.kill(); clearConfirmation(previous); }
+        // Start at full brightness in the activation event itself. The edge belongs
+        // to this control, so it cannot remain over a replacement screen.
+        control.style.setProperty('--menu-confirm-strength', '1');
+        control.classList.add('menu-confirming');
+        const pulse = gsap.to(control, {
+          '--menu-confirm-strength': 0, duration: 0.2, ease: 'power2.out',
+          onComplete: () => clearConfirmation(control),
+        });
+        confirmations.set(control, pulse);
       };
       root.addEventListener('click', confirm, true);
       root.addEventListener('input', confirm, true);
@@ -63,7 +72,7 @@ export function useMenuMotion(ref: RefObject<HTMLElement | null>, reducedMotion:
         root.removeEventListener('input', confirm, true);
         root.removeEventListener('menu-adjust', confirm, true);
         for (const tween of entrances.values()) tween.revert();
-        for (const [outline, pulse] of confirmations) { pulse.kill(); outline.remove(); }
+        for (const [control, pulse] of confirmations) { pulse.kill(); clearConfirmation(control); }
       };
     });
     return () => media.revert();

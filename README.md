@@ -50,7 +50,7 @@ Historical 0.2 input-only simulation traces and a timing-sensitive rendered keyb
 
 ## Current implementation checkpoint
 
-Version **0.3.0** adds three lives with current-wave/boss retries, charged laser combat against a firing Warden, a stable gameplay camera, a more dimensional arena, consistent colored halos and clearer animated menus to the 36 × 26 Neon Spire expansion. Existing 0.1 and 0.2 saves keep their exact original geometry, body path and rules; records stay separated by content version. Use Start Game for the new rules.
+Version **0.3.1** adds three lives with current-wave/boss retries, charged laser combat against a firing Warden, a stable gameplay camera, a more dimensional arena, crisp colored light strips and immediate menu feedback to the 36 × 26 Neon Spire expansion. Existing 0.1 and 0.2 saves keep their exact original geometry, body path and rules; records stay separated by content version. Use Start Game for the new rules.
 
 See the [current combat/interface addendum](docs/NEON_SPIRE_COMBAT_REFRESH.md), [expansion addendum](docs/NEON_SPIRE_EXPANSION.md), [session handoff](docs/SESSION_HANDOFF.md) and [feature matrix](docs/FEATURE_MATRIX.md) for actual verification and remaining acceptance. The source package remains unchanged. Physical Xbox testing, owner listening/reference review, ordinary full-district play and five-player comprehension observations remain distinct from automated evidence.
 

@@ -1,0 +1,9 @@
+PASS Sound enable control and device-readiness footer occupy separate visible areas
+PASS Actual App shows truthful Enable sound before a gesture and remains blocked after a synthetic click
+PASS Real header Enable click unlocks audio, hides the callout and stays ON
+PASS Native audio suspension updates the actual App callout and a real click recovers it
+PASS Duplicate resize events at unchanged dimensions keep the real run moving
+PASS A real viewport change shows AUTOMATIC PAUSE · VIEWPORT and freezes the complete simulation state
+PASS A forced 325 ms frame shows AUTOMATIC PAUSE · PERFORMANCE and freezes the complete simulation state
+PASS Use Low graphics & resume saves Low, starts an explicit countdown and resumes the same run
+PASS No browser or console errors in the audio and automatic-pause recovery flow

@@ -12,13 +12,13 @@ Owner requested September 6, 2026, using four title/briefing/settings screenshot
 
 ## Presentation contract
 
-- The camera reserves a stable HUD area from viewport and UI scale, rather than refitting when a pickup adds a HUD row. Real resize and settings changes still refit safely. Compact bonus cards keep names/timers visible; effects remain accessible and explained in the Lab/guide.
+- The camera reserves a stable HUD area from viewport and UI scale, rather than refitting when a pickup adds a HUD row. Real resize and settings changes still refit safely. A fixed bottom row keeps bonus names/timers visible, freeing the health corner; effects remain accessible and explained in the Lab/guide.
 - The 36 × 26 arena gets layered supports, floor detailing, route markings, dimensional machinery and Warden architecture within established solid footprints. Decoration cannot introduce invisible collisions or alter movement.
-- All eight snake colors have a colored halo independent of bloom brightness cutoff and quality tier, including blue/violet at Low. The selected color remains consistent across body, head and laser, with rival identity separate.
-- EMP and Decoy slots show a colored glow and two slow acquisition pulses, then remain visibly ready until used. The selected slot has an additional outline. Reduced motion removes the pulses.
+- Owner refinement 0.3.1 removes the rejected mist/halo geometry. All eight colors use saturated physical light bands with narrow bright filaments, crisp dark armor and restrained existing bloom; Low keeps clear emissive strips without enabling bloom. The selected color remains consistent across body, head and laser, with rival identity separate.
+- EMP and Decoy slots show a colored glow and a continuous slow 1.6-second pulse for as long as a charge is loaded. The selected slot has an additional outline. Reduced motion removes the pulses.
 - Customize Snake is a primary title action; its tiny duplicate is removed. Powerup Lab remains on title and is removed from briefing. Practice without records becomes a full-size briefing action. Records/Credits remain readable secondary actions.
 - Difficulty labels are Normal (three health), Easier (five health, 25% slower world, longer warnings), and Harder (three health, 15% faster enemy shots, shorter warnings). These map to the existing simulation profiles. All new profiles get three lives.
-- Settings is centered. Interactive controls share a vibrant neon focus/hover/selection outline. Activation produces one brief confirmation pulse. GSAP animates menu entrances; both app and OS reduced-motion preferences suppress motion. Animation never advances or blocks gameplay rules.
+- Settings is centered. Interactive controls share a vibrant neon focus/hover/selection outline. Activation starts an immediate 200ms confirmation on the control itself. Removing the control removes its feedback; no separate overlay survives navigation. GSAP animates menu entrances; both app and OS reduced-motion preferences suppress motion. Animation never advances or blocks gameplay rules.
 
 ## Compatibility and soundtrack
 
@@ -28,4 +28,14 @@ The owner intends to supply six to ten songs. MP3 is suitable for browser delive
 
 ## Verification
 
-The completed implementation passes 85 tests, production compilation and all eleven sequential development browser scripts. Current logs/reports are linked from [SESSION_HANDOFF](SESSION_HANDOFF.md), [FEATURE_MATRIX](FEATURE_MATRIX.md) and the [verification ledger](evidence/combat-refresh-2026-09-06/verification.json). Required coverage includes current-wave/boss retries, three losses, no score farming, exact lost-life save/resume, older-save behavior, difficulty application, charged shots/counterfire, camera stability under pickup/HUD changes, all glows, responsive/controller menus, reduced motion and rendering budgets. Arranged fixtures and mocked controllers do not establish physical Xbox, subjective artistic acceptance, a human full clear or sustained hardware performance.
+The preceding 0.3.0 implementation passed 85 tests, production compilation and all eleven sequential development browser scripts. Current logs/reports are linked from [SESSION_HANDOFF](SESSION_HANDOFF.md), [FEATURE_MATRIX](FEATURE_MATRIX.md) and the [verification ledger](evidence/combat-refresh-2026-09-06/verification.json). Required coverage includes current-wave/boss retries, three losses, no score farming, exact lost-life save/resume, older-save behavior, difficulty application, charged shots/counterfire, camera stability under pickup/HUD changes, all glows, responsive/controller menus, reduced motion and rendering budgets. Arranged fixtures and mocked controllers do not establish physical Xbox, subjective artistic acceptance, a human full clear or sustained hardware performance.
+
+## Owner follow-up — crisp color and reliable tactical feedback (0.3.1)
+
+This patch preserves `0.3.0-neon-spire` rules, saves, record partitions and the 36 × 26 physical layout. It refines framing/feedback; it does not shrink the map. The preceding map update already added structural supports, inset panels, lane markings and machinery turbines within the existing collision footprints.
+
+Decoy now has a crisp elevated violet hologram and a minimum 24px identity marker, plus an active HUD countdown. It diverts future Patrol drone and Hunter targeting; it does not distract Warden or bend an already fired bullet. The catch ring matches its existing 0.45-unit projectile-catching radius.
+
+A long frame can interrupt X before deployment, or exhaust the catch-up budget after deployment. Both protective pauses remain. The first explicitly retains the charge and requires a fresh press after resume; the second explicitly says the Decoy is deployed and its timer is frozen. Case-insensitive frame-pacing classification gives both cases the correct Performance heading/recovery action. No queued tactical use replays through menus or countdowns. The owner's exact physical-device pause was not reproduced; controlled stalls verify these failure paths.
+
+See the current handoff and [refinement evidence](evidence/crisp-feedback-2026-09-06/verification.json) for final checks and limitations.

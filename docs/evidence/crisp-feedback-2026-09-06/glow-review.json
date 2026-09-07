@@ -1,0 +1,32 @@
+{
+  "scope": "Frozen simulation rendered by actual GameRenderer and CustomizeSnake component; clicked every glow swatch, Low and Medium, 1440 x 900, UI100. Each onPreview callback applied the selected preset to the same live renderer. No gameplay input or physical controller claim.",
+  "browser": "Isolated installed Chrome via Playwright; Browser plugin unavailable.",
+  "captures": 16,
+  "colors": [
+    "Cyan",
+    "Electric Blue",
+    "Violet",
+    "Magenta",
+    "Mint",
+    "Teal",
+    "Gold",
+    "Pearl"
+  ],
+  "quality": [
+    "low",
+    "medium"
+  ],
+  "viewport": [
+    1440,
+    900
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "visualReview": "All sixteen actual model captures reviewed together; Electric Blue and Violet also inspected individually. Dark armor and saturated outer bands remain visible; no halo billboards or broad pale mist. Brightness supplied by narrow solid light filaments with equal 1.65 luminance inside the existing armor radius. Rejected brighter iteration intentionally excluded.",
+  "evidence": [
+    "glow-contact-sheet.png",
+    "glow-electric-blue.png",
+    "glow-violet.png"
+  ],
+  "limitations": "Prepared presentation fixture, not a full playthrough, hardware benchmark, physical Xbox test, or owner artistic acceptance. Broader gameplay renderer/assertion QA runs separately."
+}

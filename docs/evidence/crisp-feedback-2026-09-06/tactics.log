@@ -1,0 +1,5 @@
+PASS An interrupted X retains its charge, explains the protective pause and requires a fresh press after resume
+PASS Loaded HUD tactics keep pulsing after three seconds, stop on use and become steady under either reduced-motion setting
+PASS low: Xbox Y/X deploys one visible stationary Decoy, redirects a fresh Patrol lock and preserves it exactly on pause/save
+PASS A catch-up pause after X confirms the deployed Decoy and freezes its lifetime through resume
+PASS medium: Xbox Y/X deploys one visible stationary Decoy, redirects a fresh Patrol lock and preserves it exactly on pause/save

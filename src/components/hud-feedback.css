@@ -3,7 +3,7 @@
   border-color: var(--tactic-color);
   background: color-mix(in srgb, var(--tactic-color) 16%, #061626);
   box-shadow: inset 0 0 17px color-mix(in srgb, var(--tactic-color) 23%, transparent), 0 0 12px color-mix(in srgb, var(--tactic-color) 35%, transparent);
-  animation: arsenal-acquired 1.4s ease-out 2;
+  animation: arsenal-acquired 1.6s ease-in-out infinite;
 }
 .hud .tactic.ready > svg { filter: drop-shadow(0 0 5px var(--tactic-color)); }
 .hud .tactic.ready small { color: #f0fcff; font-weight: 700; }
@@ -15,7 +15,6 @@
 .lives-display b { margin-left: auto; color: #e8faff; white-space: nowrap; }
 .weapon-readout[aria-label="Boss laser status"] > b { font-size: .92em; }
 .hud .resource-line .combat-readout { padding: 0; margin: 0; border: 0; font-size: .72em; line-height: normal; white-space: nowrap; }
-.hud .hud-resources .active-buffs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 10px; }
 .hud .active-buffs > div { gap: 5px; min-height: 36px; }
 .hud .active-buffs strong { font-size: .7em; line-height: 1.15; }
 .hud .active-buffs small { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
@@ -39,12 +38,60 @@
   .hud .hud-score .combo .meter { position: absolute; left: 0; right: 0; bottom: 0; }
   .hud .hud-score > .icon-button { grid-area: pause; justify-self: end; }
 }
-@media (max-width: 700px) {
-  .hud .hud-resources .active-buffs { grid-template-columns: 1fr; gap: 5px; }
-  .hud .active-buffs > div { min-height: 26px; }
-}
 @keyframes arsenal-acquired {
   0%, 100% { filter: brightness(1); }
   30% { filter: brightness(1.8); box-shadow: inset 0 0 24px color-mix(in srgb, var(--tactic-color) 35%, transparent), 0 0 23px var(--tactic-color); }
 }
 @media (prefers-reduced-motion: reduce) { .hud .tactic.ready { animation: none; } }
+
+/* A fixed footer gives every timed bonus its own readable name and timer.
+   Collecting powers never grows the health corner or changes camera framing. */
+.hud > .active-buffs {
+  position: absolute; left: 2.2vw; right: 2.2vw; bottom: 28px;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px; padding: 0; border: 0;
+}
+.hud > .active-buffs > div {
+  height: calc(40px * var(--ui-scale)); min-height: 40px;
+  padding: 5px 9px; background: #051522ed; border: 1px solid #28506a;
+  grid-template-columns: 22px minmax(0, 1fr) auto; column-gap: 6px;
+}
+.hud > .active-buffs .buff-symbol { width: 22px; min-width: 22px; }
+.hud .hud-resources, .hud .hud-tactics { bottom: calc(74px + 20px * var(--ui-scale)); }
+.hud .input-hints { bottom: 11px; }
+@media (max-width: 1000px) {
+  .hud > .active-buffs { grid-template-columns: repeat(3, minmax(0, 1fr)); bottom: 28px; }
+  .hud .hud-resources, .hud .hud-tactics { bottom: calc(100px + 55px * var(--ui-scale)); }
+}
+@media (max-width: 700px) {
+  .hud > .active-buffs { left: 10px; right: 10px; gap: 5px; }
+  .hud > .active-buffs > div { padding: 4px; grid-template-columns: minmax(0, 1fr) auto; }
+  .hud > .active-buffs .buff-symbol { display: none; }
+}
+
+@media (min-width: 701px) {
+  .hud .hud-objective h2 { margin: 5px 0 7px; }
+  .hud .hud-objective .hud-kicker { font-size: .62em; letter-spacing: .8px; }
+  .hud .hud-objective .boss-counters { margin-top: 6px; padding-top: 6px; gap: 8px; }
+  .hud .hud-objective .boss-counters > span { flex-direction: row; align-items: center; gap: 5px; font-size: .9em; }
+  .hud .hud-objective .boss-counters > span + span { padding-left: 8px; }
+  .hud .hud-objective .boss-counters b { white-space: nowrap; font-size: 1.1em; }
+  .hud .hud-objective .boss-phase { font-size: .62em; padding-top: 6px; }
+  .hud .hud-resources { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 10px; }
+  .hud .hud-resources .resource-line { gap: 7px; }
+  .hud .hud-resources .resource-line > svg { width: 16px; flex-shrink: 0; }
+  .hud .hud-resources .hud-label { font-size: .62em; letter-spacing: .5px; }
+  .hud .hud-resources .integrity { height: 9px; gap: 3px; }
+  .hud .hud-resources .length-label { font-size: 1em; padding-left: 4px; }
+  .hud .hud-resources .length-label small { font-size: 6px; }
+  .hud .hud-resources .boost-label { gap: 4px; }
+  .hud .hud-resources .lives-display { grid-column: 1 / -1; border-top: 1px solid #28506a; padding-top: 7px; }
+  .hud .hud-tactics .tactical-hint { margin: 8px 0 0; font-size: .68em; line-height: 1.2; }
+  .hud .hud-tactics .weapon-readout { margin-top: 7px; padding-top: 7px; font-size: .72em; }
+  .hud .hud-tactics .weapon-readout > span > small { display: none; }
+  .hud .hud-tactics .weapon-readout > b { font-size: 1.25em; }
+  .hud .hud-tactics .receptor-progress { margin: 6px 0 0; font-size: .68em; }
+}
+
+@media (min-width: 701px) { .hud .hud-resources .combat-readout { font-size: .62em; white-space: normal; line-height: 1.1; } }
+.hud > .active-buffs strong { font-size: .8em; }

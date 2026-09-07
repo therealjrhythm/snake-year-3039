@@ -56,13 +56,13 @@ try {
       const ordered = projected.slice(0, 4).sort((a, b) => Math.atan2(a.y - projected.slice(0, 4).reduce((sum, p) => sum + p.y, 0) / 4, a.x - projected.slice(0, 4).reduce((sum, p) => sum + p.x, 0) / 4) - Math.atan2(b.y - projected.slice(0, 4).reduce((sum, p) => sum + p.y, 0) / 4, b.x - projected.slice(0, 4).reduce((sum, p) => sum + p.x, 0) / 4));
       const inside = (p, polygon) => { let hit = false; for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) if ((polygon[i].y > p.y) !== (polygon[j].y > p.y) && p.x < (polygon[j].x - polygon[i].x) * (p.y - polygon[i].y) / (polygon[j].y - polygon[i].y) + polygon[i].x) hit = !hit; return hit; };
       const crossed = (a,b,c,d) => { const direction = (p,q,r) => (q.x-p.x)*(r.y-p.y)-(q.y-p.y)*(r.x-p.x); return direction(a,b,c)*direction(a,b,d)<0 && direction(c,d,a)*direction(c,d,b)<0; };
-      const blocked = ['.hud-objective', '.hud-score', '.hud-resources', '.hud-tactics'].filter(selector => { const b = document.querySelector(selector).getBoundingClientRect(), rectangle = [{x:b.left,y:b.top},{x:b.right,y:b.top},{x:b.right,y:b.bottom},{x:b.left,y:b.bottom}]; return ordered.some(p => inside(p,rectangle)) || rectangle.some(p => inside(p,ordered)) || ordered.some((p,i) => rectangle.some((q,j) => crossed(p,ordered[(i+1)%4],q,rectangle[(j+1)%4]))); });
+      const blocked = ['.hud-objective', '.hud-score', '.hud-resources', '.hud-tactics', '.active-buffs'].filter(selector => document.querySelector(selector)).filter(selector => { const b = document.querySelector(selector).getBoundingClientRect(), rectangle = [{x:b.left,y:b.top},{x:b.right,y:b.top},{x:b.right,y:b.bottom},{x:b.left,y:b.bottom}]; return ordered.some(p => inside(p,rectangle)) || rectangle.some(p => inside(p,ordered)) || ordered.some((p,i) => rectangle.some((q,j) => crossed(p,ordered[(i+1)%4],q,rectangle[(j+1)%4]))); });
       return { blocked, bounds: { left: Math.min(...projected.map(p => p.x)), right: Math.max(...projected.map(p => p.x)), top: Math.min(...projected.map(p => p.y)), bottom: Math.max(...projected.map(p => p.y)) }, safe: { top, bottom }, distance: r.camera.position.length(), floor: [r.reflector.scale.x, r.reflector.scale.y] };
     };
     f.boss = (version = '0.3.0-neon-spire') => { state.contentVersion = version; state.status = 'boss'; state.boss = { id: 'B1', nodes: 3, charge: 0, phase: 'safe', phaseTime: 3, relays: layout.boss.relayCandidates.map((p, i) => ({ id: `relay-${i + 1}`, ...p, number: i + 1 })), pad: { ...layout.boss.pad }, cycle: 0, relayRetry: 0, relayBlockedTime: 0, stage: 'collecting-relays', receptor: { ...layout.boss.receptor }, receptorHits: 0, relayFeedbackCooldown: 0, volley: null }; };
     window.__expansion = f; await loaded;
   });
-  for (const [width, height] of [[1280, 720], [1440, 900], [1680, 720]]) for (const uiScale of [.8, 1.5]) for (const mode of ['wave', 'boss']) {
+  for (const [width, height] of [[1280, 720], [1440, 900], [1680, 720]]) for (const uiScale of [.8, 1, 1.5]) for (const mode of ['wave', 'boss']) {
     await page.setViewportSize({ width, height });
     const measured = await page.evaluate(async ({ uiScale, mode }) => {
       const f = window.__expansion, r = f.renderer, s = f.sim.state;
@@ -75,6 +75,8 @@ try {
     assert.ok(measured.bounds.left >= 0 && measured.bounds.right <= width, `Floor fits width ${width}/${uiScale}/${mode}`);
     assert.deepEqual(measured.blocked, [], `Arena avoids actual HUD panels ${JSON.stringify({ width, height, uiScale, mode, measured })}`);
     assert.ok(measured.bounds.top >= 0 && measured.bounds.bottom <= height, 'Arena fits viewport height');
+    if (width === 1280 && uiScale === 1) assert.ok(measured.bounds.right - measured.bounds.left >= 640, 'Default arena framing must not regress to the smaller HUD reservation');
+    if (width === 1440 && uiScale === 1.5) assert.ok(measured.bounds.right - measured.bounds.left >= 700, 'Large UI keeps reclaimed arena space');
     camera.push({ width, height, uiScale, mode, ...measured });
     if (width === 1280 && uiScale === 1.5 || width === 1680 && uiScale === .8 && mode === 'boss') {
       const file = path.join(outputDir, `${mode}-${width}x${height}-ui${uiScale * 100}.png`); await page.screenshot({ path: file }); captures.push(file);
@@ -91,7 +93,7 @@ try {
       await f.hud(); r.resize();
       for (const quality of ['low', 'medium']) for (const [index, preset] of f.appearance.GLOW_PRESETS.entries()) {
         r.setSettings({ quality, bloom: quality === 'low' ? 0 : .45, reducedMotion: true, uiScale }); r.setAppearance(preset.id); f.draw();
-        rows.push({ width, height, uiScale, quality, glow: preset.id, selected: preset.color, body: `#${r.player.signature.emissive.getHexString()}`, head: `#${r.player.headSignature.emissive.getHexString()}`, ports: `#${r.player.ports.material.emissive.getHexString()}`, marker: `#${r.objects.get('player-marker:head').getObjectByName('head-marker').material.color.getHexString()}`, previewHead: `#${r.titleSnake.headSignature.emissive.getHexString()}`, halo: { visible: r.player.group.getObjectByName('player-color-halo').visible, instances: r.player.group.getObjectByName('player-color-halo').count, depthWrite: r.player.group.getObjectByName('player-color-halo').material.depthWrite }, laserColor: `#${r.objects.get('player-projectile:friendly-bolt').children[0].material.color.getHexString()}`, hostile: `#${r.rivalModels.get('hunter').signature.emissive.getHexString()}` });
+        rows.push({ width, height, uiScale, quality, glow: preset.id, selected: preset.color, body: `#${r.player.signature.emissive.getHexString()}`, head: `#${r.player.headSignature.emissive.getHexString()}`, ports: `#${r.player.ports.material.emissive.getHexString()}`, marker: `#${r.objects.get('player-marker:head').getObjectByName('head-marker').material.color.getHexString()}`, previewHead: `#${r.titleSnake.headSignature.emissive.getHexString()}`, haloCount: r.player.group.children.filter(child => child.name === 'player-color-halo').length, lightCores: ['player-seam-light-cores', 'player-strip-light-cores'].map(name => { const mesh = r.player.group.getObjectByName(name), material = mesh.material, emission = material.emissive; return { name, instances: mesh.count, solid: !material.transparent && material.depthWrite, luminance: (emission.r * .2126 + emission.g * .7152 + emission.b * .0722) * material.emissiveIntensity }; }), laserColor: `#${r.objects.get('player-projectile:friendly-bolt').children[0].material.color.getHexString()}`, hostile: `#${r.rivalModels.get('hunter').signature.emissive.getHexString()}` });
         if (width === 1280 && uiScale === 1.5) {
           // Copy the just-rendered player region immediately, before WebGL clears
           // its drawing buffer. These are native scene crops, not a second model.
@@ -109,11 +111,11 @@ try {
     }, { width, height, uiScale });
     glow.push(...rows);
   }
-  assert.equal(glow.length, 96); for (const row of glow) { assert.equal(row.body, row.selected); assert.equal(row.head, row.selected); assert.equal(row.ports, row.selected); assert.equal(row.marker, row.selected); assert.equal(row.previewHead, row.selected); assert.equal(row.hostile, '#ff426f'); assert.equal(row.laserColor, row.selected); assert.equal(row.halo.visible, true); assert.equal(row.halo.instances, 21); assert.equal(row.halo.depthWrite, false); }
+  assert.equal(glow.length, 96); for (const row of glow) { assert.equal(row.body, row.selected); assert.equal(row.head, row.selected); assert.equal(row.ports, row.selected); assert.equal(row.marker, row.selected); assert.equal(row.previewHead, row.selected); assert.equal(row.hostile, '#ff426f'); assert.equal(row.laserColor, row.selected); assert.equal(row.haloCount, 0); assert.equal(row.lightCores.length, 2); for (const core of row.lightCores) { assert.equal(core.instances, 20); assert.equal(core.solid, true); assert.ok(Math.abs(core.luminance - 1.65) < .0001, 'Equal light-filament luminance for every hue'); } }
   const glowSheet = path.join(outputDir, 'glow-contact-sheet-1280-ui150.png');
   const glowSheetData = await page.evaluate(() => window.__expansion.glowSheet.toDataURL('image/png').split(',')[1]);
   await writeFile(glowSheet, Buffer.from(glowSheetData, 'base64')); captures.push(glowSheet);
-  checks.push('96 glow rows: eight colors × three landscape ratios × UI80/150 × Low/Medium match head, body, ports, preview head and direction marker while preserving hostile red faction; contact sheet is actual scene crops at1280 UI150');
+  checks.push('96 glow rows: eight colors × three landscape ratios × UI80/150 × Low/Medium match head, body, ports, preview head and direction marker while preserving hostile red faction; solid light filaments have equal luminance and no halo geometry; contact sheet is actual scene crops at1280 UI150');
   await page.setViewportSize({ width: 1280, height: 720 });
   const sixBuffs = await page.evaluate(async () => {
     const f = window.__expansion, r = f.renderer, s = f.sim.state;
@@ -124,7 +126,7 @@ try {
     const rect = element => { const b = element.getBoundingClientRect(); return { left: b.left, right: b.right, top: b.top, bottom: b.bottom, width: b.width, height: b.height }; };
     const panels = ['.hud-objective', '.hud-score', '.hud-resources', '.hud-tactics'].map(selector => ({ selector, ...rect(document.querySelector(selector)) }));
     const overlapping = panels.flatMap((a, i) => panels.slice(i + 1).filter(b => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top).map(b => [a.selector, b.selector]));
-    const resources = document.querySelector('.hud-resources'), bounds = rect(resources);
+    const resources = document.querySelector('.active-buffs'), bounds = rect(resources);
     const bonuses = [...document.querySelectorAll('.active-buffs>div')].map(element => {
       const duration = element.querySelector('b'), name = element.querySelector('strong'), description = element.querySelector('small');
       return { name: name.textContent, duration: duration.textContent, fontSize: parseFloat(getComputedStyle(duration).fontSize), rect: rect(element), durationRect: rect(duration), description: description.textContent, accessible: element.getAttribute('aria-label'), title: element.title, clipped: element.scrollWidth > element.clientWidth + 1 || duration.scrollWidth > duration.clientWidth + 1, nameFont: parseFloat(getComputedStyle(name).fontSize) };
@@ -135,7 +137,7 @@ try {
   assert.equal(sixBuffs.bonuses.length, 6); assert.deepEqual(sixBuffs.overlapping, []); assert.deepEqual(sixBuffs.camera.blocked, []);
   for (const panel of sixBuffs.panels) assert.ok(panel.left >= 0 && panel.top >= 0 && panel.right <= 1280 && panel.bottom <= 720, `HUD panel fits: ${panel.selector}`);
   assert.deepEqual(sixBuffs.bonuses.map(value => value.duration), ['8s', '12s', '15s', '10s', '8s', '10s']);
-  for (const bonus of sixBuffs.bonuses) { assert.ok(bonus.fontSize >= 16, `Readable duration for ${bonus.name}`); assert.equal(bonus.clipped, false); assert.ok(bonus.accessible.includes(bonus.description)); assert.ok(bonus.title.includes(bonus.description)); assert.ok(bonus.rect.top >= sixBuffs.resources.top && bonus.rect.bottom <= sixBuffs.resources.bottom && bonus.durationRect.right <= sixBuffs.resources.right, `Bonus fits resources: ${bonus.name}`); }
+  for (const bonus of sixBuffs.bonuses) { assert.ok(bonus.fontSize >= 16, `Readable duration for ${bonus.name}`); assert.equal(bonus.clipped, false); assert.ok(bonus.accessible.includes(bonus.description)); assert.ok(bonus.title.includes(bonus.description)); assert.ok(bonus.rect.top >= sixBuffs.resources.top && bonus.rect.bottom <= sixBuffs.resources.bottom && bonus.durationRect.right <= sixBuffs.resources.right, `Bonus fits footer: ${bonus.name}`); }
   checks.push('Six compact timed buffs at1280×720 UI150: names and timers visible, durations at least16px, effects accessible, no clipping, HUD overlap or covered travel lanes');
   const cameraStability = await page.evaluate(async () => {
     const f = window.__expansion, r = f.renderer, s = f.sim.state;
@@ -200,11 +202,11 @@ try {
   });
   assert.equal(laserBoss.noPad, true); assert.deepEqual(laserBoss.spheres, ['SphereGeometry', 'SphereGeometry', 'SphereGeometry']);
   assert.equal(laserBoss.exposedDuringWarning, true); assert.equal(laserBoss.rays, 3); assert.ok(laserBoss.warningSegments.every(count => count > 0));
-  assert.equal(laserBoss.rendererPure, true); assert.equal(laserBoss.laser, '982dff'); assert.equal(laserBoss.haloDraws, 1);
+  assert.equal(laserBoss.rendererPure, true); assert.equal(laserBoss.laser, '982dff'); assert.equal(laserBoss.haloDraws, 0);
   const laserBossFile = path.join(outputDir, 'warden-laser-volley-1280.png'); await page.screenshot({ path: laserBossFile }); captures.push(laserBossFile);
   await page.evaluate(() => { const f = window.__expansion; f.sim.state.boss.volley = null; f.draw(); });
   assert.equal(await page.evaluate(() => [...window.__expansion.renderer.objects.keys()].some(key => key.startsWith('warden-aim:'))), false);
-  checks.push('New Warden spheres, charged laser exposure, no old pad, three clipped orange aim warnings, selected-color shots, warning cleanup and bounded per-snake halo draw');
+  checks.push('New Warden spheres, charged laser exposure, no old pad, three clipped orange aim warnings, selected-color shots, warning cleanup and no player halo geometry');
   const preview = await page.evaluate(async () => {
     const f = window.__expansion, r = f.renderer; const canvas = r.renderer.domElement, before = JSON.stringify(f.sim.state);
     await f.mount(f.React.createElement(f.CustomizeSnake, { initial: 'gold', onPreview(glow, rotation, zoom) { r.setAppearance(glow); r.setPreview({ rotation, zoom }); }, onApply() {}, onClose() {} }));

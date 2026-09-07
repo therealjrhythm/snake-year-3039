@@ -1,0 +1,22 @@
+Systems verification failed: The input did not match the regular expression /EMP supply begins in Wave 2/. Input:
+
+'EMP pickups start in Wave 2.'
+
+Visible pause: none
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /EMP supply begins in Wave 2/. Input:
+
+'EMP pickups start in Wave 2.'
+
+    at file:///Users/jeremiah_perry/Desktop/AI%20TOOLS/GAMES/Snake--Year%203039/scripts/verify-systems.mjs:84:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'EMP pickups start in Wave 2.',
+  expected: /EMP supply begins in Wave 2/,
+  operator: 'match'
+}
+
+Node.js v22.17.0

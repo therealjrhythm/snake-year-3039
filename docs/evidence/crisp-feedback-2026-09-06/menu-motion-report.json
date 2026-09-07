@@ -1,0 +1,2694 @@
+{
+  "environment": {
+    "url": "http://127.0.0.1:3039",
+    "browser": "Isolated installed Chrome; Browser plugin unavailable"
+  },
+  "checks": [
+    "Actual mouse navigation and mouse/keyboard/mock-RB tabs: immediate strength 1, monotonic fade, source cleanup, no detached overlay; unchanged Settings stays stationary",
+    "Rapid tab changes clear the earlier pulse; inactive tabs have no lingering outline transition",
+    "App reduced motion disables confirmation and entrance tweens",
+    "OS reduced motion disables feedback and leaves no inline state",
+    "Dropdown choice applies immediately and discarded option leaves no lingering flash",
+    "390 × 844 narrow Settings remains inside viewport and feedback cleans up",
+    "Correct page identity, meaningful content, no Vite overlay, no browser errors/warnings"
+  ],
+  "events": [
+    {
+      "label": "START GAME",
+      "time": 2342.7000000029802,
+      "immediate": {
+        "class": true,
+        "strength": "1",
+        "connected": true
+      },
+      "frames": [
+        {
+          "elapsed": 86.70000000298023,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 91.60000000149012,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 107.79999999701977,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 124.20000000298023,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 141.89999999850988,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 157.79999999701977,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 174.10000000149012,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 191.39999999850988,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 208,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 223.89999999850988,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 241.60000000149012,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 258.1000000014901,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 274.70000000298023,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 291.29999999701977,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 307.8999999985099,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 325.1000000014901,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 341,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 357.3999999985099,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 373.8999999985099,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 390.6000000014901,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 408.6000000014901,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 424.6000000014901,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        }
+      ]
+    },
+    {
+      "label": "BACK",
+      "time": 2856.10000000149,
+      "immediate": {
+        "class": true,
+        "strength": "1",
+        "connected": true
+      },
+      "frames": [
+        {
+          "elapsed": 13.899999998509884,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 27.30000000447035,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 43.80000000447035,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 60.30000000447035,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 78.10000000149012,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 94.89999999850988,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 111.20000000298023,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 127.80000000447035,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 144.80000000447035,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 161.5,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 178.80000000447035,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 195,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 211.39999999850988,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 228.80000000447035,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 245.20000000298023,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 261.1000000014901,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 277.5,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 294.1000000014901,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 311.6000000014901,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 328.80000000447035,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 343.8999999985099,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": []
+        },
+        {
+          "elapsed": 371.30000000447035,
+          "connected": false,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "SETTINGS",
+      "time": 3204.5,
+      "immediate": {
+        "class": true,
+        "strength": "1",
+        "connected": true
+      },
+      "frames": [
+        {
+          "elapsed": 23,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 30.200000002980232,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 45.600000001490116,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 62.600000001490116,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 80.40000000596046,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 96.70000000298023,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 113.90000000596046,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 130.10000000149012,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 147.20000000298023,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 163.20000000298023,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 179.5,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 196.80000000447035,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 213.40000000596046,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 230.20000000298023,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 245.80000000447035,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 263.6000000014901,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 279.20000000298023,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 296.5,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 312.80000000447035,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 330.20000000298023,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 346.30000000447035,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 362.70000000298023,
+          "connected": true,
+          "inert": true,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Audio",
+      "time": 3622.7000000029802,
+      "immediate": {
+        "class": true,
+        "strength": "1",
+        "connected": true
+      },
+      "frames": [
+        {
+          "elapsed": 12.600000001490116,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.778688",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 28.799999997019768,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.582183",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 45.29999999701977,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.421875",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 61.399999998509884,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.300763",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 78.39999999850988,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.200202",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 94.79999999701977,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.128788",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 111,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.074088",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 128.39999999850988,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.037595",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 144.20000000298023,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.016581",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 161.39999999850988,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.004913",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 178.60000000149012,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.000614",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 195.29999999701977,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 211.79999999701977,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 228.29999999701977,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 245.79999999701977,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 262.1000000014901,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 278.29999999701977,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 295.20000000298023,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 311.70000000298023,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 328.5,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 345.1000000014901,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 361.3999999985099,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Visuals",
+      "time": 4241.4000000059605,
+      "immediate": {
+        "class": true,
+        "strength": "1",
+        "connected": true
+      },
+      "frames": [
+        {
+          "elapsed": 10.199999995529652,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.766061",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 26.399999998509884,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.571787",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 42.69999999552965,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.421875",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 59.399999998509884,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.29408",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 75.89999999850988,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.200202",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 92.89999999850988,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.125",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 109.79999999701977,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.071473",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 126.19999999552965,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.035937",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 142.19999999552965,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.016581",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 160.19999999552965,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.004492",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 176.39999999850988,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.000512",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 192.09999999403954,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 209.5,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 226,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 243.39999999850988,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 259.3999999985099,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 276.69999999552965,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 293.09999999403954,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 309.5,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 326.59999999403954,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 342.79999999701977,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 359.3999999985099,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Accessibility",
+              "shadow": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Accessibility",
+      "time": 4648.30000000447,
+      "immediate": {
+        "class": true,
+        "strength": "1",
+        "connected": true
+      },
+      "frames": [
+        {
+          "elapsed": 20.799999997019768,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.582183",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 32.29999999701977,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.52166",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 49.600000001490116,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.421875",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 65.89999999850988,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.29408",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 82.79999999701977,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.195112",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 98.69999999552965,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.121287",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 115.5,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.074088",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 132.10000000149012,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.037595",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 149.19999999552965,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.015625",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 165.89999999850988,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.004492",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 182.5,
+          "connected": true,
+          "inert": false,
+          "class": true,
+          "strength": "0.000512",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 198.89999999850988,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 215.89999999850988,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 232.69999999552965,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 249.69999999552965,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 266.29999999701977,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 282.6000000014901,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 299.6000000014901,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 316.1000000014901,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 332.3999999985099,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 349.6000000014901,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        },
+        {
+          "elapsed": 365.6000000014901,
+          "connected": true,
+          "inert": false,
+          "class": false,
+          "strength": "",
+          "overlays": 0,
+          "parentTransform": "",
+          "parentOpacity": "",
+          "inactiveShadows": [
+            {
+              "label": "Controls",
+              "shadow": "none"
+            },
+            {
+              "label": "Audio",
+              "shadow": "none"
+            },
+            {
+              "label": "Visuals",
+              "shadow": "none"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

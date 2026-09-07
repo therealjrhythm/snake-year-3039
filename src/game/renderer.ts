@@ -21,7 +21,8 @@ const RENDER_BUDGET = {
   high: { pixels: 2560 * 1440, maxDpr: 2 },
 };
 const CYAN = 0x20dfff, PINK = 0xea39f5, RED = 0xff426f;
-const PLAYER_GLOW = { body: 2.1, head: 2.3, ports: 1.7, shield: 2.8 };
+// Saturated outer strips surround the brighter physical filaments below.
+const PLAYER_GLOW = { body: 1.35, head: 1.5, ports: 1.2, shield: 2.0 };
 const dummy = new THREE.Object3D();
 const markerOrigin = new THREE.Vector3(), markerForward = new THREE.Vector3();
 const cube = new THREE.BoxGeometry(1, 1, 1);
@@ -71,9 +72,9 @@ class SerpentModel {
   private hostile: boolean;
   private bodyPorts: THREE.MeshStandardMaterial;
   readonly headSignature: THREE.MeshStandardMaterial;
-  private halo: THREE.InstancedMesh | null = null;
-  private haloBody: Point[] = [];
-  private haloRotation = new THREE.Quaternion();
+  private lightCore: THREE.MeshStandardMaterial | null = null;
+  private seamCores: THREE.InstancedMesh | null = null;
+  private stripCores: THREE.InstancedMesh | null = null;
   constructor(faction: 'player' | 'hostile', capacity = 128) {
     this.hostile = faction === 'hostile';
     const color = this.hostile ? RED : CYAN;
@@ -82,20 +83,6 @@ class SerpentModel {
     this.signature = light(color, this.hostile ? 1.65 : PLAYER_GLOW.body);
     this.headSignature = light(color, this.hostile ? 1.65 : PLAYER_GLOW.head);
     this.bodyPorts = light(color, this.hostile ? 0.7 : PLAYER_GLOW.ports);
-    if (!this.hostile) {
-      // One bounded, instanced halo draw supplies colored light independently of
-      // the bloom luminance threshold. Blue/violet also glow at Low quality.
-      const canvas = document.createElement('canvas'); canvas.width = canvas.height = 64;
-      const context = canvas.getContext('2d')!, gradient = context.createRadialGradient(32, 32, 0, 32, 32, 32);
-      gradient.addColorStop(0, 'rgba(255,255,255,.48)'); gradient.addColorStop(.3, 'rgba(255,255,255,.36)');
-      gradient.addColorStop(.58, 'rgba(255,255,255,.17)'); gradient.addColorStop(1, 'rgba(255,255,255,0)');
-      context.fillStyle = gradient; context.fillRect(0, 0, 64, 64);
-      const texture = new THREE.CanvasTexture(canvas);
-      const material = new THREE.MeshBasicMaterial({ color, map: texture, transparent: true, depthWrite: false, toneMapped: false, fog: false });
-      this.halo = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), material, capacity + 1);
-      this.halo.name = 'player-color-halo'; this.halo.frustumCulled = false;
-      this.halo.instanceMatrix.setUsage(THREE.DynamicDrawUsage); this.group.add(this.halo);
-    }
     if (!this.hostile) for (const material of [this.signature, this.headSignature, this.bodyPorts]) {
       // Colored emission carries the light identity; reflected white scene lights
       // must not wash it out. Low remains vivid without enabling bloom.
@@ -116,6 +103,21 @@ class SerpentModel {
     for (const mesh of [this.armor, this.seams, this.plates, this.highlights, this.flanks, this.ports]) {
       mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage); mesh.frustumCulled = false; this.group.add(mesh);
     }
+    if (!this.hostile) {
+      // Narrow physical light filaments sit inside the colored strips. Their
+      // bright, lightly tinted core clears bloom's luminance threshold for blue
+      // and violet too, without billboards, haze or changing the scene's bloom.
+      this.lightCore = light(color, 2.4);
+      this.lightCore.color.setHex(0x000000); this.lightCore.fog = false;
+      this.lightCore.toneMapped = false;
+      const coreGeo = new THREE.CylinderGeometry(.284, .284, .485, 8); coreGeo.rotateZ(Math.PI / 2);
+      this.seamCores = new THREE.InstancedMesh(coreGeo, this.lightCore, capacity);
+      this.stripCores = new THREE.InstancedMesh(cube, this.lightCore, capacity);
+      this.seamCores.name = 'player-seam-light-cores'; this.stripCores.name = 'player-strip-light-cores';
+      for (const mesh of [this.seamCores, this.stripCores]) {
+        mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage); mesh.frustumCulled = false; this.group.add(mesh);
+      }
+    }
     this.group.add(this.head);
     const cranium = new THREE.Mesh(new THREE.DodecahedronGeometry(0.43, 0), shell);
     cranium.scale.set(1.38, 0.73, 0.95); this.head.add(cranium);
@@ -128,51 +130,50 @@ class SerpentModel {
       const brow = box(this.head, edge, 0.13, 0.18, sign * 0.27, 0.39, 0.075, 0.10); brow.rotation.y = sign * 0.35;
       const guard = box(this.head, dark, -0.22, 0.02, sign * 0.30, 0.25, 0.35, 0.09); guard.rotation.x = sign * 0.2;
     }
+    if (this.lightCore) {
+      for (const sign of [-1, 1]) {
+        const core = box(this.head, this.lightCore, .22, .11, sign * .288, .19, .025, .008); core.rotation.y = sign * .33;
+      }
+      box(this.head, this.lightCore, -.12, .343, 0, .21, .008, .032);
+      box(this.head, this.lightCore, .40, -.073, 0, .28, .008, .13);
+    }
     box(this.head, edge, -0.13, 0.28, 0, 0.43, 0.08, 0.17);
     box(this.head, this.headSignature, -0.12, 0.33, 0, this.hostile ? 0.28 : 0.33, 0.02, this.hostile ? 0.06 : 0.10);
     for (const sign of [-1, 1]) {
       const cheek = box(this.head, shell, 0, -0.015, sign * 0.285, 0.42, 0.21, 0.15); cheek.rotation.x = sign * 0.32; cheek.rotation.y = sign * -0.2;
       const seam = box(this.head, this.headSignature, 0.13, 0.03, sign * 0.364, 0.26, 0.028, 0.028); seam.rotation.y = sign * 0.15;
     }
+    if (!this.hostile) this.setGlow(color);
   }
   setGlow(color: number) {
     if (this.hostile) return;
     for (const material of [this.signature, this.bodyPorts, this.headSignature]) material.emissive.setHex(color);
-    if (this.halo) {
-      const haloColor = (this.halo.material as THREE.MeshBasicMaterial).color.setHex(color).multiplyScalar(1.7);
-      const luminance = haloColor.r * .2126 + haloColor.g * .7152 + haloColor.b * .0722;
-      // Keep the broad halo below the bloom threshold: bright presets must not
-      // erase their armor while darker blue/violet retain the same soft outline.
-      if (luminance > .8) haloColor.multiplyScalar(.8 / luminance);
+    if (this.lightCore) {
+      const emission = this.lightCore.emissive.setHex(color).lerp(new THREE.Color(0xffffff), .60);
+      const luminance = emission.r * .2126 + emission.g * .7152 + emission.b * .0722;
+      // Equal filament luminance keeps darker hues visibly powered after
+      // downsampling; only the narrow solid cores receive this compensation.
+      this.lightCore.emissiveIntensity = 1.65 / luminance;
     }
-  }
-  faceGlow(camera: THREE.Camera) {
-    if (!this.halo || !this.group.visible) return;
-    this.group.updateMatrixWorld();
-    this.group.getWorldQuaternion(this.haloRotation).invert().multiply(camera.quaternion);
-    this.halo.count = Math.min(this.haloBody.length + 1, this.halo.instanceMatrix.count);
-    for (let i = 0; i < this.halo.count; i++) {
-      const p = i ? this.haloBody[i - 1] : this.head.position;
-      dummy.position.set(p.x, i ? 0.38 : 0.43, p.z); dummy.quaternion.copy(this.haloRotation);
-      dummy.scale.setScalar(i ? 1.55 : 1.85); dummy.updateMatrix(); this.halo.setMatrixAt(i, dummy.matrix);
-    }
-    this.halo.instanceMatrix.needsUpdate = true;
   }
   update(head: Point, heading: number, body: Point[], opacity = 1) {
-    this.haloBody = body;
     this.group.visible = opacity > 0;
     this.head.position.set(head.x, 0.37, head.z); this.head.rotation.y = -heading;
     const count = Math.min(body.length, this.armor.instanceMatrix.count);
     for (const mesh of [this.armor, this.seams, this.plates, this.highlights]) mesh.count = count;
     this.flanks.count = count * 2; this.ports.count = count * 2;
+    if (this.seamCores && this.stripCores) { this.seamCores.count = count; this.stripCores.count = count; }
     for (let i = 0; i < count; i++) {
       const p = body[i], previous = i === 0 ? head : body[i - 1];
       const angle = Math.atan2(previous.z - p.z, previous.x - p.x);
       const taper = i > count - 4 ? 0.55 + (count - i) * 0.11 : 1;
       dummy.position.set(p.x, 0.33, p.z); dummy.rotation.set(0, -angle, 0); dummy.scale.set(1, taper, taper); dummy.updateMatrix();
-      this.armor.setMatrixAt(i, dummy.matrix); this.seams.setMatrixAt(i, dummy.matrix);
+      this.armor.setMatrixAt(i, dummy.matrix); this.seams.setMatrixAt(i, dummy.matrix); this.seamCores?.setMatrixAt(i, dummy.matrix);
       dummy.position.y = 0.33 + 0.27 * taper; dummy.scale.set(0.30, 0.06, 0.20 * taper); dummy.updateMatrix(); this.plates.setMatrixAt(i, dummy.matrix);
       dummy.position.y += 0.036; dummy.scale.set(this.hostile ? 0.25 : 0.23, 0.018, 0.10); dummy.updateMatrix(); this.highlights.setMatrixAt(i, dummy.matrix);
+      if (this.stripCores) {
+        dummy.position.y += .012; dummy.scale.set(.14, .006, .032); dummy.updateMatrix(); this.stripCores.setMatrixAt(i, dummy.matrix);
+      }
       for (let side = 0; side < 2; side++) {
         const sign = side === 0 ? -1 : 1;
         dummy.position.set(p.x - Math.sin(angle) * sign * 0.23 * taper, 0.40, p.z + Math.cos(angle) * sign * 0.23 * taper);
@@ -181,6 +182,7 @@ class SerpentModel {
       }
     }
     for (const mesh of [this.armor, this.seams, this.plates, this.highlights, this.flanks, this.ports]) mesh.instanceMatrix.needsUpdate = true;
+    if (this.seamCores && this.stripCores) { this.seamCores.instanceMatrix.needsUpdate = true; this.stripCores.instanceMatrix.needsUpdate = true; }
   }
 }
 
@@ -513,17 +515,18 @@ export class GameRenderer {
     const width = this.width, height = this.height, scale = this.settings.uiScale ?? 1;
     const narrow = width <= 700, short = height <= 850;
     const left = narrow ? 10 : width * .022, top = narrow || height <= 550 ? 10 : height * .028;
-    const bottom = narrow ? 94 : height * (height <= 550 ? .10 : height <= 800 ? .09 : .085);
+    const bottom = width <= 1000 ? 100 + 55 * scale : 74 + 20 * scale;
     const objectiveWidth = narrow ? width * .48 : Math.min(290 * scale, width * .40);
     const resourcesWidth = narrow ? width * .45 : Math.min(300 * scale, width * .41);
     const tacticsWidth = narrow ? width * .46 : Math.min(300 * scale, width * .44);
     const scoreWidth = narrow ? width * .44 : Math.min(245 * scale, width * .40);
-    // Includes six timed powers, three lives, and one retained hit message.
+    // Timed powers occupy a separate fixed footer; corners reserve lives and hit feedback.
     // These are presentation limits, independent of transient DOM content.
-    const resourcesHeight = narrow ? 245 * scale + 100 : 60 * scale + (short ? 234 : 240);
-    const objectiveHeight = narrow ? 150 * scale + 55 : 100 * scale + 55;
-    const tacticsHeight = narrow ? 155 * scale + 65 : 70 * scale + 125;
+    const resourcesHeight = narrow ? 60 * scale + 65 : 40 * scale + (short ? 60 : 66);
+    const objectiveHeight = narrow ? 150 * scale + 55 : 85 * scale + 42;
+    const tacticsHeight = narrow ? 155 * scale + 65 : 65 * scale + 98;
     const rectangles = [
+      { left, top: height - bottom + 12, right: width - left, bottom: height },
       { left, top, right: left + objectiveWidth, bottom: top + objectiveHeight },
       { left: width - left - scoreWidth, top, right: width - left, bottom: top + 60 * scale + (short ? 35 : 41) },
       { left, top: height - bottom - resourcesHeight, right: left + resourcesWidth, bottom: height - bottom },
@@ -752,7 +755,24 @@ export class GameRenderer {
       });
       this.syncObjects('drone-warning', state.drones.filter(d => String(d.state) === 'warning'), () => { const g = new THREE.Group(); const r = ring(g, this.warningSignal, 0.7, 0.035, 0, 0.02); r.rotation.x = -Math.PI / 2; g.add(this.threatCue('!', '#ffbc79', 'cue')); return g; }, g => this.fitThreatCue(g.getObjectByName('cue')!, true));
       this.syncObjects('lock', state.drones.filter(d => d.state === 'prepare' && d.target).map(d => ({ id: d.id, x: d.target!.x, z: d.target!.z })), () => { const g = new THREE.Group(); const r = ring(g, this.hostile, 0.54, 0.027, 0, 0.035); r.rotation.x = -Math.PI / 2; box(g, this.hostile, 0, 0.03, 0, 0.85, 0.018, 0.03); box(g, this.hostile, 0, 0.03, 0, 0.03, 0.018, 0.85); return g; });
-      this.syncObjects('decoy', state.decoys, () => { const g = new THREE.Group(); const glow = ring(g, light(0x8957ff, 0.8), 0.65, 0.03, 0, 0.02); glow.rotation.x = -Math.PI / 2; const l = this.label('⋈', '#ac9dff'); l.position.y = 0.6; l.scale.setScalar(0.5); g.add(l); return g; });
+      this.syncObjects('decoy', state.decoys, () => {
+        const g = new THREE.Group(); g.name = 'deployed-decoy';
+        const signal = new THREE.MeshBasicMaterial({ color: 0xc575ff, toneMapped: false, fog: false });
+        // The floor ring matches the projectile-catching radius. The elevated
+        // hologram is a non-solid identity cue, visible above the passing body.
+        ring(g, signal, .45, .035, 0, .035).rotation.x = -Math.PI / 2;
+        for (const sign of [-1, 1]) {
+          const echo = ring(g, signal, .34, .035, sign * .14, .78);
+          echo.rotation.y = sign * .55;
+        }
+        const label = this.label('⋈', '#e5b5ff'); label.name = 'decoy-identity'; label.position.y = 1.55;
+        label.material.fog = false; label.material.toneMapped = false; label.material.depthTest = false;
+        label.renderOrder = 10; g.add(label);
+        return g;
+      }, (g, decoy) => {
+        g.userData.remaining = decoy.ttl;
+        this.fitThreatCue(g.getObjectByName('decoy-identity')!, true, 24);
+      });
       this.syncObjects('emp-pulse', state.events.filter(event => event.kind === 'emp' && event.origin && state.time - event.time < 0.55).map(event => ({ id: String(event.id), ...event.origin!, time: event.time })), () => {
         const g = new THREE.Group();
         for (const name of ['boundary', 'wave']) {
@@ -865,7 +885,6 @@ export class GameRenderer {
       this.obstacles.children.filter(child => child.name === 'deck-turbine').forEach(turbine => { turbine.getObjectByName('rotor')!.rotation.y = this.settings.reducedMotion ? 0 : state.time * .6; });
 
     }
-    this.player.faceGlow(this.camera); this.titleSnake.faceGlow(this.camera);
     if (this.settings.quality === 'low' || this.settings.bloom === 0) this.renderer.render(this.scene, this.camera); else this.composer.render();
   }
   private renderBossWarnings(state: WorldState) {

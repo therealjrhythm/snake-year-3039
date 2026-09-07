@@ -50,7 +50,7 @@ const PICKUP_BASE: Record<PickupKind, { name: string; color: string; symbol: str
   emp: { name: 'EMP Pulse', color: '#20dfff', symbol: '◎', description: 'Stops nearby drones and laser beams for 3 seconds.', weight: 15 },
   magnet: { name: 'Magnet', color: '#a583ff', symbol: '∩', description: 'Pulls nearby energy cores toward your snake for 10 seconds.', weight: 10 },
   repair: { name: 'Repair', color: '#ffcb83', symbol: '+', description: 'Restores one missing health bar.', weight: 8 },
-  decoy: { name: 'Decoy', color: '#c69aff', symbol: '⋈', description: 'Leaves a hologram that distracts nearby enemies for up to 4 seconds.', weight: 7 },
+  decoy: { name: 'Decoy', color: '#c69aff', symbol: '⋈', description: 'Leaves a hologram that distracts nearby Patrol drones and Hunter snakes for up to 4 seconds.', weight: 7 },
   splice: { name: 'Tail Splice', color: '#ffaf56', symbol: '−4', description: 'Shortens your tail by up to four segments, leaving at least eight.', weight: 5 },
   blaster: { name: 'Pulse Blaster', color: '#fff080', symbol: '⊕', description: 'Gives you 12 shots. Two hits destroy a drone. Rival snakes block your shots.', weight: 12 },
   capacitor: { name: 'Capacitor', color: '#87ff58', symbol: '+35', description: 'Refills 35% of your boost bar.', weight: 10 },

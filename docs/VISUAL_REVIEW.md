@@ -20,7 +20,17 @@ The elevated gameplay camera and compact HUD are intentional PRD adaptations. Th
 
 The inspected screenshots establish rendered states, not smooth motion, audio quality, fair encounters, deliberate human body-blocking, a normal Warden clear or physical controller support. The next visual gate requires a normal full Neon Spire playthrough with title/settings/waves/Hunter/Warden/extraction/results captures, Low/Medium comparisons, minimum-viewport scale review and owner assessment of the actual moving game. The remaining four districts must each meet that accepted benchmark.
 
-## Current 0.3 owner revision — September 6, 2026
+## Current 0.3.1 owner refinement
+
+The owner rejected the previous mist/halo treatment and delayed confirmation overlay. Removed all snake halo billboards; colored physical bands and small bright filaments now retain dark armor and a restrained light edge. Reviewed all sixteen Low/Medium swatches at 1440 × 900: [contact sheet](evidence/crisp-feedback-2026-09-06/glow-contact-sheet.png), [blue](evidence/crisp-feedback-2026-09-06/glow-electric-blue.png), [violet](evidence/crisp-feedback-2026-09-06/glow-violet.png). This is an implementation review against the owner's requested correction, not new owner approval.
+
+Menu confirmation stays on its source control and begins in the activation event. Frame traces verify monotonic 200ms decay with no overlay left after navigation, no old-tab outline transition and no repeated parent entrance. Loaded tactical slots keep pulsing; an elevated Decoy marker remains visible above the passing body.
+
+The physical arena is still 36 × 26. The prior fixed HUD reservations made it appear smaller. A fixed bonus footer and compact health/tactical readouts now reclaim space while keeping camera matrices stable across all transient HUD states. The final [renderer report](evidence/crisp-feedback-2026-09-06/expansion-render/report.json) measures approximately 654px at 1280 × 720/UI100 and 914px at 1440 × 900/UI100; UI150 measures 427px and 734px respectively. All floor/HUD and stable-camera checks pass; high UI scale on short viewports remains a readability tradeoff requiring human review.
+
+The bounded 20-frame large-view diagnostic measured 3.9ms median / 4.9ms p95 GPU completion and 16.7ms median frame intervals. This is not sustained hardware qualification. Compiled production title, customization, Lab and ordinary first-core/pause captures were also visually reviewed.
+
+## Earlier 0.3 owner revision — September 6, 2026
 
 Four newer owner screenshots requested full-size Customize/Practice actions, simpler difficulty, centered Settings and a bright selection outline. Gameplay feedback requested a stable pickup camera, richer map depth, glowing tactical inventory, vibrant colors and a firing Warden. The [current addendum](NEON_SPIRE_COMBAT_REFRESH.md) records this design change. Earlier captures/claims below describe their original revisions.
 

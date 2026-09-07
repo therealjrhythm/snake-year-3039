@@ -1,0 +1,166 @@
+[
+  {
+    "name": "check",
+    "command": [
+      "npm",
+      "run",
+      "check"
+    ],
+    "exitCode": 0,
+    "seconds": 1.8,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/check.log"
+  },
+  {
+    "name": "build",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "exitCode": 0,
+    "seconds": 0.9,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/build.log"
+  },
+  {
+    "name": "game",
+    "command": [
+      "node",
+      "scripts/verify-game.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 53.5,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/game.log"
+  },
+  {
+    "name": "platform",
+    "command": [
+      "node",
+      "scripts/verify-platform.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 4.3,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/platform.log"
+  },
+  {
+    "name": "controller",
+    "command": [
+      "node",
+      "scripts/verify-controller.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 25.1,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/controller.log"
+  },
+  {
+    "name": "audio",
+    "command": [
+      "node",
+      "scripts/verify-audio.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 6.1,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/audio.log"
+  },
+  {
+    "name": "enemies",
+    "command": [
+      "node",
+      "scripts/verify-enemies.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 2.6,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/enemies.log"
+  },
+  {
+    "name": "systems",
+    "command": [
+      "node",
+      "scripts/verify-systems.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 25.1,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/systems.log"
+  },
+  {
+    "name": "runtime",
+    "command": [
+      "node",
+      "scripts/verify-runtime.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 15.3,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/runtime.log"
+  },
+  {
+    "name": "render-performance",
+    "command": [
+      "node",
+      "scripts/verify-render-performance.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 3.3,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/render-performance.log"
+  },
+  {
+    "name": "expansion",
+    "command": [
+      "node",
+      "scripts/verify-expansion.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 57.5,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/expansion.log"
+  },
+  {
+    "name": "expansion-render",
+    "command": [
+      "node",
+      "scripts/verify-expansion-render.mjs",
+      "http://127.0.0.1:3039",
+      "docs/evidence/crisp-feedback-2026-09-06/expansion-render"
+    ],
+    "exitCode": 0,
+    "seconds": 5.5,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/expansion-render.log"
+  },
+  {
+    "name": "combat-update",
+    "command": [
+      "node",
+      "scripts/verify-combat-update.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 60.2,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/combat-update.log"
+  },
+  {
+    "name": "menu-motion",
+    "command": [
+      "node",
+      "scripts/verify-menu-motion.mjs",
+      "http://127.0.0.1:3039",
+      "docs/evidence/crisp-feedback-2026-09-06/menu-motion"
+    ],
+    "exitCode": 0,
+    "seconds": 9.9,
+    "log": "docs/evidence/crisp-feedback-2026-09-06/menu-motion.log"
+  },
+  {
+    "name": "tactics",
+    "command": [
+      "node",
+      "scripts/verify-tactics.mjs",
+      "http://127.0.0.1:3039",
+      "/tmp/snake-tactics-complete"
+    ],
+    "exitCode": 0,
+    "report": "tactics-report.json",
+    "checks": 5
+  },
+  {
+    "name": "compiled-production",
+    "exitCode": 0,
+    "report": "production-local/report.json",
+    "checks": 10
+  }
+]

@@ -17,7 +17,7 @@
 
 ## Combat and interface revision — September 6, 2026
 
-- Layered rooftop supports, flush deck plates/route markings, machinery turbines, Warden iris/cannons, relay spheres and instanced color halos are original extensions of the existing procedural Three.js scene. Solid footprints are unchanged.
+- Layered rooftop supports, flush deck plates/route markings, machinery turbines, Warden iris/cannons, relay spheres, solid snake light filaments and the elevated Decoy hologram are original extensions of the existing procedural Three.js scene. Solid footprints are unchanged.
 - The new Warden instructions use a project-authored SVG teaching diagram in `WardenInstructions.tsx`. The existing exported pad image remains for earlier rules; the twelve actual pickup images remain current.
 - GSAP 3.14.2 is pinned for DOM menu/confirmation animations, with scoped cleanup and app/OS reduced-motion support. Its package declares the [GSAP standard license](https://gsap.com/standard-license/). No GSAP animation drives simulation state.
 

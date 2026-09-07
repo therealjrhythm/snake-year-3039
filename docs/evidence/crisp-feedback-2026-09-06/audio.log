@@ -1,0 +1,685 @@
+{
+  "passed": true,
+  "browser": "152.0.7977.77",
+  "render": {
+    "all": {
+      "rms": 0.021455808701771287,
+      "stereoRms": 0.009209026075537668,
+      "peak": 0.22421270608901978,
+      "nonFinite": 0
+    },
+    "title": {
+      "rms": 0.01837922587003942,
+      "stereoRms": 0.012228567100013455,
+      "peak": 0.1608680635690689,
+      "nonFinite": 0
+    },
+    "playing": {
+      "rms": 0.018785693599124735,
+      "stereoRms": 0.010204515424949701,
+      "peak": 0.17416740953922272,
+      "nonFinite": 0
+    },
+    "boss": {
+      "rms": 0.03043952140832879,
+      "stereoRms": 0.00920277597336697,
+      "peak": 0.20364536345005035,
+      "nonFinite": 0
+    },
+    "muted": {
+      "rms": 0,
+      "stereoRms": 0,
+      "peak": 0,
+      "nonFinite": 0
+    },
+    "effectWhileMuted": {
+      "rms": 0.0346198500300012,
+      "stereoRms": 0,
+      "peak": 0.22421270608901978,
+      "nonFinite": 0
+    },
+    "paused": {
+      "rms": 0,
+      "stereoRms": 0,
+      "peak": 0,
+      "nonFinite": 0
+    },
+    "resumed": {
+      "rms": 0.03866686680376519,
+      "stereoRms": 0.010409900186195843,
+      "peak": 0.19548539817333221,
+      "nonFinite": 0
+    },
+    "arrangements": [
+      "title",
+      "playing",
+      "boss"
+    ],
+    "sourcesCreated": 243,
+    "sourcesEnded": 243,
+    "remainingMusicSources": 0
+  },
+  "cueCoverage": {
+    "declaredKinds": 42,
+    "policyKinds": 42,
+    "cases": [
+      {
+        "label": "start",
+        "audible": false,
+        "rms": 0,
+        "peak": 0,
+        "nonFinite": 0,
+        "created": 0,
+        "ended": 0,
+        "relayFrequency": 0
+      },
+      {
+        "label": "wave",
+        "audible": true,
+        "rms": 0.019767062629037182,
+        "peak": 0.1924675852060318,
+        "nonFinite": 0,
+        "created": 4,
+        "ended": 4,
+        "relayFrequency": 166.66666666666669
+      },
+      {
+        "label": "transition",
+        "audible": true,
+        "rms": 0.006629754789373215,
+        "peak": 0.09466110914945602,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 305.5555555555556
+      },
+      {
+        "label": "core",
+        "audible": true,
+        "rms": 0.006769319047701454,
+        "peak": 0.0898967981338501,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 944.4444444444446
+      },
+      {
+        "label": "pickup",
+        "audible": true,
+        "rms": 0.013762428305369598,
+        "peak": 0.18793229758739471,
+        "nonFinite": 0,
+        "created": 3,
+        "ended": 3,
+        "relayFrequency": 305.5555555555556
+      },
+      {
+        "label": "boost-empty",
+        "audible": true,
+        "rms": 0.002348043454301272,
+        "peak": 0.03886973485350609,
+        "nonFinite": 0,
+        "created": 1,
+        "ended": 1,
+        "relayFrequency": 388.8888888888889
+      },
+      {
+        "label": "select",
+        "audible": true,
+        "rms": 0.0013849389638137131,
+        "peak": 0.04470386728644371,
+        "nonFinite": 0,
+        "created": 1,
+        "ended": 1,
+        "relayFrequency": 666.6666666666667
+      },
+      {
+        "label": "empty",
+        "audible": true,
+        "rms": 0.0025858597505501206,
+        "peak": 0.060440242290496826,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 194.44444444444446
+      },
+      {
+        "label": "emp",
+        "audible": true,
+        "rms": 0.0173967743962429,
+        "peak": 0.21563604474067688,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 7305.555555555556
+      },
+      {
+        "label": "decoy",
+        "audible": true,
+        "rms": 0.009551332000690884,
+        "peak": 0.09902606904506683,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 638.8888888888889
+      },
+      {
+        "label": "decoy-hit",
+        "audible": true,
+        "rms": 0.003561452786378147,
+        "peak": 0.07745078206062317,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 5305.555555555556
+      },
+      {
+        "label": "mine-arm",
+        "audible": true,
+        "rms": 0.00110018704441368,
+        "peak": 0.02770392596721649,
+        "nonFinite": 0,
+        "created": 1,
+        "ended": 1,
+        "relayFrequency": 1611.1111111111113
+      },
+      {
+        "label": "gate-warning",
+        "audible": true,
+        "rms": 0.0027867060061180565,
+        "peak": 0.07260200381278992,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 722.2222222222223
+      },
+      {
+        "label": "lock",
+        "audible": true,
+        "rms": 0.0018123371502070133,
+        "peak": 0.03094954416155815,
+        "nonFinite": 0,
+        "created": 1,
+        "ended": 1,
+        "relayFrequency": 944.4444444444446
+      },
+      {
+        "label": "shot",
+        "audible": true,
+        "rms": 0.0007896970796442002,
+        "peak": 0.01684541068971157,
+        "nonFinite": 0,
+        "created": 1,
+        "ended": 1,
+        "relayFrequency": 444.44444444444446
+      },
+      {
+        "label": "rival-warning",
+        "audible": true,
+        "rms": 0.004583993230679545,
+        "peak": 0.1060754582285881,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 250.00000000000003
+      },
+      {
+        "label": "rival",
+        "audible": true,
+        "rms": 0.004426276340537847,
+        "peak": 0.05872134864330292,
+        "nonFinite": 0,
+        "created": 1,
+        "ended": 1,
+        "relayFrequency": 111.11111111111111
+      },
+      {
+        "label": "rival-crash",
+        "audible": true,
+        "rms": 0.004211393448647185,
+        "peak": 0.07508429884910583,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 5944.444444444445
+      },
+      {
+        "label": "rival-defeated",
+        "audible": true,
+        "rms": 0.015279934120113746,
+        "peak": 0.17111386358737946,
+        "nonFinite": 0,
+        "created": 4,
+        "ended": 4,
+        "relayFrequency": 7055.555555555556
+      },
+      {
+        "label": "boss-intro",
+        "audible": true,
+        "rms": 0.013827823655310493,
+        "peak": 0.16368313133716583,
+        "nonFinite": 0,
+        "created": 3,
+        "ended": 3,
+        "relayFrequency": 83.33333333333334
+      },
+      {
+        "label": "boss",
+        "audible": true,
+        "rms": 0.022824873042517693,
+        "peak": 0.33601221442222595,
+        "nonFinite": 0,
+        "created": 6,
+        "ended": 6,
+        "relayFrequency": 222.22222222222223
+      },
+      {
+        "label": "boss-warning",
+        "audible": true,
+        "rms": 0.005664512481555167,
+        "peak": 0.12410169839859009,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 416.6666666666667
+      },
+      {
+        "label": "boss-recovery",
+        "audible": true,
+        "rms": 0.011732700098480639,
+        "peak": 0.1297176480293274,
+        "nonFinite": 0,
+        "created": 3,
+        "ended": 3,
+        "relayFrequency": 388.8888888888889
+      },
+      {
+        "label": "relay",
+        "audible": true,
+        "rms": 0.00678225200943369,
+        "peak": 0.07462780177593231,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 527.7777777777778
+      },
+      {
+        "label": "relay-wrong",
+        "audible": true,
+        "rms": 0.0017131631546038423,
+        "peak": 0.03784780204296112,
+        "nonFinite": 0,
+        "created": 1,
+        "ended": 1,
+        "relayFrequency": 305.5555555555556
+      },
+      {
+        "label": "charge-ready",
+        "audible": true,
+        "rms": 0.014554560217673039,
+        "peak": 0.15025539696216583,
+        "nonFinite": 0,
+        "created": 4,
+        "ended": 4,
+        "relayFrequency": 527.7777777777778
+      },
+      {
+        "label": "boss-node",
+        "audible": true,
+        "rms": 0.016164594885546772,
+        "peak": 0.18941205739974976,
+        "nonFinite": 0,
+        "created": 3,
+        "ended": 3,
+        "relayFrequency": 5194.444444444445
+      },
+      {
+        "label": "boss-defeated",
+        "audible": true,
+        "rms": 0.02494099667245726,
+        "peak": 0.18589331209659576,
+        "nonFinite": 0,
+        "created": 6,
+        "ended": 6,
+        "relayFrequency": 7277.777777777778
+      },
+      {
+        "label": "complete",
+        "audible": true,
+        "rms": 0.03502654132077857,
+        "peak": 0.2284933626651764,
+        "nonFinite": 0,
+        "created": 6,
+        "ended": 6,
+        "relayFrequency": 166.66666666666669
+      },
+      {
+        "label": "damage",
+        "audible": true,
+        "rms": 0.005223138199277303,
+        "peak": 0.09711068123579025,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 5027.777777777778
+      },
+      {
+        "label": "shield-hit",
+        "audible": true,
+        "rms": 0.0075959053448166666,
+        "peak": 0.07084266096353531,
+        "nonFinite": 0,
+        "created": 1,
+        "ended": 1,
+        "relayFrequency": 333.33333333333337
+      },
+      {
+        "label": "crash",
+        "audible": true,
+        "rms": 0.024052406082261054,
+        "peak": 0.32078737020492554,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 8277.77777777778
+      },
+      {
+        "label": "player-shot",
+        "audible": true,
+        "rms": 0.0014979696241606481,
+        "peak": 0.03776094689965248,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 2444.444444444445
+      },
+      {
+        "label": "weapon-empty",
+        "audible": true,
+        "rms": 0.0010484473199902438,
+        "peak": 0.029782766476273537,
+        "nonFinite": 0,
+        "created": 1,
+        "ended": 1,
+        "relayFrequency": 194.44444444444446
+      },
+      {
+        "label": "drone-hit",
+        "audible": true,
+        "rms": 0.0026264597788597755,
+        "peak": 0.059415508061647415,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 2750
+      },
+      {
+        "label": "drone-destroyed",
+        "audible": true,
+        "rms": 0.008177098761286241,
+        "peak": 0.12419304251670837,
+        "nonFinite": 0,
+        "created": 3,
+        "ended": 3,
+        "relayFrequency": 6500.000000000001
+      },
+      {
+        "label": "armor-hit",
+        "audible": true,
+        "rms": 0.002873140880154792,
+        "peak": 0.08077815175056458,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 444.44444444444446
+      },
+      {
+        "label": "receptor-hit",
+        "audible": true,
+        "rms": 0.004235272895517665,
+        "peak": 0.06243548169732094,
+        "nonFinite": 0,
+        "created": 1,
+        "ended": 1,
+        "relayFrequency": 805.5555555555557
+      },
+      {
+        "label": "scrubber",
+        "audible": true,
+        "rms": 0.006902142478359863,
+        "peak": 0.11463525891304016,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 7055.555555555556
+      },
+      {
+        "label": "chain-buffer",
+        "audible": true,
+        "rms": 0.010575972743811671,
+        "peak": 0.1298818588256836,
+        "nonFinite": 0,
+        "created": 3,
+        "ended": 3,
+        "relayFrequency": 694.4444444444445
+      },
+      {
+        "label": "power-expired",
+        "audible": true,
+        "rms": 0.004571288511941139,
+        "peak": 0.06372853368520737,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 305.5555555555556
+      },
+      {
+        "label": "lab-ready",
+        "audible": true,
+        "rms": 0.006629754789373215,
+        "peak": 0.09466110914945602,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 305.5555555555556
+      },
+      {
+        "label": "relay-2",
+        "audible": true,
+        "rms": 0.006779027734693453,
+        "peak": 0.0741194412112236,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 666.6666666666667
+      },
+      {
+        "label": "relay-3",
+        "audible": true,
+        "rms": 0.006780953326040243,
+        "peak": 0.07415595650672913,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 777.7777777777778
+      },
+      {
+        "label": "pickup-blaster",
+        "audible": true,
+        "rms": 0.008083307121299566,
+        "peak": 0.10817676037549973,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 305.5555555555556
+      },
+      {
+        "label": "pickup-capacitor",
+        "audible": true,
+        "rms": 0.009053012074569778,
+        "peak": 0.07951214909553528,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 333.33333333333337
+      },
+      {
+        "label": "pickup-scrubber",
+        "audible": true,
+        "rms": 0.005977591099850315,
+        "peak": 0.09782703220844269,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 5472.222222222223
+      },
+      {
+        "label": "pickup-chain-buffer",
+        "audible": true,
+        "rms": 0.011331440163398508,
+        "peak": 0.12818892300128937,
+        "nonFinite": 0,
+        "created": 3,
+        "ended": 3,
+        "relayFrequency": 666.6666666666667
+      },
+      {
+        "label": "expiry-overdrive",
+        "audible": true,
+        "rms": 0.004571288511941139,
+        "peak": 0.06372853368520737,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 305.5555555555556
+      },
+      {
+        "label": "expiry-shield",
+        "audible": true,
+        "rms": 0.004569242622834438,
+        "peak": 0.0633859783411026,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 388.8888888888889
+      },
+      {
+        "label": "expiry-surge",
+        "audible": true,
+        "rms": 0.004563831463329126,
+        "peak": 0.06373590230941772,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 527.7777777777778
+      },
+      {
+        "label": "expiry-magnet",
+        "audible": true,
+        "rms": 0.004552161458152878,
+        "peak": 0.06176390126347542,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 444.44444444444446
+      },
+      {
+        "label": "expiry-scrubber",
+        "audible": true,
+        "rms": 0.004560648089008681,
+        "peak": 0.06370366364717484,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 583.3333333333334
+      },
+      {
+        "label": "expiry-chain-buffer",
+        "audible": true,
+        "rms": 0.004558873198708391,
+        "peak": 0.06284419447183609,
+        "nonFinite": 0,
+        "created": 2,
+        "ended": 2,
+        "relayFrequency": 777.7777777777778
+      }
+    ],
+    "mixed": {
+      "rms": 0.03627601339472456,
+      "peak": 0.33951613306999207,
+      "nonFinite": 0,
+      "created": 22,
+      "ended": 22,
+      "relayFrequency": 8611.111111111111
+    },
+    "effectsMuted": {
+      "rms": 0,
+      "peak": 0,
+      "nonFinite": 0,
+      "created": 4,
+      "ended": 4,
+      "relayFrequency": 0
+    },
+    "masterMuted": {
+      "rms": 0,
+      "peak": 0,
+      "nonFinite": 0,
+      "created": 5,
+      "ended": 5,
+      "relayFrequency": 0
+    }
+  },
+  "blocked": {
+    "status": "locked",
+    "state": "suspended"
+  },
+  "overlappingUnlocks": {
+    "first": true,
+    "gesture": true,
+    "sameContext": true,
+    "status": "running"
+  },
+  "lifecycle": {
+    "repeatedUnlockIsStable": true,
+    "pauseTime": 0.2613333333333333,
+    "voicesAfterPause": 0,
+    "voicesAfterResume": 2,
+    "suspended": {
+      "status": "suspended",
+      "timerStopped": true
+    },
+    "returned": {
+      "status": "running",
+      "gameStillPaused": true,
+      "schedulerStillStopped": true
+    },
+    "schedulingAfterReturn": true,
+    "closedRecovery": {
+      "previousStatus": "unavailable",
+      "result": true,
+      "replacedContext": true,
+      "status": "running"
+    },
+    "statuses": [
+      "running",
+      "suspended",
+      "running",
+      "unavailable",
+      "running"
+    ],
+    "timerAfterDispose": null,
+    "stateAfterDispose": "closed",
+    "disposedRemainsClosed": true
+  },
+  "delayedRecovery": {
+    "blockedResult": false,
+    "bounded": true,
+    "blockedStatus": "locked",
+    "recovered": true,
+    "recoveredStatus": "running",
+    "disposedResult": false,
+    "disposedContext": null,
+    "disposedTimer": null
+  },
+  "limitation": "Native offline music/every-cue rendering, strict browser autoplay and real context suspension/closure, plus a controlled delayed resume promise; not a subjective listening review or every device/browser."
+}
